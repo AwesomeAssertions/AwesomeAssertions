@@ -9,6 +9,10 @@ sidebar:
 
 ## 7.2.0
 
+### Fixes
+
+* Fixed a regression in which `CompleteWithinAsync` treated a canceled task as an exception - [#2853](https://github.com/fluentassertions/fluentassertions/pull/2853)
+
 ### Improvements
 * All `Should()` methods on reference types are now annotated with the `[NotNull]` attribute for a better Fluent Assertions experience when nullable reference types are enabled - [#2987](https://github.com/fluentassertions/fluentassertions/pull/2987)
 
