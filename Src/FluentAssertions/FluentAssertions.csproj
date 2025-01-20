@@ -22,13 +22,13 @@
     <PackageDescription>
       A fork of FluentAssertions not controlled by hostile companies.
     </PackageDescription>
-    <PackageProjectUrl>https://github.com/meenzen/AwesomeAssertions</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/meenzen/AwesomeAssertions</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AwesomeAssertions/AwesomeAssertions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AwesomeAssertions/AwesomeAssertions</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>MSTest2;xUnit;NUnit;MSpec;TUnit;TDD;BDD;Fluent;netstandard;uwp</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageIcon>FluentAssertions.png</PackageIcon>
-    <PackageReleaseNotes>See https://github.com/meenzen/AwesomeAssertions/releases</PackageReleaseNotes>
+    <PackageReleaseNotes>See https://github.com/AwesomeAssertions/AwesomeAssertions/releases</PackageReleaseNotes>
     <Copyright>Copyright Dennis Doomen 2010-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
   </PropertyGroup>
 
