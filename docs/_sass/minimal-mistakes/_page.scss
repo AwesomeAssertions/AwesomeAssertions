@@ -5,7 +5,6 @@
 #main {
   @include clearfix;
   margin-left: auto;
-  margin-top: 2em;
   margin-right: auto;
   padding-left: 1em;
   padding-right: 1em;
@@ -16,7 +15,7 @@
   animation-delay: 0.15s;
 
   @include breakpoint($x-large) {
-    max-width: $x-large;
+    max-width: $max-width;
   }
 }
 
@@ -50,6 +49,7 @@ body {
 
   .page__inner-wrap {
     float: left;
+    margin-top: 1em;
     margin-left: 0;
     margin-right: 0;
     width: 100%;
@@ -72,6 +72,11 @@ body {
   margin-top: 0;
   line-height: 1;
 
+  a {
+    color: $text-color;
+    text-decoration: none;
+  }
+
   & + .page__meta {
     margin-top: -0.5em;
   }
@@ -88,11 +93,7 @@ body {
     border-bottom: 1px solid $border-color;
   }
 
-  h2 + h3 {
-    margin: 0;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
+	h1, h2, h3, h4, h5, h6 {
 		.header-link {
 			position: relative;
 			left: 0.5em;
@@ -112,7 +113,7 @@ body {
   p,
   li,
   dl {
-    font-size: $type-size-5;
+    font-size: 1em;
   }
 
   /* paragraph indents */
@@ -135,6 +136,20 @@ body {
       img {
         box-shadow: 0 0 10px rgba(#000, 0.25);
       }
+    }
+  }
+
+  :not(pre) > code {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    font-size: 0.8em;
+    background: $code-background-color;
+    border-radius: $border-radius;
+
+    &::before,
+    &::after {
+      letter-spacing: -0.2em;
+      content: "\00a0"; /* non-breaking space*/
     }
   }
 
@@ -173,7 +188,7 @@ body {
   &--overlay {
     position: relative;
     margin-bottom: 2em;
-    padding: 1.5em 0;
+    padding: 3em 0;
     @include clearfix;
     background-size: cover;
     background-repeat: no-repeat;
@@ -209,8 +224,6 @@ body {
     }
 
     .page__title {
-      color: #ed1c24;
-
       font-size: $type-size-2;
 
       @include breakpoint($small) {
@@ -305,6 +318,12 @@ body {
   text-transform: uppercase;
 }
 
+.page__meta-sep::before {
+  content: "\2022";
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
 /*
    Page taxonomy
    ========================================================================== */
@@ -358,11 +377,11 @@ body {
 
 .taxonomy__title {
   margin-bottom: 0.5em;
-  color: lighten($text-color, 60%);
+  color: $muted-text-color;
 }
 
 .taxonomy__count {
-  color: lighten($text-color, 50%);
+  color: $muted-text-color;
 }
 
 .taxonomy__index {
@@ -395,7 +414,7 @@ body {
 .back-to-top {
   display: block;
   clear: both;
-  color: lighten($text-color, 50%);
+  color: $muted-text-color;
   font-size: 0.6em;
   text-transform: uppercase;
   text-align: right;

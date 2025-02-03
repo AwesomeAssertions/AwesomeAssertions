@@ -1,55 +1,27 @@
-{% assign navigation = site.data.navigation[include.nav] %}
-
 <nav class="nav__list">
   {% if page.sidebar.title %}<h3 class="nav__title" style="padding-left: 0;">{{ page.sidebar.title }}</h3>{% endif %}
   <input id="ac-toc" name="accordion-toc" type="checkbox" />
   <label for="ac-toc">{{ site.data.ui-text[site.locale].menu_label | default: "Toggle Menu" }}</label>
   <ul class="nav__items">
-    {% for nav in navigation %}
-      {% assign is_active = "" %}
-      {% assign is_parent_active = false %}
-    
-      {% comment %} internal/external URL check {% endcomment %}
-      {% if nav.url %}
-        {% if nav.url == page.url %}
-          {% assign is_active = "active" %}
-        {% else %}
-          {% if nav.url contains "://" %}
-            {% assign nav_url = nav.url %}
+    {% for navname in include.nav %}
+      {% assign navigation = site.data.navigation[navname] %}
+      {% for nav in navigation %}
+        <li>
+          {% if nav.url %}
+            <a href="{{ nav.url | relative_url }}"><span class="nav__sub-title">{{ nav.title }}</span></a>
           {% else %}
-            {% assign nav_url = nav.url | relative_url %}
+            <span class="nav__sub-title">{{ nav.title }}</span>
           {% endif %}
-        {% endif %}
-      {% endif %}
-    
-      <li class="{% if is_active != "" %}active{% endif %}">
-        <a href="{{ nav_url }}" class="{{ is_active }}">
-          <span class="nav__sub-title">{{ nav.title }}</span>
-        </a>
-        
-        {% if nav.children %}
+
+          {% if nav.children != null %}
           <ul>
             {% for child in nav.children %}
-              {% assign child_active = "" %}
-              {% if child.url %}
-              {% comment %} internal/external URL check URL {% endcomment %}
-                {% if child.url == page.url %}
-                  {% assign child_active = "active" %}
-                  {% assign is_parent_active = true %}
-                {% else %}
-                {% comment %} use related ways for more flexible verification {% endcomment %}
-                  {% if page.url contains child.url %}
-                    {% assign child_active = "active" %}
-                  {% endif %}
-                {% endif %}
-                <li class="{% if child_active != "" %}active{% endif %}">
-                  <a href="{{ child.url | relative_url }}" class="{{ child_active }}">{{ child.title }}</a>
-                </li>
-              {% endif %}
+              <li><a href="{{ child.url | relative_url }}"{% if child.url == page.url %} class="active"{% endif %}>{{ child.title }}</a></li>
             {% endfor %}
           </ul>
-        {% endif %}
-      </li>
+          {% endif %}
+        </li>
+      {% endfor %}
     {% endfor %}
-  </ul>  
+  </ul>
 </nav>

@@ -39,14 +39,6 @@
   (info, $info-color),
   (facebook, $facebook-color),
   (twitter, $twitter-color),
-  (paypal, #084482),
-  (rabobank, rgb(255, 102, 0)),
-  (github, #24292e),
-  (stackoverflow, #F48024),
-  (patreon, rgb(250, 118, 100)),
-  (github, rgb(217, 85, 169)),
-  (google-plus, $google-plus-color),
-  (mastodon, #595aff),
   (linkedin, $linkedin-color);
 
   @each $buttoncolor, $color in $buttoncolors {
@@ -59,12 +51,12 @@
         border: 1px solid #fff;
       }
 
-      &:hover {
-        @include yiq-contrasted(mix(#000, $color, 20%));
-      }
-
       &:visited {
         @include yiq-contrasted($color);
+      }
+
+      &:hover {
+        @include yiq-contrasted(mix(#000, $color, 20%));
       }
     }
   }
