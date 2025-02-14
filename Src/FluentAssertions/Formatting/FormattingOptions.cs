@@ -12,7 +12,7 @@ public class FormattingOptions
     /// </summary>
     /// <remarks>
     /// This property is not thread-safe and should not be modified through <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public bool UseLineBreaks { get; set; }
 
@@ -21,7 +21,7 @@ public class FormattingOptions
     /// </summary>
     /// <remarks>
     /// This property is not thread-safe and should not be modified through <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     /// <value>
     /// A depth of 1 will only the display the members of the root object.
@@ -37,7 +37,7 @@ public class FormattingOptions
     /// </para>
     /// <para>
     /// This property is not thread-safe and should not be modified through <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </para>
     /// </remarks>
     public int MaxLines { get; set; } = 100;

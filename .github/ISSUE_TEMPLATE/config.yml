@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: 📚 Documentation
-    url: https://fluentassertions.com/introduction/
+    url: https://awesomeassertions.github.io/AwesomeAssertions/introduction
     about: Read our comprehensive documentation.
   - name: 💬 Ask on Stack Overflow
     url: https://stackoverflow.com/questions/tagged/fluent-assertions

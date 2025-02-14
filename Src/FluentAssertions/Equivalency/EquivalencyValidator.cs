@@ -108,6 +108,6 @@ internal class EquivalencyValidator : IValidateChildNodeEquivalency
         }
 
         throw new NotSupportedException(
-            $"Do not know how to compare {comparands.Subject} and {comparands.Expectation}. Please report an issue through https://www.fluentassertions.com.");
+            $"Do not know how to compare {comparands.Subject} and {comparands.Expectation}. Please report an issue through https://awesomeassertions.github.io/AwesomeAssertions.");
     }
 }

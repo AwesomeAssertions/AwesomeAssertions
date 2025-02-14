@@ -168,7 +168,7 @@ public static class Formatter
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be invoked from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public static void RemoveFormatter(IValueFormatter formatter)
     {
@@ -180,7 +180,7 @@ public static class Formatter
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be invoked from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public static void AddFormatter(IValueFormatter formatter)
     {

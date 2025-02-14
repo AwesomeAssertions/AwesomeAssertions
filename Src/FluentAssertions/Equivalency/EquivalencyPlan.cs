@@ -34,7 +34,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void Add<TStep>()
         where TStep : IEquivalencyStep, new()
@@ -47,7 +47,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void AddAfter<TPredecessor, TStep>()
         where TStep : IEquivalencyStep, new()
@@ -69,7 +69,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void Insert<TStep>()
         where TStep : IEquivalencyStep, new()
@@ -82,7 +82,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void InsertBefore<TSuccessor, TStep>()
         where TStep : IEquivalencyStep, new()
@@ -104,7 +104,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void Remove<TStep>()
         where TStep : IEquivalencyStep
@@ -117,7 +117,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void Clear()
     {
@@ -129,7 +129,7 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be modified through  <see cref="AssertionConfiguration"/> from within a unit test.
-    /// See the <see href="https://fluentassertions.com/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public void Reset()
     {
