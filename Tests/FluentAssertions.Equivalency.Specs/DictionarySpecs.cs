@@ -1300,6 +1300,36 @@ public class DictionarySpecs
 
         subject.Should().BeEquivalentTo(expected);
     }
+
+    [Fact]
+    public void A_subject_string_key_with_curly_braces_is_formatted_correctly_in_failure_message()
+    {
+        // Arrange
+        var actual = new Dictionary<string, string> { ["{}"] = "" };
+        var expected = new Dictionary<string, string> { ["{}"] = null };
+
+        // Act
+        Action act = () => actual.Should().BeEquivalentTo(expected);
+
+        // Assert
+        act.Should().Throw<XunitException>().WithMessage("Expected actual[{}] to be *, but found *.");
+    }
+
+    [Fact]
+    public void A_subject_key_with_braces_in_string_representation_is_formatted_correctly_in_failure_message()
+    {
+        // Arrange
+        var actual = new Dictionary<RecordStruct, string> { [new()] = "" };
+        var expected = new Dictionary<RecordStruct, string> { [new()] = null };
+
+        // Act
+        Action act = () => actual.Should().BeEquivalentTo(expected);
+
+        // Assert
+        act.Should().Throw<XunitException>().WithMessage("Expected actual[RecordStruct { }] to be *, but found *.");
+    }
+
+    private record struct RecordStruct();
 }
 
 internal class NonGenericChildDictionary : Dictionary<string, int>

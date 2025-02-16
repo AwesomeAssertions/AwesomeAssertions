@@ -6,6 +6,11 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
+## 8.0.X
+
+### Fixes
+
+* Fix formatting of failure message for mismatching dictionary with curly braces in their key's string representation - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
 
 ## 8.0.0
 
