@@ -36,9 +36,10 @@ following rule to your `renovate.json`:
   ]
 }
 ```
-or use PowerShell [script](https://github.com/AwesomeAssertions/AwesomeAssertions/discussions/6) to replace the dependencies.
 
 Renovate will then open PRs to replace FluentAssertions with AwesomeAssertions where applicable.
+
+Alternatively, use PowerShell [script](https://github.com/AwesomeAssertions/AwesomeAssertions/discussions/6) to replace the dependencies.
 
 # How do I build this?
 Install Visual Studio 2022 17.8+ or JetBrains Rider 2021.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 8.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
