@@ -18,7 +18,7 @@
 FluentAssertions, up to version 7.x, was licensed under Apache 2.0. Starting with later versions, licensing changes introduced potential fees for developers.  
 In response to these changes, this community project was created. Please read the [FAQ](#FAQ) for more details.
 
-Visit https://www.awesomeassertions.org for [background information](https://awesomeassertions.org/about/), [usage documentation](https://awesomeassertions.org/introduction), an [extensibility guide](https://awesomeassertions.org/extensibility/), support information and more [tips & tricks](https://awesomeassertions.org/tips/).
+Visit https://awesomeassertions.org for [background information](https://awesomeassertions.org/about/), [usage documentation](https://awesomeassertions.org/introduction), an [extensibility guide](https://awesomeassertions.org/extensibility/), support information and more [tips & tricks](https://awesomeassertions.org/tips/).
 
 # Automatic replacement using Renovate Bot
 
@@ -65,7 +65,7 @@ If you've verified the changes and decided they are valid, you can accept them  
 This project is useful for users who are concerned about potential license issues with version 8 or those working in environments where commercial use could cause licensing complications. Our fork eliminates these concerns and offers a clean solution for such cases.
 
 **Q: Where can I find the documentation?**  
-**A:** You can find the documentation at https://www.awesomeassertions.org
+**A:** You can find the documentation at https://awesomeassertions.org
 
 **Q: Why is this package using the FluentAssertions namespace? Isn't that illegal?**  
 **A:** The namespaces are part of the API, which was developed under the Apache 2.0 license. The Google v. Oracle case ruled that APIs are considered fair use, so including the 'FluentAssertions' namespace in the API class names is acceptable. While this is permissible now, we may consider changing the namespaces in the future.

@@ -15,7 +15,7 @@ public class GlobalEquivalencyOptions
     /// </summary>
     /// <remarks>
     /// Members on this property are not thread-safe and should not be invoked from within a unit test.
-    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.org/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     public EquivalencyPlan Plan { get; } = new();
 
@@ -24,7 +24,7 @@ public class GlobalEquivalencyOptions
     /// </summary>
     /// <remarks>
     /// This method is not thread-safe and should not be invoked from within a unit test.
-    /// See the <see href="https://awesomeassertions.github.io/AwesomeAssertions/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// See the <see href="https://awesomeassertions.org/extensibility/#thread-safety">docs</see> on how to safely use it.
     /// </remarks>
     /// <param name="configureOptions">
     /// An action that is used to configure the defaults.

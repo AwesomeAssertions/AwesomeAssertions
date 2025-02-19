@@ -47,7 +47,7 @@ Stack Overflow has a great article about [how to create a minimal, reproducible 
 Awesome Assertions exposes many extension knobs to write custom assertions or extend over existing assertions.
 As such the core library very rarely takes extra dependencies to provide assertion on someones favorite library.
 Instead we suggest that you create a dedicated library as we did with [AwesomeAssertions.Json](https://github.com/awesomeassertions/awesomeassertions.json).
-See the [documentation](https://awesomeassertions.github.io/AwesomeAssertions/extensibility/) for more information about extensibility.
+See the [documentation](https://awesomeassertions.org/extensibility/) for more information about extensibility.
 
 In order for Awesome Assertions to provide a consistent experience across the library, we generally want to review every single API that is added, changed or deleted.
 Changes to the API must be proposed, discussed and approved with the `api-approved` label in a separate issue before opening a PR.
@@ -72,9 +72,9 @@ Please do:
 * Align with the [Design Principles](https://github.com/awesomeassertions/awesomeassertions/issues/1340)
 * Ensure that changes are covered by a new or existing set of unit tests which follow the Arrange-Act-Assert syntax such as is used [in this example](https://github.com/awesomeassertions/awesomeassertions/blob/daaf35b9b59b622c96d0c034e8972a020b2bee55/Tests/FluentAssertions.Shared.Specs/BasicEquivalencySpecs.cs#L33).
   * Also the code coverage reported by the coveralls must be non-decreasing unless accepted by the authors.
-* If the contribution adds a feature or fixes a bug, please update the [**release notes**](https://github.com/awesomeassertions/awesomeassertions/blob/main/docs/_pages/releases.md), which is published on the [website](https://awesomeassertions.github.io/AwesomeAssertions/releases).
+* If the contribution adds a feature or fixes a bug, please update the [**release notes**](https://github.com/awesomeassertions/awesomeassertions/blob/main/docs/_pages/releases.md), which is published on the [website](https://awesomeassertions.org/releases).
 * If the contribution changes the public API, the changes needs to be included by running [`AcceptApiChanges.ps1`](https://github.com/awesomeassertions/awesomeassertions/tree/main/AcceptApiChanges.ps1)/[`AcceptApiChanges.sh`](https://github.com/awesomeassertions/awesomeassertions/tree/main/AcceptApiChanges.sh) or using Rider's [Verify Support](https://plugins.jetbrains.com/plugin/17240-verify-support) plug-in.
-* If the contribution affects the documentation, please update the [**documentation**](https://github.com/awesomeassertions/awesomeassertions/tree/main/docs/_pages), under the appropriate file (i.e. [strings.md](https://github.com/awesomeassertions/awesomeassertions/blob/main/docs/_pages/strings.md) for changes to string assertions), which is published on the [website](https://awesomeassertions.github.io/AwesomeAssertions/introduction).
+* If the contribution affects the documentation, please update the [**documentation**](https://github.com/awesomeassertions/awesomeassertions/tree/main/docs/_pages), under the appropriate file (i.e. [strings.md](https://github.com/awesomeassertions/awesomeassertions/blob/main/docs/_pages/strings.md) for changes to string assertions), which is published on the [website](https://awesomeassertions.org/introduction).
   * Please also run `./build.sh --target spellcheck` or `.\build.ps1 --target spellcheck` before pushing and check the good outcome
 
 Please do not:

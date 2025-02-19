@@ -12,7 +12,7 @@ body:
           * Tried upgrading to newest version of Awesome Assertions, to see if your issue has already been resolved and released?
           * Checked existing open *and* closed [issues](https://github.com/awesomeassertions/awesomeassertions/issues?utf8=%E2%9C%93&q=is%3Aissue), to see if the issue has already been reported?
           * Tried reproducing your problem in a new isolated project?
-          * Read the [documentation](https://awesomeassertions.github.io/AwesomeAssertions/introduction)?
+          * Read the [documentation](https://awesomeassertions.org/introduction)?
           * Searched the two [test](https://github.com/awesomeassertions/awesomeassertions/tree/main/Tests/FluentAssertions.Specs) [suites](https://github.com/awesomeassertions/awesomeassertions/tree/main/Tests/FluentAssertions.Equivalency.Specs) if there is a test documenting the expected behavior?
           * Considered if this is a general question and not a bug? For general questions please use [Stack Overflow](https://stackoverflow.com/questions/tagged/fluent-assertions?mixed=1).
   - type: textarea
