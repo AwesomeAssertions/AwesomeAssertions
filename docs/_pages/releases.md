@@ -7,22 +7,28 @@ sidebar:
   nav: "sidebar"
 ---
 
-## 7.2.0
+## 7.2.2
 
 ### Fixes
 
-* Fixed a regression in which `CompleteWithinAsync` treated a canceled task as an exception - [#2853](https://github.com/fluentassertions/fluentassertions/pull/2853)
+* Fixed a regression in which `CompleteWithinAsync` treated a canceled task as an exception - [@c4ac7dc](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/c4ac7dcfb6e8671459e8b44558eac8e7be7ca126)
+
+## 7.2.1
 
 ### Improvements
-* All `Should()` methods on reference types are now annotated with the `[NotNull]` attribute for a better Fluent Assertions experience when nullable reference types are enabled - [#2987](https://github.com/fluentassertions/fluentassertions/pull/2987)
+* chore: add Company and Product metadata to FluentAssertions.csproj - [#30](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/30)
+
+## 7.2.0
+
+### Improvements
+* Backport "Add [NotNull] attribute on the Should() method for object assertions - [@779cc1c](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/7c175e00fe363ac4e8278a91aabcdbcd70ac3686)
 
 ## 7.1.0
 
 ### Improvements
-* Improve failure message for string assertions when checking for equality - [#2307](https://github.com/fluentassertions/fluentassertions/pull/2307)
-
-* Added compatibility with xUnit.net v3 - [#2970](https://github.com/fluentassertions/fluentassertions/issues/2970)
-* Added support for throwing TUnit exceptions when using TUnit as your testing framework - [#2971](https://github.com/fluentassertions/fluentassertions/pull/2971)
+* Backport xUnit 3 support - [@55615ee](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/db9857b42d954f597a3f399bd86ea69948efc83e)
+* Backport "Improve failure message for string assertions when checking for equality"- [@db9857b](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/badd1ae3c1e85394fe5646e79d54cada0889ea4d)
+* Backport TUnit support - [@db9857b](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/badd1ae3c1e85394fe5646e79d54cada0889ea4d)
 
 ## 7.0.0
 
