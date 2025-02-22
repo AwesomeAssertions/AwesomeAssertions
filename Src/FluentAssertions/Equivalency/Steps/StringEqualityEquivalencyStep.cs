@@ -1,4 +1,5 @@
 using System;
+using FluentAssertions.Common;
 using FluentAssertions.Execution;
 
 namespace FluentAssertions.Equivalency.Steps;
@@ -44,7 +45,7 @@ public class StringEqualityEquivalencyStep : IEquivalencyStep
         if (onlyOneNull)
         {
             AssertionScope.Current.FailWith(
-                $"Expected {currentNode.Description} to be {{0}}{{reason}}, but found {{1}}.", expected, subject);
+                $"Expected {currentNode.Description.EscapePlaceholders()} to be {{0}}{{reason}}, but found {{1}}.", expected, subject);
 
             return false;
         }
