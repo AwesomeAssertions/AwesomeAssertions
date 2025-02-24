@@ -1,4 +1,4 @@
-<a href="https://www.fluentassertions.com"><img src="docs/assets/images/fluent_assertions_large_horizontal.svg" style="width:400px"/></a>
+<img src="docs/assets/images/awesomeassertions-banner-responsive.svg" width="40%" />
 
 # Extension methods to fluently assert the outcome of .NET tests
 [![](https://img.shields.io/github/actions/workflow/status/AwesomeAssertions/AwesomeAssertions/build.yml?branch=support-7.0)](https://github.com/AwesomeAssertions/AwesomeAssertions/actions?query=branch%3Asupport-7.0)
@@ -14,31 +14,65 @@
 [![open issues](https://img.shields.io/github/issues/AwesomeAssertions/AwesomeAssertions)](https://github.com/AwesomeAssertions/AwesomeAssertions/issues)
 ![](https://img.shields.io/badge/release%20strategy-githubflow-orange.svg)
 
-A very extensive set of extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit tests. Targets .NET Framework 4.7, as well as .NET 6, .NET Standard 2.0 and 2.1.
+FluentAssertions, up to version 7.x, was licensed under Apache 2.0. Starting with later versions, licensing changes introduced potential fees for developers.  
+In response to these changes, this community project was created. Please read the [FAQ](#FAQ) for more details.
 
-See https://www.fluentassertions.com for [background information](https://fluentassertions.com/about/), [usage documentation](https://fluentassertions.com/introduction), an [extensibility guide](https://fluentassertions.com/extensibility/), support information and more [tips & tricks](https://fluentassertions.com/tips/).
+Visit https://awesomeassertions.org for [background information](https://awesomeassertions.org/about/), [usage documentation](https://awesomeassertions.org/introduction), an [extensibility guide](https://awesomeassertions.org/extensibility/), support information and more [tips & tricks](https://awesomeassertions.org/tips/).
 
-![](https://repobeats.axiom.co/api/embed/282ed7bca0ede1ac7751ebde6b3ef091a0c6c52d.svg)
+# Automatic replacement using Renovate Bot
 
-# Who created this?
-Originally authored by Dennis Doomen with Jonas Nyrup as the productive side-kick. Notable contributions were provided by Artur Krajewski, Lukas Grützmacher and David Omid.
+If you are using Renovate Bot, you can automatically replace FluentAssertions with AwesomeAssertions by adding the
+following rule to your `renovate.json`:
+
+```json
+{
+  "packageRules": [
+    {
+      "matchPackageNames": ["FluentAssertions"],
+      "replacementName": "AwesomeAssertions",
+      "replacementVersion": "7.0.0"
+    }
+  ]
+}
+```
+
+Renovate will then open PRs to replace FluentAssertions with AwesomeAssertions where applicable.
+
+Alternatively, use PowerShell [script](https://github.com/AwesomeAssertions/AwesomeAssertions/discussions/6) to replace the dependencies.
 
 # How do I build this?
-Install Visual Studio 2022 17.0+ or JetBrains Rider 2021.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 7.0 SDK installed. Check [global.json](global.json) for the current minimum required version.
+Install Visual Studio 2022 17.8+ or JetBrains Rider 2021.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 8.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
 
 # What are these Approval.Tests?
 This is a special set of tests that use the [Verify](https://github.com/VerifyTests/Verify) project to verify whether you've introduced any breaking changes in the public API of the library.
 
 If you've verified the changes and decided they are valid, you can accept them  using `AcceptApiChanges.ps1` or `AcceptApiChanges.sh`. Alternatively, you can use the [Verify Support](https://plugins.jetbrains.com/plugin/17240-verify-support) plug-in to compare the changes and accept them right from inside Rider. See also the [Contribution Guidelines](CONTRIBUTING.md).
 
-# Powered By
-<a href="https://www.infosupport.com/"><img src="docs/assets/images/info-support.jpg" style="width:100px"/></a>&nbsp;
-<a href="https://www.jetbrains.com/rider/"><img src="docs/assets/images/jetbrainsrider.svg" style="width:150px"/></a>&nbsp;
+# FAQ
 
-With support from the following public [sponsors](https://github.com/sponsors/fluentassertions)
-<a href="https://github.com/BestKru"><img src="https://avatars.githubusercontent.com/u/159320286?s=52&v=4"/></a>
-<a href="https://github.com/Infra-Workleap"><img src="https://avatars.githubusercontent.com/u/53535748?s=52&v=4"/></a>
-<a href="https://github.com/ken-swyfft"><img src="https://avatars.githubusercontent.com/u/65305317?s=52&v=4"/></a>
-<a href="https://github.com/MGundersen"><img src="https://avatars.githubusercontent.com/u/15629960?s=52&v=4"/></a>
-<a href="https://github.com/mediaclip"><img src="https://avatars.githubusercontent.com/u/6798228?s=52&v=4"/></a>
-<a href="https://github.com/hassanhabib"><img src="https://avatars.githubusercontent.com/u/1453985?s=52&v=4"/></a>
+**Q: Who are the maintainers?**  
+**A:** The current maintainers of AwesomeAssertions are @cbersch, @jcfnomada, @jupjohn, @IT-VBFK, and @ScarletKuro.
+
+**Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**  
+**A:** The license will never change, not even to MIT. We will only maintain the original Apache 2.0 license.
+
+**Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**  
+**A:** This was possible because the license change was made at the final stage of the version 8 release. Any commits made before the license change were free to use, as licenses cannot be applied retroactively. If commits were added to the branch while it was under the Apache 2.0 license, they remain under Apache 2.0. So, any commits before this change [fluentassertions/fluentassertions@df7e9bf](https://github.com/fluentassertions/fluentassertions/commit/df7e9bf8305ef5e26ae58fe4142f8d1b6c4fc4af) can be legally used under the Apache 2.0 terms.
+
+**Q: What is the benefit of this project, and will it continue to evolve and be maintained?**  
+**A:** The development of the project depends on the community. We will review and merge pull requests that meet the project's requirements. We actively cherry-pick relevant changes from FluentAssertions version 7 and add them to our fork, as FluentAssertions version 7 is under the old license.  
+This project is useful for users who are concerned about potential license issues with version 8 or those working in environments where commercial use could cause licensing complications. Our fork eliminates these concerns and offers a clean solution for such cases.
+
+**Q: Where can I find the documentation?**  
+**A:** You can find the documentation at https://awesomeassertions.org
+
+**Q: Why is this package using the FluentAssertions namespace? Isn't that illegal?**  
+**A:** The namespaces are part of the API, which was developed under the Apache 2.0 license. The Google v. Oracle case ruled that APIs are considered fair use, so including the 'FluentAssertions' namespace in the API class names is acceptable. While this is permissible now, we may consider changing the namespaces in the future.
+
+
+# Legal Disclaimer
+
+- This package is not affiliated with or endorsed by the authors of FluentAssertions.
+- FluentAssertions is a trademark of its respective owners.
+- This package was made possible by the hard work and dedication of the original authors and more than 200 contributors to FluentAssertions. We are extremely grateful for their efforts.
+- For the latest information about FluentAssertions, visit the [official repository](https://github.com/fluentassertions/fluentassertions).
