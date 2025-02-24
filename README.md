@@ -1,6 +1,7 @@
 <img src="docs/assets/images/awesomeassertions-banner-responsive.svg" width="40%" />
 
-# Extension methods to fluently assert the outcome of .NET tests
+# A fork of FluentAssertions controlled by the community
+
 [![](https://img.shields.io/github/actions/workflow/status/AwesomeAssertions/AwesomeAssertions/build.yml?branch=support-7.0)](https://github.com/AwesomeAssertions/AwesomeAssertions/actions?query=branch%3Asupport-7.0)
 [![Coveralls branch](https://img.shields.io/coverallsCoverage/github/AwesomeAssertions/AwesomeAssertions?branch=support-7.0)](https://coveralls.io/github/AwesomeAssertions/AwesomeAssertions?branch=support-7.0)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AwesomeAssertions_AwesomeAssertions&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=AwesomeAssertions_AwesomeAssertions)
