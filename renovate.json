@@ -9,6 +9,7 @@
     "ignorePaths": [
         "Build/**"
     ],
+	"ignoreDeps": ["system.threading.tasks.extensions"],
     "packageRules": [
         {
             "matchSourceUrls": [
@@ -26,6 +27,24 @@
                 "https://github.com/dotnet/wpf"
             ],
             "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "xunit.runner.visualstudio"
+            ],
+            "allowedVersions": "< 3.0.0"
+        },
+        {
+            "matchPackageNames": [
+                "xunit.v3"
+            ],
+            "allowedVersions": "< 2.0.0"
+        },
+        {
+            "matchPackageNames": [
+                "xunit.v3.core"
+            ],
+            "allowedVersions": "< 2.0.0"
         }
     ]
 }
