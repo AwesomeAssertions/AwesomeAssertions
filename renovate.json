@@ -35,15 +35,7 @@
             "allowedVersions": "< 3.0.0"
         },
         {
-            "matchPackageNames": [
-                "xunit.v3"
-            ],
-            "allowedVersions": "< 2.0.0"
-        },
-        {
-            "matchPackageNames": [
-                "xunit.v3.core"
-            ],
+            "matchPackageNames": [ "/xunit.v3/" ],
             "allowedVersions": "< 2.0.0"
         }
     ]
