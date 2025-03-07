@@ -246,7 +246,7 @@ public partial class AssertionChainSpecs
         }
 
         [Fact]
-        public void Message_should_have_reportable_values_appended_at_the_end()
+        public void Message_should_have_scope_reportable_values_appended_at_the_end()
         {
             // Arrange
             var scope = new AssertionScope();
@@ -261,6 +261,22 @@ public partial class AssertionChainSpecs
             // Assert
             act.Should().ThrowExactly<XunitException>()
                 .WithMessage("*With SomeKey:\nSomeValue\nWith AnotherKey:\nAnotherValue");
+        }
+
+        [Fact]
+        public void Message_should_not_contain_reportable_values_added_to_chain_without_surrounding_scope()
+        {
+            // Arrange
+            var chain = AssertionChain.GetOrCreate();
+            chain.AddReportable("SomeKey", "SomeValue");
+            chain.AddReportable("AnotherKey", "AnotherValue");
+
+            // Act
+            Action act = () => chain.FailWith("{SomeKey}{AnotherKey}");
+
+            // Assert
+            act.Should().ThrowExactly<XunitException>()
+                .Which.Message.Should().BeEmpty();
         }
 
         [Fact]
