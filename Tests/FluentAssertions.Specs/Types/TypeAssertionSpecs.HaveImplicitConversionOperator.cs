@@ -47,7 +47,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -65,7 +65,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but type is <null>.");
         }
 
@@ -134,7 +134,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method implicit operator Int32(TypeWithConversionOperators) to be Internal, but it is Public.");
+                .WithMessage("Expected method implicit operator int(FluentAssertions.Specs.Types.TypeWithConversionOperators) to be Internal, but it is Public.");
         }
 
         [Fact]
@@ -151,7 +151,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -169,7 +169,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but type is <null>.");
         }
     }
@@ -209,7 +209,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.Int32(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static implicit int(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but it does.");
         }
 
@@ -227,7 +227,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but type is <null>.");
         }
 
@@ -293,7 +293,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.Int32(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static implicit int(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but it does.");
         }
 
@@ -311,7 +311,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static implicit *.String(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static implicit string(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but type is <null>.");
         }
     }

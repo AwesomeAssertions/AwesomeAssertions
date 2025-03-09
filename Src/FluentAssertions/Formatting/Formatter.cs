@@ -56,7 +56,8 @@ public static class Formatter
         new DictionaryValueFormatter(),
         new EnumerableValueFormatter(),
         new EnumValueFormatter(),
-        new DefaultValueFormatter()
+        new TypeValueFormatter(),
+        new DefaultValueFormatter(),
     ];
 
     /// <summary>
