@@ -7,6 +7,11 @@ sidebar:
   nav: "sidebar"
 ---
 
+## 8.0.1
+
+### Improvements
+* Add Company and Product metadata to assembly [#30](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/30)
+
 ## 8.0.0
 
 ### Fork of Fluent Assertions
@@ -95,6 +100,22 @@ sidebar:
   * Methods overwritten in `GenericAsyncFunctionAssertions` has been moved to `NonGenericAsyncFunctionAssertions`.
 * Moved the non-generic `NotThrow` and `NotThrowAfter` from `DelegateAssertions<TDelegate, TAssertions>` to `ActionAssertions` - [#2371](https://github.com/fluentassertions/fluentassertions/pull/2371)
 * Made `EquivalencyValidator` `internal` - [#2854](https://github.com/fluentassertions/fluentassertions/pull/2854)
+
+## 7.2.1
+
+### Improvements
+* Add Company and Product metadata to assembly [#30](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/30)
+
+## 7.2.0
+
+### Improvements
+* Backport "Add [NotNull] attribute on the Should() method for object assertions" [#2987](https://github.com/fluentassertions/fluentassertions/pull/2987)
+
+## 7.1.0
+
+### Improvements
+* Backport TUnit to v7 [#2971](https://github.com/fluentassertions/fluentassertions/pull/2971)
+* Backport "Improve failure message for string assertions when checking for equality" [#2972](https://github.com/fluentassertions/fluentassertions/pull/2972)
 
 ## 7.0.0
 
