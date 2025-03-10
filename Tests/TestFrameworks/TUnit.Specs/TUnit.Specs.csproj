@@ -11,9 +11,9 @@
     <ProjectReference Include="..\..\..\Src\FluentAssertions\FluentAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TUnit" Version="0.6.33" />
-    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="1.5.1" />
-    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.13.1" />
+    <PackageReference Include="TUnit" Version="0.16.28" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="1.6.2" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
   </ItemGroup>
 
 </Project>

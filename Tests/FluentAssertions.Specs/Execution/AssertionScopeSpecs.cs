@@ -139,6 +139,40 @@ namespace FluentAssertions.Specs.Execution
         }
 
         [Fact]
+        public void When_multiple_nested_scopes_each_have_multiple_failures_it_should_throw_all_failures_from_the_outer_scope()
+        {
+            // Arrange
+            var scope = new AssertionScope();
+
+            AssertionChain.GetOrCreate().FailWith("Failure1.1");
+            AssertionChain.GetOrCreate().FailWith("Failure1.2");
+
+            using (new AssertionScope())
+            {
+                AssertionChain.GetOrCreate().FailWith("Failure2.1");
+                AssertionChain.GetOrCreate().FailWith("Failure2.2");
+
+                using var deeplyNestedScope = new AssertionScope();
+                AssertionChain.GetOrCreate().FailWith("Failure3.1");
+                AssertionChain.GetOrCreate().FailWith("Failure3.2");
+            }
+
+            // Act
+            Action act = scope.Dispose;
+
+            // Assert
+            try
+            {
+                act();
+            }
+            catch (Exception exception)
+            {
+                exception.Message.Should().ContainAll(
+                    "Failure1.1", "Failure1.2", "Failure2.1", "Failure2.2", "Failure3.1", "Failure3.2");
+            }
+        }
+
+        [Fact]
         public void When_a_nested_scope_is_discarded_its_failures_should_also_be_discarded()
         {
             // Arrange
@@ -309,6 +343,28 @@ namespace FluentAssertions.Specs.Execution
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected Test1/Test2/nonEmptyList to be empty*");
+        }
+
+        [Fact]
+        public void A_scope_with_multiple_failures_after_a_successful_assertion_should_show_all_errors()
+        {
+            Action act = () =>
+            {
+                // any call to AssertionScope.Current (like in AssertionChain.GetOrCreate())
+                _ = AssertionScope.Current.HasFailures();
+
+                using (new AssertionScope())
+                {
+                    42.Should().Be(27);
+                    42.Should().Be(23);
+                }
+            };
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    $"Expected value to be 27, but found 42*{Environment.NewLine}" +
+                    "*Expected value to be 23, but found 42*");
         }
 
         public class CustomAssertionStrategy : IAssertionStrategy

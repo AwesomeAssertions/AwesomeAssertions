@@ -14,16 +14,22 @@ namespace FluentAssertions.Execution;
 /// This class is supposed to have a very short lifetime and is not safe to be used in assertion that cross thread-boundaries
 /// such as when using <see langword="async"/> or <see langword="await"/>.
 /// </remarks>
-// Remove all assertion logic from this class since it is superseded by the Assertion class
 public sealed class AssertionScope : IDisposable
 {
     private readonly IAssertionStrategy assertionStrategy;
+
+    /// <summary>
+    /// The default scopes, which were implicitly created by accessing <see cref="Current"/>.
+    /// </summary>
+    private static readonly AsyncLocal<AssertionScope> DefaultScope = new();
     private static readonly AsyncLocal<AssertionScope> CurrentScope = new();
     private readonly Func<string> callerIdentityProvider = () => CallerIdentifier.DetermineCallerIdentity();
     private readonly ContextDataDictionary reportableData = new();
     private readonly StringBuilder tracing = new();
 
+#pragma warning disable CA2213 // Disposable fields should be disposed
     private AssertionScope parent;
+#pragma warning restore CA2213
 
     /// <summary>
     /// Starts an unnamed scope within which multiple assertions can be executed
@@ -69,7 +75,7 @@ public sealed class AssertionScope : IDisposable
     /// <exception cref="ArgumentNullException"><paramref name="assertionStrategy"/> is <see langword="null"/>.</exception>
     private AssertionScope(Func<string> name, IAssertionStrategy assertionStrategy)
     {
-        parent = CurrentScope.Value;
+        parent = GetParentScope();
         CurrentScope.Value = this;
 
         this.assertionStrategy = assertionStrategy
@@ -104,6 +110,25 @@ public sealed class AssertionScope : IDisposable
     }
 
     /// <summary>
+    /// Get parent scope.
+    /// <para>
+    /// The parent scope is any explicitly opened <see cref="AssertionScope"/>, except
+    /// for the implicitly opened through access to <see cref="AssertionScope.Current"/> or
+    /// <see cref="AssertionChain.GetOrCreate" />.
+    /// </para>
+    /// </summary>
+    /// <returns>The parent scope</returns>
+    private static AssertionScope GetParentScope()
+    {
+        if (CurrentScope.Value is not null && CurrentScope.Value != DefaultScope.Value)
+        {
+            return CurrentScope.Value;
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Gets or sets the name of the current assertion scope, e.g. the path of the object graph
     /// that is being asserted on.
     /// </summary>
@@ -118,13 +143,16 @@ public sealed class AssertionScope : IDisposable
     /// </summary>
     public static AssertionScope Current
     {
-#pragma warning disable CA2000 // AssertionScope should not be disposed here
         get
         {
-            return CurrentScope.Value ?? new AssertionScope(() => null, new DefaultAssertionStrategy());
+            if (CurrentScope.Value is not null)
+            {
+                return CurrentScope.Value;
+            }
+
+            DefaultScope.Value ??= new AssertionScope(() => null, new DefaultAssertionStrategy());
+            return DefaultScope.Value;
         }
-#pragma warning restore CA2000
-        private set => CurrentScope.Value = value;
     }
 
     /// <summary>

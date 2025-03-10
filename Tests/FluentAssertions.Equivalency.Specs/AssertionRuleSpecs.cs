@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using FluentAssertions.Execution;
 using FluentAssertions.Extensions;
 using Xunit;
 using Xunit.Sdk;
@@ -243,6 +244,43 @@ public class AssertionRuleSpecs
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage("*ConcreteClassEqualityComparer*");
+    }
+
+    [Fact]
+    public void When_several_properties_do_not_match_they_are_all_reported_after_an_other_successful_assertion()
+    {
+        // Arrange
+        var test = new Test
+        {
+            Id = 42,
+            Text = "some-text",
+        };
+        var actualTest = new Test
+        {
+            Id = 32,
+            Text = "some-other-text",
+        };
+
+        // Act
+        Action act = () =>
+        {
+            actualTest.Text.Should().Be("some-other-text");
+            actualTest.Should().BeEquivalentTo(test);
+        };
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage(
+                $"Expected property actualTest.Id to be*{Environment.NewLine}" +
+                "*Expected property actualTest.Text to be*"
+            );
+    }
+
+    private sealed class Test
+    {
+        public int Id { get; set; }
+
+        public string Text { get; set; }
     }
 
     public class BeEquivalentTo

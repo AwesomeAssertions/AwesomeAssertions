@@ -396,6 +396,7 @@ class Build : NukeBuild
         x.StartsWith("LICENSE") ||
         x.StartsWith("package.json") ||
         x.StartsWith("package-lock.json") ||
+        x.StartsWith("NodeVersion") ||
         x.StartsWith("README.md");
 
     string[] Changes =>
