@@ -7,6 +7,11 @@ sidebar:
   nav: "sidebar"
 ---
 
+## Unreleased
+
+### What's new
+* Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
+
 ## 8.0.2
 
 ### Improvements
