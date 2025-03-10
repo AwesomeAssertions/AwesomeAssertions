@@ -12,7 +12,7 @@ sidebar:
 ### Fixes
 * Fix a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
 * Fix a regression, where a canceled `Task` was treated as a failure in `CompleteWithinAsync` - [b9cef9184](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/b9cef9185f19d65228be59b0e3a1a3f6abfb8ef4)
-* Fix a problem, where a call to `BeEquivalentTo` only gives one diff after a successful `.Be` - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
+* Fix a regression, where a call to `BeEquivalentTo` only gives one diff after a preceding successful assertion - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
 
 ## 8.0.1
 
