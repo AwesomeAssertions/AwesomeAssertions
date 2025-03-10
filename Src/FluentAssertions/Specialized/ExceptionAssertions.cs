@@ -120,8 +120,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public ExceptionAssertions<Exception> WithInnerException(Type innerException, string because = "",
-        params object[] becauseArgs)
+    public ExceptionAssertions<Exception> WithInnerException(Type innerException,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(innerException);
 
@@ -158,8 +158,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public ExceptionAssertions<Exception> WithInnerExceptionExactly(Type innerException, string because = "",
-        params object[] becauseArgs)
+    public ExceptionAssertions<Exception> WithInnerExceptionExactly(Type innerException,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(innerException);
 
@@ -181,7 +181,7 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="exceptionExpression"/> is <see langword="null"/>.</exception>
     public ExceptionAssertions<TException> Where(Expression<Func<TException, bool>> exceptionExpression,
-        string because = "", params object[] becauseArgs)
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(exceptionExpression);
 
