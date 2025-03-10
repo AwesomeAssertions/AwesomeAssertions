@@ -163,7 +163,7 @@ public abstract class ReferenceTypeAssertions<TSubject, TAssertions>
             .ForCondition(Subject is not null)
             .BecauseOf(because, becauseArgs)
             .WithDefaultIdentifier("type")
-            .FailWith("Expected {context} to be {0}{reason}, but found <null>.", expectedType);
+            .FailWith("Expected {context} to be of type {0}{reason}, but found <null>.", expectedType);
 
         if (CurrentAssertionChain.Succeeded)
         {
@@ -224,7 +224,7 @@ public abstract class ReferenceTypeAssertions<TSubject, TAssertions>
             .ForCondition(Subject is not null)
             .BecauseOf(because, becauseArgs)
             .WithDefaultIdentifier("type")
-            .FailWith("Expected {context} not to be {0}{reason}, but found <null>.", unexpectedType);
+            .FailWith("Expected {context} not to be of type {0}{reason}, but found <null>.", unexpectedType);
 
         if (CurrentAssertionChain.Succeeded)
         {

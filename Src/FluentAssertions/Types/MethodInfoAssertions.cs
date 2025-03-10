@@ -2,8 +2,10 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Text;
 using FluentAssertions.Common;
 using FluentAssertions.Execution;
+using FluentAssertions.Formatting;
 
 namespace FluentAssertions.Types;
 
@@ -156,8 +158,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(typeof(void) == Subject!.ReturnType)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected the return type of method " + Subject.Name + " to be void{reason}, but it is {0}.",
-                    Subject.ReturnType.FullName);
+                .FailWith($"Expected the return type of method {Subject.Name} to be void{{reason}}, but it is {{0}}.",
+                    Subject.ReturnType);
         }
 
         return new AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>>(this);
@@ -190,8 +192,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(returnType == Subject!.ReturnType)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected the return type of method " + Subject.Name + " to be {0}{reason}, but it is {1}.",
-                    returnType, Subject.ReturnType.FullName);
+                .FailWith($"Expected the return type of method {Subject.Name} to be {{0}}{{reason}}, but it is {{1}}.",
+                    returnType, Subject.ReturnType);
         }
 
         return new AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>>(this);
@@ -302,9 +304,13 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             return string.Empty;
         }
 
-        var returnTypeName = method.ReturnType.Name;
-
-        return $"{returnTypeName} {method.DeclaringType}.{method.Name}";
+        return new StringBuilder()
+            .AppendFormattedWithoutLeadingNamespace(method.ReturnType)
+            .Append(' ')
+            .AppendFormatted(method.DeclaringType)
+            .Append('.')
+            .Append(method.Name)
+            .ToString();
     }
 
     private protected override string SubjectDescription => GetDescriptionFor(Subject);
