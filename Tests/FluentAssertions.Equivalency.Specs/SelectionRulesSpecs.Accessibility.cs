@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Xunit;
 using Xunit.Sdk;
@@ -280,29 +281,51 @@ public partial class SelectionRulesSpecs
         [Fact]
         public void Normal_properties_have_priority_over_explicitly_implemented_properties()
         {
+            // Arrange
             var instance = new MyClass
             {
-                MyError = 42,
+                Message = "instance string message",
             };
+            ((IMyInterface)instance).Message = 42;
+            instance.Items.AddRange([1, 2, 3]);
 
             var other = new MyClass
             {
-                MyError = 42,
+                Message = "other string message",
             };
+            ((IMyInterface)other).Message = 42;
+            other.Items.AddRange([1, 2, 27]);
 
-            instance.Should().BeEquivalentTo(other);
+            // Act
+            Action act = () => instance.Should().BeEquivalentTo(other);
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    "*Expected property *.Message to be the same string*" +
+                    "*Expected *.Items[2] to be 27, but found 3*"
+                );
         }
 
-        private class MyClass : Exception, IMyInterface
+        private class MyParentClass
         {
-            public int MyError { get; set; }
+            public List<int> Items { get; } = [];
+        }
 
-            int IMyInterface.Message => MyError;
+        private class MyClass : MyParentClass, IMyInterface
+        {
+            public string Message { get; set; }
+
+            int IMyInterface.Message { get; set; }
+
+            IReadOnlyCollection<int> IMyInterface.Items => Items;
         }
 
         private interface IMyInterface
         {
-            int Message { get; }
+            int Message { get; set; }
+
+            IReadOnlyCollection<int> Items { get; }
         }
     }
 }
