@@ -7,6 +7,12 @@ sidebar:
   nav: "sidebar"
 ---
 
+## 8.0.2
+
+### Fixes
+* Fix a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
+* Fix a problem, where a call to `BeEquivalentTo` only gives one diff after a successful `.Be` - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
+
 ## 8.0.1
 
 ### Improvements
