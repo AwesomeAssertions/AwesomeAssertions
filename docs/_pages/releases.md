@@ -9,6 +9,9 @@ sidebar:
 
 ## 8.0.2
 
+### Improvements
+* Add missing StringSyntaxAttribute to public method "because" parameter - [#84](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/84)
+
 ### Fixes
 * Fix a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
 * Fix a regression, where a canceled `Task` was treated as a failure in `CompleteWithinAsync` - [b9cef9184](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/b9cef9185f19d65228be59b0e3a1a3f6abfb8ef4)
