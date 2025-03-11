@@ -30,6 +30,7 @@
     <PackageIcon>AwesomeAssertions.png</PackageIcon>
     <PackageReleaseNotes>See https://github.com/AwesomeAssertions/AwesomeAssertions/releases</PackageReleaseNotes>
     <Copyright>Copyright Dennis Doomen 2010-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup Label="Internals visible to">
@@ -40,6 +41,7 @@
 
   <ItemGroup Label="Package files">
     <None Include="..\AwesomeAssertions.png" Pack="true" Visible="false" PackagePath="" />
+    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>
