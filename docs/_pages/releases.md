@@ -7,6 +7,14 @@ sidebar:
   nav: "sidebar"
 ---
 
+## 8.0.2
+
+### Fixes
+* Fix a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
+* Fix a regression, where a canceled `Task` was treated as a failure in `CompleteWithinAsync` - [b9cef9184](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/b9cef9185f19d65228be59b0e3a1a3f6abfb8ef4)
+* Fix a regression, where a call to `BeEquivalentTo` only gives one diff after a preceding successful assertion - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
+* Fix equivalency to always prefer normal over explicitly implemented property - [#80](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/80)
+
 ## 8.0.1
 
 ### Improvements
