@@ -37,6 +37,10 @@
         {
             "matchPackageNames": [ "/xunit.v3/" ],
             "allowedVersions": "< 2.0.0"
+        },
+        {
+            "matchPackageNames": [ "*" ],
+            "schedule": [ "after 4pm on monday" ]
         }
     ]
 }
