@@ -211,8 +211,8 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage("""
                 Expected subject to be the same string because we use arrows now, but they differ at index 20:
                                    ↓ (actual)
-                  "…is a long text that…"
-                  "…is a long text which…"
+                  "…is a long text that differs in between two words"
+                  "…is a long text which differs in between two words"
                                    ↑ (expected).
                 """);
         }
@@ -220,7 +220,7 @@ public partial class StringAssertionSpecs
         [Fact]
         public void Only_add_ellipsis_for_long_text()
         {
-            const string subject = "this is a long text that differs";
+            const string subject = "this is a long text that has more than 60 characters so it requires ellipsis";
             const string expected = "this was too short";
 
             // Act
@@ -230,7 +230,7 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage("""
                 Expected subject to be the same string because we use arrows now, but they differ at index 5:
                         ↓ (actual)
-                  "this is a long text that…"
+                  "this is a long text that has more than 60 characters so it…"
                   "this was too short"
                         ↑ (expected).
                 """);
@@ -266,11 +266,11 @@ public partial class StringAssertionSpecs
         }
 
         [Theory]
-        [InlineData("ThisLongTextIsUsedToCheckADifferenceAtTheEnd after 10 + 5 characters")]
-        [InlineData("ThisLongTextIsUsedToCheckADifferen after 10 + 15 characters")]
-        public void Will_look_for_a_word_boundary_between_15_and_25_characters_after_the_mismatching_index_to_highlight_the_mismatch(string expected)
+        [InlineData("This Is A LongTextWithMoreThan60CharactersWhichIs after 10 + 35 characters")]
+        [InlineData("This Is A LongTextWithMoreThan60Ch after 10 + 50 characters")]
+        public void Will_look_for_a_word_boundary_between_45_and_60_characters_after_the_mismatching_index_to_highlight_the_mismatch(string expected)
         {
-            const string subject = "ThisLongTextIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
+            const string subject = "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
 
             // Act
             Action act = () => subject.Should().Be(expected);
@@ -300,12 +300,12 @@ public partial class StringAssertionSpecs
         }
 
         [Theory]
-        [InlineData("ThisLongTextIsUsedToCheckADifferenceAtTheEndO after 10 + 4 characters", "eAtTheEndOfThe WordB…\"")]
-        [InlineData("ThisLongTextIsUsedToCheckADiffere after 10 + 16 characters", "ckADifferenceAtTheEn…\"")]
-        public void Will_fallback_to_20_characters_if_no_word_boundary_can_be_found_after_the_mismatching_index(
+        [InlineData("This Is A LongTextWithMoreThan60C that differs with 60 characters remaining", "oreThan60CharactersWhichIsUsedToCheckADifferenceAt…\"")]
+        [InlineData("This Is A LongTextWithMoreThan60Ch IsALongTextIsUsedToCheckADiffere after 10 + 16 characters", "reThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe…\"")]
+        public void Will_fallback_to_50_characters_if_no_word_boundary_can_be_found_after_the_mismatching_index(
                 string expected, string expectedMessagePart)
         {
-            const string subject = "ThisLongTextIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
+            const string subject = "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
 
             // Act
             Action act = () => subject.Should().Be(expected);
@@ -346,8 +346,8 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage($"""
                 Expected subject to be the same string, but they differ on line 5 and column 16 (index {expectedIndex}):
                              ↓ (actual)
-                  "…-> Bob : Another…"
-                  "…-> Bob : Invalid…"
+                  "…-> Bob : Another authentication Request*\nAlice <-- Bob :…"
+                  "…-> Bob : Invalid authentication Request*\nAlice <-- Bob :…"
                              ↑ (expected).
                 """);
         }

@@ -208,13 +208,13 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
     /// Calculates how many characters to keep in <paramref name="value"/>.
     /// </summary>
     /// <remarks>
-    /// If a word end is found between 15 and 25 characters, use this word end, otherwise keep 20 characters.
+    /// If a word end is found between 45 and 60 characters, use this word end, otherwise keep 50 characters.
     /// </remarks>
     private static int GetLengthOfPhraseToShowOrDefaultLength(string value)
     {
-        const int defaultLength = 20;
-        const int minLength = 15;
-        const int maxLength = 25;
+        const int minLength = 45;
+        const int defaultLength = minLength + 5;
+        const int maxLength = minLength + 15;
         const int lengthOfWhitespace = 1;
 
         var indexOfWordBoundary = value
