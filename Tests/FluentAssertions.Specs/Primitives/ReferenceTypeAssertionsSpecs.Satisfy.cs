@@ -324,7 +324,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to be assignable to System.Object, but found <null>.");
+                .WithMessage("Expected subject to be assignable to object, but found <null>.");
         }
 
         [Fact]

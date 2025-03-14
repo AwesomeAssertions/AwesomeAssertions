@@ -744,7 +744,7 @@ public static class AssertionExtensions
     {
         Guard.ThrowIfArgumentIsNull(typeSelector);
 
-        return new TypeSelectorAssertions(AssertionChain.GetOrCreate(),  typeSelector.ToArray());
+        return new TypeSelectorAssertions(AssertionChain.GetOrCreate(), typeSelector.ToArray());
     }
 
     /// <summary>

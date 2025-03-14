@@ -12,6 +12,9 @@ sidebar:
 ### What's new
 * Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
 
+### Improvements
+* Improve `Type` formatting - [#78](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/78)
+
 ### Fixes
 * Fixed formatting of failure messages when comparing strings with braces - [#96](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)
 

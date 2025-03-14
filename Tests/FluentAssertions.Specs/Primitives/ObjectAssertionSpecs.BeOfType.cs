@@ -77,7 +77,7 @@ public partial class ObjectAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*type to be System.Int32*because we want to test the failure message*");
+                .WithMessage("*type to be int*because we want to test the failure message*");
         }
 
         [Fact]
@@ -85,14 +85,14 @@ public partial class ObjectAssertionSpecs
         {
             // Arrange
             int valueTypeObject = 42;
-            var doubleType = typeof(double);
+            Type doubleType = typeof(double);
 
             // Act
             Action act = () => valueTypeObject.Should().BeOfType(doubleType);
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage($"Expected type to be {doubleType}, but found {valueTypeObject.GetType()}.");
+                .WithMessage("Expected type to be double, but found int.");
         }
 
         [Fact]
@@ -119,7 +119,7 @@ public partial class ObjectAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be System.Int32 because they are of different type, but found System.Object.");
+                "Expected type to be int because they are of different type, but found object.");
         }
 
         [Fact]
@@ -133,7 +133,7 @@ public partial class ObjectAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected someObject to be System.Int32, but found <null>.");
+                .WithMessage("Expected someObject to be int, but found <null>.");
         }
 
         [Fact]
@@ -232,7 +232,7 @@ public partial class ObjectAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*type not to be System.Int32*because we want to test the failure message*");
+                .WithMessage("*type not to be int *because we want to test the failure message*");
         }
 
         [Fact]
