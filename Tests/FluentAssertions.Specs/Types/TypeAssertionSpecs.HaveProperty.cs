@@ -74,7 +74,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected property PrivateWriteProtectedReadProperty " +
-                    "to be of type System.Int32 because we want to test the failure message, but it is not.");
+                    "to be of type int because we want to test the failure message, but it is not.");
         }
 
         [Fact]

@@ -119,7 +119,7 @@ public static class EventRaisingExtensions
             if (predicates.Length > typedParameters.Length)
             {
                 throw new ArgumentException(
-                    $"Expected the event to have at least {predicates.Length} parameters of type {typeof(T)}, but only found {typedParameters.Length}.");
+                    $"Expected the event to have at least {predicates.Length} parameters of type {typeof(T).ToFormattedString()}, but only found {typedParameters.Length}.");
             }
 
             bool isMatch = hasArgumentOfRightType;

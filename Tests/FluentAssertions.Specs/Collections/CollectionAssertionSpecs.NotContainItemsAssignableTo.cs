@@ -28,15 +28,15 @@ public partial class CollectionAssertionSpecs
             var act = () => collection
                 .Should()
                 .NotContainItemsAssignableTo<int>(
-                    "because we want test that collection does not contain object of {0} type", typeof(int).FullName);
+                    "because we want test that collection does not contain object of {0} type", typeof(int));
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to not contain any elements assignable to type \"System.Int32\" " +
+                    "Expected collection to not contain any elements assignable to type int " +
                     "because we want test that collection does not contain object of System.Int32 type, " +
-                    "but found {System.Int32, System.String, System.String}.");
+                    "but found {int, string, string}.");
         }
 
         [Fact]
@@ -85,7 +85,7 @@ public partial class CollectionAssertionSpecs
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to not contain any elements assignable to type \"System.Int32\", but found <null>.");
+                    "Expected collection to not contain any elements assignable to type int, but found <null>.");
         }
     }
 }

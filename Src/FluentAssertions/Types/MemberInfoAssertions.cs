@@ -87,8 +87,8 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
             .FailWith(
-                $"Expected {Identifier} to be decorated with {typeof(TAttribute)}{{reason}}" +
-                ", but {context:member} is <null>.");
+                $"Expected {Identifier} to be decorated with {{0}}{{reason}}" +
+                ", but {context:member} is <null>.", typeof(TAttribute));
 
         IEnumerable<TAttribute> attributes = [];
 
@@ -99,9 +99,9 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
             assertionChain
                 .ForCondition(attributes.Any())
                 .BecauseOf(because, becauseArgs)
-                .FailWith(
-                    $"Expected {Identifier} {SubjectDescription} to be decorated with {typeof(TAttribute)}{{reason}}" +
-                    ", but that attribute was not found.");
+                .FailWith(() => new FailReason(
+                    $"Expected {Identifier} {SubjectDescription} to be decorated with {{0}}{{reason}}" +
+                    ", but that attribute was not found.", typeof(TAttribute)));
         }
 
         return new AndWhichConstraint<MemberInfoAssertions<TSubject, TAssertions>, TAttribute>(this, attributes);
@@ -133,8 +133,8 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
             .FailWith(
-                $"Expected {Identifier} to not be decorated with {typeof(TAttribute)}{{reason}}" +
-                ", but {context:member} is <null>.");
+                $"Expected {Identifier} to not be decorated with {{0}}{{reason}}" +
+                ", but {context:member} is <null>.", typeof(TAttribute));
 
         if (assertionChain.Succeeded)
         {
@@ -143,9 +143,9 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
             assertionChain
                 .ForCondition(!attributes.Any())
                 .BecauseOf(because, becauseArgs)
-                .FailWith(
-                    $"Expected {Identifier} {SubjectDescription} to not be decorated with {typeof(TAttribute)}{{reason}}" +
-                    ", but that attribute was found.");
+                .FailWith(() => new FailReason(
+                    $"Expected {Identifier} {SubjectDescription} to not be decorated with {{0}}{{reason}}" +
+                    ", but that attribute was found.", typeof(TAttribute)));
         }
 
         return new AndConstraint<TAssertions>((TAssertions)this);

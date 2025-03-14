@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FluentAssertions.Common;
 using FluentAssertions.Execution;
 
 namespace FluentAssertions.Equivalency.Steps;
@@ -45,6 +46,6 @@ public class EqualityComparerEquivalencyStep<T> : IEquivalencyStep
 
     public override string ToString()
     {
-        return $"Use {comparer} for objects of type {typeof(T)}";
+        return $"Use {comparer} for objects of type {typeof(T).ToFormattedString()}";
     }
 }

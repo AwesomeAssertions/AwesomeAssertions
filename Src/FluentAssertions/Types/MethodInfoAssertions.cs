@@ -2,8 +2,10 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Text;
 using FluentAssertions.Common;
 using FluentAssertions.Execution;
+using FluentAssertions.Formatting;
 
 namespace FluentAssertions.Types;
 
@@ -43,7 +45,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(!Subject.IsNonVirtual())
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected method " + SubjectDescription + " to be virtual{reason}, but it is not virtual.");
+                .FailWith(() => new FailReason(
+                    $"Expected method {SubjectDescription} to be virtual{{reason}}, but it is not virtual."));
         }
 
         return new AndConstraint<MethodInfoAssertions>(this);
@@ -71,7 +74,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(Subject.IsNonVirtual())
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected method " + SubjectDescription + " not to be virtual{reason}, but it is.");
+                .FailWith(() => new FailReason(
+                    $"Expected method {SubjectDescription} not to be virtual{{reason}}, but it is."));
         }
 
         return new AndConstraint<MethodInfoAssertions>(this);
@@ -99,7 +103,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(Subject.IsAsync())
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected method " + SubjectDescription + " to be async{reason}, but it is not.");
+                .FailWith(() => new FailReason(
+                    $"Expected method {SubjectDescription} to be async{{reason}}, but it is not."));
         }
 
         return new AndConstraint<MethodInfoAssertions>(this);
@@ -127,7 +132,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(!Subject.IsAsync())
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected method " + SubjectDescription + " not to be async{reason}, but it is.");
+                .FailWith(() => new FailReason(
+                    $"Expected method {SubjectDescription} not to be async{{reason}}, but it is."));
         }
 
         return new AndConstraint<MethodInfoAssertions>(this);
@@ -156,8 +162,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(typeof(void) == Subject!.ReturnType)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected the return type of method " + Subject.Name + " to be void{reason}, but it is {0}.",
-                    Subject.ReturnType.FullName);
+                .FailWith($"Expected the return type of method {Subject.Name} to be void{{reason}}, but it is {{0}}.",
+                    Subject.ReturnType);
         }
 
         return new AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>>(this);
@@ -190,8 +196,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
             assertionChain
                 .ForCondition(returnType == Subject!.ReturnType)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected the return type of method " + Subject.Name + " to be {0}{reason}, but it is {1}.",
-                    returnType, Subject.ReturnType.FullName);
+                .FailWith($"Expected the return type of method {Subject.Name} to be {{0}}{{reason}}, but it is {{1}}.",
+                    returnType, Subject.ReturnType);
         }
 
         return new AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>>(this);
@@ -295,17 +301,8 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
         return NotReturn(typeof(TReturn), because, becauseArgs);
     }
 
-    internal static string GetDescriptionFor(MethodInfo method)
-    {
-        if (method is null)
-        {
-            return string.Empty;
-        }
-
-        var returnTypeName = method.ReturnType.Name;
-
-        return $"{returnTypeName} {method.DeclaringType}.{method.Name}";
-    }
+    internal static string GetDescriptionFor(MethodInfo method) =>
+        $"{method.ReturnType.ToFormattedString()} {method.DeclaringType.ToFormattedString()}.{method.Name}";
 
     private protected override string SubjectDescription => GetDescriptionFor(Subject);
 

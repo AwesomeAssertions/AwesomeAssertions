@@ -322,8 +322,8 @@ public class EventAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected at least one event with some argument*type*Int32*matches*(args == " + wrongArgument +
-                "), but found none.");
+                $"Expected at least one event with some argument*type*int*matches*(args == {wrongArgument})" +
+                ", but found none.");
         }
 
         [Fact]

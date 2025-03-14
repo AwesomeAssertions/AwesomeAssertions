@@ -52,7 +52,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be \"*.Object\" *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
         }
 
         [Fact]
@@ -117,7 +117,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be \"System.Int32\" because they are of different type, but found \"[System.Int32, System.String, System.Int32]\".");
+                "Expected type to be int because they are of different type, but found {int, string, int}.");
         }
 
         [Fact]
@@ -131,7 +131,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be \"System.Int32\" because they are of different type, but found \"[System.Int32, System.String, System.Int32]\".");
+                "Expected type to be int because they are of different type, but found {int, string, int}.");
         }
 
         [Fact]
@@ -145,7 +145,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be \"System.Int32\" because they are of different type, but found a null element.");
+                "Expected type to be int because they are of different type, but found a null element.");
         }
 
         [Fact]
@@ -169,7 +169,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be \"System.Int32\" because they are of different type, but found \"[System.Int32, System.String, System.Int32]\".");
+                "Expected type to be int because they are of different type, but found {int, string, int}.");
         }
 
         [Fact]
@@ -207,7 +207,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be \"*.Object\" *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
         }
     }
 }

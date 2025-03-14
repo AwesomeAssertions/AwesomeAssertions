@@ -56,7 +56,8 @@ public static class Formatter
         new DictionaryValueFormatter(),
         new EnumerableValueFormatter(),
         new EnumValueFormatter(),
-        new DefaultValueFormatter()
+        new TypeValueFormatter(),
+        new DefaultValueFormatter(),
     ];
 
     /// <summary>
@@ -135,7 +136,9 @@ public static class Formatter
 
             if (!graph.TryPush(path, value))
             {
-                output.AddFragment($"{{Cyclic reference to type {value.GetType()} detected}}");
+                output.AddFragment("{Cyclic reference to type ");
+                TypeValueFormatter.FormatType(value.GetType(), output.AddFragment);
+                output.AddFragment(" detected}");
             }
             else if (graph.Depth > options.MaxDepth)
             {

@@ -74,7 +74,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
             .FailWith("Expected type to be {0}{reason}, but found {context:the collection} is <null>.",
-                typeof(TExpectation).FullName);
+                typeof(TExpectation));
 
         IEnumerable<TExpectation> matches = [];
 
@@ -82,12 +82,12 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         {
             assertionChain
                 .BecauseOf(because, becauseArgs)
-                .WithExpectation("Expected type to be {0}{reason}, ", typeof(TExpectation).FullName, chain => chain
+                .WithExpectation("Expected type to be {0}{reason}, ", typeof(TExpectation), chain => chain
                     .ForCondition(Subject!.All(x => x is not null))
                     .FailWith("but found a null element.")
                     .Then
                     .ForCondition(Subject.All(x => typeof(TExpectation).IsAssignableFrom(GetType(x))))
-                    .FailWith("but found {0}.", () => $"[{string.Join(", ", Subject.Select(x => GetType(x).FullName))}]"));
+                    .FailWith("but found {0}.", Subject.Select(GetType)));
 
             matches = Subject!.OfType<TExpectation>();
         }
@@ -114,7 +114,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
 
         assertionChain
             .BecauseOf(because, becauseArgs)
-            .WithExpectation("Expected type to be {0}{reason}, ", expectedType.FullName, chain => chain
+            .WithExpectation("Expected type to be {0}{reason}, ", expectedType, chain => chain
                 .Given(() => Subject)
                 .ForCondition(subject => subject is not null)
                 .FailWith("but found {context:collection} is <null>.")
@@ -123,7 +123,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                 .FailWith("but found a null element.")
                 .Then
                 .ForCondition(subject => subject.All(x => expectedType.IsAssignableFrom(GetType(x))))
-                .FailWith("but found {0}.", subject => $"[{string.Join(", ", subject.Select(x => GetType(x).FullName))}]"));
+                .FailWith("but found {0}.", subject => subject.Select(GetType)));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -219,7 +219,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
             .FailWith("Expected type to be {0}{reason}, but found {context:collection} is <null>.",
-                typeof(TExpectation).FullName);
+                typeof(TExpectation));
 
         IEnumerable<TExpectation> matches = [];
 
@@ -227,12 +227,12 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         {
             assertionChain
                 .BecauseOf(because, becauseArgs)
-                .WithExpectation("Expected type to be {0}{reason}, ", typeof(TExpectation).FullName, chain => chain
+                .WithExpectation("Expected type to be {0}{reason}, ", typeof(TExpectation), chain => chain
                     .ForCondition(Subject!.All(x => x is not null))
                     .FailWith("but found a null element.")
                     .Then
                     .ForCondition(Subject.All(x => typeof(TExpectation) == GetType(x)))
-                    .FailWith("but found {0}.", () => $"[{string.Join(", ", Subject.Select(x => GetType(x).FullName))}]"));
+                    .FailWith("but found {0}.", () => Subject.Select(GetType)));
 
             matches = Subject!.OfType<TExpectation>();
         }
@@ -259,7 +259,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
 
         assertionChain
             .BecauseOf(because, becauseArgs)
-            .WithExpectation("Expected type to be {0}{reason}, ", expectedType.FullName, chain => chain
+            .WithExpectation("Expected type to be {0}{reason}, ", expectedType, chain => chain
                 .Given(() => Subject)
                 .ForCondition(subject => subject is not null)
                 .FailWith("but found {context:collection} is <null>.")
@@ -268,7 +268,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                 .FailWith("but found a null element.")
                 .Then
                 .ForCondition(subject => subject.All(x => expectedType == GetType(x)))
-                .FailWith("but found {0}.", subject => $"[{string.Join(", ", subject.Select(x => GetType(x).FullName))}]"));
+                .FailWith("but found {0}.", subject => subject.Select(GetType)));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1103,7 +1103,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         assertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected {context:collection} to contain at least one element assignable to type {0}{reason}, ",
-                typeof(TExpectation).FullName, chain => chain
+                typeof(TExpectation), chain => chain
                     .ForCondition(Subject is not null)
                     .FailWith("but found <null>.")
                     .Then
@@ -1149,7 +1149,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         assertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected {context:collection} to not contain any elements assignable to type {0}{reason}, ",
-                type.FullName, chain => chain
+                type, chain => chain
                     .ForCondition(Subject is not null)
                     .FailWith("but found <null>.")
                     .Then

@@ -421,7 +421,7 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected type not to be " + unexpectedType + "{reason}, but found <null>.");
+            .FailWith("Expected type not to be {0}{reason}, but found <null>.", unexpectedType);
 
         if (CurrentAssertionChain.Succeeded)
         {

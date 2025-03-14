@@ -227,7 +227,7 @@ public class ExtensibilitySpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*Id*from expectation*System.String*System.Double*");
+            .WithMessage("*Id*from expectation*string*double*");
     }
 
     [Fact]
@@ -273,7 +273,7 @@ public class ExtensibilitySpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*Id*from subject*System.String*System.Double*");
+            .WithMessage("*Id*from subject*string*double*");
     }
 
     [Fact]
@@ -298,7 +298,7 @@ public class ExtensibilitySpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*Id*from subject*System.String*System.Double*");
+            .WithMessage("*Id*from subject*string*double*");
     }
 
     [Fact]

@@ -352,7 +352,7 @@ public class BasicSpecs
     }
 
     [Fact]
-    public void When_threating_open_type_as_reference_type_and_a_closed_type_as_value_type_it_should_compare_by_value()
+    public void When_treating_open_type_as_reference_type_and_a_closed_type_as_value_type_it_should_compare_by_value()
     {
         // Arrange
         var subject = new Option<int[]>([1, 3, 2]);
@@ -368,7 +368,7 @@ public class BasicSpecs
     }
 
     [Fact]
-    public void When_threating_open_type_as_value_type_and_a_closed_type_as_reference_type_it_should_compare_by_members()
+    public void When_treating_open_type_as_value_type_and_a_closed_type_as_reference_type_it_should_compare_by_members()
     {
         // Arrange
         var subject = new Option<int[]>([1, 3, 2]);
@@ -403,7 +403,7 @@ public class BasicSpecs
     }
 
     [Fact]
-    public void When_threating_any_type_as_reference_type_it_should_exclude_primitive_types()
+    public void When_treating_any_type_as_reference_type_it_should_exclude_primitive_types()
     {
         // Arrange
         var subject = new { Value = 1 };
@@ -419,7 +419,7 @@ public class BasicSpecs
     }
 
     [Fact]
-    public void When_threating_an_open_type_as_reference_type_it_should_exclude_primitive_types()
+    public void When_treating_an_open_type_as_reference_type_it_should_exclude_primitive_types()
     {
         // Arrange
         var subject = new { Value = 1 };
@@ -435,7 +435,7 @@ public class BasicSpecs
     }
 
     [Fact]
-    public void When_threating_a_primitive_type_as_a_reference_type_it_should_throw()
+    public void When_treating_a_primitive_type_as_a_reference_type_it_should_throw()
     {
         // Arrange
         var subject = new { Value = 1 };
@@ -447,7 +447,7 @@ public class BasicSpecs
 
         // Assert
         act.Should().Throw<InvalidOperationException>()
-            .WithMessage("*Cannot compare a primitive type*Int32*");
+            .WithMessage("*Cannot compare a primitive type* int *");
     }
 
     [Fact]
