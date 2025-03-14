@@ -13,7 +13,7 @@ sidebar:
 * Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
 
 ### Fixes
-* Fixed formatting of failure messages when comparing strings with braces - [#88](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)
+* Fixed formatting of failure messages when comparing strings with braces - [#96](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)
 
 ## 8.0.2
 
