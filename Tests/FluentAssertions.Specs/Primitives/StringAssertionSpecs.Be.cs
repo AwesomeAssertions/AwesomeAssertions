@@ -347,7 +347,7 @@ public partial class StringAssertionSpecs
                 Expected subject to be the same string, but they differ on line 5 and column 16 (index {expectedIndex}):
                              ↓ (actual)
                   "…-> Bob : Another authentication Request*\nAlice <-- Bob :…"
-                  "…-> Bob : Invalid authentication Request\r\nAlice <-- Bob :…"
+                  "…-> Bob : Invalid authentication Request*\nAlice <-- Bob :…"
                              ↑ (expected).
                 """);
         }
