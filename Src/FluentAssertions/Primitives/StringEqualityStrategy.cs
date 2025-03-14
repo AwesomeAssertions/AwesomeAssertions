@@ -43,8 +43,12 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
                 locationDescription = $"on line {lineNumber + 1} and column {column} (index {indexOfMismatch})";
             }
 
-            assertionChain.FailWith(
-                $"{ExpectationDescription}the same string{{reason}}, but they differ {locationDescription}:{Environment.NewLine}{GetMismatchSegmentForLongStrings(subject, expected, indexOfMismatch)}.");
+            string mismatchSegment = GetMismatchSegmentForLongStrings(subject, expected, indexOfMismatch).EscapePlaceholders();
+
+            assertionChain.FailWith($$"""
+                {{ExpectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
+                {{mismatchSegment}}.
+                """);
         }
         else if (ValidateAgainstLengthDifferences(assertionChain, subject, expected))
         {

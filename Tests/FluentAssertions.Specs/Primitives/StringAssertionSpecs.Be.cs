@@ -351,6 +351,28 @@ public partial class StringAssertionSpecs
                              ↑ (expected).
                 """);
         }
+
+        [Fact]
+        public void When_differing_actual_and_expected_string_contain_braces_they_are_formatted_correctly()
+        {
+            // Act
+            Action act = () => "public class Foo { }".Should().Be("public class Bar { }");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Foo { }*Bar { }*↑ (expected).", "because no formatting warning must be appended");
+        }
+
+        [Fact]
+        public void When_the_longer_expected_string_and_actual_string_contain_braces_they_are_formatted_correctly()
+        {
+            // Act
+            Action act = () => "public class Foo { }".Should().Be("public class Foo { };");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Foo { };\"*Foo { }\"*differs near \"}\" (index 19).", "because no formatting warning must be appended");
+        }
     }
 
     public class NotBe

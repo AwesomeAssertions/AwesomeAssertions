@@ -12,16 +12,19 @@ sidebar:
 ### What's new
 * Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
 
+### Fixes
+* Fixed formatting of failure messages when comparing strings with braces - [#88](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)
+
 ## 8.0.2
 
 ### Improvements
 * Add missing StringSyntaxAttribute to public method "because" parameter - [#84](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/84)
 
 ### Fixes
-* Fix a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
-* Fix a regression, where a canceled `Task` was treated as a failure in `CompleteWithinAsync` - [b9cef9184](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/b9cef9185f19d65228be59b0e3a1a3f6abfb8ef4)
-* Fix a regression, where a call to `BeEquivalentTo` only gives one diff after a preceding successful assertion - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
-* Fix equivalency to always prefer normal over explicitly implemented property - [#80](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/80)
+* Fixed a formatting problem, when using `{}` inside or as a `Dictionary` key - [#24](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/24)
+* Fixed a regression, where a canceled `Task` was treated as a failure in `CompleteWithinAsync` - [b9cef9184](https://github.com/AwesomeAssertions/AwesomeAssertions/commit/b9cef9185f19d65228be59b0e3a1a3f6abfb8ef4)
+* Fixed a regression, where a call to `BeEquivalentTo` only gives one diff after a preceding successful assertion - [#74](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/74)
+* Fixed equivalency to always prefer normal over explicitly implemented property - [#80](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/80)
 
 ## 8.0.1
 
