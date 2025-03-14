@@ -1,4 +1,5 @@
 using System.Reflection;
+using FluentAssertions.Common;
 
 namespace FluentAssertions.Formatting;
 
@@ -21,16 +22,25 @@ public class MethodInfoFormatter : IValueFormatter
         var method = (MethodInfo)value;
         if (method.IsSpecialName && method.Name == "op_Implicit")
         {
-            formattedGraph.AddFragment($"implicit operator {method.ReturnType.Name}({method.GetParameters()[0].ParameterType.Name})");
+            FormatOperator(method, "implicit", formattedGraph, formatChild);
         }
         else if (method.IsSpecialName && method.Name == "op_Explicit")
         {
-            formattedGraph.AddFragment(
-                $"explicit operator {method.ReturnType.Name}({method.GetParameters()[0].ParameterType.Name})");
+            FormatOperator(method, "explicit", formattedGraph, formatChild);
         }
         else
         {
-            formattedGraph.AddFragment($"{method!.DeclaringType!.Name + "." + method.Name}");
+            formatChild("type", method!.DeclaringType!, formattedGraph);
+            formattedGraph.AddFragment($".{method.Name}");
         }
+    }
+
+    private static void FormatOperator(MethodInfo method, string operatorType, FormattedObjectGraph formattedGraph, FormatChild formatChild)
+    {
+        formattedGraph.AddFragment($"{operatorType} operator ");
+        formatChild("type", method.ReturnType, formattedGraph);
+        formattedGraph.AddFragment("(");
+        formatChild("type", method.GetParameters()[0].ParameterType, formattedGraph);
+        formattedGraph.AddFragment(")");
     }
 }

@@ -44,7 +44,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method *ClassWithNoMembers.NonExistentMethod(*.Int32, *.Type) to exist *failure message*" +
+                    "Expected method *ClassWithNoMembers.NonExistentMethod(int, System.Type) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -62,7 +62,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method *.ClassWithMembers.VoidMethod(*.Int32, *.Type) to exist *failure message*" +
+                    "Expected method *.ClassWithMembers.VoidMethod(int, System.Type) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -78,7 +78,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method type.Name(System.String) to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected method type.Name(string) to exist *failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -184,7 +184,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method type.Name(System.String) to not exist *failure message*, but type is <null>.");
+                .WithMessage("Expected method type.Name(string) to not exist *failure message*, but type is <null>.");
         }
 
         [Fact]

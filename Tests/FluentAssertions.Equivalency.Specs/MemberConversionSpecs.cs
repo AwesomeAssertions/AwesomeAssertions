@@ -131,7 +131,7 @@ public class MemberConversionSpecs
             options => options.WithAutoConversionFor(x => x.Path.Contains("Birthdate")));
 
         // Assert
-        act.Should().Throw<XunitException>().WithMessage("*Age*String*Int32*");
+        act.Should().Throw<XunitException>().WithMessage("*Age*String*int*");
     }
 
     [Fact]

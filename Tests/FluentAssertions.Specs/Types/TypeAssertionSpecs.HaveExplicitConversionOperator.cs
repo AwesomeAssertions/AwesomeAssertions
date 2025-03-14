@@ -43,7 +43,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method explicit operator Byte(TypeWithConversionOperators) to be Private, but it is Public.");
+                    "Expected method explicit operator byte(FluentAssertions.Specs.Types.TypeWithConversionOperators) to be Private, but it is Public.");
         }
 
         [Fact]
@@ -62,7 +62,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit System.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static explicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -80,7 +80,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit System.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static explicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but type is <null>.");
         }
 
@@ -148,7 +148,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit System.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static explicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -166,7 +166,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit System.String(*.TypeWithConversionOperators) to exist *failure message*" +
+                    "Expected public static explicit string(*.TypeWithConversionOperators) to exist *failure message*" +
                     ", but type is <null>.");
         }
     }
@@ -206,7 +206,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit *.Byte(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static explicit byte(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but it does.");
         }
 
@@ -224,7 +224,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit *.String(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static explicit string(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but type is <null>.");
         }
 
@@ -290,7 +290,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected public static explicit *.Byte(*.TypeWithConversionOperators) to not exist *failure message*" +
+                    "Expected public static explicit byte(*.TypeWithConversionOperators) to not exist *failure message*" +
                     ", but it does.");
         }
     }

@@ -12,6 +12,7 @@ using FluentAssertions.Equivalency.Ordering;
 using FluentAssertions.Equivalency.Selection;
 using FluentAssertions.Equivalency.Steps;
 using FluentAssertions.Equivalency.Tracing;
+using FluentAssertions.Formatting;
 
 namespace FluentAssertions.Equivalency;
 
@@ -647,7 +648,7 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
 
         if (type.IsPrimitive)
         {
-            throw new InvalidOperationException($"Cannot compare a primitive type such as {type.Name} by its members");
+            throw new InvalidOperationException($"Cannot compare a primitive type such as {type.ToFormattedString()} by its members");
         }
 
         if (!equalityStrategyProvider.AddReferenceType(type))
