@@ -44,7 +44,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected String *ClassWithNoMembers[System.Int32, System.Type] to exist *failure message*" +
+                    "Expected String *ClassWithNoMembers[int, System.Type] to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -62,7 +62,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected String *.ClassWithMembers[System.Int32, System.Type] to exist *failure message*, but it does not.");
+                    "Expected String *.ClassWithMembers[int, System.Type] to exist *failure message*, but it does not.");
         }
 
         [Fact]
@@ -77,7 +77,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected String type[System.String] to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected String type[string] to exist *failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -139,7 +139,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected indexer *.ClassWithMembers[System.String] to not exist *failure message*, but it does.");
+                .WithMessage("Expected indexer *.ClassWithMembers[string] to not exist *failure message*, but it does.");
         }
 
         [Fact]
@@ -154,7 +154,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected indexer type[System.String] to not exist *failure message*, but type is <null>.");
+                .WithMessage("Expected indexer type[string] to not exist *failure message*, but type is <null>.");
         }
 
         [Fact]

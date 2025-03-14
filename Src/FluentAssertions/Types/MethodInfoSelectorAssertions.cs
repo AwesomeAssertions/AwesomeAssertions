@@ -52,15 +52,14 @@ public class MethodInfoSelectorAssertions
     {
         MethodInfo[] nonVirtualMethods = GetAllNonVirtualMethodsFromSelection();
 
-        string failureMessage =
-            "Expected all selected methods to be virtual{reason}, but the following methods are not virtual:" +
-            Environment.NewLine +
-            GetDescriptionsFor(nonVirtualMethods);
-
         assertionChain
             .ForCondition(nonVirtualMethods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to be virtual{reason}, but the following methods are not virtual:
+                {{GetDescriptionsFor(nonVirtualMethods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -79,15 +78,14 @@ public class MethodInfoSelectorAssertions
     {
         MethodInfo[] virtualMethods = GetAllVirtualMethodsFromSelection();
 
-        string failureMessage =
-            "Expected all selected methods not to be virtual{reason}, but the following methods are virtual:" +
-            Environment.NewLine +
-            GetDescriptionsFor(virtualMethods);
-
         assertionChain
             .ForCondition(virtualMethods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods not to be virtual{reason}, but the following methods are virtual:
+                {{GetDescriptionsFor(virtualMethods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -116,15 +114,14 @@ public class MethodInfoSelectorAssertions
     {
         MethodInfo[] nonAsyncMethods = SubjectMethods.Where(method => !method.IsAsync()).ToArray();
 
-        string failureMessage =
-            "Expected all selected methods to be async{reason}, but the following methods are not:" +
-            Environment.NewLine +
-            GetDescriptionsFor(nonAsyncMethods);
-
         assertionChain
             .ForCondition(nonAsyncMethods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to be async{reason}, but the following methods are not:
+                {{GetDescriptionsFor(nonAsyncMethods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -143,15 +140,14 @@ public class MethodInfoSelectorAssertions
     {
         MethodInfo[] asyncMethods = SubjectMethods.Where(method => method.IsAsync()).ToArray();
 
-        string failureMessage =
-            "Expected all selected methods not to be async{reason}, but the following methods are:" +
-            Environment.NewLine +
-            GetDescriptionsFor(asyncMethods);
-
         assertionChain
             .ForCondition(asyncMethods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods not to be async{reason}, but the following methods are:
+                {{GetDescriptionsFor(asyncMethods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -197,15 +193,14 @@ public class MethodInfoSelectorAssertions
 
         MethodInfo[] methodsWithoutAttribute = GetMethodsWithout(isMatchingAttributePredicate);
 
-        string failureMessage =
-            "Expected all selected methods to be decorated with {0}{reason}, but the following methods are not:" +
-            Environment.NewLine +
-            GetDescriptionsFor(methodsWithoutAttribute);
-
         assertionChain
             .ForCondition(methodsWithoutAttribute.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage, typeof(TAttribute));
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to be decorated with {0}{reason}, but the following methods are not:
+                {{GetDescriptionsFor(methodsWithoutAttribute)}}
+                """, typeof(TAttribute)));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -251,15 +246,14 @@ public class MethodInfoSelectorAssertions
 
         MethodInfo[] methodsWithAttribute = GetMethodsWith(isMatchingAttributePredicate);
 
-        string failureMessage =
-            "Expected all selected methods to not be decorated with {0}{reason}, but the following methods are:" +
-            Environment.NewLine +
-            GetDescriptionsFor(methodsWithAttribute);
-
         assertionChain
             .ForCondition(methodsWithAttribute.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(failureMessage, typeof(TAttribute));
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to not be decorated with {0}{reason}, but the following methods are:
+                {{GetDescriptionsFor(methodsWithAttribute)}}
+                """, typeof(TAttribute)));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -278,15 +272,16 @@ public class MethodInfoSelectorAssertions
     public AndConstraint<MethodInfoSelectorAssertions> Be(CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        var methods = SubjectMethods.Where(pi => pi.GetCSharpAccessModifier() != accessModifier).ToArray();
-
-        var message = $"Expected all selected methods to be {accessModifier}{{reason}}, but the following methods are not:" +
-            Environment.NewLine + GetDescriptionsFor(methods);
+        MethodInfo[] methods = SubjectMethods.Where(pi => pi.GetCSharpAccessModifier() != accessModifier).ToArray();
 
         assertionChain
             .ForCondition(methods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(message);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to be {{accessModifier}}{reason}, but the following methods are not:
+                {{GetDescriptionsFor(methods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }
@@ -305,15 +300,16 @@ public class MethodInfoSelectorAssertions
     public AndConstraint<MethodInfoSelectorAssertions> NotBe(CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        var methods = SubjectMethods.Where(pi => pi.GetCSharpAccessModifier() == accessModifier).ToArray();
-
-        var message = $"Expected all selected methods to not be {accessModifier}{{reason}}, but the following methods are:" +
-            Environment.NewLine + GetDescriptionsFor(methods);
+        MethodInfo[] methods = SubjectMethods.Where(pi => pi.GetCSharpAccessModifier() == accessModifier).ToArray();
 
         assertionChain
             .ForCondition(methods.Length == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(message);
+            .FailWith(() => new FailReason(
+                $$"""
+                Expected all selected methods to not be {{accessModifier}}{reason}, but the following methods are:"
+                {{GetDescriptionsFor(methods)}}
+                """));
 
         return new AndConstraint<MethodInfoSelectorAssertions>(this);
     }

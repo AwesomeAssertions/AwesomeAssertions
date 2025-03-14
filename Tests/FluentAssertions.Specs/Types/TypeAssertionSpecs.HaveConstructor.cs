@@ -41,7 +41,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected constructor *ClassWithNoMembers(System.Int32, System.Type) to exist *failure message*" +
+                    "Expected constructor *ClassWithNoMembers(int, System.Type) to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -57,7 +57,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor type(System.String) to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected constructor type(string) to exist *failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -106,7 +106,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected constructor *.ClassWithMembers(System.String) not to exist *failure message*, but it does.");
+                    "Expected constructor *.ClassWithMembers(string) not to exist *failure message*, but it does.");
         }
 
         [Fact]
@@ -121,7 +121,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor type(System.String) not to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected constructor type(string) not to exist *failure message*, but type is <null>.");
         }
 
         [Fact]

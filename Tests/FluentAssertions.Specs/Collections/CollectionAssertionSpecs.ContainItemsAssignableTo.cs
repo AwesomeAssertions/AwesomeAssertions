@@ -52,7 +52,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain at least one element assignable to type \"System.String\" because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain at least one element assignable to type string because we want to test the behaviour with a null subject, but found <null>.");
         }
 
         [Fact]
@@ -67,7 +67,7 @@ public partial class CollectionAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain at least one element assignable to type \"System.Int32\", but found {empty}.");
+                    "Expected collection to contain at least one element assignable to type int, but found {empty}.");
         }
 
         [Fact]
@@ -79,7 +79,7 @@ public partial class CollectionAssertionSpecs
 
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain at least one element assignable to type \"System.Int32\", but found {System.String, System.Decimal}.");
+                    "Expected collection to contain at least one element assignable to type int, but found {string, decimal}.");
         }
     }
 }

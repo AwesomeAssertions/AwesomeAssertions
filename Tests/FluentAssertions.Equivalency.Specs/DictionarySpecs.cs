@@ -685,7 +685,7 @@ public class DictionarySpecs
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected actual to be a dictionary or collection of key-value pairs that is keyed to type System.String*");
+                "Expected actual to be a dictionary or collection of key-value pairs that is keyed to type string*");
     }
 
     [Fact]
@@ -836,7 +836,7 @@ public class DictionarySpecs
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected property subject.Customers to be a dictionary or collection of key-value pairs that is keyed to type System.String*");
+                "Expected property subject.Customers to be a dictionary or collection of key-value pairs that is keyed to type string*");
     }
 
     [Fact]

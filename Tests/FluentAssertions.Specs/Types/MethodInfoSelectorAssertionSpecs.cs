@@ -384,12 +384,13 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected all selected methods" +
-                    " to be async because we want to test the error message," +
-                    " but the following methods are not:" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.PublicDoNothing" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.InternalDoNothing" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.ProtectedDoNothing");
+                .WithMessage(
+                    """
+                    Expected all selected methods to be async because we want to test the error message, but the following methods are not:
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.PublicDoNothing
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.InternalDoNothing
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.ProtectedDoNothing
+                    """);
         }
     }
 
@@ -419,12 +420,12 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected all selected methods" +
-                    " not to be async because we want to test the error message," +
-                    " but the following methods are:" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.PublicAsyncDoNothing" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.InternalAsyncDoNothing" + Environment.NewLine +
-                    "Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.ProtectedAsyncDoNothing");
+                .WithMessage("""
+                    Expected all selected methods not to be async because we want to test the error message, but the following methods are:
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.PublicAsyncDoNothing
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.InternalAsyncDoNothing
+                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.ProtectedAsyncDoNothing
+                    """);
         }
     }
 }
