@@ -61,7 +61,7 @@ public partial class SelectionRulesSpecs
                 Property = "ActualDerivedValue"
             };
 
-            // FA doesn't know the compile-time type of the subject, so even though we pass a reference to the base-class,
+            // AA doesn't know the compile-time type of the subject, so even though we pass a reference to the base-class,
             // at run-time, it'll start finding the property on the subject starting from the run-time type, and thus ignore the
             // hidden base-class field
             ((SubclassAHidingProperty<string>)subject).Property = "BaseValue";
@@ -212,7 +212,7 @@ public partial class SelectionRulesSpecs
                 Field = "BaseValueFromSubject"
             };
 
-            // FA doesn't know the compile-time type of the subject, so even though we pass a reference to the base-class,
+            // AA doesn't know the compile-time type of the subject, so even though we pass a reference to the base-class,
             // at run-time, it'll start finding the field on the subject starting from the run-time type, and thus ignore the
             // hidden base-class field
             ((SubclassAHidingField)subject).Field = "BaseValueFromExpectation";

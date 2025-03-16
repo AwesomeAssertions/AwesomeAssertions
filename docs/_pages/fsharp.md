@@ -7,8 +7,6 @@ sidebar:
   nav: "sidebar"
 ---
 
-### F# usage
-
 Awesome Assertions was made with C# in mind. While it can be used from F#, the experience will not always be as intended.
 
 For a better F# experience we encourage F# developers to try out [Faqt](https://github.com/cmeeren/Faqt/), an assertion library inspired by FluentAssertions and made specifically for F#.

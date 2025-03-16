@@ -7,8 +7,6 @@ sidebar:
   nav: "sidebar"
 ---
 
-## Streams ##
-
 ```csharp
 var stream = new MemoryStream(new byte[1024], writable: false);
 

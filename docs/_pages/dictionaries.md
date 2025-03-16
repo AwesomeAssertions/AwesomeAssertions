@@ -76,8 +76,8 @@ dictionary1.Should().NotHaveSameCount(dictionary3.Keys);
 And finally you can assert that the dictionary contains a specific key/value pair or not:
 
 ```csharp
-KeyValuePair<int, string> item1 = new KeyValuePair<int, string>(1, "One");
-KeyValuePair<int, string> item2 = new KeyValuePair<int, string>(2, "Two");
+var item1 = new KeyValuePair<int, string>(1, "One");
+var item2 = new KeyValuePair<int, string>(2, "Two");
 
 dictionary.Should().Contain(item1);
 dictionary.Should().Contain(item1, item2);

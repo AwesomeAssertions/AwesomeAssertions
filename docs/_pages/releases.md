@@ -683,6 +683,6 @@ Kudos to @BrunoJuchli, @matthiaslischka and @frederik-h for these amazing additi
 * Comparing an object graph against `IEnumerable` now works now as expected - [#911](https://github.com/fluentassertions/fluentassertions/pull/911)
 * Selecting members during object graph assertions now better handles `new` overrides - [#960](https://github.com/fluentassertions/fluentassertions/pull/960), [#956](https://github.com/awesomeassertions/awesomeassertions/issues/956)
 
-**Note** In versions prior to 5.5, FA may have skipped certain properties in the equivalency comparison. [#960](https://github.com/fluentassertions/fluentassertions/pull/960) fixes this, so this may cause some breaking changes.
+**Note** In versions prior to 5.5, AA may have skipped certain properties in the equivalency comparison. [#960](https://github.com/fluentassertions/fluentassertions/pull/960) fixes this, so this may cause some breaking changes.
 
 Lots of kudos @jnyrup and @krajek for a majority for the work in this release.

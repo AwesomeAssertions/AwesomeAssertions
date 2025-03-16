@@ -7,8 +7,6 @@ sidebar:
   nav: "sidebar"
 ---
 
-## Nullable types
-
 ```csharp
 short? theShort = null;
 theShort.Should().NotHaveValue();

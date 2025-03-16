@@ -7,7 +7,7 @@ sidebar:
   nav: "sidebar"
 ---
 
-To facilitate the need for those developers which ideas don't end up in the library, Awesome Assertions offers several extension points. They are there so that they can build their own extensions with the same consistent API and behavior people are used to. And if they feel the need to alter the behavior of the built-in set of assertion methods, they can use the many hooks offered out of the box. The flip side of all of this is that we cannot just change the internals of FA without considering backwards compatibility. But looking at the many extensions available on the NuGet, it's absolutely worth it.
+To facilitate the need for those developers which ideas don't end up in the library, Awesome Assertions offers several extension points. They are there so that they can build their own extensions with the same consistent API and behavior people are used to. And if they feel the need to alter the behavior of the built-in set of assertion methods, they can use the many hooks offered out of the box. The flip side of all of this is that we cannot just change the internals of AA without considering backwards compatibility. But looking at the many extensions available on the NuGet, it's absolutely worth it.
 
 ## Building your own extensions
 
@@ -36,7 +36,7 @@ public class DirectoryInfoAssertions :
     private AssertionChain chain;
 
     public DirectoryInfoAssertions(DirectoryInfo instance, AssertionChain chain)
-        : base(instance)
+        : base(instance, chain)
     {
         this.chain = chain;
     }
@@ -65,7 +65,7 @@ public class DirectoryInfoAssertions :
 This is quite an elaborate example which shows some of the more advanced extensibility features. Let me highlight some things:
 
 * The `Subject` property is used to give the base-class extensions access to the current `DirectoryInfo` object.
-* `[CustomAssertion]` attribute enables correct subject identification, allowing Awesome Assertions to render more meaningful test fail messages
+* `[CustomAssertion]` attribute enables correct subject identification, allowing Awesome Assertions to render more meaningful test fail messages.
 * The variable `chain` of type `AssertionChain` is the point of entrance into the internal fluent API.
 * The optional `because` parameter can contain `string.Format` style place holders which will be filled using the values provided to the `becauseArgs`. They can be used by the caller to provide a reason why the assertion should succeed. By passing those into the `BecauseOf` method, you can refer to the expanded result using the `{reason}` tag in the `FailWith` method.
 * The `Then` property is just there to chain multiple assertions together. You can have more than one. However, if the first assertion fails, then the successive assertions will not be evaluated anymore.
@@ -140,7 +140,7 @@ So in this case, our nicely created `ContainFile` extension method will display 
 
 Whenever Awesome Assertions raises an assertion exception, it will use value formatters to render a display representation of an object. Notice that these things are supposed to do more than just calling `Format`. A good formatter will include the relevant parts and hide the irrelevant parts. For instance, the `DateTimeOffsetValueFormatter` is there to give you a nice human-readable representation of a date and time with offset. It will only show the parts of that value that have non-default values. Check out the [specs](https://github.com/awesomeassertions/awesomeassertions/blob/main/Tests/FluentAssertions.Specs/Formatting/FormatterSpecs.cs) to see some examples of that.
 
-You can hook-up your own formatters in several ways, for example by calling the static method `FluentAssertions.Formatting.Formatter.AddFormatter(IValueFormatter)`. But what does it mean to build your own? Well, a value formatter just needs to implement the two methods `IValueFormatter` declares. First, it needs to tell FA whether your formatter can handle a certain type by implementing the well-named method `CanHandle(object)`. The other one is there to, no surprises here, render it to a string.
+You can hook-up your own formatters in several ways, for example by calling the static method `FluentAssertions.Formatting.Formatter.AddFormatter(IValueFormatter)`. But what does it mean to build your own? Well, a value formatter just needs to implement the two methods `IValueFormatter` declares. First, it needs to tell AA whether your formatter can handle a certain type by implementing the well-named method `CanHandle(object)`. The other one is there to, no surprises here, render it to a string.
 
 ```csharp
 void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild);
@@ -262,13 +262,13 @@ using (var innerScope = new AssertionScope())
 
 ## To be or not to be a value type
 
-The structural equivalency API provided by `Should().BeEquivalentTo` and is arguably the most powerful, but also the most complicated part of Awesome Assertions. And to make things worse, you can extend and adapt the default behavior quite extensively.
+The structural equivalency API provided by `Should().BeEquivalentTo` is arguably the most powerful, but also the most complicated part of Awesome Assertions. And to make things worse, you can extend and adapt the default behavior quite extensively.
 
-For instance, to determine whether FA needs to recursive into a complex object, it needs to know whether or not a particular type has value semantics. An object that has properties isn't necessarily a complex type that you want to recurse on. `DirectoryInfo` has properties, but you don't want FA to just traverse its properties. So you need to tell what types should be treated as value types.
+For instance, to determine whether AA needs to recurse into a complex object, it needs to know whether or not a particular type has value semantics. An object that has properties isn't necessarily a complex type that you want to recurse on. `DirectoryInfo` has properties, but you don't want AA to just traverse its properties. So you need to tell what types should be treated as value types.
 
 The default behavior is to treat every type that overrides `Object.Equals` as on object that was designed to have value semantics. Unfortunately, anonymous types and tuples also override this method, but because we tend to use them quite often in equivalency comparison, we always compare them by their properties.
 
-You can easily override this by using the `ComparingByValue<T>` options for individual assertion, or to do the same using the global options:
+You can easily override this by using the `ComparingByValue<T>` options for individual assertions, or do the same using the global options:
 
 ```csharp
 AssertionConfiguration.Current.Equivalency.Modify(options => options
@@ -312,21 +312,24 @@ Since `Should().Be()` internally uses the `{context}` placeholder I discussed at
 
 Next to tuning the value type evaluation and changing the internal execution plan of the equivalency API, there are a couple of more specific extension methods. They are internally used by some of the methods provided by the `options` parameter, but you can add your own by calling the appropriate overloads of the `Using` methods. You can even do this globally by using the static `AssertionConfiguration.Current.Equivalency.Modify` method.
 
-The interface `IMemberSelectionRule` defines an abstraction that defines what members (fields and properties) of the subject need to be included in the equivalency assertion operation. The main in-out parameter is a collection of `IMember` objects representing the fields and properties that need to be included. However, if your selection rule needs to start from scratch, you should override `IncludesMembers` and return `false`. As an example, the `AllPublicPropertiesSelectionRule` looks like this:
+The interface `IMemberSelectionRule` defines an abstraction that defines what members (fields and properties) of the subject need to be included in the equivalency assertion operation. The main in-out parameter is a collection of `IMember` objects representing the fields and properties that need to be included. However, if your selection rule needs to start from scratch, you should override `IncludesMembers` and return `false`. As an example, the `AllPropertiesSelectionRule` looks like this:
 
 ```csharp
-internal class AllPublicPropertiesSelectionRule : IMemberSelectionRule
+internal class AllPropertiesSelectionRule : IMemberSelectionRule
 {
     public bool IncludesMembers => false;
 
-    public IEnumerable<IMember> SelectMembers(INode currentNode
-        IEnumerable<IMember> selectedMembers, MemberSelectionContext context)
+    public IEnumerable<IMember> SelectMembers(INode currentNode, IEnumerable<IMember> selectedMembers,
+        MemberSelectionContext context)
     {
-            IEnumerable<IMember> selectedNonPrivateProperties = context.Type
-                .GetNonPrivateProperties()
-                .Select(info => new Property(info, currentNode));
+        MemberVisibility visibility = context.IncludedProperties;
 
-        return selectedMembers.Union(selectedNonPrivateProperties).ToList();
+        IEnumerable<IMember> selectedProperties = context.Type
+            .GetProperties(visibility.ToMemberKind())
+            .Where(property => property.GetMethod?.IsPrivate == false)
+            .Select(info => new Property(context.Type, info, currentNode));
+
+        return selectedMembers.Union(selectedProperties).ToList();
     }
 
     public override string ToString()
@@ -340,7 +343,7 @@ Notice the override of `ToString`. The output of that is included in the message
 
 Another interface, `IMemberMatchingRule`, is used to map a member of the subject to the member of the expectation object with which it should be compared with. It's not something you likely need to implement, but if you do, checkout the built-in implementations `MustMatchByNameRule` and `TryMatchByNameRule`. It receives a `IMember` of the subject's property, the expectation to which you need to map a property, the dotted path to it and the configuration object uses everywhere.
 
-The final interface, the `IOrderingRule`, is used to determine whether FA should be strict about the order of items in collections. The `ByteArrayOrderingRule` is the one used by default, will ensure that FA isn't strict about the order, unless it involves a `byte[]`. The reason behind that is when ordering is treated as irrelevant, FA needs to compare every item in the one collection with every item in the other collection. Each of these comparisons might involve a recursive and nested comparison on the object graph represented by the item. This proved to cause a performance issue with large byte arrays. So I figured that byte arrays are generally used for raw data where ordering is important.
+The final interface, the `IOrderingRule`, is used to determine whether AA should be strict about the order of items in collections. The `ByteArrayOrderingRule` is the one used by default, will ensure that AA isn't strict about the order, unless it involves a `byte[]`. The reason behind that is when ordering is treated as irrelevant, AA needs to compare every item in the one collection with every item in the other collection. Each of these comparisons might involve a recursive and nested comparison on the object graph represented by the item. This proved to cause a performance issue with large byte arrays. So I figured that byte arrays are generally used for raw data where ordering is important.
 
 ## Thread Safety
 
@@ -429,3 +432,21 @@ Note:
 
 * The `nameof` operator cannot be used to reference the `MyFramework` class. If your global configuration doesn't work, ensure there is no typo in the assembly level attribute declaration and that the assembly containing the `MyFramework` class is referenced by the test assembly and gets copied to the output folder.
 * Because you have to add the assembly level attribute per assembly you can define different assertion options per test assembly if required.
+
+### NUnit
+
+Create a class decorated with [SetUpFixture](https://docs.nunit.org/articles/nunit/writing-tests/attributes/setupfixture.html) and without namespace:
+
+```csharp
+// no namespace
+[SetUpFixture]
+public static class TestInitializer
+{
+    [OneTimeSetUp]
+    public static void SetDefaults()
+    {
+        AssertionConfiguration.Current.Equivalency.Modify(
+            options => { <configure here> });
+    }
+}
+```

@@ -325,13 +325,13 @@ If the order is important, you can override the default behavior with the follow
 orderDto.Should().BeEquivalentTo(expectation, options => options.WithStrictOrdering());
 ```
 
-You can even tell FA to use strict ordering only for a particular collection or dictionary member, similar to how you exclude certain members:
+You can even tell AA to use strict ordering only for a particular collection or dictionary member, similar to how you exclude certain members:
 
 ```csharp
 orderDto.Should().BeEquivalentTo(expectation, options => options.WithStrictOrderingFor(s => s.Products));
 ```
 
-And you can tell FA to generally use strict ordering but ignore it for a particular collection or dictionary member:
+And you can tell AA to generally use strict ordering but ignore it for a particular collection or dictionary member:
 
 ```csharp
 orderDto.Should().BeEquivalentTo(expectation, options => options.WithStrictOrdering().WithoutStrictOrderingFor(s => s.Products));
