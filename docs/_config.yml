@@ -180,6 +180,8 @@ kramdown:
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
 
+lunr:
+  search_within_pages: true
 
 # Sass/SCSS
 sass:
