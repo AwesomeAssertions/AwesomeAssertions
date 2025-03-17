@@ -180,7 +180,7 @@ public partial class ObjectAssertionSpecs
 
             // Act / Assert
             act.Should().Throw<XunitException>()
-                .WithMessage($"*assignable to System.Collections.Generic.IList<>*failure message*{typeof(DummyImplementingClass)} is not*");
+                .WithMessage($"*assignable to System.Collections.Generic.IList<T>*failure message*{typeof(DummyImplementingClass)} is not*");
         }
 
         [Fact]
@@ -349,7 +349,7 @@ public partial class ObjectAssertionSpecs
 
             // Act / Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*not be assignable to System.Collections.Generic.IList<>*failure message*System.Collections.Generic.List<string> is*");
+                .WithMessage("*not be assignable to System.Collections.Generic.IList<T>*failure message*System.Collections.Generic.List<string> is*");
         }
 
         [Fact]

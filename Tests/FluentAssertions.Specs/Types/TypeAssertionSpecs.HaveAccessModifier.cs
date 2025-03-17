@@ -101,6 +101,22 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
+        public void A_failing_check_for_a_modifier_of_a_generic_class_includes_the_type_definition_in_the_failure_message()
+        {
+            // Arrange
+            Type type = typeof(GenericClass<int>);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveAccessModifier(
+                    CSharpAccessModifier.Private, "we want to test the failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected type FluentAssertions.Specs.Types.GenericClass<TSubject> to be *failure message*, but it is *");
+        }
+
+        [Fact]
         public void An_internal_interface_does_not_have_a_protected_internal_modifier()
         {
             // Arrange

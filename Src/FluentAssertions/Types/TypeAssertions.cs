@@ -1298,7 +1298,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             .ForCondition(Subject is not null)
             .FailWith(
                 $"Expected {{0}} {{context:type}}[{parameterString}] to exist{{reason}}" +
-                ", but {context:type} is <null>.", indexerType);
+                ", but {context:type} is <null>.", indexerType.ToFormattableTypeDefinition());
 
         PropertyInfo propertyInfo = null;
 
@@ -1314,7 +1314,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                     ", but it does not.", indexerType, Subject)
                 .Then
                 .ForCondition(propertyInfo.PropertyType == indexerType)
-                .FailWith("Expected {0} to be of type {1}{reason}, but it is not.", propertyInfo, indexerType);
+                .FailWith("Expected {0} to be of type {1}{reason}, but it is not.", propertyInfo, indexerType.ToFormattableTypeDefinition());
         }
 
         return new AndWhichConstraint<TypeAssertions, PropertyInfo>(this, propertyInfo, assertionChain,
@@ -1612,7 +1612,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(accessModifier == subjectAccessModifier)
                 .FailWith(
                     $"Expected {{context:type}} {{0}} to be {accessModifier}{{reason}}" +
-                    $", but it is {subjectAccessModifier}.", Subject);
+                    $", but it is {subjectAccessModifier}.", Subject.ToFormattableTypeDefinition());
         }
 
         return new AndConstraint<TypeAssertions>(this);

@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using FluentAssertions.Common;
 
@@ -38,9 +39,9 @@ public class MethodInfoFormatter : IValueFormatter
     private static void FormatOperator(MethodInfo method, string operatorType, FormattedObjectGraph formattedGraph, FormatChild formatChild)
     {
         formattedGraph.AddFragment($"{operatorType} operator ");
-        formatChild("type", method.ReturnType, formattedGraph);
+        formatChild("type", method.ReturnType.ToFormattableTypeDefinition(), formattedGraph);
         formattedGraph.AddFragment("(");
-        formatChild("type", method.GetParameters()[0].ParameterType, formattedGraph);
+        formatChild("type", method.GetParameters()[0].ParameterType.ToFormattableTypeDefinition(), formattedGraph);
         formattedGraph.AddFragment(")");
     }
 }

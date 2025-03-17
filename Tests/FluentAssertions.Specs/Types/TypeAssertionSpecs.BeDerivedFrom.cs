@@ -100,7 +100,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type *.ClassWithMembers to be derived from *.DummyBaseType<>* *failure message*, but it is not.");
+                    "Expected type *.ClassWithMembers to be derived from *.DummyBaseType<T>* *failure message*, but it is not.");
         }
 
         [Fact]
@@ -227,7 +227,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type *.DummyBaseType<*.ClassWithGenericBaseType> not to be derived from *.DummyBaseType<> " +
+                    "Expected type *.DummyBaseType<*.ClassWithGenericBaseType> not to be derived from *.DummyBaseType<T> " +
                     "*failure message*, but it is.");
         }
 
