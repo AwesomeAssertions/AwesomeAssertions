@@ -27,5 +27,7 @@
     <PackageReference Include="Nuke.Components" Version="$(NukeVersion)" />
     <PackageReference Include="SharpCompress" Version="0.38.0" />
     <PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
+    <!-- Explicit reference to version > 17.11.4 because of a vulnerability -->
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.14.8" />
   </ItemGroup>
 </Project>

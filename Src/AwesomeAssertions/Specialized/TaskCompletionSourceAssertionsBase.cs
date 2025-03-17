@@ -40,7 +40,9 @@ public class TaskCompletionSourceAssertionsBase
         }
 
         // cancel the clock
+#pragma warning disable CA1849 // Call async methods when in an async method: Is not a drop-in replacement in this case, but may cause problems.
         timeoutCancellationTokenSource.Cancel();
+#pragma warning restore CA1849 // Call async methods when in an async method
         return true;
     }
 }

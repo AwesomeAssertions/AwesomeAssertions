@@ -9,6 +9,10 @@ dotnet_style_readonly_field = true:none
 # IDE0040: Add accessibility modifiers
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:none
 
+# CodeAnalysis
+# CA1823: Avoid unused private fields
+dotnet_diagnostic.CA1823.severity = none
+
 # StyleCop
 # SA1306: The name of a field in C# does not begin with a lower-case letter.
 dotnet_diagnostic.SA1306.severity = none

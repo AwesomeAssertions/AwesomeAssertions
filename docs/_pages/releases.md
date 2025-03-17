@@ -10,6 +10,7 @@ sidebar:
 
 ### Breaking Changes
 * Change all namespaces from `FluentAssertions` to `AwesomeAssertions` and the assembly name to `AwesomeAssertions.dll`, see the [Migration Guide](/upgradingtov9) for more details - [#136](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/136)
+* Target .NET8  [#160](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/160)
 
 ## 8.2.0
 

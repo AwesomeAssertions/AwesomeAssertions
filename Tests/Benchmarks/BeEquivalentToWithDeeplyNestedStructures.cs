@@ -14,6 +14,7 @@ public class BeEquivalentToWithDeeplyNestedStructures
     public class ComplexType
     {
         public int A { get; set; }
+
         public ComplexType B { get; set; }
     }
 

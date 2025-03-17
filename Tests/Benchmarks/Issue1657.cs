@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using AwesomeAssertions;
 using AwesomeAssertions.Collections;
@@ -31,21 +32,22 @@ public class Issue1657
 
     private static ExampleObject GetObject(int i)
     {
+        string iToString = i.ToString("D2", CultureInfo.InvariantCulture);
         return new ExampleObject
         {
-            Id = i.ToString("D2"),
-            Value1 = i.ToString("D2"),
-            Value2 = i.ToString("D2"),
-            Value3 = i.ToString("D2"),
-            Value4 = i.ToString("D2"),
-            Value5 = i.ToString("D2"),
-            Value6 = i.ToString("D2"),
-            Value7 = i.ToString("D2"),
-            Value8 = i.ToString("D2"),
-            Value9 = i.ToString("D2"),
-            Value10 = i.ToString("D2"),
-            Value11 = i.ToString("D2"),
-            Value12 = i.ToString("D2"),
+            Id = iToString,
+            Value1 = iToString,
+            Value2 = iToString,
+            Value3 = iToString,
+            Value4 = iToString,
+            Value5 = iToString,
+            Value6 = iToString,
+            Value7 = iToString,
+            Value8 = iToString,
+            Value9 = iToString,
+            Value10 = iToString,
+            Value11 = iToString,
+            Value12 = iToString,
         };
     }
 }

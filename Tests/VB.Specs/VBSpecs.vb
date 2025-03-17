@@ -2,6 +2,7 @@ Imports AwesomeAssertions
 Imports Xunit
 Imports Xunit.Sdk
 
+<CodeAnalysis.SuppressMessage("Naming rules", "CA1707:Identifiers should not contain underscores", MessageId:="Keeping this as in C#")>
 Public Class VBSpecs
     <Fact>
     Public Sub Caller_identification_works_with_parentheses()
