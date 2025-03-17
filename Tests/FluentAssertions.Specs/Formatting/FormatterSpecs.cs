@@ -208,7 +208,7 @@ public sealed class FormatterSpecs : IDisposable
     }
 
     [InlineData(typeof(List<FormatterSpecs>), "System.Collections.Generic.List<FluentAssertions.Specs.Formatting.FormatterSpecs>")]
-    [InlineData(typeof(Dictionary<,>), "System.Collections.Generic.Dictionary<,>")]
+    [InlineData(typeof(Dictionary<,>), "System.Collections.Generic.Dictionary<TKey, TValue>")]
     [InlineData(typeof(Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>), "System.Collections.Generic.Dictionary<System.Collections.Generic.List<System.Collections.Generic.IEnumerable<byte>>, System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<int, object>>>")]
     [Theory]
     public void When_the_object_is_a_generic_type_it_should_be_formatted_as_written_in_source_code(Type subject, string expected)

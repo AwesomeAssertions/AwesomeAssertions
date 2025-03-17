@@ -19,7 +19,7 @@ public class PropertyInfoFormatter : IValueFormatter
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var property = (PropertyInfo)value;
-        TypeValueFormatter.FormatType(property.DeclaringType!, formattedGraph.AddFragment, withLeadingNamespace: false);
+        TypeValueFormatter.FormatType(property.DeclaringType!.ToFormattableTypeDefinition(), formattedGraph.AddFragment, withLeadingNamespace: false);
         formattedGraph.AddFragment($".{property.Name}");
     }
 }

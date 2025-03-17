@@ -302,7 +302,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     }
 
     internal static string GetDescriptionFor(MethodInfo method) =>
-        $"{method.ReturnType.ToFormattedString()} {method.DeclaringType.ToFormattedString()}.{method.Name}";
+        $"{method.ReturnType.ToFormattableTypeDefinition().ToFormattedString()} {method.DeclaringType.ToFormattableTypeDefinition().ToFormattedString()}.{method.Name}";
 
     private protected override string SubjectDescription => GetDescriptionFor(Subject);
 

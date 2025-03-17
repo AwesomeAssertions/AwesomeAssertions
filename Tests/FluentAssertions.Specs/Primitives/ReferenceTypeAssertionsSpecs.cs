@@ -134,7 +134,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected type to be System.Collections.Generic.Dictionary<,>, but found System.Collections.Generic.List<>.");
+            .WithMessage("Expected type to be System.Collections.Generic.Dictionary<TKey, TValue>, but found System.Collections.Generic.List<T>.");
     }
 
     [Fact]

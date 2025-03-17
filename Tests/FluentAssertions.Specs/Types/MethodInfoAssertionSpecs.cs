@@ -126,7 +126,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_decorated_with_MethodImpl_attribute_and_it_is_it_succeeds()
+        public void When_asserting_a_method_is_decorated_with_an_attribute_and_it_is_it_succeeds()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
@@ -140,7 +140,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_constructor_is_decorated_with_MethodImpl_attribute_and_it_is_it_succeeds()
+        public void When_asserting_a_constructor_is_decorated_with_an_attribute_and_it_is_it_succeeds()
         {
             // Arrange
             ConstructorInfo constructorMethodInfo =
@@ -155,7 +155,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_constructor_is_decorated_with_MethodImpl_attribute_and_it_is_not_it_throws()
+        public void When_asserting_a_constructor_is_decorated_with_an_attribute_and_it_is_not_it_throws()
         {
             // Arrange
             ConstructorInfo constructorMethodInfo =
@@ -172,7 +172,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_decorated_with_MethodImpl_attribute_and_it_is_not_it_throws()
+        public void When_asserting_a_method_is_decorated_with_an_attribute_and_it_is_not_it_throws()
         {
             // Arrange
             MethodInfo methodInfo =
@@ -190,7 +190,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_decorated_with_MethodImpl_attribute_with_no_options_and_it_is_it_throws()
+        public void When_asserting_a_method_is_decorated_with_an_attribute_with_no_options_and_it_is_it_throws()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("NoOptions");
@@ -207,7 +207,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_decorated_with_MethodImpl_attribute_with_zero_as_options_and_it_is_it_throws()
+        public void When_asserting_a_method_is_decorated_with_an_attribute_with_zero_as_options_and_it_is_it_throws()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("ZeroOptions");
@@ -224,7 +224,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_class_is_decorated_with_MethodImpl_attribute_and_it_is_not_it_throws()
+        public void When_asserting_a_class_is_decorated_with_an_attribute_and_it_is_not_it_throws()
         {
             // Arrange
             var type = typeof(ClassWithAllMethodsDecoratedWithDummyAttribute);
@@ -304,7 +304,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_decorated_with_MethodImpl_attribute_matching_a_predicate_and_it_is_it_succeeds()
+        public void When_asserting_a_method_is_decorated_with_an_attribute_matching_a_predicate_and_it_is_it_succeeds()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
@@ -340,7 +340,7 @@ public class MethodInfoAssertionSpecs
 
         [Fact]
         public void
-            When_asserting_a_method_is_decorated_with_an_MethodImpl_attribute_matching_a_predicate_but_it_is_not_it_throws()
+            When_asserting_a_method_is_decorated_with_an_an_attribute_matching_a_predicate_but_it_is_not_it_throws()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
@@ -412,7 +412,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_not_decorated_with_MethodImpl_attribute_and_it_is_not_it_succeeds()
+        public void When_asserting_a_method_is_not_decorated_with_an_attribute_and_it_is_not_it_succeeds()
         {
             // Arrange
             MethodInfo methodInfo =
@@ -427,7 +427,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_constructor_is_not_decorated_with_MethodImpl_attribute_and_it_is_not_it_succeeds()
+        public void When_asserting_a_constructor_is_not_decorated_with_an_attribute_and_it_is_not_it_succeeds()
         {
             // Arrange
             ConstructorInfo constructorMethodInfo =
@@ -442,7 +442,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_constructor_is_not_decorated_with_MethodImpl_attribute_and_it_is_it_throws()
+        public void When_asserting_a_constructor_is_not_decorated_with_an_attribute_and_it_is_it_throws()
         {
             // Arrange
             ConstructorInfo constructorMethodInfo =
@@ -479,7 +479,7 @@ public class MethodInfoAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_method_is_not_decorated_with_MethodImpl_attribute_and_it_is_it_throws()
+        public void When_asserting_a_method_is_not_decorated_with_an_attribute_and_it_is_it_throws()
         {
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
@@ -805,13 +805,13 @@ internal class ClassWithPublicMethods
     }
 }
 
-internal class ClassWithNonPublicMethods
+internal class GenericClassWithNonPublicMethods<TSubject>
 {
     protected void PublicDoNothing()
     {
     }
 
-    internal void DoNothingWithParameter(int _)
+    internal void DoNothingWithParameter(TSubject _)
     {
     }
 

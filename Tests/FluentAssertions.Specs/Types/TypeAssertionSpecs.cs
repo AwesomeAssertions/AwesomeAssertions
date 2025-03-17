@@ -169,6 +169,8 @@ namespace FluentAssertions.Specs.Types
 
     internal class OtherClassNotInDummyNamespace;
 
+    internal class GenericClass<TSubject>;
+
     #endregion
 }
 
