@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AwesomeAssertions.Execution;
 using Xunit;
 using Xunit.Sdk;
 
@@ -225,6 +226,69 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void When_asserting_ordering_by_property_of_a_null_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
+        {
+            // Arrange
+            const IEnumerable<SomeClass> collection = null;
+
+            // Act
+            Action act = () =>
+            {
+                using (new AssertionScope())
+                {
+                    collection.Should().BeInAscendingOrder(o => o.Text)
+                        .And.NotBeEmpty("this won't be asserted");
+                }
+            };
+
+            // AssertText but found <null>.
+            act.Should().Throw<XunitException>()
+               .WithMessage("*Text*found*<null>.");
+        }
+
+        [Fact]
+        public void When_asserting_ordering_with_given_comparer_of_a_null_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
+        {
+            // Arrange
+            const IEnumerable<SomeClass> collection = null;
+
+            // Act
+            Action act = () =>
+            {
+                using (new AssertionScope())
+                {
+                    collection.Should().BeInAscendingOrder(Comparer<SomeClass>.Default)
+                        .And.NotBeEmpty("this won't be asserted");
+                }
+            };
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected*found*<null>.");
+        }
+
+        [Fact]
+        public void When_asserting_ordering_of_an_unordered_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
+        {
+            // Arrange
+            int[] collection = [1, 27, 12];
+
+            // Act
+            Action action = () =>
+            {
+                using (new AssertionScope())
+                {
+                    collection.Should().BeInAscendingOrder("because numbers are ordered")
+                        .And.BeEmpty("this won't be asserted");
+                }
+            };
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage("*item at index 1 is in wrong order.");
         }
     }
 

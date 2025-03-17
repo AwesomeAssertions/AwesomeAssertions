@@ -158,7 +158,7 @@ public class GenericAsyncFunctionAssertions<TResult>
             {
                 TimeSpan? invocationEndTime = null;
                 Exception exception = null;
-                ITimer timer = Clock.StartTimer();
+                Common.ITimer timer = Clock.StartTimer();
 
                 while (invocationEndTime is null || invocationEndTime < waitTime)
                 {

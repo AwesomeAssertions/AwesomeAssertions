@@ -27,9 +27,13 @@ public class UsersOfGetClosedGenericInterfaces
     private class Context : IEquivalencyValidationContext
     {
         public INode CurrentNode { get; }
+
         public Reason Reason { get; }
+
         public Tracer Tracer { get; }
+
         public IEquivalencyOptions Options { get; internal set; }
+
         public bool IsCyclicReference(object expectation) => throw new NotImplementedException();
 
         public IEquivalencyValidationContext AsNestedMember(IMember expectationMember) => throw new NotImplementedException();

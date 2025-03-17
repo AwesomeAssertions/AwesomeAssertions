@@ -40,7 +40,7 @@ public class TaskCompletionSourceAssertionsBase
         }
 
         // cancel the clock
-        timeoutCancellationTokenSource.Cancel();
+        await timeoutCancellationTokenSource.CancelAsync();
         return true;
     }
 }

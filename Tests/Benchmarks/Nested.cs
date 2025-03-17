@@ -8,7 +8,9 @@ public sealed class Nested
 
     public Nested C { get; set; }
 
+#pragma warning disable AV1562 // Don't use `ref` or `out` parameters: Keep benchmark as it was
     public static Nested Create(int i, ref int objectCount)
+#pragma warning restore AV1562
     {
         if (i < 0)
         {
