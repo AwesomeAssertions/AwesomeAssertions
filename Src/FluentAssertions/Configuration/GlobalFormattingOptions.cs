@@ -26,6 +26,7 @@ public class GlobalFormattingOptions : FormattingOptions
             UseLineBreaks = UseLineBreaks,
             MaxDepth = MaxDepth,
             MaxLines = MaxLines,
+            StringComparisonLength = StringComparisonLength,
             ScopedFormatters = [.. ScopedFormatters],
             ValueFormatterAssembly = ValueFormatterAssembly,
             ValueFormatterDetectionMode = ValueFormatterDetectionMode

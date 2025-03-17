@@ -43,6 +43,20 @@ public class FormattingOptions
     public int MaxLines { get; set; } = 100;
 
     /// <summary>
+    /// Sets the default number of characters shown when highlighting the difference of two strings.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The actual number of shown characters depends on the word-boundary-algorithm.
+    /// </para>
+    /// <para>
+    /// This property is not thread-safe and should not be modified through <see cref="AssertionConfiguration"/> from within a unit test.
+    /// See the <see href="https://awesomeassertions.org/extensibility/#thread-safety">docs</see> on how to safely use it.
+    /// </para>
+    /// </remarks>
+    public int StringComparisonLength { get; set; } = 50;
+
+    /// <summary>
     /// Removes a scoped formatter that was previously added through <see cref="FormattingOptions.AddFormatter"/>.
     /// </summary>
     /// <param name="formatter">A custom implementation of <see cref="IValueFormatter"/></param>
@@ -71,6 +85,7 @@ public class FormattingOptions
             UseLineBreaks = UseLineBreaks,
             MaxDepth = MaxDepth,
             MaxLines = MaxLines,
+            StringComparisonLength = StringComparisonLength,
             ScopedFormatters = [.. ScopedFormatters],
         };
     }

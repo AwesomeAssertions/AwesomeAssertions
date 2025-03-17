@@ -15,6 +15,35 @@ namespace FluentAssertions.Specs.Formatting;
 public sealed class FormatterSpecs : IDisposable
 {
     [Fact]
+    public void Use_configuration_when_highlighting_string_difference()
+    {
+        // Arrange
+        string subject = "this is a very long string with lots of words that most won't be displayed in the error message!";
+        string expected = "this is another string that differs after a couple of words.";
+        Action action = () => subject.Should().Be(expected);
+
+        int previousStringComparisonLength = AssertionConfiguration.Current.Formatting.StringComparisonLength;
+        try
+        {
+            // Act
+            AssertionConfiguration.Current.Formatting.StringComparisonLength = 10;
+
+            // Assert
+            action.Should().Throw<Exception>().WithMessage("""
+                                                           *
+                                                                       ↓ (actual)
+                                                             "this is a very long…"
+                                                             "this is another…"
+                                                                       ↑ (expected).
+                                                           """);
+        }
+        finally
+        {
+            AssertionConfiguration.Current.Formatting.StringComparisonLength = previousStringComparisonLength;
+        }
+    }
+
+    [Fact]
     public void When_value_contains_cyclic_reference_it_should_create_descriptive_error_message()
     {
         // Arrange
