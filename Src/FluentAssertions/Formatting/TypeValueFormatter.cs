@@ -177,7 +177,7 @@ public sealed class TypeValueFormatter : IValueFormatter
         }
 
         // We don't iterate from inner to outer, because that wouldn't work
-        // with an append, but would required an insert, too.
+        // with an append, but would require an insert, too.
         List<Type> declaringTypes = [];
         Type declaringType = type.DeclaringType;
         while (declaringType is not null)
