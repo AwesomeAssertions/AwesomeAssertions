@@ -22,11 +22,11 @@ public sealed class FormatterSpecs : IDisposable
         string expected = "this is another string that differs after a couple of words.";
         Action action = () => subject.Should().Be(expected);
 
-        int previousStringComparisonLength = AssertionConfiguration.Current.Formatting.StringComparisonLength;
+        int previousStringPrintLength = AssertionConfiguration.Current.Formatting.StringPrintLength;
         try
         {
             // Act
-            AssertionConfiguration.Current.Formatting.StringComparisonLength = 10;
+            AssertionConfiguration.Current.Formatting.StringPrintLength = 10;
 
             // Assert
             action.Should().Throw<Exception>().WithMessage("""
@@ -39,7 +39,7 @@ public sealed class FormatterSpecs : IDisposable
         }
         finally
         {
-            AssertionConfiguration.Current.Formatting.StringComparisonLength = previousStringComparisonLength;
+            AssertionConfiguration.Current.Formatting.StringPrintLength = previousStringPrintLength;
         }
     }
 

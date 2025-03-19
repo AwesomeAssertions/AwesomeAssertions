@@ -18,12 +18,12 @@ public sealed class FormattingOptionsSpecs : IDisposable
         AssertionConfiguration.Current.Formatting.UseLineBreaks = true;
         AssertionConfiguration.Current.Formatting.MaxDepth = 123;
         AssertionConfiguration.Current.Formatting.MaxLines = 33;
-        AssertionConfiguration.Current.Formatting.StringComparisonLength = 321;
+        AssertionConfiguration.Current.Formatting.StringPrintLength = 321;
 
         AssertionScope.Current.FormattingOptions.UseLineBreaks.Should().BeTrue();
         AssertionScope.Current.FormattingOptions.MaxDepth.Should().Be(123);
         AssertionScope.Current.FormattingOptions.MaxLines.Should().Be(33);
-        AssertionScope.Current.FormattingOptions.StringComparisonLength.Should().Be(321);
+        AssertionScope.Current.FormattingOptions.StringPrintLength.Should().Be(321);
     }
 
     [Fact]

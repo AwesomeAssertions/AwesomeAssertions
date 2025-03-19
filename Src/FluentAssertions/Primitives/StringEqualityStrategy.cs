@@ -212,7 +212,7 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
     /// </remarks>
     private static int GetLengthOfPhraseToShowOrDefaultLength(string value)
     {
-        var defaultLength = AssertionConfiguration.Current.Formatting.StringComparisonLength;
+        var defaultLength = AssertionConfiguration.Current.Formatting.StringPrintLength;
         int minLength = defaultLength - 5;
         int maxLength = defaultLength + 10;
         const int lengthOfWhitespace = 1;
