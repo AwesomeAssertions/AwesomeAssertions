@@ -1351,7 +1351,7 @@ namespace FluentAssertions.Formatting
         public FormattingOptions() { }
         public int MaxDepth { get; set; }
         public int MaxLines { get; set; }
-        public int StringComparisonLength { get; set; }
+        public int StringPrintLength { get; set; }
         public bool UseLineBreaks { get; set; }
         public void AddFormatter(FluentAssertions.Formatting.IValueFormatter formatter) { }
         public void RemoveFormatter(FluentAssertions.Formatting.IValueFormatter formatter) { }
