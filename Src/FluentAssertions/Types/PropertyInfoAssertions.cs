@@ -44,9 +44,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Expected {subjectDescription} to be virtual{{reason}}, but it is not.");
             });
@@ -76,9 +74,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Expected property {subjectDescription} not to be virtual{{reason}}, but it is.");
             });
@@ -108,9 +104,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Expected {subjectDescription} to have a setter{{reason}}.");
             });
@@ -136,10 +130,6 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
     {
         Guard.ThrowIfArgumentIsOutOfRange(accessModifier);
 
-        var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-            ? assertionChain.CallerIdentifier
-            : "property " + Subject.ToFormattedString();
-
         assertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
@@ -147,11 +137,17 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .Then
             .ForCondition(Subject!.CanWrite)
             .BecauseOf(because, becauseArgs)
-            .FailWith($"Expected {subjectDescription} to have a setter{{reason}}.");
+            .FailWith(() =>
+            {
+                string subjectDescription = GetSubjectDescription(assertionChain);
+
+                return new FailReason($"Expected {subjectDescription} to have a setter{{reason}}.");
+            });
 
         if (assertionChain.Succeeded)
         {
-            assertionChain.OverrideCallerIdentifier(() => "setter of " + subjectDescription);
+            string subjectDescription = GetSubjectDescription(assertionChain);
+            assertionChain.OverrideCallerIdentifier(() => $"setter of {subjectDescription}");
             assertionChain.ReuseOnce();
 
             Subject!.GetSetMethod(nonPublic: true).Should().HaveAccessModifier(accessModifier, because, becauseArgs);
@@ -182,9 +178,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Did not expect {subjectDescription} to have a setter{{reason}}.");
             });
@@ -214,9 +208,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Expected property {subjectDescription} to have a getter{{reason}}, but it does not.");
             });
@@ -242,10 +234,6 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
     {
         Guard.ThrowIfArgumentIsOutOfRange(accessModifier);
 
-        var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-            ? assertionChain.CallerIdentifier
-            : "property " + Subject.ToFormattedString();
-
         assertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject is not null)
@@ -253,11 +241,17 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .Then
             .ForCondition(Subject!.CanRead)
             .BecauseOf(because, becauseArgs)
-            .FailWith($"Expected {subjectDescription} to have a getter{{reason}}, but it does not.");
+            .FailWith(() =>
+            {
+                string subjectDescription = GetSubjectDescription(assertionChain);
+
+                return new FailReason($"Expected {subjectDescription} to have a getter{{reason}}, but it does not.");
+            });
 
         if (assertionChain.Succeeded)
         {
-            assertionChain.OverrideCallerIdentifier(() => "getter of " + subjectDescription);
+            string subjectDescription = GetSubjectDescription(assertionChain);
+            assertionChain.OverrideCallerIdentifier(() => $"getter of {subjectDescription}");
             assertionChain.ReuseOnce();
 
             Subject!.GetGetMethod(nonPublic: true).Should().HaveAccessModifier(accessModifier, because, becauseArgs);
@@ -288,9 +282,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .BecauseOf(because, becauseArgs)
             .FailWith(() =>
             {
-                var subjectDescription = assertionChain.HasOverriddenCallerIdentifier
-                    ? assertionChain.CallerIdentifier
-                    : "property " + Subject.ToFormattedString();
+                string subjectDescription = GetSubjectDescription(assertionChain);
 
                 return new FailReason($"Did not expect {subjectDescription} to have a getter{{reason}}.");
             });
@@ -368,7 +360,7 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
             .Then
             .ForCondition(Subject!.PropertyType != propertyType)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected type of property {1} not to be {0}{reason}, but it is.", propertyType, Subject);
+            .FailWith("Expected type of property {0} not to be {1}{reason}, but it is.", Subject, propertyType);
 
         return new AndConstraint<PropertyInfoAssertions>(this);
     }
@@ -390,7 +382,12 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
         return NotReturn(typeof(TReturn), because, becauseArgs);
     }
 
-    private protected override string SubjectDescription => Formatter.ToString(Subject);
+    private string GetSubjectDescription(AssertionChain assertionChain) =>
+        assertionChain.HasOverriddenCallerIdentifier
+            ? assertionChain.CallerIdentifier
+            : $"{Identifier} {Subject.ToFormattedString()}";
+
+    private protected override string SubjectDescription => Subject.ToFormattedString();
 
     /// <summary>
     /// Returns the type of the subject the assertion applies on.

@@ -41,7 +41,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type IPublicInterface to be Internal *failure message*, but it is Public.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.IPublicInterface to be Internal *failure message*, but it is Public.");
         }
 
         [Fact]
@@ -97,7 +97,23 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
+        }
+
+        [Fact]
+        public void A_failing_check_for_a_modifier_of_a_generic_class_includes_the_type_definition_in_the_failure_message()
+        {
+            // Arrange
+            Type type = typeof(GenericClass<int>);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveAccessModifier(
+                    CSharpAccessModifier.Private, "we want to test the failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected type FluentAssertions.Specs.Types.GenericClass<TSubject> to be *failure message*, but it is *");
         }
 
         [Fact]
@@ -114,7 +130,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type IInternalInterface to be ProtectedInternal *failure message*, but it is Internal.");
+                    "Expected type FluentAssertions.Specs.Types.IInternalInterface to be ProtectedInternal *failure message*, but it is Internal.");
         }
 
         [Fact]
@@ -130,7 +146,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalStruct to be ProtectedInternal *failure message*, but it is Internal.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.InternalStruct to be ProtectedInternal *failure message*, but it is Internal.");
         }
 
         [Fact]
@@ -146,7 +162,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalEnum to be ProtectedInternal *failure message*, but it is Internal.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.InternalEnum to be ProtectedInternal *failure message*, but it is Internal.");
         }
 
         [Fact]
@@ -176,7 +192,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type PrivateClass to be Protected *failure message*, but it is Private.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+PrivateClass to be Protected *failure message*, but it is Private.");
         }
 
         [Fact]
@@ -205,7 +221,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type ProtectedEnum to be Public, but it is Protected.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+ProtectedEnum to be Public, but it is Protected.");
         }
 
         [Fact]
@@ -236,7 +252,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type IPublicInterface to be Internal *failure message*, but it is Public.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+IPublicInterface to be Internal *failure message*, but it is Public.");
         }
 
         [Fact]
@@ -266,7 +282,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
         }
 
         [Fact]
@@ -296,7 +312,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type IProtectedInternalInterface to be Private *failure message*, but it is ProtectedInternal.");
+                    "Expected type FluentAssertions.Specs.Types.Nested+IProtectedInternalInterface to be Private *failure message*, but it is ProtectedInternal.");
         }
 
         [Fact]
@@ -360,7 +376,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type IPublicInterface not to be Public *failure message*, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.IPublicInterface not to be Public *failure message*, but it is.");
         }
 
         [Fact]
@@ -390,7 +406,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalClass not to be Internal *failure message*, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.InternalClass not to be Internal *failure message*, but it is.");
         }
 
         [Fact]
@@ -420,7 +436,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type PrivateClass not to be Private *failure message*, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+PrivateClass not to be Private *failure message*, but it is.");
         }
 
         [Fact]
@@ -449,7 +465,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type ProtectedEnum not to be Protected, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+ProtectedEnum not to be Protected, but it is.");
         }
 
         [Fact]
@@ -480,7 +496,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type IPublicInterface not to be Public *failure message*, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+IPublicInterface not to be Public *failure message*, but it is.");
         }
 
         [Fact]
@@ -510,7 +526,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type InternalClass not to be Internal *failure message*, but it is.");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.Nested+InternalClass not to be Internal *failure message*, but it is.");
         }
 
         [Fact]
@@ -541,7 +557,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type IProtectedInternalInterface not to be ProtectedInternal *failure message*, but it is.");
+                    "Expected type FluentAssertions.Specs.Types.Nested+IProtectedInternalInterface not to be ProtectedInternal *failure message*, but it is.");
         }
 
         [Fact]

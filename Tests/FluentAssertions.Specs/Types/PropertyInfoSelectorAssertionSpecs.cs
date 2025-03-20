@@ -305,6 +305,23 @@ public class PropertyInfoSelectorAssertionSpecs
             action.Should().Throw<NotSupportedException>()
                 .WithMessage("Equals is not part of Fluent Assertions. Did you mean Be() instead?");
         }
+
+        [Fact]
+        public void A_failing_check_on_a_generic_class_includes_the_type_definition_in_the_failure_message()
+        {
+            // Arrange
+            var propertyInfoSelector = new PropertyInfoSelector(typeof(GenericClassWithOnlyReadOnlyProperties<object>));
+
+            // Act
+            Action action = () => propertyInfoSelector.Should().BeWritable("because we want to test the error {0}", "message");
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected all selected properties to have a setter because we want to test the error message, " +
+                    "but the following properties do not:*" +
+                    "GenericClassWithOnlyReadOnlyProperties<TSubject>.ReadOnlyProperty");
+        }
     }
 }
 
@@ -361,6 +378,11 @@ internal class ClassWithOnlyReadOnlyProperties
     public string ReadOnlyProperty => "";
 
     public string ReadOnlyProperty2 => "";
+}
+
+internal class GenericClassWithOnlyReadOnlyProperties<TSubject>
+{
+    public TSubject ReadOnlyProperty => default;
 }
 
 internal class ClassWithAllPropertiesDecoratedWithDummyAttribute

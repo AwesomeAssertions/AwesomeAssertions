@@ -14,6 +14,9 @@ sidebar:
 * Increase default displayed length in `StringEqualityStrategy` - [#94](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/94)
 * Make displayed length in `StringEqualityStrategy` configurable - [#100](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/100)
 
+### Improvements
+* Improve `Type` formatting - [#78](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/78)
+
 ### Fixes
 * Fixed formatting of failure messages when comparing strings with braces - [#96](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)
 

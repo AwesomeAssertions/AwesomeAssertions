@@ -180,7 +180,7 @@ public partial class TypeAssertionSpecs
             };
 
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type System.Int32 to*implement *IExplicitInterface, but it does not.");
+                .WithMessage("Expected type int to*implement *IExplicitInterface, but it does not.");
         }
     }
 

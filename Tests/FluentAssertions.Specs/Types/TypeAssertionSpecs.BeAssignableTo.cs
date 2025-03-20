@@ -117,7 +117,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected someType *.IDummyInterface to be assignable to *.IDummyInterface`1[T] *failure message*" +
+                    "Expected someType *.IDummyInterface to be assignable to *.IDummyInterface<T> *failure message*" +
                     ", but it is not.");
         }
 
@@ -300,7 +300,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface`1[T] *failure message*" +
+                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> *failure message*" +
                     ", but it is.");
         }
 
@@ -317,7 +317,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface`1[T] *failure message*" +
+                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> *failure message*" +
                     ", but it is.");
         }
 

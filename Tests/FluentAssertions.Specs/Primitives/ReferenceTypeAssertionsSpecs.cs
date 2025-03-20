@@ -134,7 +134,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage($"Expected type to be {typeof(Dictionary<,>).FullName}, but found {typeof(List<>).FullName}.");
+            .WithMessage("Expected type to be System.Collections.Generic.Dictionary<TKey, TValue>, but found System.Collections.Generic.List<T>.");
     }
 
     [Fact]
@@ -152,7 +152,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected aString to be System.String, but found <null>.");
+            .WithMessage("Expected aString to be string, but found <null>.");
     }
 
     [Fact]
@@ -166,7 +166,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected type to be System.Int32, but found System.String.");
+            .WithMessage("Expected type to be int, but found string.");
     }
 
     [Fact]
@@ -184,8 +184,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected type to be System.Int32, but found System.String.*" +
-                "Expected type to be System.Int64, but found System.String.");
+                "Expected type to be int, but found string.*" +
+                "Expected type to be long, but found string.");
     }
 
     [Fact]
@@ -297,7 +297,7 @@ public partial class ReferenceTypeAssertionsSpecs
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected aString not to be System.String, but found <null>.");
+            .WithMessage("Expected aString not to be string, but found <null>.");
     }
 
     [Fact]

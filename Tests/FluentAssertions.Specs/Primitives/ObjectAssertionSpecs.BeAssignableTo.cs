@@ -180,7 +180,7 @@ public partial class ObjectAssertionSpecs
 
             // Act / Assert
             act.Should().Throw<XunitException>()
-                .WithMessage($"*assignable to {typeof(IList<>)}*failure message*{typeof(DummyImplementingClass)} is not*");
+                .WithMessage($"*assignable to System.Collections.Generic.IList<T>*failure message*{typeof(DummyImplementingClass)} is not*");
         }
 
         [Fact]
@@ -198,8 +198,8 @@ public partial class ObjectAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected * to be assignable to System.Int32, but System.String is not.*" +
-                    "Expected * to be assignable to System.Int64, but System.String is not.");
+                    "Expected * to be assignable to int, but string is not.*" +
+                    "Expected * to be assignable to long, but string is not.");
         }
     }
 
@@ -349,7 +349,7 @@ public partial class ObjectAssertionSpecs
 
             // Act / Assert
             act.Should().Throw<XunitException>()
-                .WithMessage($"*not be assignable to {typeof(IList<>)}*failure message*{typeof(List<string>)} is*");
+                .WithMessage("*not be assignable to System.Collections.Generic.IList<T>*failure message*System.Collections.Generic.List<string> is*");
         }
 
         [Fact]

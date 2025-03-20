@@ -711,7 +711,7 @@ public class PropertyInfoAssertionSpecs
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected type of property ClassWithProperties.StringProperty" +
-                    " to be System.Int32 because we want to test the error message, but it is System.String.");
+                    " to be int because we want to test the error message, but it is string.");
         }
 
         [Fact]
@@ -726,7 +726,7 @@ public class PropertyInfoAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type of property to be *.Int32 *failure message*, but propertyInfo is <null>.");
+                .WithMessage("Expected type of property to be int *failure message*, but propertyInfo is <null>.");
         }
 
         [Fact]
@@ -771,8 +771,8 @@ public class PropertyInfoAssertionSpecs
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected type of property ClassWithProperties.StringProperty to be System.Int32 because we want to test the error " +
-                    "message, but it is System.String.");
+                .WithMessage("Expected type of property ClassWithProperties.StringProperty to be int because we want to test the error " +
+                    "message, but it is string.");
         }
     }
 
@@ -803,7 +803,7 @@ public class PropertyInfoAssertionSpecs
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected type of property ClassWithProperties.StringProperty" +
-                    " not to be System.String because we want to test the error message, but it is.");
+                    " not to be string because we want to test the error message, but it is.");
         }
 
         [Fact]
@@ -818,7 +818,7 @@ public class PropertyInfoAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type of property not to be *.Int32 *failure message*, but propertyInfo is <null>.");
+                .WithMessage("Expected type of property not to be int *failure message*, but propertyInfo is <null>.");
         }
 
         [Fact]
