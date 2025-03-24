@@ -66,12 +66,12 @@
         <Compile Remove="EventRaisingExtensions.cs" />
       </ItemGroup>
       <ItemGroup>
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.2" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'net47'">
       <ItemGroup>
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.2" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Xml.Linq" />
       </ItemGroup>
