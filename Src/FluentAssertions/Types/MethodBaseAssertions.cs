@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using FluentAssertions.Common;
 using FluentAssertions.Execution;
+using FluentAssertions.Formatting;
 
 namespace FluentAssertions.Types;
 
@@ -113,7 +114,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
     {
         IEnumerable<Type> parameterTypes = methodBase.GetParameters().Select(p => p.ParameterType);
 
-        return string.Join(", ", parameterTypes.Select(p => p.ToFormattedString()));
+        return string.Join(", ", parameterTypes.Select(p => p.AsFormattableShortType().ToFormattedString()));
     }
 
     private protected string GetSubjectDescription(AssertionChain assertionChain) =>

@@ -113,7 +113,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type FluentAssertions.Specs.Types.GenericClass<TSubject> to be *failure message*, but it is *");
+                .WithMessage("Expected type FluentAssertions.Specs.Types.GenericClass<int> to be Private *failure message*, but it is Internal.");
         }
 
         [Fact]

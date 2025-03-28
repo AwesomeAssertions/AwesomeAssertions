@@ -389,7 +389,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.PrivateMethod to be Protected because we want to test the error message" +
+                    "Expected method TestClass.PrivateMethod to be Protected because we want to test the error message" +
                     ", but it is Private.");
         }
 
@@ -426,7 +426,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.set_ProtectedSetProperty to be Public because we want to test the error message" +
+                    "Expected method TestClass.set_ProtectedSetProperty to be Public because we want to test the error message" +
                     ", but it is Protected.");
         }
 
@@ -463,7 +463,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.get_PublicGetProperty to be Internal because we want to test the error message, but it" +
+                    "Expected method TestClass.get_PublicGetProperty to be Internal because we want to test the error message, but it" +
                     " is Public.");
         }
 
@@ -495,7 +495,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.InternalMethod to be ProtectedInternal because we want to test the error message, but" +
+                    "Expected method TestClass.InternalMethod to be ProtectedInternal because we want to test the error message, but" +
                     " it is Internal.");
         }
 
@@ -526,7 +526,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.ProtectedInternalMethod to be Private because we want to test the error message, but it is " +
+                    "Expected method TestClass.ProtectedInternalMethod to be Private because we want to test the error message, but it is " +
                     "ProtectedInternal.");
         }
 
@@ -604,7 +604,7 @@ public class MethodBaseAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method FluentAssertions.Specs.Types.TestClass.PrivateMethod not to be Private*because we want to test the error message*");
+                .WithMessage("Expected method TestClass.PrivateMethod not to be Private*because we want to test the error message*");
         }
 
         [Fact]
@@ -638,7 +638,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.set_ProtectedSetProperty not to be Protected*because we want to test the error message*");
+                    "Expected method TestClass.set_ProtectedSetProperty not to be Protected*because we want to test the error message*");
         }
 
         [Fact]
@@ -686,7 +686,7 @@ public class MethodBaseAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method FluentAssertions.Specs.Types.TestClass.get_PublicGetProperty not to be Public*because we want to test the error message*");
+                .WithMessage("Expected method TestClass.get_PublicGetProperty not to be Public*because we want to test the error message*");
         }
 
         [Fact]
@@ -716,7 +716,7 @@ public class MethodBaseAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method FluentAssertions.Specs.Types.TestClass.InternalMethod not to be Internal*because we want to test the error message*");
+                .WithMessage("Expected method TestClass.InternalMethod not to be Internal*because we want to test the error message*");
         }
 
         [Fact]
@@ -747,7 +747,7 @@ public class MethodBaseAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method FluentAssertions.Specs.Types.TestClass.ProtectedInternalMethod not to be ProtectedInternal*because we want to test the error message*");
+                    "Expected method TestClass.ProtectedInternalMethod not to be ProtectedInternal*because we want to test the error message*");
         }
 
         [Fact]

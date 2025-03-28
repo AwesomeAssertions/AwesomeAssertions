@@ -31,7 +31,7 @@ public class MethodInfoFormatter : IValueFormatter
         }
         else
         {
-            formatChild("type", method!.DeclaringType!, formattedGraph);
+            formatChild("type", method!.DeclaringType.AsFormattableShortType(), formattedGraph);
             formattedGraph.AddFragment($".{method.Name}");
         }
     }
@@ -39,9 +39,9 @@ public class MethodInfoFormatter : IValueFormatter
     private static void FormatOperator(MethodInfo method, string operatorType, FormattedObjectGraph formattedGraph, FormatChild formatChild)
     {
         formattedGraph.AddFragment($"{operatorType} operator ");
-        formatChild("type", method.ReturnType.ToFormattableTypeDefinition(), formattedGraph);
+        formatChild("type", method.ReturnType.AsFormattableShortType(), formattedGraph);
         formattedGraph.AddFragment("(");
-        formatChild("type", method.GetParameters()[0].ParameterType.ToFormattableTypeDefinition(), formattedGraph);
+        formatChild("type", method.GetParameters()[0].ParameterType.AsFormattableShortType(), formattedGraph);
         formattedGraph.AddFragment(")");
     }
 }

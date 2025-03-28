@@ -307,7 +307,7 @@ public class PropertyInfoSelectorAssertionSpecs
         }
 
         [Fact]
-        public void A_failing_check_on_a_generic_class_includes_the_type_definition_in_the_failure_message()
+        public void A_failing_check_on_a_generic_class_includes_the_generic_type_in_the_failure_message()
         {
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(GenericClassWithOnlyReadOnlyProperties<object>));
@@ -320,7 +320,7 @@ public class PropertyInfoSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all selected properties to have a setter because we want to test the error message, " +
                     "but the following properties do not:*" +
-                    "GenericClassWithOnlyReadOnlyProperties<TSubject>.ReadOnlyProperty");
+                    "GenericClassWithOnlyReadOnlyProperties<object>.ReadOnlyProperty");
         }
     }
 }

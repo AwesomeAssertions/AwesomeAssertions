@@ -280,9 +280,9 @@ public class MethodInfoSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods to be Public" +
                     ", but the following methods are not:*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.PublicDoNothing*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.DoNothingWithParameter*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.DoNothingWithAnotherParameter");
+                    "void FluentAssertions*.GenericClassWithNonPublicMethods<int>.PublicDoNothing*" +
+                    "void FluentAssertions*.GenericClassWithNonPublicMethods<int>.DoNothingWithParameter*" +
+                    "void FluentAssertions*.GenericClassWithNonPublicMethods<int>.DoNothingWithAnotherParameter");
         }
 
         [Fact]
@@ -300,9 +300,9 @@ public class MethodInfoSelectorAssertionSpecs
                 .WithMessage("Expected all selected methods to be Public" +
                     " because we want to test the error message" +
                     ", but the following methods are not:*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.PublicDoNothing*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.DoNothingWithParameter*" +
-                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<TSubject>.DoNothingWithAnotherParameter");
+                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<int>.PublicDoNothing*" +
+                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<int>.DoNothingWithParameter*" +
+                    "Void FluentAssertions*.GenericClassWithNonPublicMethods<int>.DoNothingWithAnotherParameter");
         }
     }
 
@@ -387,9 +387,9 @@ public class MethodInfoSelectorAssertionSpecs
                 .WithMessage(
                     """
                     Expected all selected methods to be async because we want to test the error message, but the following methods are not:
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.PublicDoNothing
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.InternalDoNothing
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.ProtectedDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.PublicDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.InternalDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithNonAsyncMethods.ProtectedDoNothing
                     """);
         }
     }
@@ -422,9 +422,9 @@ public class MethodInfoSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("""
                     Expected all selected methods not to be async because we want to test the error message, but the following methods are:
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.PublicAsyncDoNothing
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.InternalAsyncDoNothing
-                    System.Threading.Tasks.Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.ProtectedAsyncDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.PublicAsyncDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.InternalAsyncDoNothing
+                    Task FluentAssertions.Specs.Types.ClassWithAllMethodsAsync.ProtectedAsyncDoNothing
                     """);
         }
     }

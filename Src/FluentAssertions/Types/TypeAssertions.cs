@@ -110,7 +110,8 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
         assertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(isAssignable)
-            .FailWith("Expected {context:type} {0} to be assignable to {1}{reason}, but it is not.", Subject, type);
+            .FailWith("Expected {context:type} {0} to be assignable to {1}{reason}, but it is not.",
+                Subject, type);
 
         return new AndConstraint<TypeAssertions>(this);
     }
@@ -158,7 +159,8 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
         assertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(!isAssignable)
-            .FailWith("Expected {context:type} {0} to not be assignable to {1}{reason}, but it is.", Subject, type);
+            .FailWith("Expected {context:type} {0} to not be assignable to {1}{reason}, but it is.",
+                Subject, type);
 
         return new AndConstraint<TypeAssertions>(this);
     }
@@ -168,8 +170,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <paramref name="expected"/> type.
     /// </summary>
     /// <returns>
-    /// An empty <see cref="string"/> if the two specified types are the same, or an error message that describes that
-    /// the two specified types are not the same.
+    /// A <see cref="FailReason"/> that describes that the two specified types are not the same.
     /// </returns>
     private static FailReason GetFailReasonIfTypesAreDifferent(Type actual, Type expected)
     {
@@ -215,14 +216,32 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     public AndConstraint<TypeAssertions> NotBe(Type unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        string nameOfUnexpectedType = unexpected is not null ? $"[{unexpected.AssemblyQualifiedName}]" : "<null>";
-
         assertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject != unexpected)
-            .FailWith("Expected type not to be " + nameOfUnexpectedType + "{reason}, but it is.");
+            .FailWith(() => GetFailReasonIfTypesAreEqual(Subject, unexpected));
 
         return new AndConstraint<TypeAssertions>(this);
+    }
+
+    /// <summary>
+    /// Creates an error message in case the specified <paramref name="actual"/> type equals the
+    /// <paramref name="unexpected"/> type.
+    /// </summary>
+    /// <returns>
+    /// A <see cref="FailReason"/> that describes that the two specified types are the same.
+    /// </returns>
+    private static FailReason GetFailReasonIfTypesAreEqual(Type actual, Type unexpected)
+    {
+        string unexpectedType = unexpected.AsFormattableTypeDefinition().ToFormattedString();
+        string actualType = actual.AsFormattableTypeDefinition().ToFormattedString();
+
+        if (unexpected is not null && unexpectedType == actualType)
+        {
+            unexpectedType = $"[{unexpected.AssemblyQualifiedName}]";
+        }
+
+        return new FailReason($"Expected type not to be {unexpectedType}{{reason}}, but it is.");
     }
 
     /// <summary>
@@ -454,7 +473,8 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             .ForCondition(!Subject.IsDecoratedWithOrInherit(isMatchingAttributePredicate))
             .FailWith(
                 "Expected type {0} to not be decorated with or inherit {1} that matches {2}{reason}" +
-                ", but a matching attribute was found.", Subject, typeof(TAttribute), isMatchingAttributePredicate);
+                ", but a matching attribute was found.",
+                Subject, typeof(TAttribute), isMatchingAttributePredicate);
 
         return new AndConstraint<TypeAssertions>(this);
     }
@@ -905,7 +925,9 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(propertyInfo is not null)
                 .FailWith(() =>
                 {
-                    string subjectDescription = GetSubjectDescription(assertionChain);
+                    string subjectDescription = assertionChain.HasOverriddenCallerIdentifier
+                        ? assertionChain.CallerIdentifier
+                        : Subject.ToFormattedString();
 
                     return new FailReason(
                         $"Expected {subjectDescription} to have a property {name} of type {{0}}{{reason}}, but it does not.",
@@ -973,7 +995,9 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(propertyInfo is null)
                 .FailWith(() =>
                 {
-                    string subjectDescription = GetSubjectDescription(assertionChain);
+                    string subjectDescription = assertionChain.HasOverriddenCallerIdentifier
+                        ? assertionChain.CallerIdentifier
+                        : Subject.ToFormattedString();
 
                     return new FailReason(
                         $"Did not expect {subjectDescription} to have a property {propertyInfo?.Name}{{reason}}, but it does.");
@@ -1298,7 +1322,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             .ForCondition(Subject is not null)
             .FailWith(
                 $"Expected {{0}} {{context:type}}[{parameterString}] to exist{{reason}}" +
-                ", but {context:type} is <null>.", indexerType.ToFormattableTypeDefinition());
+                ", but {context:type} is <null>.", indexerType.AsFormattableShortType());
 
         PropertyInfo propertyInfo = null;
 
@@ -1311,10 +1335,11 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(propertyInfo is not null)
                 .FailWith(
                     $"Expected {{0}} {{1}}[{parameterString}] to exist{{reason}}" +
-                    ", but it does not.", indexerType, Subject)
+                    ", but it does not.", indexerType.AsFormattableShortType(), Subject)
                 .Then
                 .ForCondition(propertyInfo.PropertyType == indexerType)
-                .FailWith("Expected {0} to be of type {1}{reason}, but it is not.", propertyInfo, indexerType.ToFormattableTypeDefinition());
+                .FailWith("Expected {0} to be of type {1}{reason}, but it is not.",
+                    propertyInfo, indexerType);
         }
 
         return new AndWhichConstraint<TypeAssertions, PropertyInfo>(this, propertyInfo, assertionChain,
@@ -1401,9 +1426,22 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             assertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(methodInfo is not null)
-                .FailWith(() => new FailReason(
-                    $"Expected method {{0}}.{name}({GetParameterString(parameterTypes)}) to exist{{reason}}" +
-                    ", but it does not.", Subject));
+                .FailWith(() =>
+                {
+                    string methodDescription;
+                    if (methodInfo is null)
+                    {
+                        methodDescription = $"{Subject.AsFormattableTypeDefinition().ToFormattedString()}.{name}";
+                    }
+                    else
+                    {
+                        methodDescription = MethodInfoAssertions.GetDescriptionFor(methodInfo);
+                    }
+
+                    return new FailReason(
+                        $"Expected method {methodDescription}({GetParameterString(parameterTypes)}) to exist{{reason}}" +
+                        ", but it does not.");
+                });
         }
 
         return new AndWhichConstraint<TypeAssertions, MethodInfo>(this, methodInfo);
@@ -1612,7 +1650,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(accessModifier == subjectAccessModifier)
                 .FailWith(
                     $"Expected {{context:type}} {{0}} to be {accessModifier}{{reason}}" +
-                    $", but it is {subjectAccessModifier}.", Subject.ToFormattableTypeDefinition());
+                    $", but it is {subjectAccessModifier}.", Subject);
         }
 
         return new AndConstraint<TypeAssertions>(this);
@@ -1650,7 +1688,8 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
                 .ForCondition(accessModifier != subjectAccessModifier)
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(accessModifier != subjectAccessModifier)
-                .FailWith($"Expected {{context:type}} {{0}} not to be {accessModifier}{{reason}}, but it is.", Subject);
+                .FailWith($"Expected {{context:type}} {{0}} not to be {accessModifier}{{reason}}, but it is.",
+                    Subject);
         }
 
         return new AndConstraint<TypeAssertions>(this);
@@ -1916,7 +1955,4 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             throw new InvalidOperationException($"{Subject.ToFormattedString()} must be a class.");
         }
     }
-
-    private string GetSubjectDescription(AssertionChain assertionChain) =>
-        assertionChain.HasOverriddenCallerIdentifier ? assertionChain.CallerIdentifier : Subject!.Name;
 }

@@ -207,10 +207,10 @@ public sealed class FormatterSpecs : IDisposable
         result.Should().Be(expected);
     }
 
+    [Theory]
     [InlineData(typeof(List<FormatterSpecs>), "System.Collections.Generic.List<FluentAssertions.Specs.Formatting.FormatterSpecs>")]
     [InlineData(typeof(Dictionary<,>), "System.Collections.Generic.Dictionary<TKey, TValue>")]
     [InlineData(typeof(Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>), "System.Collections.Generic.Dictionary<System.Collections.Generic.List<System.Collections.Generic.IEnumerable<byte>>, System.Collections.Generic.Dictionary<string, System.Collections.Generic.Dictionary<int, object>>>")]
-    [Theory]
     public void When_the_object_is_a_generic_type_it_should_be_formatted_as_written_in_source_code(Type subject, string expected)
     {
         // Act
@@ -220,12 +220,12 @@ public sealed class FormatterSpecs : IDisposable
         result.Should().Be(expected);
     }
 
+    [Theory]
     [InlineData(typeof(int[]), "int[]")]
     [InlineData(typeof(float[][]), "float[][]")]
     [InlineData(typeof(float[][][]), "float[][][]")]
     [InlineData(typeof(FormatterSpecs[,]), "FluentAssertions.Specs.Formatting.FormatterSpecs[,]")]
     [InlineData(typeof((string, int, Type)[,,]), "System.ValueTuple<string, int, System.Type>[,,]")]
-    [Theory]
     public void When_the_object_is_an_array_it_should_be_formatted_as_written_in_source_code(Type subject, string expected)
     {
         // Act
@@ -235,10 +235,10 @@ public sealed class FormatterSpecs : IDisposable
         result.Should().Be(expected);
     }
 
+    [Theory]
     [InlineData(typeof(NestedClass), "FluentAssertions.Specs.Formatting.FormatterSpecs+NestedClass")]
     [InlineData(typeof(NestedClass<int>), "FluentAssertions.Specs.Formatting.FormatterSpecs+NestedClass<int>")]
     [InlineData(typeof(NestedClass<float>.InnerClass<string, object>), "FluentAssertions.Specs.Formatting.FormatterSpecs+NestedClass`1+InnerClass<string, object>")]
-    [Theory]
     public void When_the_object_is_a_nested_class_its_declaring_types_should_be_formatted_like_the_clr_shorthand(Type subject, string expected)
     {
         // Act
@@ -248,13 +248,56 @@ public sealed class FormatterSpecs : IDisposable
         result.Should().Be(expected);
     }
 
+    [Theory]
     [InlineData(typeof(int?[]), "int?[]")]
     [InlineData(typeof((string, int?)), "System.ValueTuple<string, int?>")]
-    [Theory]
     public void When_the_object_contains_a_nullable_type_somewhere_it_should_be_formatted_with_a_questionmark(Type subject, string expected)
     {
         // Act
         string result = Formatter.ToString(subject);
+
+        // Assert
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(typeof(List<FormatterSpecs>), "List<FormatterSpecs>")]
+    [InlineData(typeof(Dictionary<,>), "Dictionary<TKey, TValue>")]
+    [InlineData(typeof(Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>), "Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>")]
+    public void When_the_object_is_a_shortvaluetype_with_generic_type_it_should_be_formatted_as_written_in_source_code_without_namespaces(Type subject, string expected)
+    {
+        // Act
+        string result = Formatter.ToString(subject.AsFormattableShortType());
+
+        // Assert
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(null, "<null>")]
+    [InlineData(typeof(FormatterSpecs), "FluentAssertions.Specs.Formatting.FormatterSpecs")]
+    [InlineData(typeof(List<FormatterSpecs>), "System.Collections.Generic.List<T>")]
+    [InlineData(typeof(Dictionary<,>), "System.Collections.Generic.Dictionary<TKey, TValue>")]
+    [InlineData(typeof(Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>), "System.Collections.Generic.Dictionary<TKey, TValue>")]
+    public void When_the_object_is_requested_to_be_formatted_as_type_definition_it_should_format_without_generic_argument_details(Type subject, string expected)
+    {
+        // Act
+        string result = Formatter.ToString(subject.AsFormattableTypeDefinition());
+
+        // Assert
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(null, "<null>")]
+    [InlineData(typeof(FormatterSpecs), "FormatterSpecs")]
+    [InlineData(typeof(List<FormatterSpecs>), "List<T>")]
+    [InlineData(typeof(Dictionary<,>), "Dictionary<TKey, TValue>")]
+    [InlineData(typeof(Dictionary<List<IEnumerable<byte>>, Dictionary<string, Dictionary<int, object>>>), "Dictionary<TKey, TValue>")]
+    public void When_the_object_is_requested_to_be_formatted_as_short_type_definition_it_should_format_without_generic_argument_details_and_without_namespaces(Type subject, string expected)
+    {
+        // Act
+        string result = Formatter.ToString(subject.AsFormattableShortTypeDefinition());
 
         // Assert
         result.Should().Be(expected);

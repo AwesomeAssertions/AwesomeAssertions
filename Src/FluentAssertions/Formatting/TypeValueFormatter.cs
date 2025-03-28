@@ -9,13 +9,19 @@ public sealed class TypeValueFormatter : IValueFormatter
 {
     public bool CanHandle(object value)
     {
-        return value is Type;
+        return value is Type or ShortTypeValue;
     }
 
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
-        Type type = (Type)value;
-        FormatType(type, formattedGraph.AddFragment);
+        if (value is ShortTypeValue shortValue)
+        {
+            FormatType(shortValue.Type, formattedGraph.AddFragment, withNamespaces: false);
+        }
+        else
+        {
+            FormatType((Type)value, formattedGraph.AddFragment);
+        }
     }
 
     /// <summary>
@@ -35,36 +41,36 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// </summary>
     /// <param name="type">The type to format.</param>
     /// <param name="append">Function for appending the formatted type part</param>
-    /// <param name="withLeadingNamespace">
-    /// If true, the initial type name is formatted with its full namespace.
-    /// Inner types, e.g. of generic arguments, are always formatted with their full namespaces.
+    /// <param name="withNamespaces">
+    /// If true, all types, including inner types of generic arguments, are formatted
+    /// using their full namespace.
     /// </param>
-    internal static void FormatType(Type type, Action<string> append, bool withLeadingNamespace = true)
+    internal static void FormatType(Type type, Action<string> append, bool withNamespaces = true)
     {
         if (Nullable.GetUnderlyingType(type) is Type nullbase)
         {
-            FormatType(nullbase, append, withLeadingNamespace);
+            FormatType(nullbase, append, withNamespaces);
             append("?");
         }
         else if (type.IsGenericType)
         {
-            if (withLeadingNamespace && !string.IsNullOrEmpty(type.Namespace))
+            if (withNamespaces && !string.IsNullOrEmpty(type.Namespace))
             {
                 append(type.Namespace);
                 append(".");
             }
 
-            FormatGenericType(type, append);
+            FormatGenericType(type, append, withNamespaces);
         }
         else if (type.BaseType == typeof(Array))
         {
-            FormatArrayType(type, append, withLeadingNamespace);
+            FormatArrayType(type, append, withNamespaces);
         }
         else if (LanguageKeywords.TryGetValue(type, out string alias))
         {
             append(alias);
         }
-        else if (withLeadingNamespace)
+        else if (withNamespaces)
         {
             append(type.FullName);
         }
@@ -79,10 +85,10 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// </summary>
     /// <param name="type">The array type. Can have any dimension.</param>
     /// <param name="append">Function for appending the formatted type part.</param>
-    /// <param name="withLeadingNamespace">If true, the type is formatted with its full namespace.</param>
-    private static void FormatArrayType(Type type, Action<string> append, bool withLeadingNamespace)
+    /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
+    private static void FormatArrayType(Type type, Action<string> append, bool withNamespace)
     {
-        FormatType(type.GetElementType(), append, withLeadingNamespace);
+        FormatType(type.GetElementType(), append, withNamespace);
 
         append("[");
         append(new string(',', type.GetArrayRank() - 1));
@@ -94,14 +100,15 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// </summary>
     /// <param name="type">The generic type. Can be bound or unbound generic.</param>
     /// <param name="append">Function for appending the formatted type part.</param>
-    private static void FormatGenericType(Type type, Action<string> append)
+    /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
+    private static void FormatGenericType(Type type, Action<string> append, bool withNamespace)
     {
         FormatDeclaringTypeNames(type, append);
 
         append(type.Name[..type.Name.LastIndexOf('`')]);
         append("<");
 
-        FormatGenericArguments(type, append);
+        FormatGenericArguments(type, append, withNamespace);
 
         append(">");
     }
@@ -111,7 +118,8 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// </summary>
     /// <param name="type">The generic base type, of which the generic arguments are formatted.</param>
     /// <param name="append">Function for appending the formatted type part.</param>
-    private static void FormatGenericArguments(Type type, Action<string> append)
+    /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
+    private static void FormatGenericArguments(Type type, Action<string> append, bool withNamespace)
     {
         Type[] types = type.GetGenericArguments();
         bool isUnboundType = type.ContainsGenericParameters;
@@ -126,7 +134,7 @@ public sealed class TypeValueFormatter : IValueFormatter
             }
             else
             {
-                FormatType(types[index], append);
+                FormatType(types[index], append, withNamespace);
             }
 
             if (index < types.Length - 1)

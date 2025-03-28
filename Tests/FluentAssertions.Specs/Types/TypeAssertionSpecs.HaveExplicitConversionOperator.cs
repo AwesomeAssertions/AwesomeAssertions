@@ -43,7 +43,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method explicit operator byte(FluentAssertions.Specs.Types.TypeWithConversionOperators) to be Private, but it is Public.");
+                    "Expected method explicit operator byte(TypeWithConversionOperators) to be Private, but it is Public.");
         }
 
         [Fact]

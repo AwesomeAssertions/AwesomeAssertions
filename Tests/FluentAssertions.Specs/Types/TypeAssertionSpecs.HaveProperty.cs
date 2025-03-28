@@ -57,7 +57,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected ClassWithNoMembers to have a property PublicProperty of type String because we want to test the failure message, but it does not.");
+                .WithMessage("Expected FluentAssertions.*ClassWithNoMembers to have a property PublicProperty of type String because we want to test the failure message, but it does not.");
         }
 
         [Fact]
@@ -216,7 +216,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect ClassWithMembers to have a property PrivateWriteProtectedReadProperty because we want to test the failure message, but it does.");
+                .WithMessage("Did not expect FluentAssertions.*.ClassWithMembers to have a property PrivateWriteProtectedReadProperty because we want to test the failure message, but it does.");
         }
 
         [Fact]

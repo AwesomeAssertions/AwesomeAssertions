@@ -44,7 +44,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected String *ClassWithNoMembers[int, System.Type] to exist *failure message*" +
+                    "Expected string *ClassWithNoMembers[int, System.Type] to exist *failure message*" +
                     ", but it does not.");
         }
 
@@ -62,7 +62,7 @@ public partial class TypeAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected String *.ClassWithMembers[int, System.Type] to exist *failure message*, but it does not.");
+                    "Expected string *.ClassWithMembers[int, System.Type] to exist *failure message*, but it does not.");
         }
 
         [Fact]
@@ -77,7 +77,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected String type[string] to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected string type[string] to exist *failure message*, but type is <null>.");
         }
 
         [Fact]

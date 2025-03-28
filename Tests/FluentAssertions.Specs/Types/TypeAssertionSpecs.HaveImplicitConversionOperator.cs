@@ -134,7 +134,7 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method implicit operator int(FluentAssertions.Specs.Types.TypeWithConversionOperators) to be Internal, but it is Public.");
+                .WithMessage("Expected method implicit operator int(TypeWithConversionOperators) to be Internal, but it is Public.");
         }
 
         [Fact]
