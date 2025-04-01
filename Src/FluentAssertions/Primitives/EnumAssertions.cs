@@ -30,8 +30,6 @@ public class EnumAssertions<TEnum, TAssertions>
     where TEnum : struct, Enum
     where TAssertions : EnumAssertions<TEnum, TAssertions>
 {
-    private readonly AssertionChain assertionChain;
-
     public EnumAssertions(TEnum subject, AssertionChain assertionChain)
         : this((TEnum?)subject, assertionChain)
     {
@@ -39,11 +37,16 @@ public class EnumAssertions<TEnum, TAssertions>
 
     private protected EnumAssertions(TEnum? value, AssertionChain assertionChain)
     {
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
         Subject = value;
     }
 
     public TEnum? Subject { get; }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
 
     /// <summary>
     /// Asserts that the current <typeparamref name="TEnum"/> is exactly equal to the <paramref name="expected"/> value.
@@ -59,7 +62,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> Be(TEnum expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject?.Equals(expected) == true)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to be {0}{reason}, but found {1}.",
@@ -82,7 +85,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> Be(TEnum? expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Nullable.Equals(Subject, expected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to be {0}{reason}, but found {1}.",
@@ -105,7 +108,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> NotBe(TEnum unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject?.Equals(unexpected) != true)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} not to be {0}{reason}, but it is.", unexpected);
@@ -127,7 +130,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> NotBe(TEnum? unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(!Nullable.Equals(Subject, unexpected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} not to be {0}{reason}, but it is.", unexpected);
@@ -148,7 +151,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> BeDefined([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected {context:the enum} to be defined in {0}{reason}, ", typeof(TEnum), chain => chain
                 .ForCondition(Subject is not null)
@@ -173,7 +176,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> NotBeDefined([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect {context:the enum} to be defined in {0}{reason}, ", typeof(TEnum), chain => chain
                 .ForCondition(Subject is not null)
@@ -199,7 +202,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> HaveValue(decimal expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject is { } value && GetValue(value) == expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to have value {0}{reason}, but found {1}.",
@@ -222,7 +225,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> NotHaveValue(decimal unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(!(Subject is { } value && GetValue(value) == unexpected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to not have value {0}{reason}, but found {1}.",
@@ -246,7 +249,7 @@ public class EnumAssertions<TEnum, TAssertions>
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject is { } value && GetValue(value) == GetValue(expected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to have same value as {0}{reason}, but found {1}.",
@@ -270,7 +273,7 @@ public class EnumAssertions<TEnum, TAssertions>
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(!(Subject is { } value && GetValue(value) == GetValue(unexpected)))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to not have same value as {0}{reason}, but found {1}.",
@@ -294,7 +297,7 @@ public class EnumAssertions<TEnum, TAssertions>
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject is { } value && GetName(value) == GetName(expected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to have same name as {0}{reason}, but found {1}.",
@@ -318,7 +321,7 @@ public class EnumAssertions<TEnum, TAssertions>
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(!(Subject is { } value && GetName(value) == GetName(unexpected)))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to not have same name as {0}{reason}, but found {1}.",
@@ -341,7 +344,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> HaveFlag(TEnum expectedFlag,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject?.HasFlag(expectedFlag) == true)
             .FailWith("Expected {context:the enum} to have flag {0}{reason}, but found {1}.", expectedFlag, Subject);
@@ -363,7 +366,7 @@ public class EnumAssertions<TEnum, TAssertions>
     public AndConstraint<TAssertions> NotHaveFlag(TEnum unexpectedFlag,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject?.HasFlag(unexpectedFlag) != true)
             .FailWith("Expected {context:the enum} to not have flag {0}{reason}.", unexpectedFlag);
@@ -390,7 +393,7 @@ public class EnumAssertions<TEnum, TAssertions>
     {
         Guard.ThrowIfArgumentIsNull(predicate, nameof(predicate), "Cannot match an enum against a <null> predicate.");
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(predicate.Compile()(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the enum} to match {1}{reason}, but found {0}.", Subject, predicate.Body);
@@ -433,7 +436,7 @@ public class EnumAssertions<TEnum, TAssertions>
         Guard.ThrowIfArgumentIsEmpty(validValues, nameof(validValues),
             "Cannot assert that an enum is one of an empty list of enums");
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject is not null)
             .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found <null>", validValues)
             .Then

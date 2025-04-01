@@ -13,6 +13,16 @@ sidebar:
 * Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
 * Increase default displayed length in `StringEqualityStrategy` - [#94](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/94)
 * Make displayed length in `StringEqualityStrategy` configurable - [#100](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/100)
+* Provide access to `AssertionChain` that assertion classes were initialized with - [#115](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/115)
+  * `BooleanAssertions`
+  * `DateOnlyAssertions`
+  * `DateTimeAssertions`
+  * `DateTimeOffsetAssertions`
+  * `EnumAssertions`
+  * `GuidAssertions`
+  * `SimpleTimeSpanAssertions`
+  * `TimeOnlyAssertions`
+  * `TypeSelectorAssertions`
 
 ### Improvements
 * Improve `Type` formatting - [#78](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/78)

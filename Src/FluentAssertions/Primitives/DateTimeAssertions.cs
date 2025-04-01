@@ -37,11 +37,9 @@ public class DateTimeAssertions : DateTimeAssertions<DateTimeAssertions>
 public class DateTimeAssertions<TAssertions>
     where TAssertions : DateTimeAssertions<TAssertions>
 {
-    private readonly AssertionChain assertionChain;
-
     public DateTimeAssertions(DateTime? value, AssertionChain assertionChain)
     {
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
         Subject = value;
     }
 
@@ -49,6 +47,11 @@ public class DateTimeAssertions<TAssertions>
     /// Gets the object whose value is being asserted.
     /// </summary>
     public DateTime? Subject { get; }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
 
     /// <summary>
     /// Asserts that the current <see cref="DateTime"/> is exactly equal to the <paramref name="expected"/> value.
@@ -64,7 +67,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> Be(DateTime expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject == expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:date and time} to be {0}{reason}, but found {1}.",
@@ -87,7 +90,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> Be(DateTime? expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject == expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:date and time} to be {0}{reason}, but found {1}.",
@@ -110,7 +113,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotBe(DateTime unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject != unexpected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:date and time} not to be {0}{reason}, but it is.", unexpected);
@@ -132,7 +135,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotBe(DateTime? unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject != unexpected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:date and time} not to be {0}{reason}, but it is.", unexpected);
@@ -175,7 +178,7 @@ public class DateTimeAssertions<TAssertions>
 
         TimeSpan? difference = (Subject - nearbyTime)?.Duration();
 
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected {context:the date and time} to be within {0} from {1}{reason}", precision, nearbyTime,
                 chain => chain
@@ -221,7 +224,7 @@ public class DateTimeAssertions<TAssertions>
         long distanceToMaxInTicks = (DateTime.MaxValue - distantTime).Ticks;
         DateTime maximumValue = distantTime.AddTicks(Math.Min(precision.Ticks, distanceToMaxInTicks));
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject < minimumValue || Subject > maximumValue)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -246,7 +249,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeBefore(DateTime expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject < expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the date and time} to be before {0}{reason}, but found {1}.", expected,
@@ -286,7 +289,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeOnOrBefore(DateTime expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject <= expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the date and time} to be on or before {0}{reason}, but found {1}.", expected,
@@ -326,7 +329,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeAfter(DateTime expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject > expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the date and time} to be after {0}{reason}, but found {1}.", expected,
@@ -366,7 +369,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeOnOrAfter(DateTime expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject >= expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:the date and time} to be on or after {0}{reason}, but found {1}.", expected,
@@ -406,7 +409,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveYear(int expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the year part of {context:the date} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -432,7 +435,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveYear(int unexpected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .ForCondition(Subject.HasValue)
             .FailWith("Did not expect the year part of {context:the date} to be {0}{reason}, but found a <null> DateTime.",
@@ -459,7 +462,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveMonth(int expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the month part of {context:the date} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -485,7 +488,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveMonth(int unexpected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the month part of {context:the date} to be {0}{reason}", unexpected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -511,7 +514,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveDay(int expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the day part of {context:the date} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -537,7 +540,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveDay(int unexpected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the day part of {context:the date} to be {0}{reason}", unexpected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -563,7 +566,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveHour(int expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the hour part of {context:the time} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -589,7 +592,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveHour(int unexpected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the hour part of {context:the time} to be {0}{reason}", unexpected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -615,7 +618,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveMinute(int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the minute part of {context:the time} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -641,7 +644,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveMinute(int unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the minute part of {context:the time} to be {0}{reason}", unexpected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -667,7 +670,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> HaveSecond(int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the seconds part of {context:the time} to be {0}{reason}", expected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -693,7 +696,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotHaveSecond(int unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the seconds part of {context:the time} to be {0}{reason}", unexpected, chain => chain
                 .ForCondition(Subject.HasValue)
@@ -714,7 +717,7 @@ public class DateTimeAssertions<TAssertions>
     /// </param>
     public DateTimeRangeAssertions<TAssertions> BeMoreThan(TimeSpan timeSpan)
     {
-        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, assertionChain, Subject, TimeSpanCondition.MoreThan,
+        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.MoreThan,
             timeSpan);
     }
 
@@ -728,7 +731,7 @@ public class DateTimeAssertions<TAssertions>
     /// </param>
     public DateTimeRangeAssertions<TAssertions> BeAtLeast(TimeSpan timeSpan)
     {
-        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, assertionChain, Subject, TimeSpanCondition.AtLeast,
+        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.AtLeast,
             timeSpan);
     }
 
@@ -741,7 +744,7 @@ public class DateTimeAssertions<TAssertions>
     /// </param>
     public DateTimeRangeAssertions<TAssertions> BeExactly(TimeSpan timeSpan)
     {
-        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, assertionChain, Subject, TimeSpanCondition.Exactly,
+        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.Exactly,
             timeSpan);
     }
 
@@ -754,7 +757,7 @@ public class DateTimeAssertions<TAssertions>
     /// </param>
     public DateTimeRangeAssertions<TAssertions> BeWithin(TimeSpan timeSpan)
     {
-        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, assertionChain, Subject, TimeSpanCondition.Within,
+        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.Within,
             timeSpan);
     }
 
@@ -767,7 +770,7 @@ public class DateTimeAssertions<TAssertions>
     /// </param>
     public DateTimeRangeAssertions<TAssertions> BeLessThan(TimeSpan timeSpan)
     {
-        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, assertionChain, Subject, TimeSpanCondition.LessThan,
+        return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.LessThan,
             timeSpan);
     }
 
@@ -787,7 +790,7 @@ public class DateTimeAssertions<TAssertions>
     {
         DateTime expectedDate = expected.Date;
 
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected the date part of {context:the date and time} to be {0}{reason}", expectedDate,
                 chain => chain
@@ -816,7 +819,7 @@ public class DateTimeAssertions<TAssertions>
     {
         DateTime unexpectedDate = unexpected.Date;
 
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect the date part of {context:the date and time} to be {0}{reason}", unexpectedDate,
                 chain => chain
@@ -886,7 +889,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<DateTime?> validValues,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(validValues.Contains(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:date and time} to be one of {0}{reason}, but found {1}.", validValues, Subject);
@@ -910,7 +913,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> BeIn(DateTimeKind expectedKind,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Expected {context:the date and time} to be in " + expectedKind + "{reason}", chain => chain
                 .ForCondition(Subject.HasValue)
@@ -938,7 +941,7 @@ public class DateTimeAssertions<TAssertions>
     public AndConstraint<TAssertions> NotBeIn(DateTimeKind unexpectedKind,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .BecauseOf(because, becauseArgs)
             .WithExpectation("Did not expect {context:the date and time} to be in " + unexpectedKind + "{reason}", chain => chain
                 .Given(() => Subject)

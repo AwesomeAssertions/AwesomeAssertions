@@ -26,11 +26,9 @@ public class GuidAssertions : GuidAssertions<GuidAssertions>
 public class GuidAssertions<TAssertions>
     where TAssertions : GuidAssertions<TAssertions>
 {
-    private readonly AssertionChain assertionChain;
-
     public GuidAssertions(Guid? value, AssertionChain assertionChain)
     {
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
         Subject = value;
     }
 
@@ -38,6 +36,11 @@ public class GuidAssertions<TAssertions>
     /// Gets the object whose value is being asserted.
     /// </summary>
     public Guid? Subject { get; }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
 
     #region BeEmpty / NotBeEmpty
 
@@ -53,7 +56,7 @@ public class GuidAssertions<TAssertions>
     /// </param>
     public AndConstraint<TAssertions> BeEmpty([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject == Guid.Empty)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:Guid} to be empty{reason}, but found {0}.", Subject);
@@ -73,7 +76,7 @@ public class GuidAssertions<TAssertions>
     /// </param>
     public AndConstraint<TAssertions> NotBeEmpty([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject is { } value && value != Guid.Empty)
             .BecauseOf(because, becauseArgs)
             .FailWith("Did not expect {context:Guid} to be empty{reason}.");
@@ -122,7 +125,7 @@ public class GuidAssertions<TAssertions>
     public AndConstraint<TAssertions> Be(Guid expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject == expected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:Guid} to be {0}{reason}, but found {1}.", expected, Subject);
@@ -167,7 +170,7 @@ public class GuidAssertions<TAssertions>
     public AndConstraint<TAssertions> NotBe(Guid unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(Subject != unexpected)
             .BecauseOf(because, becauseArgs)
             .FailWith("Did not expect {context:Guid} to be {0}{reason}.", Subject);

@@ -1651,6 +1651,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.BooleanAssertions<TAssertions>
     {
         public BooleanAssertions(bool? value, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public bool? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(bool expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> BeFalse(string because = "", params object[] becauseArgs) { }
@@ -1667,6 +1668,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.DateTimeAssertions<TAssertions>
     {
         public DateTimeAssertions(System.DateTime? value, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.DateTime? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.DateTime expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.DateTime? expected, string because = "", params object[] becauseArgs) { }
@@ -1717,6 +1719,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.DateTimeOffsetAssertions<TAssertions>
     {
         public DateTimeOffsetAssertions(System.DateTimeOffset? value, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.DateTimeOffset? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.DateTimeOffset? expected, string because = "", params object[] becauseArgs) { }
@@ -1789,6 +1792,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.EnumAssertions<TEnum, TAssertions>
     {
         public EnumAssertions(TEnum subject, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public TEnum? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(TEnum expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Be(TEnum? expected, string because = "", params object[] becauseArgs) { }
@@ -1821,6 +1825,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.GuidAssertions<TAssertions>
     {
         public GuidAssertions(System.Guid? value, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Guid? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.Guid expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Be(string expected, string because = "", params object[] becauseArgs) { }
@@ -1975,6 +1980,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.SimpleTimeSpanAssertions<TAssertions>
     {
         public SimpleTimeSpanAssertions(System.TimeSpan? value, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.TimeSpan? Subject { get; }
         public FluentAssertions.AndConstraint<TAssertions> Be(System.TimeSpan expected, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> BeCloseTo(System.TimeSpan nearbyTime, System.TimeSpan precision, string because = "", params object[] becauseArgs) { }
@@ -2522,6 +2528,7 @@ namespace FluentAssertions.Types
     public class TypeSelectorAssertions
     {
         public TypeSelectorAssertions(FluentAssertions.Execution.AssertionChain assertionChain, params System.Type[] types) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Collections.Generic.IEnumerable<System.Type> Subject { get; }
         public FluentAssertions.AndConstraint<FluentAssertions.Types.TypeSelectorAssertions> BeDecoratedWith<TAttribute>(string because = "", params object[] becauseArgs)
             where TAttribute : System.Attribute { }
