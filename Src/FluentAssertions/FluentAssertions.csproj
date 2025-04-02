@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package info">
-    <Authors>Dennis Doomen;Jonas Nyrup</Authors>
+    <Authors>AwesomeAssertions, Dennis Doomen, Jonas Nyrup and contributors</Authors>
     <PackageDescription>
       A fork of FluentAssertions.
     </PackageDescription>
