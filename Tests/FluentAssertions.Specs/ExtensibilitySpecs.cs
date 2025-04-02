@@ -1,5 +1,6 @@
 ﻿using System;
 using ExampleExtensions;
+using FluentAssertions.Primitives;
 using Xunit;
 using Xunit.Sdk;
 
@@ -36,6 +37,33 @@ public class ExtensibilitySpecs
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
             "Expected palindrome to be*tneulf*");
+    }
+
+    [Fact]
+    public void Methods_and_generated_methods_in_classes_marked_as_custom_assertions_are_ignored_during_caller_identification()
+    {
+        string expectedSubjectName = "any";
+
+        // Act
+        Action act = () => expectedSubjectName.Should().MethodWithGeneratedDisplayClass();
+
+        // Arrange
+        act.Should().Throw<XunitException>()
+            .WithMessage("Expected expectedSubjectName something, failure \"message\"");
+    }
+}
+
+[CustomAssertions]
+public static class CustomAssertionExtensions
+{
+    public static void MethodWithGeneratedDisplayClass(this StringAssertions assertions)
+    {
+        assertions.CurrentAssertionChain
+            .WithExpectation("Expected {context:FallbackIdentifier} something", chain =>
+                chain
+                    .ForCondition(condition: false)
+                    .FailWith(", failure {0}", "message")
+        );
     }
 }
 
