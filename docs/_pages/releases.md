@@ -9,6 +9,10 @@ sidebar:
 
 ## Unreleased
 
+### What's new
+
+* You can mark all assertions in a class as custom assertions using the `[CustomAssertions]` attribute - [#118](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/118)
+
 ### Improvements
 * Provide access to `AssertionChain` that assertion classes were initialized with - [#138](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/138)
   * `DateTimeOffsetRangeAssertions`

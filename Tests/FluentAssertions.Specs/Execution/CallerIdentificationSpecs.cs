@@ -7,6 +7,7 @@ using FluentAssertions;
 using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
 using FluentAssertions.Extensions;
+using FluentAssertions.Primitives;
 using Xunit;
 using Xunit.Sdk;
 

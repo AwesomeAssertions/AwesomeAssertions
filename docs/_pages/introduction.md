@@ -149,6 +149,8 @@ myClient.Should().BeActive("because we don't work with old clients");
 
 Without the `[CustomAssertion]` attribute, Awesome Assertions would find the line that calls `Should().BeTrue()` and treat the `customer` variable as the subject-under-test (SUT). But by applying this attribute, it will ignore this invocation and instead find the SUT by looking for a call to `Should().BeActive()` and use the `myClient` variable instead.
 
+For whole assertions classes you can use the `[CustomAssertions]` attribute to mark them as being extensions to Awesome Assertions.
+
 Alternatively, you can add the `[assembly:CustomAssertionsAssembly]` attribute to a file within the project to tell Awesome Assertions that all code in that assembly should be treated as custom assertion code.
 
 ## Assertion Scopes

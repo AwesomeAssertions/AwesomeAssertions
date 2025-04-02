@@ -3,7 +3,7 @@
 namespace FluentAssertions;
 
 /// <summary>
-/// Marks a method as an extension to Fluent Assertions that either uses the built-in assertions
+/// Marks a method as an extension to Awesome Assertions that either uses the built-in assertions
 /// internally, or directly uses <c>AssertionChain</c>.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method)]

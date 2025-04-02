@@ -139,11 +139,24 @@ public static class CallerIdentifier
         {
             return
                 getMethod.IsDecoratedWithOrInherit<CustomAssertionAttribute>() ||
+                IsCustomAssertionClass(getMethod.DeclaringType) ||
                 getMethod.ReflectedType?.Assembly.IsDefined(typeof(CustomAssertionsAssemblyAttribute)) == true;
         }
 
         return false;
     }
+
+    /// <summary>
+    /// Check if <paramref name="type"/> is a custom assertion class.
+    /// </summary>
+    /// <remarks>
+    /// Checking also explicitly the declaring type is necessary for DisplayClasses, which can't be marked
+    /// themselves like normal nested classes.
+    /// </remarks>
+    /// <param name="type">The class type to check</param>
+    /// <returns>True if type is a custom assertion class, or nested inside such a class.</returns>
+    private static bool IsCustomAssertionClass(Type type)
+        => type is not null && (type.IsDecoratedWithOrInherit<CustomAssertionsAttribute>() || IsCustomAssertionClass(type.DeclaringType));
 
     private static bool IsDynamic(StackFrame frame)
     {
