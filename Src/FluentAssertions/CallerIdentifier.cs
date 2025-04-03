@@ -139,11 +139,15 @@ public static class CallerIdentifier
         {
             return
                 getMethod.IsDecoratedWithOrInherit<CustomAssertionAttribute>() ||
+                IsCustomAssertionClass(getMethod.DeclaringType) ||
                 getMethod.ReflectedType?.Assembly.IsDefined(typeof(CustomAssertionsAssemblyAttribute)) == true;
         }
 
         return false;
     }
+
+    private static bool IsCustomAssertionClass(Type type)
+        => type is not null && (type.IsDecoratedWithOrInherit<CustomAssertionsAttribute>() || IsCustomAssertionClass(type.DeclaringType));
 
     private static bool IsDynamic(StackFrame frame)
     {
