@@ -6,11 +6,11 @@
         <Nullable>disable</Nullable>
         <IsPackable>false</IsPackable>
         <SignAssembly>True</SignAssembly>
-        <AssemblyOriginatorKeyFile>..\..\Src\FluentAssertions\FluentAssertions.snk</AssemblyOriginatorKeyFile>
+        <AssemblyOriginatorKeyFile>..\..\Src\AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Src\FluentAssertions\FluentAssertions.csproj" />
+      <ProjectReference Include="..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
     </ItemGroup>
 
 </Project>

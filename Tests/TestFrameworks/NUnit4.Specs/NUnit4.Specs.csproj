@@ -5,7 +5,7 @@
     <AssemblyName>NUnit4.Specs</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Src\FluentAssertions\FluentAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.4" PrivateAssets="all">

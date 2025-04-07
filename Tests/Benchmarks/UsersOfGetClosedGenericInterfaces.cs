@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using AwesomeAssertions.Equivalency;
+using AwesomeAssertions.Equivalency.Steps;
+using AwesomeAssertions.Equivalency.Tracing;
+using AwesomeAssertions.Execution;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using Bogus;
-using FluentAssertions.Equivalency;
-using FluentAssertions.Equivalency.Steps;
-using FluentAssertions.Equivalency.Tracing;
-using FluentAssertions.Execution;
 
 namespace Benchmarks;
 

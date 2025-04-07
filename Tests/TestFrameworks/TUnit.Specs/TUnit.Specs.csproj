@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Src\FluentAssertions\FluentAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="TUnit" Version="0.19.148" />
