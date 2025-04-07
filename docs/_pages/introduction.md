@@ -17,7 +17,7 @@ sidebar:
 Awesome Assertions is a set of .NET extension methods that allow you to more naturally specify the expected outcome of a TDD or BDD-style unit test. This enables a simple intuitive syntax that all starts with the following `using` statement:
 
 ```csharp
-using FluentAssertions;
+using AwesomeAssertions;
 ```
 
 This brings a lot of extension methods into the current scope. For example, to verify that a string begins, ends and contains a particular phrase.
@@ -98,12 +98,12 @@ If, for some unknown reason, Awesome Assertions fails to find the assembly, and 
 <configuration>
   <appSettings>
     <!-- Supported values: nunit, xunit2, xunit3, mstestv2, mspec and tunit -->
-    <add key="FluentAssertions.TestFramework" value="nunit"/>
+    <add key="AwesomeAssertions.TestFramework" value="nunit"/>
   </appSettings>
 </configuration>
 ```
 
-Just add NuGet package "FluentAssertions" to your test project.
+Just add NuGet package "AwesomeAssertions" to your test project.
 
 ## Subject Identification
 
@@ -204,7 +204,7 @@ using (var scope = new AssertionScope())
 }
 ```
 
-For more examples take a look at the [AssertionScopeSpecs.cs](https://github.com/awesomeassertions/awesomeassertions/blob/main/Tests/FluentAssertions.Specs/Execution/AssertionScopeSpecs.cs) in Unit Tests.
+For more examples take a look at the [AssertionScopeSpecs.cs](https://github.com/awesomeassertions/awesomeassertions/blob/main/Tests/AwesomeAssertions.Specs/Execution/AssertionScopeSpecs.cs) in Unit Tests.
 
 ### Scoped `IValueFormatter`s
 

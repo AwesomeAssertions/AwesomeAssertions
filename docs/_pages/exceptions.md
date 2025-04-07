@@ -148,7 +148,7 @@ FluentActions.Invoking(() => MyClass.Create(null)).Should().Throw<ArgumentNullEx
 To make it even more concise:
 
 ```csharp
-using static FluentAssertions.FluentActions;
+using static AwesomeAssertions.FluentActions;
 
 ...
 
