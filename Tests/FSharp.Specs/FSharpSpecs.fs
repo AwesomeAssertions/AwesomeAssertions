@@ -1,7 +1,7 @@
 namespace FSharp.Specs
 
 open System
-open FluentAssertions
+open AwesomeAssertions
 open Xunit
 open Xunit.Sdk
 

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-using FluentAssertions;
+using AwesomeAssertions;
 
 namespace Benchmarks;
 

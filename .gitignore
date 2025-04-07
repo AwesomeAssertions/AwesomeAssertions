@@ -185,7 +185,7 @@ docs/node_modules
 *.received.txt
 
 # Documentation file needed for StyleCop.Analyzers
-Tests/FluentAssertions.Specs/FluentAssertions.Specs.xml
+Tests/AwesomeAssertions.Specs/AwesomeAssertions.Specs.xml
 
 # BenchmarkDotNet
 Tests/Benchmarks/BenchmarkDotNet.Artifacts/

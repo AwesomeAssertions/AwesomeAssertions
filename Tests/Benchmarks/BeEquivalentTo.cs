@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using BenchmarkDotNet.Attributes;
-using FluentAssertions;
-using FluentAssertions.Collections;
+using AwesomeAssertions;
+using AwesomeAssertions.Collections;
 
 namespace Benchmarks;
 

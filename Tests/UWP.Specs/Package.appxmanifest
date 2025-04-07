@@ -1,9 +1,9 @@
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="17e912aa-d754-4239-acf6-e6863cff80b9" Publisher="CN=FluentAssertions" Version="1.0.0.0" />
+  <Identity Name="17e912aa-d754-4239-acf6-e6863cff80b9" Publisher="CN=AwesomeAssertions" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="17e912aa-d754-4239-acf6-e6863cff80b9" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>UWP.Specs</DisplayName>
-    <PublisherDisplayName>FluentAssertions</PublisherDisplayName>
+    <PublisherDisplayName>AwesomeAssertions</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

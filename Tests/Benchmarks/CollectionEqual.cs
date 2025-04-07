@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
-using FluentAssertions;
-using FluentAssertions.Common;
+using AwesomeAssertions;
+using AwesomeAssertions.Common;
 
 namespace Benchmarks;
 

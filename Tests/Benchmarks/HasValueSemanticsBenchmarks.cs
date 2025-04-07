@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
-using FluentAssertions.Common;
+using AwesomeAssertions.Common;
 
 namespace Benchmarks;
 

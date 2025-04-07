@@ -5,10 +5,10 @@ using System.Linq;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
 using Bogus;
-using FluentAssertions.Equivalency;
-using FluentAssertions.Equivalency.Steps;
-using FluentAssertions.Equivalency.Tracing;
-using FluentAssertions.Execution;
+using AwesomeAssertions.Equivalency;
+using AwesomeAssertions.Equivalency.Steps;
+using AwesomeAssertions.Equivalency.Tracing;
+using AwesomeAssertions.Execution;
 
 namespace Benchmarks;
 

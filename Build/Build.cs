@@ -122,7 +122,7 @@ class Build : NukeBuild
                 .SetProjectFile(Solution)
                 .SetConfiguration(Configuration)
                 .When(_ => GenerateBinLog is true, c => c
-                    .SetBinaryLog(ArtifactsDirectory / $"{Solution.Core.FluentAssertions.Name}.binlog")
+                    .SetBinaryLog(ArtifactsDirectory / $"{Solution.Core.AwesomeAssertions.Name}.binlog")
                 )
                 .EnableNoLogo()
                 .EnableNoRestore()
@@ -151,9 +151,9 @@ class Build : NukeBuild
 
     Project[] Projects =>
     [
-        Solution.Specs.FluentAssertions_Specs,
-        Solution.Specs.FluentAssertions_Equivalency_Specs,
-        Solution.Specs.FluentAssertions_Extensibility_Specs,
+        Solution.Specs.AwesomeAssertions_Specs,
+        Solution.Specs.AwesomeAssertions_Equivalency_Specs,
+        Solution.Specs.AwesomeAssertions_Extensibility_Specs,
         Solution.Specs.FSharp_Specs,
         Solution.Specs.VB_Specs
     ];
@@ -228,7 +228,7 @@ class Build : NukeBuild
                     ReportTypes.HtmlInline_AzurePipelines_Dark)
                 .AddFileFilters("-*.g.cs")
                 .AddFileFilters("-*.nuget*")
-                .SetAssemblyFilters("+FluentAssertions"));
+                .SetAssemblyFilters("+AwesomeAssertions"));
 
             string link = TestResultsDirectory / "reports" / "index.html";
             Information($"Code coverage report: \x1b]8;;file://{link.Replace('\\', '/')}\x1b\\{link}\x1b]8;;\x1b\\");
@@ -327,7 +327,7 @@ class Build : NukeBuild
                     .AddPair("Packed version", semVer)));
 
             DotNetPack(s => s
-                .SetProject(Solution.Core.FluentAssertions)
+                .SetProject(Solution.Core.AwesomeAssertions)
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
                 .EnableNoLogo()

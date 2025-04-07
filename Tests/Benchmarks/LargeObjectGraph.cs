@@ -1,7 +1,7 @@
 ﻿using System;
 using BenchmarkDotNet.Attributes;
-using FluentAssertions;
-using FluentAssertions.Primitives;
+using AwesomeAssertions;
+using AwesomeAssertions.Primitives;
 
 namespace Benchmarks;
 
