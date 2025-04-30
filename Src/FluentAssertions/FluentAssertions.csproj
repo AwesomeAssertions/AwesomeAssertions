@@ -29,7 +29,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageIcon>AwesomeAssertions.png</PackageIcon>
     <PackageReleaseNotes>See https://github.com/AwesomeAssertions/AwesomeAssertions/releases</PackageReleaseNotes>
-    <Copyright>Copyright Dennis Doomen 2010-$([System.DateTime]::Now.ToString(yyyy))</Copyright>
+    <Copyright>Copyright Dennis Doomen 2010-2025, AwesomeAssertions 2025-</Copyright>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
