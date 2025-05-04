@@ -34,6 +34,11 @@ public class MethodInfoSelectorAssertions
     }
 
     /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
+
+    /// <summary>
     /// Gets the object whose value is being asserted.
     /// </summary>
     public IEnumerable<MethodInfo> SubjectMethods { get; }

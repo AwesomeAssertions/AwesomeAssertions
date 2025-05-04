@@ -1829,6 +1829,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.DateTimeOffsetAssertions<TAssertions>
     {
         protected DateTimeOffsetRangeAssertions(TAssertions parentAssertions, FluentAssertions.Execution.AssertionChain assertionChain, System.DateTimeOffset? subject, FluentAssertions.Primitives.TimeSpanCondition condition, System.TimeSpan timeSpan) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public FluentAssertions.AndConstraint<TAssertions> After(System.DateTimeOffset target, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Before(System.DateTimeOffset target, string because = "", params object[] becauseArgs) { }
         public override bool Equals(object obj) { }
@@ -1837,6 +1838,7 @@ namespace FluentAssertions.Primitives
         where TAssertions : FluentAssertions.Primitives.DateTimeAssertions<TAssertions>
     {
         protected DateTimeRangeAssertions(TAssertions parentAssertions, FluentAssertions.Execution.AssertionChain assertionChain, System.DateTime? subject, FluentAssertions.Primitives.TimeSpanCondition condition, System.TimeSpan timeSpan) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public FluentAssertions.AndConstraint<TAssertions> After(System.DateTime target, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<TAssertions> Before(System.DateTime target, string because = "", params object[] becauseArgs) { }
         public override bool Equals(object obj) { }
@@ -2272,6 +2274,7 @@ namespace FluentAssertions.Specialized
     public class ExecutionTimeAssertions
     {
         public ExecutionTimeAssertions(FluentAssertions.Specialized.ExecutionTime executionTime, FluentAssertions.Execution.AssertionChain assertionChain) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public FluentAssertions.AndConstraint<FluentAssertions.Specialized.ExecutionTimeAssertions> BeCloseTo(System.TimeSpan expectedDuration, System.TimeSpan precision, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<FluentAssertions.Specialized.ExecutionTimeAssertions> BeGreaterThan(System.TimeSpan minDuration, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<FluentAssertions.Specialized.ExecutionTimeAssertions> BeGreaterThanOrEqualTo(System.TimeSpan minDuration, string because = "", params object[] becauseArgs) { }
@@ -2317,6 +2320,7 @@ namespace FluentAssertions.Specialized
     {
         public TaskCompletionSourceAssertions(System.Threading.Tasks.TaskCompletionSource tcs, FluentAssertions.Execution.AssertionChain assertionChain) { }
         public TaskCompletionSourceAssertions(System.Threading.Tasks.TaskCompletionSource tcs, FluentAssertions.Execution.AssertionChain assertionChain, FluentAssertions.Common.IClock clock) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Threading.Tasks.Task<FluentAssertions.AndConstraint<FluentAssertions.Specialized.TaskCompletionSourceAssertions>> CompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
         public System.Threading.Tasks.Task<FluentAssertions.AndConstraint<FluentAssertions.Specialized.TaskCompletionSourceAssertions>> NotCompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
     }
@@ -2329,6 +2333,7 @@ namespace FluentAssertions.Specialized
     {
         public TaskCompletionSourceAssertions(System.Threading.Tasks.TaskCompletionSource<T> tcs, FluentAssertions.Execution.AssertionChain assertionChain) { }
         public TaskCompletionSourceAssertions(System.Threading.Tasks.TaskCompletionSource<T> tcs, FluentAssertions.Execution.AssertionChain assertionChain, FluentAssertions.Common.IClock clock) { }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Threading.Tasks.Task<FluentAssertions.AndWhichConstraint<FluentAssertions.Specialized.TaskCompletionSourceAssertions<T>, T>> CompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
         public System.Threading.Tasks.Task<FluentAssertions.AndConstraint<FluentAssertions.Specialized.TaskCompletionSourceAssertions<T>>> NotCompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
     }
@@ -2465,6 +2470,7 @@ namespace FluentAssertions.Types
     {
         public MethodInfoSelectorAssertions(FluentAssertions.Execution.AssertionChain assertionChain, params System.Reflection.MethodInfo[] methods) { }
         protected string Context { get; }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Collections.Generic.IEnumerable<System.Reflection.MethodInfo> SubjectMethods { get; }
         public FluentAssertions.AndConstraint<FluentAssertions.Types.MethodInfoSelectorAssertions> Be(FluentAssertions.Common.CSharpAccessModifier accessModifier, string because = "", params object[] becauseArgs) { }
         public FluentAssertions.AndConstraint<FluentAssertions.Types.MethodInfoSelectorAssertions> BeAsync(string because = "", params object[] becauseArgs) { }
@@ -2528,6 +2534,7 @@ namespace FluentAssertions.Types
     {
         public PropertyInfoSelectorAssertions(FluentAssertions.Execution.AssertionChain assertionChain, params System.Reflection.PropertyInfo[] properties) { }
         protected string Context { get; }
+        public FluentAssertions.Execution.AssertionChain CurrentAssertionChain { get; }
         public System.Collections.Generic.IEnumerable<System.Reflection.PropertyInfo> SubjectProperties { get; }
         public FluentAssertions.AndConstraint<FluentAssertions.Types.PropertyInfoSelectorAssertions> BeDecoratedWith<TAttribute>(string because = "", params object[] becauseArgs)
             where TAttribute : System.Attribute { }

@@ -13,7 +13,6 @@ namespace FluentAssertions.Specialized;
 public class ExecutionTimeAssertions
 {
     private readonly ExecutionTime execution;
-    private readonly AssertionChain assertionChain;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ExecutionTime"/> class.
@@ -22,8 +21,13 @@ public class ExecutionTimeAssertions
     public ExecutionTimeAssertions(ExecutionTime executionTime, AssertionChain assertionChain)
     {
         execution = executionTime ?? throw new ArgumentNullException(nameof(executionTime));
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
     }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
 
     /// <summary>
     /// Checks the executing action if it satisfies a condition.
@@ -76,7 +80,7 @@ public class ExecutionTimeAssertions
     {
         (bool isRunning, TimeSpan elapsed) = PollUntil(duration => duration <= maxDuration, expectedResult: false, rate: maxDuration);
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(elapsed <= maxDuration)
             .BecauseOf(because, becauseArgs)
             .FailWith("Execution of " +
@@ -107,7 +111,7 @@ public class ExecutionTimeAssertions
     {
         (bool isRunning, TimeSpan elapsed) = PollUntil(duration => duration < maxDuration, expectedResult: false, rate: maxDuration);
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(elapsed < maxDuration)
             .BecauseOf(because, becauseArgs)
             .FailWith("Execution of " +
@@ -137,7 +141,7 @@ public class ExecutionTimeAssertions
     {
         (bool isRunning, TimeSpan elapsed) = PollUntil(duration => duration >= minDuration, expectedResult: true, rate: minDuration);
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(elapsed >= minDuration)
             .BecauseOf(because, becauseArgs)
             .FailWith("Execution of " +
@@ -168,7 +172,7 @@ public class ExecutionTimeAssertions
     {
         (bool isRunning, TimeSpan elapsed) = PollUntil(duration => duration > minDuration, expectedResult: true, rate: minDuration);
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(elapsed > minDuration)
             .BecauseOf(because, becauseArgs)
             .FailWith("Execution of " +
@@ -210,7 +214,7 @@ public class ExecutionTimeAssertions
         // elapsed time didn't even get to the acceptable range
         (bool isRunning, TimeSpan elapsed) = PollUntil(duration => duration <= maximumValue, expectedResult: false, rate: maximumValue);
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(elapsed >= minimumValue && elapsed <= maximumValue)
             .BecauseOf(because, becauseArgs)
             .FailWith("Execution of " + execution.ActionDescription.EscapePlaceholders() +

@@ -7,11 +7,26 @@ sidebar:
   nav: "sidebar"
 ---
 
+## Unreleased
+
+### Improvements
+* Provide access to `AssertionChain` that assertion classes were initialized with - [#138](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/138)
+  * `DateTimeOffsetRangeAssertions`
+  * `DateTimeRangeAssertions`
+  * `ExecutionTimeAssertions`
+  * `MethodInfoSelectorAssertions`
+  * `PropertyInfoSelectorAssertions`
+  * `TaskCompletionSourceAssertions`
+
 ## 8.1.0
 
 ### What's new
 * Add `ForConstraint` to `GivenSelector<T>` allowing further chaining after `.Then` - [#44](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/44)
 * Make displayed length in `StringEqualityStrategy` configurable - [#100](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/100)
+
+### Improvements
+* Increase default displayed length in `StringEqualityStrategy` - [#94](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/94)
+* Improve `Type` formatting - [#78](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/78)
 * Provide access to `AssertionChain` that assertion classes were initialized with - [#115](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/115)
   * `BooleanAssertions`
   * `DateOnlyAssertions`
@@ -22,10 +37,6 @@ sidebar:
   * `SimpleTimeSpanAssertions`
   * `TimeOnlyAssertions`
   * `TypeSelectorAssertions`
-
-### Improvements
-* Increase default displayed length in `StringEqualityStrategy` - [#94](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/94)
-* Improve `Type` formatting - [#78](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/78)
 
 ### Fixes
 * Fixed formatting of failure messages when comparing strings with braces - [#96](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/96)

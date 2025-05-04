@@ -18,13 +18,6 @@ namespace FluentAssertions.Types;
 [DebuggerNonUserCode]
 public class PropertyInfoSelectorAssertions
 {
-    private readonly AssertionChain assertionChain;
-
-    /// <summary>
-    /// Gets the object whose value is being asserted.
-    /// </summary>
-    public IEnumerable<PropertyInfo> SubjectProperties { get; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PropertyInfoSelectorAssertions"/> class, for a number of <see cref="PropertyInfo"/> objects.
     /// </summary>
@@ -32,11 +25,21 @@ public class PropertyInfoSelectorAssertions
     /// <exception cref="ArgumentNullException"><paramref name="properties"/> is <see langword="null"/>.</exception>
     public PropertyInfoSelectorAssertions(AssertionChain assertionChain, params PropertyInfo[] properties)
     {
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
         Guard.ThrowIfArgumentIsNull(properties);
 
         SubjectProperties = properties;
     }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
+
+    /// <summary>
+    /// Gets the object whose value is being asserted.
+    /// </summary>
+    public IEnumerable<PropertyInfo> SubjectProperties { get; }
 
     /// <summary>
     /// Asserts that the selected properties are virtual.
@@ -52,7 +55,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] nonVirtualProperties = GetAllNonVirtualPropertiesFromSelection();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(nonVirtualProperties.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -76,7 +79,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] virtualProperties = GetAllVirtualPropertiesFromSelection();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(virtualProperties.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -100,7 +103,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] readOnlyProperties = GetAllReadOnlyPropertiesFromSelection();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(readOnlyProperties.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -124,7 +127,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] writableProperties = GetAllWritablePropertiesFromSelection();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(writableProperties.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -170,7 +173,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] propertiesWithoutAttribute = GetPropertiesWithout<TAttribute>();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(propertiesWithoutAttribute.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(
@@ -197,7 +200,7 @@ public class PropertyInfoSelectorAssertions
     {
         PropertyInfo[] propertiesWithAttribute = GetPropertiesWith<TAttribute>();
 
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(propertiesWithAttribute.Length == 0)
             .BecauseOf(because, becauseArgs)
             .FailWith(

@@ -23,7 +23,6 @@ public class DateTimeRangeAssertions<TAssertions>
     #region Private Definitions
 
     private readonly TAssertions parentAssertions;
-    private readonly AssertionChain assertionChain;
     private readonly TimeSpanPredicate predicate;
 
     private readonly Dictionary<TimeSpanCondition, TimeSpanPredicate> predicates = new()
@@ -46,12 +45,17 @@ public class DateTimeRangeAssertions<TAssertions>
         TimeSpan timeSpan)
     {
         this.parentAssertions = parentAssertions;
-        this.assertionChain = assertionChain;
+        CurrentAssertionChain = assertionChain;
         this.subject = subject;
         this.timeSpan = timeSpan;
 
         predicate = predicates[condition];
     }
+
+    /// <summary>
+    /// Provides access to the <see cref="AssertionChain"/> that this assertion class was initialized with.
+    /// </summary>
+    public AssertionChain CurrentAssertionChain { get; }
 
     /// <summary>
     /// Asserts that a <see cref="DateTime"/> occurs a specified amount of time before another <see cref="DateTime"/>.
@@ -69,18 +73,18 @@ public class DateTimeRangeAssertions<TAssertions>
     public AndConstraint<TAssertions> Before(DateTime target,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(subject.HasValue)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected date and/or time {0} to be " + predicate.DisplayText +
                 " {1} before {2}{reason}, but found a <null> DateTime.",
                 subject, timeSpan, target);
 
-        if (assertionChain.Succeeded)
+        if (CurrentAssertionChain.Succeeded)
         {
             TimeSpan actual = target - subject.Value;
 
-            assertionChain
+            CurrentAssertionChain
                 .ForCondition(predicate.IsMatchedBy(actual, timeSpan))
                 .BecauseOf(because, becauseArgs)
                 .FailWith(
@@ -108,18 +112,18 @@ public class DateTimeRangeAssertions<TAssertions>
     public AndConstraint<TAssertions> After(DateTime target,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        assertionChain
+        CurrentAssertionChain
             .ForCondition(subject.HasValue)
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected date and/or time {0} to be " + predicate.DisplayText +
                 " {1} after {2}{reason}, but found a <null> DateTime.",
                 subject, timeSpan, target);
 
-        if (assertionChain.Succeeded)
+        if (CurrentAssertionChain.Succeeded)
         {
             TimeSpan actual = subject.Value - target;
 
-            assertionChain
+            CurrentAssertionChain
                 .ForCondition(predicate.IsMatchedBy(actual, timeSpan))
                 .BecauseOf(because, becauseArgs)
                 .FailWith(
