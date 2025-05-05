@@ -886,6 +886,52 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     }
 
     /// <summary>
+    /// Asserts that the current <see cref="Type"/> has a property named <paramref name="name"/>.
+    /// </summary>
+    /// <param name="name">The name of the property.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    public AndWhichConstraint<TypeAssertions, PropertyInfo> HaveProperty(
+        string name, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+    {
+        Guard.ThrowIfArgumentIsNullOrEmpty(name);
+
+        assertionChain
+            .BecauseOf(because, becauseArgs)
+            .ForCondition(Subject is not null)
+            .FailWith(
+                $"Cannot determine if a type has a property named {name} if the type is <null>.");
+
+        PropertyInfo propertyInfo = null;
+
+        if (assertionChain.Succeeded)
+        {
+            propertyInfo = Subject.FindPropertyByName(name);
+
+            assertionChain
+                .BecauseOf(because, becauseArgs)
+                .ForCondition(propertyInfo is not null)
+                .FailWith(() =>
+                {
+                    string subjectDescription = assertionChain.HasOverriddenCallerIdentifier
+                        ? assertionChain.CallerIdentifier
+                        : Subject.ToFormattedString();
+
+                    return new FailReason($"Expected {subjectDescription} to have a property {name}{{reason}}, but it does not.");
+                });
+        }
+
+        return new AndWhichConstraint<TypeAssertions, PropertyInfo>(this, propertyInfo);
+    }
+
+    /// <summary>
     /// Asserts that the current <see cref="Type"/> has a property of type <paramref name="propertyType"/> named
     /// <paramref name="name"/>.
     /// </summary>

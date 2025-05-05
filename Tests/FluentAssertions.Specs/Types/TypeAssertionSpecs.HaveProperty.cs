@@ -13,10 +13,10 @@ public partial class TypeAssertionSpecs
     public class HaveProperty
     {
         [Fact]
-        public void When_asserting_a_type_has_a_property_which_it_does_then_it_succeeds()
+        public void When_asserting_a_type_has_a_property_of_expected_type_and_name_which_it_does_then_it_succeeds()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = typeof(ClassWithMembers);
 
             // Act
             Action act = () =>
@@ -31,10 +31,28 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
+        public void When_asserting_a_type_has_a_property_of_expected_name_which_it_does_then_it_succeeds()
+        {
+            // Arrange
+            Type type = typeof(ClassWithMembers);
+
+            // Act
+            Action act = () =>
+                type.Should()
+                    .HaveProperty("PrivateWriteProtectedReadProperty")
+                    .Which.Should()
+                    .BeWritable(CSharpAccessModifier.Private)
+                    .And.BeReadable(CSharpAccessModifier.Protected);
+
+            // Assert
+            act.Should().NotThrow();
+        }
+
+        [Fact]
         public void The_name_of_the_property_is_passed_to_the_chained_assertion()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = typeof(ClassWithMembers);
 
             // Act
             Action act = () => type
@@ -49,7 +67,7 @@ public partial class TypeAssertionSpecs
         public void When_asserting_a_type_has_a_property_which_it_does_not_it_fails()
         {
             // Arrange
-            var type = typeof(ClassWithNoMembers);
+            Type type = typeof(ClassWithNoMembers);
 
             // Act
             Action act = () =>
@@ -61,10 +79,25 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
+        public void When_asserting_a_type_has_a_property_with_expected_name_which_it_does_not_it_fails()
+        {
+            // Arrange
+            Type type = typeof(ClassWithNoMembers);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveProperty("PublicProperty", "we want to test the failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected FluentAssertions.*ClassWithNoMembers to have a property PublicProperty because we want to test the failure message, but it does not.");
+        }
+
+        [Fact]
         public void When_asserting_a_type_has_a_property_which_it_has_with_a_different_type_it_fails()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = typeof(ClassWithMembers);
 
             // Act
             Action act = () =>
@@ -93,14 +126,29 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_type_has_a_property_of_null_it_should_throw()
+        public void When_subject_is_null_have_property_by_name_should_fail()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = null;
 
             // Act
             Action act = () =>
-                type.Should().HaveProperty(null, "PublicProperty");
+                type.Should().HaveProperty("PublicProperty", "we want to test the failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Cannot determine if a type has a property named PublicProperty if the type is <null>.");
+        }
+
+        [Fact]
+        public void When_asserting_a_type_has_a_property_of_null_it_should_throw()
+        {
+            // Arrange
+            Type type = typeof(ClassWithMembers);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveProperty((Type)null, "PublicProperty");
 
             // Assert
             act.Should().ThrowExactly<ArgumentNullException>()
@@ -108,10 +156,10 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_type_has_a_property_with_a_null_name_it_should_throw()
+        public void When_asserting_a_type_has_a_property_with_valid_type_and_a_null_name_it_should_throw()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = typeof(ClassWithMembers);
 
             // Act
             Action act = () =>
@@ -123,14 +171,44 @@ public partial class TypeAssertionSpecs
         }
 
         [Fact]
-        public void When_asserting_a_type_has_a_property_with_an_empty_name_it_should_throw()
+        public void When_asserting_a_type_has_a_property_with_valid_type_and_an_empty_name_it_should_throw()
         {
             // Arrange
-            var type = typeof(ClassWithMembers);
+            Type type = typeof(ClassWithMembers);
 
             // Act
             Action act = () =>
                 type.Should().HaveProperty(typeof(string), string.Empty);
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentException>()
+                .WithParameterName("name");
+        }
+
+        [Fact]
+        public void When_asserting_a_type_has_a_property_with_a_null_name_it_should_throw()
+        {
+            // Arrange
+            Type type = typeof(ClassWithMembers);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveProperty(null);
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("name");
+        }
+
+        [Fact]
+        public void When_asserting_a_type_has_a_property_with_an_empty_name_it_should_throw()
+        {
+            // Arrange
+            Type type = typeof(ClassWithMembers);
+
+            // Act
+            Action act = () =>
+                type.Should().HaveProperty(string.Empty);
 
             // Assert
             act.Should().ThrowExactly<ArgumentException>()
