@@ -2474,7 +2474,9 @@ namespace FluentAssertions.Types
         public FluentAssertions.Types.TypeSelector ThatAreValueTypes() { }
         public FluentAssertions.Types.TypeSelector ThatDeriveFrom<TBase>() { }
         public FluentAssertions.Types.TypeSelector ThatDoNotDeriveFrom<TBase>() { }
+        public FluentAssertions.Types.TypeSelector ThatDoNotHaveAccessModifier(FluentAssertions.Common.CSharpAccessModifier accessModifier) { }
         public FluentAssertions.Types.TypeSelector ThatDoNotImplement<TInterface>() { }
+        public FluentAssertions.Types.TypeSelector ThatHaveAccessModifier(FluentAssertions.Common.CSharpAccessModifier accessModifier) { }
         public FluentAssertions.Types.TypeSelector ThatImplement<TInterface>() { }
         public FluentAssertions.Types.TypeSelector ThatSatisfy(System.Func<System.Type, bool> predicate) { }
         public System.Type[] ToArray() { }

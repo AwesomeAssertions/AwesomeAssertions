@@ -287,6 +287,26 @@ public class TypeSelector : IEnumerable<Type>
     }
 
     /// <summary>
+    /// Filters and returns only the types which have access modifier <paramref name="accessModifier"/>.
+    /// </summary>
+    /// <param name="accessModifier">Required access modifier for types</param>
+    public TypeSelector ThatHaveAccessModifier(CSharpAccessModifier accessModifier)
+    {
+        types = types.Where(t => t.GetCSharpAccessModifier() == accessModifier).ToList();
+        return this;
+    }
+
+    /// <summary>
+    /// Filters and returns only the types which don't have access modifier <paramref name="accessModifier"/>.
+    /// </summary>
+    /// <param name="accessModifier">Unwanted access modifier for types</param>
+    public TypeSelector ThatDoNotHaveAccessModifier(CSharpAccessModifier accessModifier)
+    {
+        types = types.Where(t => t.GetCSharpAccessModifier() != accessModifier).ToList();
+        return this;
+    }
+
+    /// <summary>
     /// Returns T for the types which are <see cref="Task{T}"/> or <see cref="ValueTask{T}"/>; the type itself otherwise
     /// </summary>
     public TypeSelector UnwrapTaskTypes()

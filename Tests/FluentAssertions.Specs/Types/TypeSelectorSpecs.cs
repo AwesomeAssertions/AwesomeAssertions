@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using FluentAssertions.Common;
 using FluentAssertions.Types;
 using Internal.AbstractAndNotAbstractClasses.Test;
 using Internal.InterfaceAndClasses.Test;
@@ -719,6 +720,40 @@ namespace FluentAssertions.Specs.Types
                 .And.Contain(typeof(InternalNotInterfaceClass))
                 .And.Contain(typeof(InternalAbstractClass));
         }
+
+        [Fact]
+        public void When_selecting_types_by_access_modifier_it_should_return_the_correct_types()
+        {
+            // Arrange
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            // Act
+            IEnumerable<Type> types = AllTypes.From(assembly)
+                .ThatAreInNamespace("Internal.PublicAndInternalClasses.Test")
+                .ThatHaveAccessModifier(CSharpAccessModifier.Public);
+
+            // Assert
+            types.Should()
+                .ContainSingle()
+                .Which.Should().Be(typeof(Internal.PublicAndInternalClasses.Test.PublicClass));
+        }
+
+        [Fact]
+        public void When_selecting_types_excluding_access_modifier_it_should_return_the_correct_types()
+        {
+            // Arrange
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            // Act
+            IEnumerable<Type> types = AllTypes.From(assembly)
+                .ThatAreInNamespace("Internal.PublicAndInternalClasses.Test")
+                .ThatDoNotHaveAccessModifier(CSharpAccessModifier.Public);
+
+            // Assert
+            types.Should()
+                .ContainSingle()
+                .Which.Should().Be(typeof(Internal.PublicAndInternalClasses.Test.InternalClass));
+        }
     }
 }
 
@@ -868,6 +903,13 @@ namespace Internal.SealedAndNotSealedClasses.Test
     internal sealed class SealedClass;
 
     internal class NotSealedClass;
+}
+
+namespace Internal.PublicAndInternalClasses.Test
+{
+    public class PublicClass;
+
+    internal class InternalClass;
 }
 
 namespace Internal.ValueTypesAndNotValueTypes.Test
