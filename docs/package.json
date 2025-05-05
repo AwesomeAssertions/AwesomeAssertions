@@ -22,7 +22,7 @@
     "node": ">= 0.10.0"
   },
   "devDependencies": {
-    "npm-run-all2": "^7.0.0",
+    "npm-run-all2": "^8.0.0",
     "onchange": "^7.0.0",
     "uglify-js": "^3.8.0"
   },
