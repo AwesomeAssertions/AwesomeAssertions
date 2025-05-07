@@ -7,10 +7,11 @@ sidebar:
   nav: "sidebar"
 ---
 
-## Unreleased
+## 8.2.0
 
 ### What's new
 
+* Add `HaveProperty` to `TypeAssertions` which only takes the property name - [#142](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/142)
 * You can mark all assertions in a class as custom assertions using the `[CustomAssertions]` attribute - [#118](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/118)
 * Added `That[DoNot]HaveAccessModifier` method for filtering types - [#143](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/143)
 
