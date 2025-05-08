@@ -19,4 +19,4 @@ There are no functional changes in this release on purpose to give users more ti
 
 When upgrading to v9 it should be sufficient in most cases to simply replace all occurrences of `FluentAssertions` with `AwesomeAssertions`.
 
-Unfortunately, `global using` cannot be use to map between the namespaces, because [no `using` alias can be used in the declaration of a `using` directive](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#the-using-alias).
+Unfortunately, `global using` cannot be used to map between the namespaces, because [no `using` alias can be used in the declaration of a `using` directive](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#the-using-alias).
