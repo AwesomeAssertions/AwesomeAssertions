@@ -105,3 +105,5 @@ sidebar:
         url: /upgradingtov6
       - title: Upgrading to 8.0
         url: /upgradingtov8
+      - title: Upgrading to 9.0
+        url: /upgradingtov9
