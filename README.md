@@ -67,10 +67,6 @@ This project is useful for users who are concerned about potential license issue
 **Q: Where can I find the documentation?**  
 **A:** You can find the documentation at https://awesomeassertions.org
 
-**Q: Why is this package using the FluentAssertions namespace? Isn't that illegal?**  
-**A:** The namespaces are part of the API, which was developed under the Apache 2.0 license. The Google v. Oracle case ruled that APIs are considered fair use, so including the 'FluentAssertions' namespace in the API class names is acceptable. While this is permissible now, we may consider changing the namespaces in the future.
-
-
 # Legal Disclaimer
 
 - This package is not affiliated with or endorsed by the authors of FluentAssertions.
