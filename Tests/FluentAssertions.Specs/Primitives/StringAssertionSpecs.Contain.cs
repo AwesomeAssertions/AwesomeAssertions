@@ -413,7 +413,7 @@ public partial class StringAssertionSpecs
             }
 
             [Fact]
-            public void When_string_containment_less_than_once_is_asserted_and_actual_value_is_null_then_it_should_not_throw()
+            public void When_string_containment_less_than_twice_is_asserted_and_actual_value_is_null_then_it_should_not_throw()
             {
                 // Arrange
                 string actual = null;
