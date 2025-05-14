@@ -77,10 +77,10 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\FluentAssertions\FluentAssertions.csproj">
-      <HintPath>Src\FluentAssertions\bin\$(Configuration)\netstandard2.0\FluentAssertions.dll</HintPath>
+    <ProjectReference Include="..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj">
+      <HintPath>Src\AwesomeAssertions\bin\$(Configuration)\netstandard2.0\AwesomeAssertions.dll</HintPath>
       <Project>{34E3713D-C02F-4868-BBE7-47DAD2C7F03D}</Project>
-      <Name>FluentAssertions</Name>
+      <Name>AwesomeAssertions</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

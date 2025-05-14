@@ -1,4 +1,4 @@
-Imports FluentAssertions
+Imports AwesomeAssertions
 Imports Xunit
 Imports Xunit.Sdk
 
