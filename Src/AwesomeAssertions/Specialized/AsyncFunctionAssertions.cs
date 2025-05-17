@@ -279,7 +279,7 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
     /// </summary>
     private protected (TTask result, TimeSpan remainingTime) InvokeWithTimer(TimeSpan timeSpan)
     {
-        ITimer timer = Clock.StartTimer();
+        Common.ITimer timer = Clock.StartTimer();
         TTask result = Subject.Invoke();
         TimeSpan remainingTime = timeSpan - timer.Elapsed;
 
@@ -314,7 +314,7 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
         }
 
         // The monitored task is completed, we shall cancel the clock.
-        delayCancellationTokenSource.Cancel();
+        await delayCancellationTokenSource.CancelAsync();
         return true;
     }
 
