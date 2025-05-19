@@ -1,7 +1,7 @@
 workflow: GitFlow/v1
 commit-message-incrementing: Disabled
 branches:
-  release:
+  main:
     label: rc
     prevent-increment:
       when-current-commit-tagged: true
