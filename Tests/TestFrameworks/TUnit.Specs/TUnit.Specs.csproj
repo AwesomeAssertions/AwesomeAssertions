@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RootNamespace>TUnit.Specs</RootNamespace>
     <AssemblyName>TUnit.Specs</AssemblyName>
   </PropertyGroup>

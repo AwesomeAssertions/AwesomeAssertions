@@ -3331,7 +3331,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         }
 
         return new AndConstraint<SubsequentOrderingAssertions<T>>(
-            new SubsequentOrderingAssertions<T>(Subject, Enumerable.Empty<T>().OrderBy(x => x), assertionChain));
+            new SubsequentOrderingAssertions<T>(Subject, EmptyOrderedEnumerable, assertionChain));
     }
 
     internal virtual IOrderedEnumerable<T> GetOrderedEnumerable<TSelector>(
@@ -3574,7 +3574,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
             .ForCondition(Subject is not null)
             .FailWith($"Expected {{context:collection}} to be in {sortOrder} order{{reason}}, but found <null>.");
 
-        IOrderedEnumerable<T> ordering = Array.Empty<T>().OrderBy(x => x);
+        IOrderedEnumerable<T> ordering = EmptyOrderedEnumerable;
 
         if (assertionChain.Succeeded)
         {
@@ -3598,7 +3598,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                             actualItems, index);
 
                     return new AndConstraint<SubsequentOrderingAssertions<T>>(
-                        new SubsequentOrderingAssertions<T>(Subject, Enumerable.Empty<T>().OrderBy(x => x), assertionChain));
+                        new SubsequentOrderingAssertions<T>(Subject, EmptyOrderedEnumerable, assertionChain));
                 }
             }
         }
@@ -3688,4 +3688,11 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
 
     private protected static IComparer<TItem> GetComparer<TItem>() =>
         typeof(TItem) == typeof(string) ? (IComparer<TItem>)StringComparer.Ordinal : Comparer<TItem>.Default;
+
+    private static IOrderedEnumerable<T> EmptyOrderedEnumerable =>
+#if NET8_0_OR_GREATER
+        Enumerable.Empty<T>().Order();
+#else
+        Enumerable.Empty<T>().OrderBy(x => x);
+#endif
 }
