@@ -6,7 +6,7 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
-## Unreleased
+## 9.0.0
 
 ### Breaking Changes
 * Change all namespaces from `FluentAssertions` to `AwesomeAssertions` and the assembly name to `AwesomeAssertions.dll`, see the [Migration Guide](/upgradingtov9) for more details - [#136](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/136)
