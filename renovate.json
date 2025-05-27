@@ -9,7 +9,10 @@
     "ignorePaths": [
         "Build/**"
     ],
-	"ignoreDeps": ["system.threading.tasks.extensions"],
+	"ignoreDeps": [
+        "system.threading.tasks.extensions",
+        "Microsoft.NET.Test.Sdk"
+    ],
     "packageRules": [
         {
             "matchSourceUrls": [
