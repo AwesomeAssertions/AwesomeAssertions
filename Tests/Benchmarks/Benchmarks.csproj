@@ -9,7 +9,7 @@
     <ProjectReference Include="..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.15.0" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.1" />
     <PackageReference Include="Bogus" Version="35.6.3" />
     <!-- Resolve MSB3277 -->
     <PackageReference Include="System.Reflection.Metadata" Version="9.0.0" Condition="'$(TargetFramework)' == 'net472'" />
