@@ -6,6 +6,13 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
+
+## Unreleased
+
+### Improvements
+
+* Add `ExcludingMembersNamed` to `BeEquivalentTo` which enables excluding members with specified name - [#183](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/183)
+
 ## 9.0.0
 
 ### Breaking Changes

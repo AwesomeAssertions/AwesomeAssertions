@@ -63,6 +63,146 @@ public partial class SelectionRulesSpecs
         }
 
         [Fact]
+        public void A_member_excluded_by_name_is_described_in_the_failure_message()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Name = "John",
+                Age = 13
+            };
+
+            var customer = new
+            {
+                Id = 2,
+                Name = "Jack",
+                Age = 37
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name", "Age"));
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Exclude members named: Name, Age*");
+        }
+
+        [Fact]
+        public void A_member_excluded_by_name_should_not_fail()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Name = "John",
+                Age = 13
+            };
+
+            var customer = new
+            {
+                Id = 1,
+                Name = "Jack",
+                Age = 13
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name"));
+
+            // Assert
+            act.Should().NotThrow();
+        }
+
+        [Fact]
+        public void A_member_excluded_by_name_should_pass_in_nested_types()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Nested = new
+                {
+                    Name = "John",
+                    Age = 13,
+                }
+            };
+
+            var customer = new
+            {
+                Id = 1,
+                Nested = new
+                {
+                    Age = 13,
+                }
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name"));
+
+            // Assert
+            act.Should().NotThrow();
+        }
+
+        [Fact]
+        public void When_a_null_parameter_is_passed_instead_of_memeber_names_it_should_throw()
+        {
+            // Arrange
+            var subject = new
+            {
+                Age = 10
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(subject, options => options
+                .ExcludingMembersNamed(null!));
+
+            // Assert
+            act.Should().Throw<ArgumentNullException>()
+                .WithParameterName("memberNames");
+        }
+
+        [Fact]
+        public void When_an_empty_collection_parameter_is_passed_instead_of_memeber_names_it_should_throw()
+        {
+            // Arrange
+            var subject = new
+            {
+                Age = 10
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(subject, options => options
+                .ExcludingMembersNamed([]));
+
+            // Assert
+            act.Should().Throw<ArgumentException>()
+                .WithParameterName("memberNames")
+                .WithMessage("At least one member name must be specified.\nParameter name: memberNames");
+        }
+
+        [Fact]
+        public void When_an_empty_or_null_member_name_is_passed_in_memeber_names_parameter_it_should_throw()
+        {
+            // Arrange
+            var subject = new
+            {
+                Age = 10
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(subject, options => options
+                .ExcludingMembersNamed([null, "Age"]));
+
+            // Assert
+            act.Should().Throw<ArgumentException>()
+                .WithParameterName("memberNames")
+                .WithMessage("Collection contains a null or empty value\nParameter name: memberNames");
+        }
+
+        [Fact]
         public void When_only_the_excluded_property_doesnt_match_it_should_not_throw()
         {
             // Arrange
@@ -161,6 +301,62 @@ public partial class SelectionRulesSpecs
             // Act
             Action act =
                 () => class1.Should().BeEquivalentTo(class2, opts => opts.Excluding(o => o.Property1));
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage("Expected*Field3*");
+        }
+
+        [Fact]
+        [SuppressMessage("ReSharper", "StringLiteralTypo")]
+        public void When_excluding_member_names_it_should_pass_if_only_the_excluded_members_are_different()
+        {
+            // Arrange
+            var class1 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "Lorem",
+                Field2 = "ipsum",
+                Field3 = "dolor",
+                Property1 = "sit"
+            };
+
+            var class2 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "Lorem",
+                Field2 = "ipsum"
+            };
+
+            // Act
+            Action act =
+                () =>
+                    class1.Should().BeEquivalentTo(class2,
+                        opts => opts.ExcludingMembersNamed("Field3", "Property1"));
+
+            // Assert
+            act.Should().NotThrow("the non-excluded fields have the same value");
+        }
+
+        [Fact]
+        [SuppressMessage("ReSharper", "StringLiteralTypo")]
+        public void When_excluding_member_names_it_should_fail_if_any_non_excluded_members_are_different()
+        {
+            // Arrange
+            var class1 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "Lorem",
+                Field2 = "ipsum",
+                Field3 = "dolor",
+                Property1 = "sit"
+            };
+
+            var class2 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "Lorem",
+                Field2 = "ipsum"
+            };
+
+            // Act
+            Action act =
+                () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingMembersNamed("Property1"));
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("Expected*Field3*");
