@@ -8,8 +8,6 @@ namespace AwesomeAssertions.Specs.Primitives;
 
 public partial class StringAssertionSpecs
 {
-#if NET8_0_OR_GREATER
-
     public class BeParsableInto
     {
         [Fact]
