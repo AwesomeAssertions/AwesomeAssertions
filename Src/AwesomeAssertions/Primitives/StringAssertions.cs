@@ -296,6 +296,50 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         return new AndWhichConstraint<TAssertions, T>((TAssertions)this, parsed);
     }
 
+    /// <summary>
+    /// Asserts that a string isn't parsable into something else, which is implementing <see cref="IParsable{TSelf}"/>.
+    /// </summary>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">The type to what the <see cref="string"/> should parsed to.</typeparam>
+    public AndConstraint<TAssertions> NotBeParsableInto<T>(string because = "", params object[] becauseArgs)
+        where T : IParsable<T>
+    {
+        return NotBeParsableInto<T>(null, because, becauseArgs);
+    }
+
+    /// <summary>
+    /// Asserts that a string isn't parsable into something else, which is implementing <see cref="IParsable{TSelf}"/>,
+    /// with additionally respecting an <see cref="IFormatProvider"/>, e.g. a different <see cref="CultureInfo"/>.
+    /// </summary>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">The type to what the <see cref="string"/> should parsed to.</typeparam>
+    public AndConstraint<TAssertions> NotBeParsableInto<T>(IFormatProvider formatProvider, string because = "",
+        params object[] becauseArgs)
+        where T : IParsable<T>
+    {
+        CurrentAssertionChain
+            .WithExpectation("Expected {context:the subject} with value {0} to be not parsable into {1}{reason}, ",
+                Subject, typeof(T),
+                chain => chain
+                    .BecauseOf(because, becauseArgs)
+                    .ForCondition(!T.TryParse(Subject, formatProvider, out _))
+                    .FailWith("but it could."));
+
+        return new AndConstraint<TAssertions>((TAssertions)this);
+    }
+
 #endif
 
     /// <summary>

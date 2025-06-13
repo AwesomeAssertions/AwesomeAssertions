@@ -8,6 +8,8 @@ namespace AwesomeAssertions.Specs.Primitives;
 
 public partial class StringAssertionSpecs
 {
+#if NET8_0_OR_GREATER
+
     public class BeParsableInto
     {
         [Fact]
@@ -175,6 +177,55 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<ArgumentNullException>();
+        }
+    }
+
+    public class NotBeParsableInto
+    {
+        [Fact]
+        public void An_invalid_guid_string_is_not_parsable_into_a_guid()
+        {
+            // Arrange
+            string sut = "95e117d5bb0d4b16a1c7a11eea0284a";
+
+            // Act / Assert
+            sut.Should().NotBeParsableInto<Guid>();
+        }
+
+        [Fact]
+        public void A_guid_string_is_not_parsable_into_an_int()
+        {
+            // Arrange
+            string sut = "95e117d5-bb0d-4b16-a1c7-a11eea0284af";
+
+            // Act / Assert
+            sut.Should().NotBeParsableInto<int>();
+        }
+
+        [Fact]
+        public void A_guid_string_which_is_parsable_into_a_guid_but_is_expected_to_not_be_throws()
+        {
+            // Arrange
+            string sut = "95e117d5-bb0d-4b16-a1c7-a11eea0284af";
+
+            // Act
+            Action act = () => sut.Should().NotBeParsableInto<Guid>();
+
+            // Assert
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void An_integer_string_is_parsable_into_an_int_but_throws_when_not_expected_to()
+        {
+            // Arrange
+            string sut = "1";
+
+            // Act
+            Action act = () => sut.Should().NotBeParsableInto<int>("we want to test the {0}", "failure message");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage("*1*int*we want*failure message*could*");
         }
     }
 }
