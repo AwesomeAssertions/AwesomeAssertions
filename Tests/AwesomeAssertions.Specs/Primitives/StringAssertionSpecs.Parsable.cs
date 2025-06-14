@@ -95,7 +95,7 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
-        public void A_string_is_not_parsable_into_an_int_even_with_culure_info_defined()
+        public void A_string_is_not_parsable_into_an_int_even_with_culture_info_defined()
         {
             // Arrange
             string sut = "aaa";

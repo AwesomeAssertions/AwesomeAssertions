@@ -1,6 +1,3 @@
-using System;
-using System.Globalization;
-
 namespace AwesomeAssertions.Extensions;
 
 internal static class StringExtensions
