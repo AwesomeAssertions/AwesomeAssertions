@@ -46,10 +46,10 @@ public partial class StringAssertionSpecs
 
             // Act
             Action act = () =>
-                sut.Should().BeParsableInto<int>(new CultureInfo("de-AT"), "we want to test the {0}", "failure message");
+                sut.Should().BeParsableInto<int>(new CultureInfo("de-AT"));
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*aaa*int*we want*failure message*could not*");
+            act.Should().Throw<XunitException>().WithMessage("*aaa*int*the string*was not in the correct format*");
         }
 
         [Theory]
@@ -111,10 +111,10 @@ public partial class StringAssertionSpecs
             string sut = "1";
 
             // Act
-            Action act = () => sut.Should().NotBeParsableInto<int>(new CultureInfo("de-DE"),"we want to test the {0}", "failure message");
+            Action act = () => sut.Should().NotBeParsableInto<int>(new CultureInfo("de-DE"));
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*1*int*we want*failure message*could*");
+            act.Should().Throw<XunitException>().WithMessage("*1*int*but it could*");
         }
     }
 }
