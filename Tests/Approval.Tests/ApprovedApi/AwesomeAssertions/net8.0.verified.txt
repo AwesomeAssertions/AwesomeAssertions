@@ -2104,6 +2104,10 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(params string[] validValues) { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<string> validValues, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>(string because = "", params object[] becauseArgs)
+            where T : System.IParsable<T> { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>(System.IFormatProvider formatProvider, string because = "", params object[] becauseArgs)
+            where T : System.IParsable<T> { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeUpperCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> Contain(string expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> Contain(string expected, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2133,6 +2137,10 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeLowerCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrEmpty([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>(string because = "", params object[] becauseArgs)
+            where T : System.IParsable<T> { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>(System.IFormatProvider formatProvider, string because = "", params object[] becauseArgs)
+            where T : System.IParsable<T> { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeUpperCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContain(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContainAll(params string[] values) { }
