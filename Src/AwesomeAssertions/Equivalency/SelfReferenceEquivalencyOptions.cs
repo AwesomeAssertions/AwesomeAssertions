@@ -387,6 +387,19 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     }
 
     /// <summary>
+    /// Excludes the members with the specified names from the structural equality check.
+    /// </summary>
+    public TSelf ExcludingMembersNamed(params string[] memberNames)
+    {
+        Guard.ThrowIfArgumentIsNull(memberNames);
+        Guard.ThrowIfArgumentIsEmpty(memberNames, nameof(memberNames), "At least one member name must be specified.");
+        Guard.ThrowIfArgumentContainsNullOrEmpty(memberNames);
+
+        AddSelectionRule(new ExcludeMemberByNameSelectionRule(memberNames));
+        return (TSelf)this;
+    }
+
+    /// <summary>
     /// Requires the subject to have members which are equally named to members on the expectation.
     /// </summary>
     public TSelf ThrowingOnMissingMembers()
