@@ -49,7 +49,7 @@ public partial class StringAssertionSpecs
                 sut.Should().BeParsableInto<int>(new CultureInfo("de-AT"));
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*aaa*int*the input string*was not in the correct format*");
+            act.Should().Throw<XunitException>().WithMessage("*aaa*int*the input string*was not in a correct format*");
         }
 
         [Theory]
