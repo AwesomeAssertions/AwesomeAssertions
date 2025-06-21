@@ -6,10 +6,14 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
+
 ## Unreleased
 
 ### What's new
 * Add new assertions for strings: `[Not]BeParsableInto` - [#185](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/185)
+
+### Improvements
+* Add `ExcludingMembersNamed` to `BeEquivalentTo` which enables excluding members with specified name - [#183](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/183)
 
 ## 9.0.0
 
