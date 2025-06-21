@@ -103,11 +103,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         string aString = "blah";
 
-        // Act
-        Action action = () => aString.Should().BeOfType(typeof(string));
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aString.Should().BeOfType(typeof(string));
     }
 
     [Fact]
@@ -116,11 +113,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         var aList = new List<string>();
 
-        // Act
-        Action action = () => aList.Should().BeOfType(typeof(List<>));
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aList.Should().BeOfType(typeof(List<>));
     }
 
     [Fact]
@@ -236,11 +230,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         string aString = "blah";
 
-        // Act
-        Action action = () => aString.Should().NotBeOfType(typeof(int));
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aString.Should().NotBeOfType(typeof(int));
     }
 
     [Fact]
@@ -249,11 +240,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         var aList = new List<string>();
 
-        // Act
-        Action action = () => aList.Should().NotBeOfType(typeof(Dictionary<,>));
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aList.Should().NotBeOfType(typeof(Dictionary<,>));
     }
 
     [Fact]
@@ -262,11 +250,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         var aList = new List<string>();
 
-        // Act
-        Action action = () => aList.Should().NotBeOfType<string>();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aList.Should().NotBeOfType<string>();
     }
 
     [Fact]
@@ -275,11 +260,8 @@ public partial class ReferenceTypeAssertionsSpecs
         // Arrange
         var aString = "blah";
 
-        // Act
-        Action action = () => aString.Should().NotBeOfType(typeof(Dictionary<,>));
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        aString.Should().NotBeOfType(typeof(Dictionary<,>));
     }
 
     [Fact]

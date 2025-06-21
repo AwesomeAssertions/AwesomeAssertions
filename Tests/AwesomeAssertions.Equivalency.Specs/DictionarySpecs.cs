@@ -304,11 +304,8 @@ public class DictionarySpecs
         ICollection<KeyValuePair<string, int>> collection =
             new List<KeyValuePair<string, int>> { new("hi", 1) };
 
-        // Act
-        Action act = () => dictionary.Should().BeEquivalentTo(collection);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        dictionary.Should().BeEquivalentTo(collection);
     }
 
     [Fact]
@@ -323,15 +320,12 @@ public class DictionarySpecs
                     ["Key1"] = ["Value1"]
                 });
 
-        // Act
-        Action act = () => dictionary.Should().BeEquivalentTo(new Dictionary<string, IEnumerable<string>>
+        // Act / Assert
+        dictionary.Should().BeEquivalentTo(new Dictionary<string, IEnumerable<string>>
         {
             ["Key1"] = ["Value1"],
             ["Key2"] = ["Value2"]
         });
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -379,11 +373,8 @@ public class DictionarySpecs
         Dictionary<int, int> subject = null;
         Dictionary<int, int> expectation = null;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -394,12 +385,9 @@ public class DictionarySpecs
 
         Dictionary<int, int> expectation = new() { [42] = 1337 };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation)
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation)
             .And.ContainKey(42);
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -410,12 +398,9 @@ public class DictionarySpecs
 
         Dictionary<int, int> expectation = new() { [42] = 1337 };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, opt => opt)
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, opt => opt)
             .And.ContainKey(42);
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -440,11 +425,8 @@ public class DictionarySpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -484,11 +466,8 @@ public class DictionarySpecs
         object object1 = new Dictionary<string, string> { ["greeting"] = "hello" };
         object object2 = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act
-        Action act = () => object1.Should().BeEquivalentTo(object2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        object1.Should().BeEquivalentTo(object2);
     }
 
     [Fact]
@@ -530,11 +509,8 @@ public class DictionarySpecs
         object object1 = new NonGenericDictionary();
         object object2 = new NonGenericDictionary();
 
-        // Act
-        Action act = () => object1.Should().BeEquivalentTo(object2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        object1.Should().BeEquivalentTo(object2);
     }
 
     [Fact]
@@ -1022,16 +998,13 @@ public class DictionarySpecs
             ["A"] = 0
         };
 
-        // Act
-        Action act = () => result.Should().BeEquivalentTo(new Dictionary<string, int?>
+        // Act / Assert
+        result.Should().BeEquivalentTo(new Dictionary<string, int?>
         {
             ["A"] = 0,
             ["B"] = 0,
             ["C"] = null
         });
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -1045,16 +1018,13 @@ public class DictionarySpecs
             ["A"] = 0
         };
 
-        // Act
-        Action act = () => result.Should().BeEquivalentTo(new Dictionary<string, int>
+        // Act / Assert
+        result.Should().BeEquivalentTo(new Dictionary<string, int>
         {
             ["A"] = 0,
             ["B"] = 0,
             ["C"] = 0
         });
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -1077,11 +1047,8 @@ public class DictionarySpecs
             }
         };
 
-        // Act
-        Action act = () => persistedProjection.Should().BeEquivalentTo(projection);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        persistedProjection.Should().BeEquivalentTo(projection);
     }
 
     [Fact]

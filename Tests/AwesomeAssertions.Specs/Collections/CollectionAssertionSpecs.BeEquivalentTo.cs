@@ -98,11 +98,8 @@ public partial class CollectionAssertionSpecs
             int[] subject = [];
             int[] otherCollection = [];
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(otherCollection);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(otherCollection);
         }
 
         [Fact]
@@ -283,11 +280,8 @@ public partial class CollectionAssertionSpecs
             int[] collection1 = [1, 2, 3];
             int[] collection2 = [];
 
-            // Act
-            Action act = () => collection1.Should().NotBeEquivalentTo(collection2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection1.Should().NotBeEquivalentTo(collection2);
         }
 
         [Fact]

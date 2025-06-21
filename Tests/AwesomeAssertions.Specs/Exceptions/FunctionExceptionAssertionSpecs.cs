@@ -207,11 +207,8 @@ public class FunctionExceptionAssertionSpecs
         // Arrange
         Func<int> f = () => throw new AggregateException(new ArgumentNullException());
 
-        // Act
-        Action action = () => f.Should().Throw<ArgumentNullException>();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        f.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -235,11 +232,8 @@ public class FunctionExceptionAssertionSpecs
         // Arrange
         Func<int> f = () => throw new AggregateException(new AggregateException(new ArgumentNullException()));
 
-        // Act
-        Action action = () => f.Should().Throw<ArgumentNullException>();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        f.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -544,10 +538,7 @@ public class FunctionExceptionAssertionSpecs
         };
 
         // Act
-        Action act = () => throwShorterThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval);
-
-        // Assert
-        act.Should().NotThrow();
+        throwShorterThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval);
     }
 
     [Fact]
@@ -636,10 +627,7 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => throw new ArgumentNullException();
 
         // Act
-        Action action = () => f.Should().NotThrow<InvalidOperationException>();
-
-        // Assert
-        action.Should().NotThrow();
+        f.Should().NotThrow<InvalidOperationException>();
     }
 
     #endregion

@@ -147,11 +147,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEBCDF";
                 string expectedSubstring = "BCD";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, Exactly.Times(2));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, Exactly.Times(2));
             }
 
             [Fact]
@@ -181,11 +178,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEBCDF";
                 string expectedSubstring = "BCD";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, AtLeast.Times(2));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, AtLeast.Times(2));
             }
 
             [Fact]
@@ -246,11 +240,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEBCDF";
                 string expectedSubstring = "BCD";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, MoreThan.Times(1));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, MoreThan.Times(1));
             }
 
             [Fact]
@@ -311,11 +302,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEBCDF";
                 string expectedSubstring = "BCD";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, AtMost.Times(2));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, AtMost.Times(2));
             }
 
             [Fact]
@@ -342,11 +330,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEF";
                 string expectedSubstring = "XYS";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, AtMost.Once());
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, AtMost.Once());
             }
 
             [Fact]
@@ -356,11 +341,8 @@ public partial class StringAssertionSpecs
                 string actual = null;
                 string expectedSubstring = "XYZ";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, AtMost.Once());
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, AtMost.Once());
             }
         }
 
@@ -374,11 +356,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEBCDF";
                 string expectedSubstring = "BCD";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, LessThan.Times(3));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, LessThan.Times(3));
             }
 
             [Fact]
@@ -405,11 +384,8 @@ public partial class StringAssertionSpecs
                 string actual = "ABCDEF";
                 string expectedSubstring = "XYS";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, LessThan.Twice());
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, LessThan.Twice());
             }
 
             [Fact]
@@ -419,11 +395,8 @@ public partial class StringAssertionSpecs
                 string actual = null;
                 string expectedSubstring = "XYZ";
 
-                // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, LessThan.Twice());
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().Contain(expectedSubstring, LessThan.Twice());
             }
         }
     }
@@ -433,11 +406,8 @@ public partial class StringAssertionSpecs
         [Fact]
         public void When_string_does_not_contain_the_unexpected_string_it_should_succeed()
         {
-            // Act
-            Action act = () => "a".Should().NotContain("A");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "a".Should().NotContain("A");
         }
 
         [Fact]

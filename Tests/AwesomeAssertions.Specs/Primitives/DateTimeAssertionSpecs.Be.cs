@@ -16,11 +16,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = new(2016, 06, 04);
             DateTime sameDateTime = new(2016, 06, 04);
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -30,11 +27,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = 4.June(2016);
             DateTime? sameDateTime = 4.June(2016);
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -44,11 +38,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = DateTime.MinValue;
             DateTime sameDateTime = DateTime.MinValue;
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -58,11 +49,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = DateTime.MaxValue;
             DateTime sameDateTime = DateTime.MaxValue;
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -102,12 +90,8 @@ public partial class DateTimeAssertionSpecs
             DateTime? nullableDateTimeA = new DateTime(2016, 06, 04);
             DateTime? nullableDateTimeB = new DateTime(2016, 06, 04);
 
-            // Act
-            Action action = () =>
-                nullableDateTimeA.Should().Be(nullableDateTimeB);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTimeA.Should().Be(nullableDateTimeB);
         }
 
         [Fact]
@@ -117,12 +101,8 @@ public partial class DateTimeAssertionSpecs
             DateTime? nullableDateTime = new DateTime(2014, 4, 20, 9, 11, 0, DateTimeKind.Unspecified);
             DateTime normalDateTime = new(2014, 4, 20, 9, 11, 0, DateTimeKind.Utc);
 
-            // Act
-            Action action = () =>
-                nullableDateTime.Should().Be(normalDateTime);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should().Be(normalDateTime);
         }
 
         [Fact]
@@ -132,12 +112,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTimeA = new(2014, 4, 20, 9, 11, 0, DateTimeKind.Unspecified);
             DateTime dateTimeB = new(2014, 4, 20, 9, 11, 0, DateTimeKind.Utc);
 
-            // Act
-            Action action = () =>
-                dateTimeA.Should().Be(dateTimeB);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            dateTimeA.Should().Be(dateTimeB);
         }
 
         [Fact]
@@ -147,12 +123,8 @@ public partial class DateTimeAssertionSpecs
             DateTime? nullableDateTimeA = null;
             DateTime? nullableDateTimeB = null;
 
-            // Act
-            Action action = () =>
-                nullableDateTimeA.Should().Be(nullableDateTimeB);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTimeA.Should().Be(nullableDateTimeB);
         }
 
         [Fact]
@@ -196,11 +168,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = new(2016, 06, 04);
             DateTime otherDateTime = new(2016, 06, 05);
 
-            // Act
-            Action act = () => dateTime.Should().NotBe(otherDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().NotBe(otherDateTime);
         }
 
         [Fact]
@@ -210,11 +179,8 @@ public partial class DateTimeAssertionSpecs
             DateTime dateTime = 4.June(2016);
             DateTime? otherDateTime = 5.June(2016);
 
-            // Act
-            Action act = () => dateTime.Should().NotBe(otherDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().NotBe(otherDateTime);
         }
 
         [Fact]

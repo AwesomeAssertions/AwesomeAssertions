@@ -15,11 +15,8 @@ public partial class NumericAssertionSpecs
             int value = 2;
             int smallerValue = 1;
 
-            // Act
-            Action act = () => value.Should().BeGreaterThan(smallerValue);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeGreaterThan(smallerValue);
         }
 
         [Fact]

@@ -48,11 +48,8 @@ public partial class ObjectAssertionSpecs
             // Arrange
             var value = new ClassWithCustomEqualMethod(4);
 
-            // Act
-            Action act = () => value.Should().BeOneOf(new ClassWithCustomEqualMethod(4), new ClassWithCustomEqualMethod(5));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf(new ClassWithCustomEqualMethod(4), new ClassWithCustomEqualMethod(5));
         }
 
         [Fact]

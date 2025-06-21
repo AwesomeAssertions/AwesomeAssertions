@@ -14,11 +14,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             var subject = new DateTime(2009, 12, 31, 4, 5, 6);
 
-            // Act
-            Action act = () => subject.Should().BeSameDateAs(new DateTime(2009, 12, 31));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeSameDateAs(new DateTime(2009, 12, 31));
         }
 
         [Fact]
@@ -28,11 +25,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             var subject = new DateTime(2009, 12, 31, 4, 5, 6);
 
-            // Act
-            Action act = () => subject.Should().BeSameDateAs(new DateTime(2009, 12, 31, 11, 15, 11));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeSameDateAs(new DateTime(2009, 12, 31, 11, 15, 11));
         }
 
         [Fact]
@@ -115,11 +109,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             var subject = new DateTime(2009, 12, 31);
 
-            // Act
-            Action act = () => subject.Should().NotBeSameDateAs(new DateTime(2009, 12, 30));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeSameDateAs(new DateTime(2009, 12, 30));
         }
     }
 }

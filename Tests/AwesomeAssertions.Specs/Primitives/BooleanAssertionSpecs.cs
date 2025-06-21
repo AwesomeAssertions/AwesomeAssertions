@@ -51,12 +51,8 @@ public class BooleanAssertionSpecs
         [Fact]
         public void Should_succeed_when_asserting_boolean_value_false_is_false()
         {
-            // Act
-            Action action = () =>
-                false.Should().BeFalse();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            false.Should().BeFalse();
         }
 
         [Fact]
@@ -88,12 +84,8 @@ public class BooleanAssertionSpecs
         [Fact]
         public void Should_succeed_when_asserting_boolean_value_to_be_equal_to_the_same_value()
         {
-            // Act
-            Action action = () =>
-                false.Should().Be(false);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            false.Should().Be(false);
         }
 
         [Fact]
@@ -125,12 +117,8 @@ public class BooleanAssertionSpecs
         [Fact]
         public void Should_succeed_when_asserting_boolean_value_not_to_be_equal_to_the_same_value()
         {
-            // Act
-            Action action = () =>
-                true.Should().NotBe(false);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            true.Should().NotBe(false);
         }
 
         [Fact]

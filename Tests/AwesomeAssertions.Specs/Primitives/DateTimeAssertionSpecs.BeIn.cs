@@ -16,11 +16,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             DateTime subject = new(2009, 12, 31, 23, 59, 00, DateTimeKind.Local);
 
-            // Act
-            Action act = () => subject.Should().BeIn(DateTimeKind.Local);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeIn(DateTimeKind.Local);
         }
 
         [Fact]

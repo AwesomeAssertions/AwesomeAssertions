@@ -56,14 +56,11 @@ public partial class CollectionAssertionSpecs
                 (3, "a")
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
                 .ThenBeInAscendingOrder(x => x.Item2);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -102,14 +99,11 @@ public partial class CollectionAssertionSpecs
                 (3, "a")
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
                 .ThenBeInAscendingOrder(x => x.Item2, StringComparer.InvariantCultureIgnoreCase);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -124,16 +118,13 @@ public partial class CollectionAssertionSpecs
                 (3, "a", 1.1)
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
                 .ThenBeInAscendingOrder(x => x.Item2)
                 .And
                 .ThenBeInAscendingOrder(x => x.Item3);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -148,14 +139,11 @@ public partial class CollectionAssertionSpecs
                 (1, "a")
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
                 .ThenBeInDescendingOrder(x => x.Item2);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -194,14 +182,11 @@ public partial class CollectionAssertionSpecs
                 (1, "a")
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
                 .ThenBeInDescendingOrder(x => x.Item2, StringComparer.InvariantCultureIgnoreCase);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -216,16 +201,13 @@ public partial class CollectionAssertionSpecs
                 (1, "a", 1.1)
             ];
 
-            // Act
-            Action action = () => collection.Should()
+            // Act / Assert
+            collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
                 .ThenBeInDescendingOrder(x => x.Item2)
                 .And
                 .ThenBeInDescendingOrder(x => x.Item3);
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]

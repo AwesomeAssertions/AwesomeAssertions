@@ -16,12 +16,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithAllMethodsVirtual));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().BeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().BeVirtual();
         }
 
         [Fact]
@@ -68,12 +64,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithNonVirtualPublicMethods));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().NotBeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().NotBeVirtual();
         }
 
         [Fact]
@@ -135,12 +127,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithAllMethodsDecoratedWithDummyAttribute));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().BeDecoratedWith<DummyMethodAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().BeDecoratedWith<DummyMethodAttribute>();
         }
 
         [Fact]
@@ -204,12 +192,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithMethodsThatAreNotDecoratedWithDummyAttribute));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().NotBeDecoratedWith<DummyMethodAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().NotBeDecoratedWith<DummyMethodAttribute>();
         }
 
         [Fact]
@@ -258,12 +242,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithPublicMethods));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().Be(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().Be(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -314,12 +294,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(GenericClassWithNonPublicMethods<string>));
 
-            // Act
-            Action act = () =>
-                methodSelector.Should().NotBe(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().NotBe(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -366,11 +342,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithAllMethodsAsync));
 
-            // Act
-            Action act = () => methodSelector.Should().BeAsync();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().BeAsync();
         }
 
         [Fact]
@@ -402,11 +375,8 @@ public class MethodInfoSelectorAssertionSpecs
             // Arrange
             var methodSelector = new MethodInfoSelector(typeof(ClassWithNonAsyncMethods));
 
-            // Act
-            Action act = () => methodSelector.Should().NotBeAsync();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodSelector.Should().NotBeAsync();
         }
 
         [Fact]

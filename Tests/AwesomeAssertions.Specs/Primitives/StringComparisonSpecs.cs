@@ -45,11 +45,8 @@ public class StringComparisonSpecs
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_equivalency_it_should_ignore_culture(string subject, string expected)
     {
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected);
     }
 
     [CulturedTheory("tr-TR")]

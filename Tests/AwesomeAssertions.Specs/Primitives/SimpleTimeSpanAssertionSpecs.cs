@@ -579,11 +579,8 @@ public class SimpleTimeSpanAssertionSpecs
         var time = new TimeSpan(1, 12, 15, 30, 980);
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
-        // Act
-        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
     }
 
     [Fact]
@@ -593,11 +590,8 @@ public class SimpleTimeSpanAssertionSpecs
         var time = new TimeSpan(1, 12, 15, 31, 020);
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
-        // Act
-        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
     }
 
     [Fact]
@@ -639,11 +633,8 @@ public class SimpleTimeSpanAssertionSpecs
         var time = new TimeSpan(1, 12, 15, 31, 035);
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
-        // Act
-        Action act = () => time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
     }
 
     [Fact]
@@ -750,11 +741,8 @@ public class SimpleTimeSpanAssertionSpecs
         var time = new TimeSpan(1, 12, 15, 30, 979);
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
-        // Act
-        Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
     }
 
     [Fact]
@@ -764,11 +752,8 @@ public class SimpleTimeSpanAssertionSpecs
         var time = new TimeSpan(1, 12, 15, 31, 021);
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
-        // Act
-        Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
     }
 
     [Fact]

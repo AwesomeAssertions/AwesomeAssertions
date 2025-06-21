@@ -31,11 +31,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> subset = new string[0];
             IEnumerable<string> superset = ["one", "two", "four", "five"];
 
-            // Act
-            Action act = () => subset.Should().BeSubsetOf(superset);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subset.Should().BeSubsetOf(superset);
         }
 
         [Fact]

@@ -201,10 +201,7 @@ public class NotThrowSpecs
             }
         };
 
-        // Act
-        Action act = () => throwShorterThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        throwShorterThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval);
     }
 }

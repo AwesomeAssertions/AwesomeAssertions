@@ -94,11 +94,8 @@ public class ComparableSpecs
             var subject = new EquatableOfInt(1);
             var other = new EquatableOfInt(2);
 
-            // Act
-            Action act = () => subject.Should().NotBe(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBe(other);
         }
     }
 
@@ -141,11 +138,8 @@ public class ComparableSpecs
             // Arrange
             var value = new EquatableOfInt(4);
 
-            // Act
-            Action act = () => value.Should().BeOneOf(new EquatableOfInt(4), new EquatableOfInt(5));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf(new EquatableOfInt(4), new EquatableOfInt(5));
         }
     }
 
@@ -248,12 +242,8 @@ public class ComparableSpecs
             // Arrange
             ComparableOfString subject = null;
 
-            // Act
-            Action action = () =>
-                subject.Should().BeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeNull();
         }
 
         [Fact]
@@ -280,12 +270,8 @@ public class ComparableSpecs
             // Arrange
             var subject = new ComparableOfString("");
 
-            // Act
-            Action action = () =>
-                subject.Should().NotBeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeNull();
         }
 
         [Fact]
@@ -312,12 +298,8 @@ public class ComparableSpecs
             // Arrange
             var subject = new ComparableOfInt(1);
 
-            // Act
-            Action action = () =>
-                subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
@@ -326,12 +308,8 @@ public class ComparableSpecs
             // Arrange
             var subject = new ComparableOfInt(2);
 
-            // Act
-            Action action = () =>
-                subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
@@ -358,12 +336,8 @@ public class ComparableSpecs
             // Arrange
             var subject = new ComparableOfInt(3);
 
-            // Act
-            Action action = () =>
-                subject.Should().NotBeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
@@ -405,11 +379,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("Hello");
             var other = new ComparableOfString("Hello");
 
-            // Act
-            Action act = () => subject.Should().BeRankedEquallyTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeRankedEquallyTo(other);
         }
 
         [Fact]
@@ -439,11 +410,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("Hello");
             var other = new ComparableOfString("Hi");
 
-            // Act
-            Action act = () => subject.Should().NotBeRankedEquallyTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeRankedEquallyTo(other);
         }
 
         [Fact]
@@ -473,11 +441,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("City");
             var other = new ComparableOfString("World");
 
-            // Act
-            Action act = () => subject.Should().BeLessThan(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeLessThan(other);
         }
 
         [Fact]
@@ -536,11 +501,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("World");
             var other = new ComparableOfString("World");
 
-            // Act
-            Action act = () => subject.Should().BeLessThanOrEqualTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeLessThanOrEqualTo(other);
         }
 
         [Fact]
@@ -550,11 +512,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("City");
             var other = new ComparableOfString("World");
 
-            // Act
-            Action act = () => subject.Should().BeLessThanOrEqualTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeLessThanOrEqualTo(other);
         }
 
         [Fact]
@@ -578,11 +537,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("efg");
             var other = new ComparableOfString("abc");
 
-            // Act
-            Action act = () => subject.Should().BeGreaterThan(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeGreaterThan(other);
         }
 
         [Fact]
@@ -641,11 +597,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("def");
             var other = new ComparableOfString("def");
 
-            // Act
-            Action act = () => subject.Should().BeGreaterThanOrEqualTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeGreaterThanOrEqualTo(other);
         }
 
         [Fact]
@@ -655,11 +608,8 @@ public class ComparableSpecs
             var subject = new ComparableOfString("xyz");
             var other = new ComparableOfString("abc");
 
-            // Act
-            Action act = () => subject.Should().BeGreaterThanOrEqualTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeGreaterThanOrEqualTo(other);
         }
 
         [Fact]

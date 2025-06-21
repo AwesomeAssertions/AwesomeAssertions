@@ -37,12 +37,9 @@ public partial class GenericCollectionAssertionOfStringSpecs
             var actual = new List<string> { "ONE", "TWO", "THREE", "FOUR" };
             var expected = new List<string> { "One", "Two", "Three", "Four" };
 
-            // Act
-            Action action = () => actual.Should().Equal(expected,
+            // Act / Assert
+            actual.Should().Equal(expected,
                 (a, e) => string.Equals(a, e, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -132,11 +129,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> nullColl = null;
 
-            // Act
-            Action act = () => nullColl.Should().Equal(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            nullColl.Should().Equal(null);
         }
 
         [Fact]
@@ -193,11 +187,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             var subject = new List<string> { "aaa", null };
             var expected = new List<string> { "aaa", null };
 
-            // Act
-            Action action = () => subject.Should().Equal(expected);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Equal(expected);
         }
     }
 

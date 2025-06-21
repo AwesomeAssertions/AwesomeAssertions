@@ -149,12 +149,8 @@ public class NullableGuidAssertionSpecs
         Guid? nullGuid = null;
         Guid? otherNullGuid = null;
 
-        // Act
-        Action act = () =>
-            nullGuid.Should().Be(otherNullGuid);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        nullGuid.Should().Be(otherNullGuid);
     }
 
     [Fact]

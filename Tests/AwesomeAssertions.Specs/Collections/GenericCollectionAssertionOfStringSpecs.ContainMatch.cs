@@ -16,11 +16,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> collection = ["build succeded", "test failed"];
 
-            // Act
-            Action action = () => collection.Should().ContainMatch("* failed");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            collection.Should().ContainMatch("* failed");
         }
 
         [Fact]
@@ -29,11 +26,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> collection = ["build succeded", "test failed", "pack failed"];
 
-            // Act
-            Action action = () => collection.Should().ContainMatch("* failed");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            collection.Should().ContainMatch("* failed");
         }
 
         [Fact]
@@ -167,11 +161,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> collection = ["build succeded", "test"];
 
-            // Act
-            Action action = () => collection.Should().NotContainMatch("* failed");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            collection.Should().NotContainMatch("* failed");
         }
 
         [Fact]
@@ -180,11 +171,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> collection = ["build succeded", "test", "pack"];
 
-            // Act
-            Action action = () => collection.Should().NotContainMatch("* failed");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            collection.Should().NotContainMatch("* failed");
         }
 
         [Fact]

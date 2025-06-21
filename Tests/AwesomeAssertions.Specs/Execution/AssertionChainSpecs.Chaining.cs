@@ -120,14 +120,11 @@ public partial class AssertionChainSpecs
         [Fact]
         public void When_a_given_is_used_before_an_assertion_then_the_result_should_be_available_for_evaluation()
         {
-            // Act
-            Action act = () => AssertionChain.GetOrCreate()
+            // Act / Assert
+            AssertionChain.GetOrCreate()
                 .Given(() => new[] { "a", "b" })
                 .ForCondition(collection => collection.Length > 0)
                 .FailWith("First assertion");
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]

@@ -17,12 +17,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithAttribute = typeof(ClassWithInheritedAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithAttribute.Should().BeDecoratedWithOrInherit<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithAttribute.Should().BeDecoratedWithOrInherit<DummyClassAttribute>();
         }
 
         [Fact]
@@ -31,13 +27,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithAttribute = typeof(ClassWithInheritedAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithAttribute.Should().BeDecoratedWithOrInherit<DummyClassAttribute>()
-                    .Which.IsEnabled.Should().BeTrue();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithAttribute.Should().BeDecoratedWithOrInherit<DummyClassAttribute>()
+                .Which.IsEnabled.Should().BeTrue();
         }
 
         [Fact]
@@ -78,13 +70,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithAttribute = typeof(ClassWithInheritedAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithAttribute.Should()
-                    .BeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Expected" && a.IsEnabled);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithAttribute.Should()
+                .BeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Expected" && a.IsEnabled);
         }
 
         [Fact]
@@ -93,14 +81,10 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithAttribute = typeof(ClassWithInheritedAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithAttribute.Should()
-                    .BeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Expected")
-                    .Which.IsEnabled.Should().BeTrue();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithAttribute.Should()
+                .BeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Expected")
+                .Which.IsEnabled.Should().BeTrue();
         }
 
         [Fact]
@@ -130,12 +114,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithoutAttribute = typeof(ClassWithoutAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithoutAttribute.Should().NotBeDecoratedWithOrInherit<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithoutAttribute.Should().NotBeDecoratedWithOrInherit<DummyClassAttribute>();
         }
 
         [Fact]
@@ -177,13 +157,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type typeWithoutAttribute = typeof(ClassWithInheritedAttribute);
 
-            // Act
-            Action act = () =>
-                typeWithoutAttribute.Should()
-                    .NotBeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Unexpected" && a.IsEnabled);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            typeWithoutAttribute.Should()
+                .NotBeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Unexpected" && a.IsEnabled);
         }
 
         [Fact]

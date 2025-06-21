@@ -15,11 +15,8 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = new(2016, 06, 04);
             DateTime expectation = new(2016, 06, 03);
 
-            // Act
-            Action act = () => subject.Should().BeOnOrAfter(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeOnOrAfter(expectation);
         }
 
         [Fact]
@@ -29,11 +26,8 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = new(2016, 06, 04);
             DateTime expectation = new(2016, 06, 04);
 
-            // Act
-            Action act = () => subject.Should().BeOnOrAfter(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeOnOrAfter(expectation);
         }
 
         [Fact]
@@ -91,11 +85,8 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = new(2016, 06, 04);
             DateTime expectation = new(2016, 06, 05);
 
-            // Act
-            Action act = () => subject.Should().NotBeOnOrAfter(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeOnOrAfter(expectation);
         }
     }
 }

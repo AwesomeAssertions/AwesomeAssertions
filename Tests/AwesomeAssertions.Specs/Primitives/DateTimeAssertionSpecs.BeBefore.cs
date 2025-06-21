@@ -15,11 +15,8 @@ public partial class DateTimeAssertionSpecs
             DateTime earlierDate = DateTime.SpecifyKind(new DateTime(2016, 06, 04), DateTimeKind.Unspecified);
             DateTime laterDate = DateTime.SpecifyKind(new DateTime(2016, 06, 04, 0, 5, 0), DateTimeKind.Utc);
 
-            // Act
-            Action act = () => earlierDate.Should().BeBefore(laterDate);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            earlierDate.Should().BeBefore(laterDate);
         }
 
         [Fact]
@@ -77,11 +74,8 @@ public partial class DateTimeAssertionSpecs
             DateTime expected = new(2016, 06, 03);
             DateTime subject = new(2016, 06, 04);
 
-            // Act
-            Action act = () => subject.Should().NotBeBefore(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeBefore(expected);
         }
 
         [Fact]
@@ -91,11 +85,8 @@ public partial class DateTimeAssertionSpecs
             DateTime expected = new(2016, 06, 04);
             DateTime subject = new(2016, 06, 04);
 
-            // Act
-            Action act = () => subject.Should().NotBeBefore(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeBefore(expected);
         }
     }
 }

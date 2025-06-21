@@ -15,11 +15,8 @@ public partial class NumericAssertionSpecs
             int value = 2;
             int smallerValue = 1;
 
-            // Act
-            Action act = () => value.Should().BeGreaterThanOrEqualTo(smallerValue);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeGreaterThanOrEqualTo(smallerValue);
         }
 
         [Fact]
@@ -29,11 +26,8 @@ public partial class NumericAssertionSpecs
             int value = 2;
             int sameValue = 2;
 
-            // Act
-            Action act = () => value.Should().BeGreaterThanOrEqualTo(sameValue);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeGreaterThanOrEqualTo(sameValue);
         }
 
         [Fact]

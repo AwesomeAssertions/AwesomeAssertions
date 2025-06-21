@@ -14,12 +14,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             DateTime? nullableDateTime = null;
 
-            // Act
-            Action action = () =>
-                nullableDateTime.Should().BeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should().BeNull();
         }
 
         [Fact]
@@ -45,11 +41,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             DateTime? nullableDateTime = new DateTime(2016, 06, 04);
 
-            // Act
-            Action action = () => nullableDateTime.Should().NotBeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should().NotBeNull();
         }
 
         [Fact]

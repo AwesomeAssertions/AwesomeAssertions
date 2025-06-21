@@ -15,15 +15,11 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset yesterday = new DateTime(2016, 06, 03).ToDateTimeOffset();
             DateTimeOffset? nullableDateTime = new DateTime(2016, 06, 04).ToDateTimeOffset();
 
-            // Act
-            Action action = () =>
-                nullableDateTime.Should()
-                    .HaveValue()
-                    .And
-                    .BeAfter(yesterday);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should()
+                .HaveValue()
+                .And
+                .BeAfter(yesterday);
         }
     }
 

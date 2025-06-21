@@ -15,12 +15,8 @@ public partial class DateTimeOffsetAssertionSpecs
             // Arrange
             DateTimeOffset? nullableDateTime = null;
 
-            // Act
-            Action action = () =>
-                nullableDateTime.Should().BeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should().BeNull();
         }
 
         [Fact]
@@ -46,11 +42,8 @@ public partial class DateTimeOffsetAssertionSpecs
             // Arrange
             DateTimeOffset? nullableDateTime = new DateTime(2016, 06, 04).ToDateTimeOffset();
 
-            // Act
-            Action action = () => nullableDateTime.Should().NotBeNull();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should().NotBeNull();
         }
 
         [Fact]

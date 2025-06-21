@@ -130,11 +130,8 @@ public partial class StringAssertionSpecs
         [Fact]
         public void When_end_of_string_is_compared_with_equivalent_of_empty_string_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABC".Should().EndWithEquivalentOf("");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABC".Should().EndWithEquivalentOf("");
         }
 
         [Fact]
@@ -260,12 +257,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string value = "ABC";
 
-            // Act
-            Action action = () =>
-                value.Should().NotEndWithEquivalentOf("aB");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotEndWithEquivalentOf("aB");
         }
 
         [Fact]

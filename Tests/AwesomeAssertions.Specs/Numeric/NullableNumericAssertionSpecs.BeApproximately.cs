@@ -46,11 +46,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             double? value = 3.1415927;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(3.14, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(3.14, 0.1);
         }
 
         [Fact]
@@ -60,11 +57,8 @@ public partial class NullableNumericAssertionSpecs
             double? value = 3.1415927;
             double? expected = 3.142;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1);
         }
 
         [Fact]
@@ -74,11 +68,8 @@ public partial class NullableNumericAssertionSpecs
             double? value = null;
             double? expected = null;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1);
         }
 
         [Fact]
@@ -210,11 +201,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             float? value = 3.1415927F;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(3.14F, 0.1F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(3.14F, 0.1F);
         }
 
         [Fact]
@@ -224,11 +212,8 @@ public partial class NullableNumericAssertionSpecs
             float? value = 3.1415927f;
             float? expected = 3.142f;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1f);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1f);
         }
 
         [Fact]
@@ -238,11 +223,8 @@ public partial class NullableNumericAssertionSpecs
             float? value = null;
             float? expected = null;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1f);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1f);
         }
 
         [Fact]
@@ -375,11 +357,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             decimal? value = 3.1415927m;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(3.14m, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(3.14m, 0.1m);
         }
 
         [Fact]
@@ -389,11 +368,8 @@ public partial class NullableNumericAssertionSpecs
             decimal? value = 3.1415927m;
             decimal? expected = 3.142m;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1m);
         }
 
         [Fact]
@@ -403,11 +379,8 @@ public partial class NullableNumericAssertionSpecs
             decimal? value = null;
             decimal? expected = null;
 
-            // Act
-            Action act = () => value.Should().BeApproximately(expected, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeApproximately(expected, 0.1m);
         }
 
         [Fact]
@@ -527,11 +500,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             double? value = 3.1415927;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(1.0, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(1.0, 0.1);
         }
 
         [Fact]
@@ -540,11 +510,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             double? value = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(3.14, 0.001);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(3.14, 0.001);
         }
 
         [Fact]
@@ -570,11 +537,8 @@ public partial class NullableNumericAssertionSpecs
             double? value = 3.1415927;
             double? expected = 1.0;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1);
         }
 
         [Fact]
@@ -584,11 +548,8 @@ public partial class NullableNumericAssertionSpecs
             double? value = 3.1415927;
             double? expected = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1);
         }
 
         [Fact]
@@ -599,11 +560,8 @@ public partial class NullableNumericAssertionSpecs
             double? value = null;
             double? expected = 20.0;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1);
         }
 
         [Fact]
@@ -687,11 +645,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             float? value = 3.1415927F;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(1.0F, 0.1F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(1.0F, 0.1F);
         }
 
         [Fact]
@@ -700,11 +655,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             float? value = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(3.14F, 0.001F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(3.14F, 0.001F);
         }
 
         [Fact]
@@ -730,11 +682,8 @@ public partial class NullableNumericAssertionSpecs
             float? value = 3.1415927F;
             float? expected = 1.0F;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1F);
         }
 
         [Fact]
@@ -744,11 +693,8 @@ public partial class NullableNumericAssertionSpecs
             float? value = 3.1415927F;
             float? expected = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1F);
         }
 
         [Fact]
@@ -759,11 +705,8 @@ public partial class NullableNumericAssertionSpecs
             float? value = null;
             float? expected = 20.0f;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1F);
         }
 
         [Fact]
@@ -846,11 +789,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             decimal? value = 3.1415927m;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(1.0m, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(1.0m, 0.1m);
         }
 
         [Fact]
@@ -859,11 +799,8 @@ public partial class NullableNumericAssertionSpecs
             // Arrange
             decimal? value = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(3.14m, 0.001m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(3.14m, 0.001m);
         }
 
         [Fact]
@@ -889,11 +826,8 @@ public partial class NullableNumericAssertionSpecs
             decimal? value = 3.1415927m;
             decimal? expected = 1.0m;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1m);
         }
 
         [Fact]
@@ -903,11 +837,8 @@ public partial class NullableNumericAssertionSpecs
             decimal? value = 3.1415927m;
             decimal? expected = null;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1m);
         }
 
         [Fact]
@@ -918,11 +849,8 @@ public partial class NullableNumericAssertionSpecs
             decimal? value = null;
             decimal? expected = 20.0m;
 
-            // Act
-            Action act = () => value.Should().NotBeApproximately(expected, 0.1m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeApproximately(expected, 0.1m);
         }
 
         [Fact]

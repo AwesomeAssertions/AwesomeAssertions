@@ -84,11 +84,8 @@ public partial class SelectionRulesSpecs
                 Foo = "test"
             };
 
-            // Act
-            Action act = () => result.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            result.Should().BeEquivalentTo(expected);
         }
 
         public class ClassWithIndexer
@@ -206,12 +203,8 @@ public partial class SelectionRulesSpecs
                 Property3 = "consectetur"
             };
 
-            // Act
-            Action act =
-                () => class1.Should().BeEquivalentTo(class2, opts => opts.IncludingAllDeclaredProperties());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            class1.Should().BeEquivalentTo(class2, opts => opts.IncludingAllDeclaredProperties());
         }
 
         [Fact]
@@ -236,12 +229,8 @@ public partial class SelectionRulesSpecs
                 Property3 = "consectetur"
             };
 
-            // Act
-            Action act =
-                () => class1.Should().BeEquivalentTo(class2, opts => opts.IncludingAllRuntimeProperties());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            class1.Should().BeEquivalentTo(class2, opts => opts.IncludingAllRuntimeProperties());
         }
 
         [Fact]

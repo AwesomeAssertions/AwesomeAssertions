@@ -32,11 +32,8 @@ public partial class DateTimeAssertionSpecs
             var dateTime = DateTime.UtcNow;
             var actual = new DateTime(dateTime.Ticks - 1);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -46,11 +43,8 @@ public partial class DateTimeAssertionSpecs
             var dateTime = DateTime.UtcNow;
             var actual = new DateTime(dateTime.Ticks + 1);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -60,11 +54,8 @@ public partial class DateTimeAssertionSpecs
             var dateTime = DateTime.MinValue;
             var actual = new DateTime(dateTime.Ticks + 1);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -74,11 +65,8 @@ public partial class DateTimeAssertionSpecs
             var dateTime = DateTime.MaxValue;
             var actual = new DateTime(dateTime.Ticks - 1);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -88,11 +76,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = DateTime.SpecifyKind(new DateTime(2016, 06, 04).At(12, 15, 30, 980), DateTimeKind.Unspecified);
             DateTime nearbyTime = DateTime.SpecifyKind(new DateTime(2016, 06, 04).At(12, 15, 31), DateTimeKind.Utc);
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -102,11 +87,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = new DateTime(2016, 06, 04).At(12, 15, 31, 020);
             DateTime nearbyTime = new DateTime(2016, 06, 04).At(12, 15, 31);
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -165,11 +147,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = new DateTime(2016, 06, 04).At(12, 15, 31, 035);
             DateTime nearbyTime = new DateTime(2016, 06, 04).At(12, 15, 31);
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
         }
 
         [Fact]
@@ -194,11 +173,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = DateTime.MinValue + 50.Milliseconds();
             DateTime nearbyTime = DateTime.MinValue;
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
         }
 
         [Fact]
@@ -208,11 +184,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = DateTime.MaxValue - 50.Milliseconds();
             DateTime nearbyTime = DateTime.MaxValue;
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
         }
     }
 
@@ -346,11 +319,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = 13.March(2012).At(12, 15, 30, 979);
             DateTime nearbyTime = 13.March(2012).At(12, 15, 31);
 
-            // Act
-            Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -361,11 +331,8 @@ public partial class DateTimeAssertionSpecs
             DateTime time = 13.March(2012).At(12, 15, 31, 021);
             DateTime nearbyTime = 13.March(2012).At(12, 15, 31);
 
-            // Act
-            Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]

@@ -27,11 +27,8 @@ public class NonEquivalencySpecs
         object i1 = 1;
         object i2 = 2;
 
-        // Act
-        Action act = () => i1.Should().NotBeEquivalentTo(i2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        i1.Should().NotBeEquivalentTo(i2);
     }
 
     [Fact]
@@ -55,11 +52,8 @@ public class NonEquivalencySpecs
         object s1 = "A";
         object s2 = "B";
 
-        // Act
-        Action act = () => s1.Should().NotBeEquivalentTo(s2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        s1.Should().NotBeEquivalentTo(s2);
     }
 
     [Fact]
@@ -84,10 +78,7 @@ public class NonEquivalencySpecs
         var o1 = new { Name = "A" };
         var o2 = new { Name = "B" };
 
-        // Act
-        Action act = () => o1.Should().NotBeEquivalentTo(o2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        o1.Should().NotBeEquivalentTo(o2);
     }
 }

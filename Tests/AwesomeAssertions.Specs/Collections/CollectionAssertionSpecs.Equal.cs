@@ -40,11 +40,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] nullColl = null;
 
-            // Act
-            Action act = () => nullColl.Should().Equal(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            nullColl.Should().Equal(null);
         }
 
         [Fact]
@@ -54,11 +51,8 @@ public partial class CollectionAssertionSpecs
             var subject = new List<string> { "aaa", null };
             var expected = new List<string> { "aaa", null };
 
-            // Act
-            Action action = () => subject.Should().Equal(expected);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Equal(expected);
         }
 
         [Fact]
@@ -200,12 +194,9 @@ public partial class CollectionAssertionSpecs
                 new { Value = "Four" }
             };
 
-            // Act
-            Action action = () => actual.Should().Equal(expected,
+            // Act / Assert
+            actual.Should().Equal(expected,
                 (a, e) => string.Equals(a, e.Value, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -239,11 +230,8 @@ public partial class CollectionAssertionSpecs
             var actual = new List<string>();
             var expected = new List<string>();
 
-            // Act
-            Action act = () => actual.Should().Equal(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().Equal(expected);
         }
 
         [Fact]
@@ -323,11 +311,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             byte[] byteArray = [0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10];
 
-            // Act
-            Action act = () => byteArray.Should().Equal(0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            byteArray.Should().Equal(0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10);
         }
     }
 

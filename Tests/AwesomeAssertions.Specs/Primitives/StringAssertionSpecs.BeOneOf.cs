@@ -46,11 +46,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string value = "abc";
 
-            // Act
-            Action action = () => value.Should().BeOneOf("abc", "def", "xyz");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf("abc", "def", "xyz");
         }
     }
 }

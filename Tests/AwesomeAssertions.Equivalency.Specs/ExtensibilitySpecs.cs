@@ -33,13 +33,10 @@ public class ExtensibilitySpecs
             SomeValue = "hello"
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(
+        // Act / Assert
+        subject.Should().BeEquivalentTo(
             expected,
             options => options.Using(new ExcludeForeignKeysSelectionRule()));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -105,13 +102,10 @@ public class ExtensibilitySpecs
             SomeValue = "hello"
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(
+        // Act / Assert
+        subject.Should().BeEquivalentTo(
             expected,
             options => options.Using(new ForeignKeyMatchingRule()));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -168,13 +162,10 @@ public class ExtensibilitySpecs
         string[] subject = ["First", "Second"];
         string[] expected = ["First", "Second"];
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(
+        // Act / Assert
+        subject.Should().BeEquivalentTo(
             expected,
             options => options.Using(new StrictOrderingRule()));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -390,14 +381,11 @@ public class ExtensibilitySpecs
             Type = typeof(string).AssemblyQualifiedName,
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other,
             o => o
                 .Using<object>(c => ((Type)c.Subject).AssemblyQualifiedName.Should().Be((string)c.Expectation))
                 .When(si => si.Path == "Type"));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -414,13 +402,10 @@ public class ExtensibilitySpecs
             Date = 14.July(2012).At(13, 0)
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, options => options
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options
             .Using<DateTime>(ctx => ctx.Subject.Should().BeCloseTo(ctx.Expectation, 1.Seconds()))
             .When(info => info.Path.EndsWith("Date", StringComparison.Ordinal)));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -445,14 +430,11 @@ public class ExtensibilitySpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, options =>
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options =>
             options
                 .Using<DateTime>(ctx => ctx.Subject.Should().BeCloseTo(ctx.Expectation, 1.Seconds()))
                 .WhenTypeIs<DateTime>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [InlineData(null, 0)]
@@ -482,13 +464,10 @@ public class ExtensibilitySpecs
         var actual = new { Value = subjectValue };
         var expected = new { Value = expectedValue };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, opt => opt
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected, opt => opt
             .Using<int?>(c => c.Subject.Should().NotBe(c.Expectation))
             .WhenTypeIs<int?>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [InlineData(null, null)]
@@ -516,15 +495,12 @@ public class ExtensibilitySpecs
         var actual = new { Nullable = (int?)1, NonNullable = 2 };
         var expected = new { Nullable = (int?)3, NonNullable = 3 };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, opt => opt
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected, opt => opt
             .Using<int>(c => c.Subject.Should().BeCloseTo(c.Expectation, 1))
             .WhenTypeIs<int>()
             .Using<int?>(c => c.Subject.Should().NotBe(c.Expectation))
             .WhenTypeIs<int?>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -569,13 +545,10 @@ public class ExtensibilitySpecs
             Created = 8.July(2012).At(22, 10)
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(
+        // Act / Assert
+        subject.Should().BeEquivalentTo(
             expected,
             options => options.Using(new RelaxingDateTimeEquivalencyStep()));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -694,14 +667,11 @@ public class ExtensibilitySpecs
             Property2 = "value3"
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, options => options
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options
             .Using<ClassWithSomeFieldsAndProperties>(ctx =>
                 ctx.Subject.Should().BeEquivalentTo(ctx.Expectation, nestedOptions => nestedOptions.Excluding(x => x.Property2)))
             .WhenTypeIs<ClassWithSomeFieldsAndProperties>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -737,16 +707,11 @@ public class ExtensibilitySpecs
         var subject = new ClassWithOnlyAProperty();
         var expected = new ClassWithOnlyAProperty();
 
-        // Act
-        Action act =
-            () =>
-                subject.Should().BeEquivalentTo(expected,
-                    opts =>
-                        opts.Using(new AlwaysHandleEquivalencyStep())
-                            .Using(new ThrowExceptionEquivalencyStep<InvalidOperationException>()));
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected,
+            opts =>
+                opts.Using(new AlwaysHandleEquivalencyStep())
+                    .Using(new ThrowExceptionEquivalencyStep<InvalidOperationException>()));
     }
 
     [Fact]

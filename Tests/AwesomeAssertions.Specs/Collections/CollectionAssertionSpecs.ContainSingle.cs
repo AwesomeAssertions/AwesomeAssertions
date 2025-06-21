@@ -176,11 +176,8 @@ public partial class CollectionAssertionSpecs
         // Arrange
         IEnumerable<int> collection = [1];
 
-        // Act
-        Action act = () => collection.Should().ContainSingle();
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        collection.Should().ContainSingle();
     }
 
     [Fact]
@@ -266,11 +263,8 @@ public partial class CollectionAssertionSpecs
         // Arrange
         IEnumerable<int> collection = new OneTimeEnumerable<int>(1);
 
-        // Act
-        Action act = () => collection.Should().ContainSingle(_ => true);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        collection.Should().ContainSingle(_ => true);
     }
 
     [Fact]
@@ -279,11 +273,8 @@ public partial class CollectionAssertionSpecs
         // Arrange
         IEnumerable<int> collection = new OneTimeEnumerable<int>(1);
 
-        // Act
-        Action act = () => collection.Should().ContainSingle();
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        collection.Should().ContainSingle();
     }
 
     [Fact]

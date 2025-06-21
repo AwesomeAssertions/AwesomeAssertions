@@ -30,11 +30,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             int value = 4;
 
-            // Act
-            Action act = () => value.Should().BeInRange(3, 5);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeInRange(3, 5);
         }
 
         [Fact]
@@ -145,11 +142,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             float value = 3.99F;
 
-            // Act
-            Action act = () => value.Should().NotBeInRange(4, 5);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotBeInRange(4, 5);
         }
 
         [Fact]

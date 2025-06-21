@@ -148,13 +148,10 @@ public class CyclicReferencesSpecs
         expected.Child1 = new Child(expected);
         expected.Child2 = new Child(expected);
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, x => x
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected, x => x
             .Excluding(y => y.Child1)
             .IgnoringCyclicReferences());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     private class Parent

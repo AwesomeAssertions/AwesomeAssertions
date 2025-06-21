@@ -173,11 +173,8 @@ public partial class StringAssertionSpecs
                 string actual = "abCDEBcDF";
                 string expectedSubstring = "Bcd";
 
-                // Act
-                Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Times(2));
-
-                // Assert
-                act.Should().NotThrow();
+                // Act / Assert
+                actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Times(2));
             }
 
             [Fact]
@@ -241,11 +238,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEBcDF";
             string expectedSubstring = "Bcd";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtLeast.Times(2));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, AtLeast.Times(2));
         }
 
         [Fact]
@@ -307,11 +301,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEBcDF";
             string expectedSubstring = "Bcd";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, MoreThan.Times(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, MoreThan.Times(1));
         }
 
         [Fact]
@@ -374,11 +365,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEBcDF";
             string expectedSubstring = "Bcd";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Times(2));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Times(2));
         }
 
         [Fact]
@@ -405,11 +393,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEf";
             string expectedSubstring = "xyS";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Once());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Once());
         }
 
         [Fact]
@@ -420,11 +405,8 @@ public partial class StringAssertionSpecs
             string actual = null;
             string expectedSubstring = "XyZ";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Once());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Once());
         }
     }
 
@@ -438,11 +420,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEBcDF";
             string expectedSubstring = "Bcd";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Times(3));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Times(3));
         }
 
         [Fact]
@@ -470,11 +449,8 @@ public partial class StringAssertionSpecs
             string actual = "abCDEf";
             string expectedSubstring = "xyS";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Twice());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Twice());
         }
 
         [Fact]
@@ -485,11 +461,8 @@ public partial class StringAssertionSpecs
             string actual = null;
             string expectedSubstring = "XyZ";
 
-            // Act
-            Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Twice());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Twice());
         }
     }
 
@@ -617,12 +590,8 @@ public partial class StringAssertionSpecs
         [Fact]
         public void Should_succeed_when_asserting_string_does_not_contain_equivalent_of_another_string()
         {
-            // Act
-            Action act = () =>
-                "aAa".Should().NotContainEquivalentOf("aa ");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "aAa".Should().NotContainEquivalentOf("aa ");
         }
     }
 }

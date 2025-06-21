@@ -15,11 +15,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = new(new DateTime(2016, 06, 04), TimeSpan.Zero);
             DateTimeOffset expectation = new(new DateTime(2016, 06, 05), TimeSpan.Zero);
 
-            // Act
-            Action act = () => subject.Should().BeOnOrBefore(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeOnOrBefore(expectation);
         }
 
         [Fact]
@@ -30,11 +27,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = new(new DateTime(2016, 06, 04), TimeSpan.Zero);
             DateTimeOffset expectation = new(new DateTime(2016, 06, 04), TimeSpan.Zero);
 
-            // Act
-            Action act = () => subject.Should().BeOnOrBefore(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeOnOrBefore(expectation);
         }
 
         [Fact]
@@ -93,11 +87,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = new(new DateTime(2016, 06, 04), TimeSpan.Zero);
             DateTimeOffset expectation = new(new DateTime(2016, 06, 03), TimeSpan.Zero);
 
-            // Act
-            Action act = () => subject.Should().NotBeOnOrBefore(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeOnOrBefore(expectation);
         }
     }
 }

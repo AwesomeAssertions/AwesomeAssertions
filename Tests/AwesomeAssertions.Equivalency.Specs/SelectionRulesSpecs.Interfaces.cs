@@ -50,11 +50,8 @@ public partial class SelectionRulesSpecs
                 Wheels = 99999
             };
 
-            // Act
-            Action action = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -71,11 +68,8 @@ public partial class SelectionRulesSpecs
                 Wheels = 99999
             };
 
-            // Act
-            Action action = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -205,11 +199,8 @@ public partial class SelectionRulesSpecs
                 VehicleId = 1
             };
 
-            // Act
-            Action action = () => subject.Should().BeEquivalentTo(expected, opt => opt.PreferringDeclaredMemberTypes());
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected, opt => opt.PreferringDeclaredMemberTypes());
         }
 
         [Fact]

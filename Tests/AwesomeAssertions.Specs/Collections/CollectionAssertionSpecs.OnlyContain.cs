@@ -71,11 +71,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             IEnumerable<int> collection = [2, 9, 3, 8, 2];
 
-            // Act
-            Action act = () => collection.Should().OnlyContain(i => i <= 10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().OnlyContain(i => i <= 10);
         }
 
         [Fact]

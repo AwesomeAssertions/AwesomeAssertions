@@ -90,11 +90,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2];
 
-            // Act
-            Action action = () => collection.Should().BeInAscendingOrder(x => x);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder(x => x);
         }
 
         [Fact]
@@ -103,11 +100,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [];
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder();
         }
 
         [Fact]
@@ -116,11 +110,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             IEnumerable<SomeClass> collection = [];
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder(o => o.Number);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder(o => o.Number);
         }
 
         [Fact]
@@ -129,11 +120,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [42];
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder();
         }
 
         [Fact]
@@ -145,11 +133,8 @@ public partial class CollectionAssertionSpecs
                 new() { Text = "a", Number = 1 }
             };
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder(o => o.Number);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder(o => o.Number);
         }
 
         [Fact]
@@ -261,11 +246,8 @@ public partial class CollectionAssertionSpecs
                 new { Text = "a", Numeric = 3 }
             };
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder(o => o.Numeric);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder(o => o.Numeric);
         }
 
         [Fact]
@@ -280,11 +262,8 @@ public partial class CollectionAssertionSpecs
                 new { Text = "a", Numeric = 3 }
             };
 
-            // Act
-            Action act = () => collection.Should().BeInAscendingOrder(o => o.Numeric, Comparer<int>.Default);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().BeInAscendingOrder(o => o.Numeric, Comparer<int>.Default);
         }
 
         [Fact]
@@ -293,11 +272,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["alpha", "beta", "theta"];
 
-            // Act
-            Action act = () => strings.Should().BeInAscendingOrder();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().BeInAscendingOrder();
         }
 
         [Fact]
@@ -321,11 +297,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["alpha", "beta", "theta"];
 
-            // Act
-            Action act = () => strings.Should().BeInAscendingOrder(new ByLastCharacterComparer());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().BeInAscendingOrder(new ByLastCharacterComparer());
         }
 
         [Fact]
@@ -349,11 +322,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["alpha", "beta", "theta"];
 
-            // Act
-            Action act = () => strings.Should().BeInAscendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().BeInAscendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]));
         }
 
         [Fact]
@@ -610,11 +580,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [3, 2, 1];
 
-            // Act
-            Action act = () => collection.Should().NotBeInAscendingOrder(Comparer<int>.Default);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().NotBeInAscendingOrder(Comparer<int>.Default);
         }
 
         [Fact]
@@ -671,11 +638,8 @@ public partial class CollectionAssertionSpecs
                 new { Text = "a", Numeric = 1 }
             };
 
-            // Act
-            Action act = () => collection.Should().NotBeInAscendingOrder(o => o.Numeric);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().NotBeInAscendingOrder(o => o.Numeric);
         }
 
         [Fact]
@@ -690,11 +654,8 @@ public partial class CollectionAssertionSpecs
                 new { Text = "a", Numeric = 1 }
             };
 
-            // Act
-            Action act = () => collection.Should().NotBeInAscendingOrder(o => o.Numeric, Comparer<int>.Default);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().NotBeInAscendingOrder(o => o.Numeric, Comparer<int>.Default);
         }
 
         [Fact]
@@ -703,11 +664,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["beta", "alpha", "theta"];
 
-            // Act
-            Action act = () => strings.Should().NotBeInAscendingOrder();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().NotBeInAscendingOrder();
         }
 
         [Fact]
@@ -731,11 +689,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["dennis", "roy", "barbara"];
 
-            // Act
-            Action act = () => strings.Should().NotBeInAscendingOrder(new ByLastCharacterComparer());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().NotBeInAscendingOrder(new ByLastCharacterComparer());
         }
 
         [Fact]
@@ -759,11 +714,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] strings = ["roy", "dennis", "thomas"];
 
-            // Act
-            Action act = () => strings.Should().NotBeInAscendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            strings.Should().NotBeInAscendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]));
         }
 
         [Fact]

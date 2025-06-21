@@ -18,11 +18,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithAllPropertiesVirtual).GetRuntimeProperty("PublicVirtualProperty");
 
-            // Act
-            Action act = () => propertyInfo.Should().BeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeVirtual();
         }
 
         [Fact]
@@ -68,12 +65,8 @@ public class PropertyInfoAssertionSpecs
             PropertyInfo propertyInfo =
                 typeof(ClassWithNonVirtualPublicProperties).GetRuntimeProperty("PublicNonVirtualProperty");
 
-            // Act
-            Action act = () =>
-                propertyInfo.Should().NotBeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().NotBeVirtual();
         }
 
         [Fact]
@@ -119,12 +112,8 @@ public class PropertyInfoAssertionSpecs
             PropertyInfo propertyInfo =
                 typeof(ClassWithAllPropertiesDecoratedWithDummyAttribute).GetRuntimeProperty("PublicProperty");
 
-            // Act
-            Action act = () =>
-                propertyInfo.Should().BeDecoratedWith<DummyPropertyAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeDecoratedWith<DummyPropertyAttribute>();
         }
 
         [Fact]
@@ -204,11 +193,8 @@ public class PropertyInfoAssertionSpecs
             PropertyInfo propertyInfo =
                 typeof(ClassWithAllPropertiesDecoratedWithDummyAttribute).GetRuntimeProperty("PublicProperty");
 
-            // Act
-            Action act = () => propertyInfo.Should().BeDecoratedWith<DummyPropertyAttribute>(d => d.Value == "Value");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeDecoratedWith<DummyPropertyAttribute>(d => d.Value == "Value");
         }
 
         [Fact]
@@ -302,11 +288,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("ReadWriteProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeWritable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeWritable("that's required");
         }
 
         [Fact]
@@ -315,11 +298,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("WriteOnlyProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeWritable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeWritable("that's required");
         }
 
         [Fact]
@@ -346,11 +326,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("ReadOnlyProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeReadable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeReadable("that's required");
         }
 
         [Fact]
@@ -359,11 +336,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithReadOnlyProperties).GetRuntimeProperty("ReadWriteProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeReadable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeReadable("that's required");
         }
 
         [Fact]
@@ -406,11 +380,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithReadOnlyProperties).GetRuntimeProperty("ReadOnlyProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().NotBeWritable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().NotBeWritable("that's required");
         }
 
         [Fact]
@@ -501,11 +472,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("WriteOnlyProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().NotBeReadable("that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().NotBeReadable("that's required");
         }
 
         [Fact]
@@ -532,11 +500,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("ReadPrivateWriteProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeReadable(CSharpAccessModifier.Public, "that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeReadable(CSharpAccessModifier.Public, "that's required");
         }
 
         [Fact]
@@ -612,11 +577,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("WritePrivateReadProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().BeWritable(CSharpAccessModifier.Public, "that's required");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().BeWritable(CSharpAccessModifier.Public, "that's required");
         }
 
         [Fact]
@@ -692,11 +654,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("StringProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().Return(typeof(string));
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().Return(typeof(string));
         }
 
         [Fact]
@@ -753,11 +712,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("StringProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().Return<string>();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().Return<string>();
         }
 
         [Fact]
@@ -784,11 +740,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("StringProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().NotReturn(typeof(int));
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().NotReturn(typeof(int));
         }
 
         [Fact]
@@ -845,11 +798,8 @@ public class PropertyInfoAssertionSpecs
             // Arrange
             PropertyInfo propertyInfo = typeof(ClassWithProperties).GetRuntimeProperty("StringProperty");
 
-            // Act
-            Action action = () => propertyInfo.Should().NotReturn<int>();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfo.Should().NotReturn<int>();
         }
 
         [Fact]

@@ -14,11 +14,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             int value = -1;
 
-            // Act
-            Action act = () => value.Should().BeNegative();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeNegative();
         }
 
         [Fact]

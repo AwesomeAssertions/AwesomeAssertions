@@ -24,11 +24,8 @@ public partial class ObjectAssertionSpecs
                 Id = 1
             };
 
-            // Act
-            Action act = () => subject.Should().BeXmlSerializable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeXmlSerializable();
         }
 
         [Fact]

@@ -90,12 +90,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(ClassWithAttribute)
             ]);
 
-            // Act
-            Action act = () =>
-                types.Should().BeDecoratedWith<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeDecoratedWith<DummyClassAttribute>();
         }
 
         [Fact]
@@ -173,12 +169,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(ClassWithInheritedAttribute)
             ]);
 
-            // Act
-            Action act = () =>
-                types.Should().BeDecoratedWithOrInherit<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeDecoratedWithOrInherit<DummyClassAttribute>();
         }
 
         [Fact]
@@ -259,12 +251,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(OtherClassWithoutAttribute)
             ]);
 
-            // Act
-            Action act = () =>
-                types.Should().NotBeDecoratedWith<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeDecoratedWith<DummyClassAttribute>();
         }
 
         [Fact]
@@ -340,12 +328,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(OtherClassWithoutAttribute)
             ]);
 
-            // Act
-            Action act = () =>
-                types.Should().NotBeDecoratedWithOrInherit<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeDecoratedWithOrInherit<DummyClassAttribute>();
         }
 
         [Fact]
@@ -394,12 +378,9 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassWithoutAttribute));
 
-            // Act
-            Action act = () => types.Should()
+            // Act / Assert
+            types.Should()
                 .NotBeDecoratedWithOrInherit<DummyClassAttribute>(a => a.Name == "Expected" && a.IsEnabled);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -426,11 +407,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInDummyNamespace));
 
-            // Act
-            Action act = () => types.Should().BeInNamespace(nameof(DummyNamespace));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeInNamespace(nameof(DummyNamespace));
         }
 
         [Fact]
@@ -461,11 +439,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInGlobalNamespace));
 
-            // Act
-            Action act = () => types.Should().BeInNamespace(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeInNamespace(null);
         }
 
         [Fact]
@@ -514,12 +489,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInDummyNamespace));
 
-            // Act
-            Action act = () =>
-                types.Should().NotBeInNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeInNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
         }
 
         [Fact]
@@ -528,11 +499,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInInnerDummyNamespace));
 
-            // Act
-            Action act = () => types.Should().NotBeInNamespace(nameof(DummyNamespace));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeInNamespace(nameof(DummyNamespace));
         }
 
         [Fact]
@@ -566,11 +534,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInDummyNamespace));
 
-            // Act
-            Action act = () => types.Should().BeUnderNamespace(nameof(DummyNamespace));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeUnderNamespace(nameof(DummyNamespace));
         }
 
         [Fact]
@@ -579,12 +544,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInInnerDummyNamespace));
 
-            // Act
-            Action act = () =>
-                types.Should().BeUnderNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeUnderNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
         }
 
         [Fact]
@@ -593,11 +554,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInInnerDummyNamespace));
 
-            // Act
-            Action act = () => types.Should().BeUnderNamespace(nameof(DummyNamespace));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeUnderNamespace(nameof(DummyNamespace));
         }
 
         [Fact]
@@ -606,11 +564,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInGlobalNamespace));
 
-            // Act
-            Action act = () => types.Should().BeUnderNamespace(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeUnderNamespace(null);
         }
 
         [Fact]
@@ -624,11 +579,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(OtherClassNotInDummyNamespace)
             ]);
 
-            // Act
-            Action act = () => types.Should().BeUnderNamespace(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().BeUnderNamespace(null);
         }
 
         [Fact]
@@ -682,12 +634,8 @@ public class TypeSelectorAssertionSpecs
                 typeof(OtherClassNotInDummyNamespace)
             ]);
 
-            // Act
-            Action act = () =>
-                types.Should().NotBeUnderNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeUnderNamespace($"{nameof(DummyNamespace)}.{nameof(DummyNamespace.InnerDummyNamespace)}");
         }
 
         [Fact]
@@ -783,11 +731,8 @@ public class TypeSelectorAssertionSpecs
             // Arrange
             var types = new TypeSelector(typeof(ClassInDummyNamespaceTwo));
 
-            // Act
-            Action act = () => types.Should().NotBeUnderNamespace(nameof(DummyNamespace));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            types.Should().NotBeUnderNamespace(nameof(DummyNamespace));
         }
     }
 

@@ -18,12 +18,8 @@ public class XDocumentAssertionSpecs
             var document = new XDocument();
             var sameXDocument = document;
 
-            // Act
-            Action act = () =>
-                document.Should().Be(sameXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().Be(sameXDocument);
         }
 
         [Fact]
@@ -109,12 +105,8 @@ public class XDocumentAssertionSpecs
             var document = new XDocument();
             var otherXDocument = new XDocument();
 
-            // Act
-            Action act = () =>
-                document.Should().NotBe(otherXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().NotBe(otherXDocument);
         }
 
         [Fact]
@@ -139,11 +131,8 @@ public class XDocumentAssertionSpecs
             // Arrange
             XDocument theDocument = null;
 
-            // Act
-            Action act = () => theDocument.Should().NotBe(new XDocument());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theDocument.Should().NotBe(new XDocument());
         }
 
         [Fact]
@@ -152,11 +141,8 @@ public class XDocumentAssertionSpecs
             // Arrange
             XDocument theDocument = new();
 
-            // Act
-            Action act = () => theDocument.Should().NotBe(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theDocument.Should().NotBe(null);
         }
 
         [Fact]
@@ -199,12 +185,8 @@ public class XDocumentAssertionSpecs
             var document = new XDocument();
             var sameXDocument = document;
 
-            // Act
-            Action act = () =>
-                document.Should().BeEquivalentTo(sameXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().BeEquivalentTo(sameXDocument);
         }
 
         [Fact]
@@ -215,12 +197,8 @@ public class XDocumentAssertionSpecs
             var document = XDocument.Parse("<parent><child /></parent>");
             var otherXDocument = XDocument.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () =>
-                document.Should().BeEquivalentTo(otherXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().BeEquivalentTo(otherXDocument);
         }
 
         [Fact]
@@ -231,12 +209,8 @@ public class XDocumentAssertionSpecs
             var document = XDocument.Parse("<parent><child></child></parent>");
             var otherXDocument = XDocument.Parse("<parent><child></child></parent>");
 
-            // Act
-            Action act = () =>
-                document.Should().BeEquivalentTo(otherXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().BeEquivalentTo(otherXDocument);
         }
 
         [Fact]
@@ -329,11 +303,8 @@ public class XDocumentAssertionSpecs
         {
             XDocument theDocument = null;
 
-            // Act
-            Action act = () => theDocument.Should().BeEquivalentTo(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theDocument.Should().BeEquivalentTo(null);
         }
 
         [Fact]
@@ -377,12 +348,8 @@ public class XDocumentAssertionSpecs
             var subject = XDocument.Parse("<xml xmlns=\"urn:a\"/>");
             var expected = XDocument.Parse("<a:xml xmlns:a=\"urn:a\"/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -393,12 +360,8 @@ public class XDocumentAssertionSpecs
             var subject = XDocument.Parse("<xml xmlns:a=\"urn:a\"/>");
             var expected = XDocument.Parse("<xml/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -494,11 +457,8 @@ public class XDocumentAssertionSpecs
             var subject = XDocument.Parse("<xml><!--Comment--><a/></xml>");
             var expected = XDocument.Parse("<xml><a/><!--Comment--></xml>");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -581,12 +541,8 @@ public class XDocumentAssertionSpecs
             var document = XDocument.Parse("<parent><child /><child2 /></parent>");
             var otherXDocument = XDocument.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () =>
-                document.Should().NotBeEquivalentTo(otherXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().NotBeEquivalentTo(otherXDocument);
         }
 
         [Fact]
@@ -597,12 +553,8 @@ public class XDocumentAssertionSpecs
             var document = XDocument.Parse("<parent><child /></parent>");
             var otherXDocument = XDocument.Parse("<parent><child /><child2 /></parent>");
 
-            // Act
-            Action act = () =>
-                document.Should().NotBeEquivalentTo(otherXDocument);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().NotBeEquivalentTo(otherXDocument);
         }
 
         [Fact]
@@ -724,11 +676,8 @@ public class XDocumentAssertionSpecs
         {
             XDocument theDocument = null;
 
-            // Act
-            Action act = () => theDocument.Should().NotBeEquivalentTo(XDocument.Parse("<parent><child /></parent>"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theDocument.Should().NotBeEquivalentTo(XDocument.Parse("<parent><child /></parent>"));
         }
 
         [Fact]
@@ -736,11 +685,8 @@ public class XDocumentAssertionSpecs
         {
             XDocument theDocument = XDocument.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () => theDocument.Should().NotBeEquivalentTo(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theDocument.Should().NotBeEquivalentTo(null);
         }
     }
 
@@ -752,12 +698,8 @@ public class XDocumentAssertionSpecs
             // Arrange
             XDocument document = null;
 
-            // Act
-            Action act = () =>
-                document.Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().BeNull();
         }
 
         [Fact]
@@ -799,12 +741,8 @@ public class XDocumentAssertionSpecs
             // Arrange
             var document = new XDocument();
 
-            // Act
-            Action act = () =>
-                document.Should().NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().NotBeNull();
         }
 
         [Fact]
@@ -962,12 +900,8 @@ public class XDocumentAssertionSpecs
                 </parent>
                 """);
 
-            // Act
-            Action act = () =>
-                document.Should().HaveRoot(XName.Get("parent", "http://www.example.com/2012/test"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().HaveRoot(XName.Get("parent", "http://www.example.com/2012/test"));
         }
 
         [Fact]
@@ -1125,12 +1059,8 @@ public class XDocumentAssertionSpecs
                 </parent>
                 """);
 
-            // Act
-            Action act = () =>
-                document.Should().HaveElement(XName.Get("child", "http://www.example.org/2012/test"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            document.Should().HaveElement(XName.Get("child", "http://www.example.org/2012/test"));
         }
 
         [Fact]

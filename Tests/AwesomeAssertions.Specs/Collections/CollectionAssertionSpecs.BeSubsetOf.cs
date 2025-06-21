@@ -46,11 +46,8 @@ public partial class CollectionAssertionSpecs
             int[] subset = [];
             int[] superset = [1, 2, 4, 5];
 
-            // Act
-            Action act = () => subset.Should().BeSubsetOf(superset);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subset.Should().BeSubsetOf(superset);
         }
 
         [Fact]

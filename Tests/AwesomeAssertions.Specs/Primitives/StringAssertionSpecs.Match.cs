@@ -32,11 +32,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
-            Action act = () => subject.Should().Match("h*world?");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Match("h*world?");
         }
 
         [Fact]
@@ -121,11 +118,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world";
 
-            // Act
-            Action act = () => subject.Should().NotMatch("*World*");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotMatch("*World*");
         }
 
         [Fact]

@@ -185,11 +185,8 @@ public partial class SelectionRulesSpecs
                 Name = "John"
             };
 
-            // Act
-            Action act = () => dto.Should().BeEquivalentTo(customer, options => options.ExcludingMissingMembers());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dto.Should().BeEquivalentTo(customer, options => options.ExcludingMissingMembers());
         }
 
         [Fact]
@@ -222,12 +219,9 @@ public partial class SelectionRulesSpecs
                 }
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected,
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected,
                 options => options.Excluding(r => r.Level.Level.Text));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -295,12 +289,9 @@ public partial class SelectionRulesSpecs
                 }
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected, config =>
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected, config =>
                 config.Excluding(ctx => ctx.Path == "Level.Level.Text"));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -313,15 +304,12 @@ public partial class SelectionRulesSpecs
             var expected = new ClassWithAllAccessModifiersForMembers("public", "protected",
                 "ignored-internal", "ignored-protected-internal", "private", "private-protected");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected, config => config
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected, config => config
                 .IncludingInternalFields()
                 .Excluding(ctx =>
                     ctx.WhichGetterHas(CSharpAccessModifier.Internal) ||
                     ctx.WhichGetterHas(CSharpAccessModifier.ProtectedInternal)));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -334,16 +322,13 @@ public partial class SelectionRulesSpecs
             var expected = new ClassWithAllAccessModifiersForMembers("public", "protected",
                 "ignored-internal", "ignored-protected-internal", "ignored-private", "private-protected");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected, config => config
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected, config => config
                 .IncludingInternalFields()
                 .Excluding(ctx =>
                     ctx.WhichSetterHas(CSharpAccessModifier.Internal) ||
                     ctx.WhichSetterHas(CSharpAccessModifier.ProtectedInternal) ||
                     ctx.WhichSetterHas(CSharpAccessModifier.Private)));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -465,15 +450,11 @@ public partial class SelectionRulesSpecs
                 }
             };
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected,
-                    options => options
-                        .Excluding(x => x.List[1].Foo)
-                        .Excluding(x => x.Dictionary["Bar"].Value));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected,
+                options => options
+                    .Excluding(x => x.List[1].Foo)
+                    .Excluding(x => x.Dictionary["Bar"].Value));
         }
 
         [Fact]
@@ -638,12 +619,8 @@ public partial class SelectionRulesSpecs
                 Field3 = "dolor"
             };
 
-            // Act
-            Action act =
-                () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingProperties().PreferringRuntimeMemberTypes());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingProperties().PreferringRuntimeMemberTypes());
         }
 
         [Fact]

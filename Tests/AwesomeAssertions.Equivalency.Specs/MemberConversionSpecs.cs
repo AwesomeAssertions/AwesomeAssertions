@@ -14,11 +14,8 @@ public class MemberConversionSpecs
 
         var other = new { Age = 37, Birthdate = new DateTime(1973, 9, 20) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other, o => o.WithAutoConversion());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other, o => o.WithAutoConversion());
     }
 
     [Fact]
@@ -29,12 +26,9 @@ public class MemberConversionSpecs
 
         var expectation = new { Property = 32 };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation,
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expectation,
             options => options.WithAutoConversion());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -44,11 +38,8 @@ public class MemberConversionSpecs
         var subject = new { Property = 32 };
         var expectation = new { Property = "32" };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, options => options.WithAutoConversion());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options.WithAutoConversion());
     }
 
     [Fact]
@@ -142,12 +133,9 @@ public class MemberConversionSpecs
 
         var expectation = new { Age = 32, Birthdate = new DateTime(1973, 9, 20) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, options => options
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options
             .WithAutoConversionFor(x => x.Path.Contains("Birthdate")));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -196,10 +184,7 @@ public class MemberConversionSpecs
         string str = "This is a test";
         CustomConvertible obj = new(str);
 
-        // Act
-        Action act = () => obj.Should().BeEquivalentTo(str, options => options.WithAutoConversion());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        obj.Should().BeEquivalentTo(str, options => options.WithAutoConversion());
     }
 }

@@ -16,12 +16,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithAllPropertiesVirtual));
 
-            // Act
-            var act = () =>
-                propertyInfoSelector.Should().BeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().BeVirtual();
         }
 
         [Fact]
@@ -68,12 +64,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithNonVirtualPublicProperties));
 
-            // Act
-            Action act = () =>
-                propertyInfoSelector.Should().NotBeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().NotBeVirtual();
         }
 
         [Fact]
@@ -120,12 +112,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithAllPropertiesDecoratedWithDummyAttribute));
 
-            // Act
-            Action act = () =>
-                propertyInfoSelector.Should().BeDecoratedWith<DummyPropertyAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().BeDecoratedWith<DummyPropertyAttribute>();
         }
 
         [Fact]
@@ -174,12 +162,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute));
 
-            // Act
-            Action act = () =>
-                propertyInfoSelector.Should().NotBeDecoratedWith<DummyPropertyAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().NotBeDecoratedWith<DummyPropertyAttribute>();
         }
 
         [Fact]
@@ -247,11 +231,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithOnlyWritableProperties));
 
-            // Act
-            Action action = () => propertyInfoSelector.Should().BeWritable();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().BeWritable();
         }
     }
 
@@ -282,11 +263,8 @@ public class PropertyInfoSelectorAssertionSpecs
             // Arrange
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithOnlyReadOnlyProperties));
 
-            // Act
-            Action action = () => propertyInfoSelector.Should().NotBeWritable();
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            propertyInfoSelector.Should().NotBeWritable();
         }
     }
 
