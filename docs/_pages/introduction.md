@@ -172,7 +172,7 @@ The above will batch the two failures, and throw an exception at the point of di
 E.g. Exception thrown at point of dispose contains:
 
 ```text
-Expected value to be 100, but found 95 (difference of -5).
+Expected value to be 10, but found 5 (difference of -5).
 Expected string to be "Expected" with a length of 8, but "Actual" has a length of 6, differs near "Act" (index 0).
 ```
 

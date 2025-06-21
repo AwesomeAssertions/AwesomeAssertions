@@ -34,7 +34,7 @@ On the other hand, if you want to disable recursion, just use this option:
 
 ```csharp
 orderDto.Should().BeEquivalentTo(order, options => 
-    options.ExcludingNestedObjects());
+    options.WithoutRecursing());
 ```
 
 ### Value Types
@@ -56,7 +56,7 @@ actual.Should().BeEquivalentTo(expected, options => options
     .ComparingByMembers<MyRecord>());
 ```
 
-Or  do the same using the global options:
+Or do the same using the global options:
 
 ```csharp
 AssertionConfiguration.Current.Equivalency.Modify(options => options
