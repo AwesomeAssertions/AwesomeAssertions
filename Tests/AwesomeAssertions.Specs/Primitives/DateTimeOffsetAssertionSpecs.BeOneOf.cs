@@ -90,12 +90,9 @@ public partial class DateTimeOffsetAssertionSpecs
             // Arrange
             DateTimeOffset value = new(2016, 12, 30, 23, 58, 57, TimeSpan.FromHours(4));
 
-            // Act
-            Action action = () => value.Should().BeOneOf(new DateTimeOffset(2216, 1, 30, 0, 5, 7, TimeSpan.FromHours(2)),
+            // Act / Assert
+            value.Should().BeOneOf(new DateTimeOffset(2216, 1, 30, 0, 5, 7, TimeSpan.FromHours(2)),
                 new DateTimeOffset(2016, 12, 30, 23, 58, 57, TimeSpan.FromHours(4)));
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -119,11 +116,8 @@ public partial class DateTimeOffsetAssertionSpecs
             // Arrange
             DateTimeOffset? value = null;
 
-            // Act
-            Action action = () => value.Should().BeOneOf(new DateTimeOffset(2216, 1, 30, 0, 5, 7, TimeSpan.Zero), null);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf(new DateTimeOffset(2216, 1, 30, 0, 5, 7, TimeSpan.Zero), null);
         }
     }
 }

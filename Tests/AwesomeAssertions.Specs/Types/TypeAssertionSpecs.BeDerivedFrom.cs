@@ -18,12 +18,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyImplementingClass);
 
-            // Act
-            Action act = () =>
-                type.Should().BeDerivedFrom(typeof(DummyBaseClass));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().BeDerivedFrom(typeof(DummyBaseClass));
         }
 
         [Fact]
@@ -65,12 +61,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyBaseType<ClassWithGenericBaseType>);
 
-            // Act
-            Action act = () =>
-                type.Should().BeDerivedFrom(typeof(DummyBaseType<>));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().BeDerivedFrom(typeof(DummyBaseType<>));
         }
 
         [Fact]
@@ -79,12 +71,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithGenericBaseType);
 
-            // Act
-            Action act = () =>
-                type.Should().BeDerivedFrom(typeof(DummyBaseType<>));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().BeDerivedFrom(typeof(DummyBaseType<>));
         }
 
         [Fact]
@@ -127,12 +115,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyImplementingClass);
 
-            // Act
-            Action act = () =>
-                type.Should().BeDerivedFrom<DummyBaseClass>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().BeDerivedFrom<DummyBaseClass>();
         }
     }
 
@@ -144,12 +128,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyBaseClass);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(ClassWithMembers));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBeDerivedFrom(typeof(ClassWithMembers));
         }
 
         [Fact]
@@ -192,12 +172,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>));
         }
 
         [Fact]
@@ -206,12 +182,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyBaseType<>);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>));
         }
 
         [Fact]
@@ -255,12 +227,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(DummyBaseClass);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBeDerivedFrom<ClassWithMembers>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBeDerivedFrom<ClassWithMembers>();
         }
     }
 }

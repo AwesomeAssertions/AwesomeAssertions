@@ -20,14 +20,11 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3];
 
-            // Act
-            Action act = () => collection.Should().Satisfy(
+            // Act / Assert
+            collection.Should().Satisfy(
                 element => element == 1,
                 element => element == 2,
                 element => element == 3);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -36,14 +33,11 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3];
 
-            // Act
-            Action act = () => collection.Should().Satisfy(
+            // Act / Assert
+            collection.Should().Satisfy(
                 element => element == 3,
                 element => element == 2,
                 element => element == 1);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -73,15 +67,12 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3, 4];
 
-            // Act
-            Action act = () => collection.Should().Satisfy(
+            // Act / Assert
+            collection.Should().Satisfy(
                 element => element == 1 || element == 2 || element == 3 || element == 4,
                 element => element == 1 || element == 2 || element == 3,
                 element => element == 1 || element == 2,
                 element => element == 1);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -91,15 +82,12 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3, 4];
 
-            // Act
-            Action act = () => collection.Should().Satisfy(
+            // Act / Assert
+            collection.Should().Satisfy(
                 element => element == 1,
                 element => element == 1 || element == 2,
                 element => element == 1 || element == 2 || element == 3,
                 element => element == 1 || element == 2 || element == 3 || element == 4);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -108,14 +96,11 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3];
 
-            // Act
-            Action act = () => collection.Should().Satisfy(
+            // Act / Assert
+            collection.Should().Satisfy(
                 element => element == 1,
                 element => element == 1 || element == 3,
                 element => element == 2);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]

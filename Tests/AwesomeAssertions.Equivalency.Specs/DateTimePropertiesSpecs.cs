@@ -16,12 +16,8 @@ public class DateTimePropertiesSpecs
         var other =
             new { Time = (DateTime?)null };
 
-        // Act
-        Action act = () =>
-            subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]
@@ -34,11 +30,8 @@ public class DateTimePropertiesSpecs
         var other =
             new { Time = (DateTime?)new DateTime(2013, 12, 9, 15, 58, 0) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]
@@ -89,11 +82,8 @@ public class DateTimePropertiesSpecs
         var other =
             new { Time = (DateTime?)new DateTime(2013, 12, 9, 15, 58, 0) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]
@@ -125,11 +115,8 @@ public class DateTimePropertiesSpecs
         var other =
             new { Time = new DateTime(2013, 12, 9, 15, 58, 0) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]

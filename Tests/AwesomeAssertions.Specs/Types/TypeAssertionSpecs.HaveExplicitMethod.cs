@@ -20,13 +20,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitMethod(interfaceType, "ExplicitMethod", new Type[0]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitMethod(interfaceType, "ExplicitMethod", new Type[0]);
         }
 
         [Fact]
@@ -38,13 +34,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitMethod(interfaceType, "ExplicitImplicitMethod", new Type[0]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitMethod(interfaceType, "ExplicitImplicitMethod", new Type[0]);
         }
 
         [Fact]
@@ -207,13 +199,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassExplicitlyImplementingInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitMethod<IExplicitInterface>("ExplicitMethod", new Type[0]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitMethod<IExplicitInterface>("ExplicitMethod", new Type[0]);
         }
 
         [Fact]
@@ -331,13 +319,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitMethod(interfaceType, "ImplicitMethod", new Type[0]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitMethod(interfaceType, "ImplicitMethod", new Type[0]);
         }
 
         [Fact]
@@ -348,13 +332,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitMethod(interfaceType, "NonExistentMethod", new Type[0]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitMethod(interfaceType, "NonExistentMethod", new Type[0]);
         }
 
         [Fact]

@@ -148,11 +148,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             int[] collection = [1, 2, 3];
 
-            // Act
-            Action act = () => collection.Should().HaveCount(c => (c % 2) == 1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveCount(c => (c % 2) == 1);
         }
 
         [Fact]

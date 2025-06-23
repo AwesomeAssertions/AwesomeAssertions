@@ -131,11 +131,8 @@ public partial class CollectionAssertionSpecs
             int?[] collection = [1, 2, 3, null];
             int? item = null;
 
-            // Act
-            Action act = () => collection.Should().ContainEquivalentOf(item);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().ContainEquivalentOf(item);
         }
 
         [Fact]

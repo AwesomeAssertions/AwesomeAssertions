@@ -76,11 +76,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
-            Action act = () => subject.Should().MatchEquivalentOf("h*WORLD?");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().MatchEquivalentOf("h*WORLD?");
         }
 
         [Fact]
@@ -89,11 +86,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello\r\nworld!";
 
-            // Act
-            Action act = () => subject.Should().MatchEquivalentOf("helloworld!");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().MatchEquivalentOf("helloworld!");
         }
 
         [Fact]
@@ -192,11 +186,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "Hello Earth";
 
-            // Act
-            Action act = () => subject.Should().NotMatchEquivalentOf("*World*");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotMatchEquivalentOf("*World*");
         }
 
         [Fact]

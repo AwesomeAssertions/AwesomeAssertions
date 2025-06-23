@@ -16,12 +16,8 @@ public class XAttributeAssertionSpecs
             var attribute = new XAttribute("name", "value");
             var sameXAttribute = new XAttribute("name", "value");
 
-            // Act
-            Action act = () =>
-                attribute.Should().Be(sameXAttribute);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            attribute.Should().Be(sameXAttribute);
         }
 
         [Fact]
@@ -46,11 +42,8 @@ public class XAttributeAssertionSpecs
         {
             XAttribute theAttribute = null;
 
-            // Act
-            Action act = () => theAttribute.Should().Be(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theAttribute.Should().Be(null);
         }
 
         [Fact]
@@ -90,12 +83,8 @@ public class XAttributeAssertionSpecs
             var attribute = new XAttribute("name", "value");
             var otherXAttribute = new XAttribute("name2", "value");
 
-            // Act
-            Action act = () =>
-                attribute.Should().NotBe(otherXAttribute);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            attribute.Should().NotBe(otherXAttribute);
         }
 
         [Fact]
@@ -137,11 +126,8 @@ public class XAttributeAssertionSpecs
             // Arrange
             XAttribute theAttribute = null;
 
-            // Act
-            Action act = () => theAttribute.Should().NotBe(new XAttribute("name", "value"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theAttribute.Should().NotBe(new XAttribute("name", "value"));
         }
 
         [Fact]
@@ -150,11 +136,8 @@ public class XAttributeAssertionSpecs
             // Arrange
             XAttribute theAttribute = new("name", "value");
 
-            // Act
-            Action act = () => theAttribute.Should().NotBe(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theAttribute.Should().NotBe(null);
         }
 
         [Fact]
@@ -180,12 +163,8 @@ public class XAttributeAssertionSpecs
             // Arrange
             XAttribute attribute = null;
 
-            // Act
-            Action act = () =>
-                attribute.Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            attribute.Should().BeNull();
         }
 
         [Fact]
@@ -227,12 +206,8 @@ public class XAttributeAssertionSpecs
             // Arrange
             var attribute = new XAttribute("name", "value");
 
-            // Act
-            Action act = () =>
-                attribute.Should().NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -274,12 +249,8 @@ public class XAttributeAssertionSpecs
             // Arrange
             var attribute = new XAttribute("age", "36");
 
-            // Act
-            Action act = () =>
-                attribute.Should().HaveValue("36");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            attribute.Should().HaveValue("36");
         }
 
         [Fact]

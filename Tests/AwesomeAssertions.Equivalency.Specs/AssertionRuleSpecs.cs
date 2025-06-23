@@ -107,11 +107,8 @@ public class AssertionRuleSpecs
 
         var other = new { Type = new CustomerType("123") };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]
@@ -123,11 +120,8 @@ public class AssertionRuleSpecs
 
         var other = new { Type = new CustomerType("123") };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(other);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(other);
     }
 
     [Fact]
@@ -138,12 +132,9 @@ public class AssertionRuleSpecs
 
         var expectation = new { Timestamp = 1.January(2020).At(7, 31) };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation,
             opt => opt.Using<DateTime, DateTimeByYearComparer>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -220,12 +211,9 @@ public class AssertionRuleSpecs
 
         var expectation = new { Property = (IInterface)new ConcreteClass("SomeOtherString") };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, opt =>
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, opt =>
             opt.Using<ConcreteClass, ConcreteClassEqualityComparer>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]

@@ -44,11 +44,8 @@ public partial class NumericAssertionSpecs
         public void When_a_sbyte_value_is_close_to_expected_value_it_should_succeed(sbyte actual, sbyte nearbyValue,
             byte delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(sbyte.MinValue, sbyte.MaxValue, 1)]
@@ -98,12 +95,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             sbyte actual = sbyte.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(short.MinValue, short.MinValue, 0)]
@@ -142,11 +136,8 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_close_to_expected_value_it_should_succeed(short actual, short nearbyValue,
             ushort delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(short.MinValue, short.MaxValue, 1)]
@@ -196,12 +187,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             short actual = short.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(int.MinValue, int.MinValue, 0)]
@@ -239,11 +227,8 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_int_value_is_close_to_expected_value_it_should_succeed(int actual, int nearbyValue, uint delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(int.MinValue, int.MaxValue, 1)]
@@ -292,12 +277,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             int actual = int.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(long.MinValue, long.MinValue, 0)]
@@ -382,11 +364,8 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_long_value_is_close_to_expected_value_it_should_succeed(long actual, long nearbyValue, ulong delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(long.MinValue, long.MaxValue, 1)]
@@ -443,12 +422,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             long actual = long.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 0, 0)]
@@ -471,11 +447,8 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_byte_value_is_close_to_expected_value_it_should_succeed(byte actual, byte nearbyValue, byte delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(0, 1, 0)]
@@ -514,12 +487,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             byte actual = byte.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 0, 0)]
@@ -543,11 +513,8 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_close_to_expected_value_it_should_succeed(ushort actual, ushort nearbyValue,
             ushort delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(0, 1, 0)]
@@ -587,12 +554,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             ushort actual = ushort.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 0, 0)]
@@ -615,11 +579,8 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_uint_value_is_close_to_expected_value_it_should_succeed(uint actual, uint nearbyValue, uint delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(0, 1, 0)]
@@ -659,12 +620,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             uint actual = uint.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 0, 0)]
@@ -688,11 +646,8 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_close_to_expected_value_it_should_succeed(ulong actual, ulong nearbyValue,
             ulong delta)
         {
-            // Act
-            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
         [InlineData(0, 1, 0)]
@@ -732,12 +687,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             ulong actual = ulong.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(actual, 0)
+            // Act / Assert
+            actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
     }
 
@@ -761,11 +713,8 @@ public partial class NumericAssertionSpecs
         public void When_a_sbyte_value_is_not_close_to_expected_value_it_should_succeed(sbyte actual, sbyte distantValue,
             byte delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(sbyte.MinValue, sbyte.MinValue, 0)]
@@ -832,12 +781,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             sbyte actual = sbyte.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(short.MinValue, short.MaxValue, 1)]
@@ -858,11 +804,8 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_not_close_to_expected_value_it_should_succeed(short actual, short distantValue,
             ushort delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(short.MinValue, short.MinValue, 0)]
@@ -930,12 +873,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             short actual = short.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(int.MinValue, int.MaxValue, 1)]
@@ -956,11 +896,8 @@ public partial class NumericAssertionSpecs
         public void When_an_int_value_is_not_close_to_expected_value_it_should_succeed(int actual, int distantValue,
             uint delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(int.MinValue, int.MinValue, 0)]
@@ -1027,12 +964,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             int actual = int.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(long.MinValue, long.MaxValue, 1)]
@@ -1060,11 +994,8 @@ public partial class NumericAssertionSpecs
         public void When_a_long_value_is_not_close_to_expected_value_it_should_succeed(long actual, long distantValue,
             ulong delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(long.MinValue, long.MinValue, 0)]
@@ -1178,12 +1109,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             long actual = long.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 1, 0)]
@@ -1194,11 +1122,8 @@ public partial class NumericAssertionSpecs
         public void When_a_byte_value_is_not_close_to_expected_value_it_should_succeed(byte actual, byte distantValue,
             byte delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(0, 0, 0)]
@@ -1250,12 +1175,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             byte actual = byte.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 1, 0)]
@@ -1266,11 +1188,8 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_not_close_to_expected_value_it_should_succeed(ushort actual, ushort distantValue,
             ushort delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(0, 0, 0)]
@@ -1323,12 +1242,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             ushort actual = ushort.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 1, 0)]
@@ -1339,11 +1255,8 @@ public partial class NumericAssertionSpecs
         public void When_an_uint_value_is_not_close_to_expected_value_it_should_succeed(uint actual, uint distantValue,
             uint delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(0, 0, 0)]
@@ -1395,12 +1308,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             uint actual = uint.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [InlineData(0, 1, 0)]
@@ -1411,11 +1321,8 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_not_close_to_expected_value_it_should_succeed(ulong actual, ulong distantValue,
             ulong delta)
         {
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
         [InlineData(0, 0, 0)]
@@ -1468,12 +1375,9 @@ public partial class NumericAssertionSpecs
             // Arrange
             ulong actual = ulong.MaxValue;
 
-            // Act
-            Action act = () => actual.Should().NotBeCloseTo(0, 0)
+            // Act / Assert
+            actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
-
-            // Assert
-            act.Should().NotThrow();
         }
     }
 }

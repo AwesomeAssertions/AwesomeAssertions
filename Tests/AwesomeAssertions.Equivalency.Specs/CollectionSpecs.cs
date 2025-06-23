@@ -219,11 +219,8 @@ public class CollectionSpecs
         var actual = new[] { new { A = 1, B = 2 }, new { A = 1, B = 2 } };
         var expected = new object[] { new { A = 1 }, new { B = 2 } };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -345,13 +342,8 @@ public class CollectionSpecs
             LogbookRelations = [new LogbookRelation { Logbook = logbook }]
         };
 
-        // Act
-        Action act =
-            () =>
-                logbookEntry.Should().BeEquivalentTo(equivalentLogbookEntry);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        logbookEntry.Should().BeEquivalentTo(equivalentLogbookEntry);
     }
 
     [Fact]
@@ -427,11 +419,8 @@ public class CollectionSpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, o => o.ExcludingMissingMembers());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected, o => o.ExcludingMissingMembers());
     }
 
     [Fact]
@@ -501,11 +490,8 @@ public class CollectionSpecs
 
         var expected = new { Bytes = new byte[] { 1, 2, 3, 4 }, Object = new { A = 1, B = 2 } };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -534,12 +520,9 @@ public class CollectionSpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected,
             options => options.Excluding(x => x.Level.Collection[1].Number).Excluding(x => x.Level.Collection[1].Text));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     public class For
@@ -1067,11 +1050,8 @@ public class CollectionSpecs
 
         var subject = new { Customers = new Dictionary<string, string> { ["Key1"] = "Value1", ["Key2"] = "Value2" } };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -1114,11 +1094,8 @@ public class CollectionSpecs
 
         var expected = new { A = "aaa", B = "ccc" };
 
-        // Act
-        Action act = () => result.Should().BeEquivalentTo([expected], options => options.Including(x => x.A));
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        result.Should().BeEquivalentTo([expected], options => options.Including(x => x.A));
     }
 
     [Fact]
@@ -1143,11 +1120,8 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<string> { "one", "one", "one" };
 
-        // Act
-        Action action = () => subject.Should().AllBe("one");
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBe("one");
     }
 
     [Fact]
@@ -1158,9 +1132,6 @@ public class CollectionSpecs
 
         // Act
         Action action = () => subject.Should().AllBe("one").And.HaveCount(3);
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1249,16 +1220,13 @@ public class CollectionSpecs
             new() { Name = "someDto", Age = 1 }
         };
 
-        // Act
-        Action action = () => subject.Should().AllBeEquivalentTo(new
+        // Act / Assert
+        subject.Should().AllBeEquivalentTo(new
         {
             Name = "someDto",
             Age = 1,
             Birthdate = default(DateTime)
         });
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1271,22 +1239,15 @@ public class CollectionSpecs
             new() { Name = "someDto", Age = 1 },
             new() { Name = "someDto", Age = 1 }
         };
-
-        // Act
-        Action action = () =>
+        var expectation = new
         {
-            var expectation = new
-            {
-                Name = "someDto",
-                Age = 1,
-                Birthdate = default(DateTime)
-            };
-
-            subject.Should().AllBeEquivalentTo(expectation).And.HaveCount(3);
+            Name = "someDto",
+            Age = 1,
+            Birthdate = default(DateTime)
         };
 
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBeEquivalentTo(expectation).And.HaveCount(3);
     }
 
     [Fact]
@@ -1405,14 +1366,11 @@ public class CollectionSpecs
             new { Name = "Jane", UnorderedCollection = new int[0] }
         };
 
-        // Act
-        Action action = () => subject.Should().BeEquivalentTo(expectation, options =>
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options =>
             options
                 .WithStrictOrderingFor(s => s.Path.Contains("UnorderedCollection"))
                 .WithoutStrictOrdering());
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1487,16 +1445,11 @@ public class CollectionSpecs
             new { Name = "Jane", UnorderedCollection = new int[0] }
         };
 
-        // Act
-        Action action =
-            () =>
-                subject.Should().BeEquivalentTo(expectation,
-                    options => options
-                        .WithStrictOrderingFor(s => s.UnorderedCollection)
-                        .WithoutStrictOrdering());
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation,
+            options => options
+                .WithStrictOrderingFor(s => s.UnorderedCollection)
+                .WithoutStrictOrdering());
     }
 
     [Fact]
@@ -1515,13 +1468,10 @@ public class CollectionSpecs
             new { Name = "Jane", UnorderedCollection = new int[0] }
         };
 
-        // Act
-        Action action = () => subject.Should().BeEquivalentTo(expectation, options => options
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options
             .WithStrictOrdering()
             .WithoutStrictOrderingFor(s => s.Path.Contains("UnorderedCollection")));
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1540,13 +1490,10 @@ public class CollectionSpecs
             new { Name = "Jane", UnorderedCollection = new int[0] }
         };
 
-        // Act
-        Action action = () => subject.Should().BeEquivalentTo(expectation, options => options
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, options => options
             .WithStrictOrdering()
             .WithoutStrictOrderingFor(x => x.UnorderedCollection));
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1679,14 +1626,11 @@ public class CollectionSpecs
             new { Value = new CustomerDto { Name = "Jane", Age = 24 } }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, opts => opts
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, opts => opts
             .Using<int>(ctx => ctx.Subject.Should().BeInRange(ctx.Expectation - 1, ctx.Expectation + 1))
             .WhenTypeIs<int>()
         );
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -1722,11 +1666,8 @@ public class CollectionSpecs
         IList<MyObject> actualList = new List<MyObject> { actual };
         IList<MyObject> expectationList = new List<MyObject> { expectation };
 
-        // Act
-        Action act = () => actualList.Should().BeEquivalentTo(expectationList, opt => opt.WithoutRecursing());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actualList.Should().BeEquivalentTo(expectationList, opt => opt.WithoutRecursing());
     }
 
     [Fact]
@@ -1770,12 +1711,9 @@ public class CollectionSpecs
             new { SubObject = new { Property1 = "John", Property2 = "Jane" } }
         };
 
-        // Act
-        Action act = () => actualObjects.Should().BeEquivalentTo(expectedObjects, options =>
+        // Act / Assert
+        actualObjects.Should().BeEquivalentTo(expectedObjects, options =>
             options.Including(order => order.SubObject.Property1));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -1819,11 +1757,8 @@ public class CollectionSpecs
         // Arrange
         IEnumerable<object> subject = null;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo((IEnumerable<int>)null);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo((IEnumerable<int>)null);
     }
 
     [Fact]
@@ -1832,11 +1767,8 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<string>();
 
-        // Act
-        Action action = () => subject.Should().AllBe("one");
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBe("one");
     }
 
     [Fact]
@@ -1859,11 +1791,8 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<string> { "one", "one" };
 
-        // Act
-        Action action = () => subject.Should().AllBe("one", opt => opt);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBe("one", opt => opt);
     }
 
     [Fact]
@@ -1886,12 +1815,9 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<string> { "one", "one" };
 
-        // Act
-        Action action = () => subject.Should().AllBe("one", opt => opt)
+        // Act / Assert
+        subject.Should().AllBe("one", opt => opt)
             .And.HaveCount(2);
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -1900,11 +1826,8 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<char>();
 
-        // Act
-        Action action = () => subject.Should().AllBeEquivalentTo('g');
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBeEquivalentTo('g');
     }
 
     [Fact]
@@ -1927,11 +1850,8 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<char> { 'g', 'g' };
 
-        // Act
-        Action action = () => subject.Should().AllBeEquivalentTo('g', opt => opt);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().AllBeEquivalentTo('g', opt => opt);
     }
 
     [Fact]
@@ -1955,12 +1875,9 @@ public class CollectionSpecs
         // Arrange
         var subject = new List<char> { 'g', 'g' };
 
-        // Act
-        Action action = () => subject.Should().AllBeEquivalentTo('g', opt => opt)
+        // Act / Assert
+        subject.Should().AllBeEquivalentTo('g', opt => opt)
             .And.HaveCount(2);
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -2153,20 +2070,15 @@ public class CollectionSpecs
         var company1 = new MyCompany { Name = "Company" };
         var user1 = new MyUser { Name = "User", Company = company1 };
         company1.Users = [user1];
-        var logo1 = new MyCompanyLogo { Url = "blank", Company = company1, CreatedBy = user1 };
-        company1.Logo = logo1;
+        company1.Logo = new MyCompanyLogo { Url = "blank", Company = company1, CreatedBy = user1 };
 
         var company2 = new MyCompany { Name = "Company" };
         var user2 = new MyUser { Name = "User", Company = company2 };
         company2.Users = [user2];
-        var logo2 = new MyCompanyLogo { Url = "blank", Company = company2, CreatedBy = user2 };
-        company2.Logo = logo2;
+        company2.Logo = new MyCompanyLogo { Url = "blank", Company = company2, CreatedBy = user2 };
 
-        // Act
-        Action action = () => company1.Should().BeEquivalentTo(company2, o => o.IgnoringCyclicReferences());
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        company1.Should().BeEquivalentTo(company2, o => o.IgnoringCyclicReferences());
     }
 
     [Fact]
@@ -2237,12 +2149,8 @@ public class CollectionSpecs
             new() { Name = "John", Age = 27, Id = 1 }
         };
 
-        // Act
-        Action action =
-            () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2306,11 +2214,8 @@ public class CollectionSpecs
 
         var list2 = new[] { new { Nested = new { Value = 1 } } };
 
-        // Act
-        Action act = () => list1.Should().BeEquivalentTo(list2, opts => opts);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        list1.Should().BeEquivalentTo(list2, opts => opts);
     }
 
     [Fact]
@@ -2337,16 +2242,13 @@ public class CollectionSpecs
         // Arrange
         var result = new Dictionary<string, int?> { ["C"] = null, ["B"] = 0, ["A"] = 0 };
 
-        // Act
-        Action act = () => result.Should().BeEquivalentTo(new Dictionary<string, int?>
+        // Act / Assert
+        result.Should().BeEquivalentTo(new Dictionary<string, int?>
         {
             ["A"] = 0,
             ["B"] = 0,
             ["C"] = null
         });
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -2355,11 +2257,8 @@ public class CollectionSpecs
         // Arrange
         var result = new Dictionary<string, int> { ["C"] = 0, ["B"] = 0, ["A"] = 0 };
 
-        // Act
-        Action act = () => result.Should().BeEquivalentTo(new Dictionary<string, int> { ["A"] = 0, ["B"] = 0, ["C"] = 0 });
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        result.Should().BeEquivalentTo(new Dictionary<string, int> { ["A"] = 0, ["B"] = 0, ["C"] = 0 });
     }
 
     [Fact]
@@ -2403,16 +2302,11 @@ public class CollectionSpecs
             new() { Name = "Jane", Age = 30 }
         };
 
-        // Act
-        Action action =
-            () =>
-                subject.Should().BeEquivalentTo(expectation,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation,
                     options => options
                         .ExcludingMissingMembers()
                         .Excluding(c => c.Age));
-
-        // Assert
-        action.Should().NotThrow();
     }
 
     [Fact]
@@ -2431,11 +2325,8 @@ public class CollectionSpecs
             { 4, 5, 6 }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2470,11 +2361,8 @@ public class CollectionSpecs
 
         Array expectation = new long[,] { { } };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2485,11 +2373,8 @@ public class CollectionSpecs
 
         Array expectation = new long[0, 1] { };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2500,11 +2385,8 @@ public class CollectionSpecs
 
         var persistedProjection = new { ReferencedEquipment = new Dictionary<int, string> { [1] = null } };
 
-        // Act
-        Action act = () => persistedProjection.Should().BeEquivalentTo(projection);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        persistedProjection.Should().BeEquivalentTo(projection);
     }
 
     [Fact]
@@ -2559,12 +2441,8 @@ public class CollectionSpecs
             new() { Name = "Jane", Age = 24, Id = 2 }
         };
 
-        // Act
-        Action action =
-            () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2644,12 +2522,8 @@ public class CollectionSpecs
             new() { Name = "John", Age = 27, Id = 1 }
         };
 
-        // Act
-        Action action =
-            () => subject.Should().BeEquivalentTo(expectation, x => x.WithStrictOrdering().WithoutStrictOrdering());
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, x => x.WithStrictOrdering().WithoutStrictOrdering());
     }
 
     [Fact]
@@ -2670,12 +2544,8 @@ public class CollectionSpecs
             new() { Name = "John", Age = 27, Id = 1 }
         };
 
-        // Act
-        Action action =
-            () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -2727,11 +2597,8 @@ public class CollectionSpecs
         TExpected>(TActual[] actual, TExpected[] expected)
 #pragma warning restore xUnit1039
     {
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected);
     }
 
     [Fact]

@@ -41,11 +41,8 @@ public class GuidAssertionSpecs
             // Arrange
             var guid = new Guid("12345678-1234-1234-1234-123456789012");
 
-            // Act
-            Action act = () => guid.Should().NotBeEmpty();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            guid.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -69,11 +66,8 @@ public class GuidAssertionSpecs
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
             var sameGuid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
-            // Act
-            Action act = () => guid.Should().Be(sameGuid);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            guid.Should().Be(sameGuid);
         }
 
         [Fact]
@@ -82,11 +76,8 @@ public class GuidAssertionSpecs
             // Arrange
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
-            // Act
-            Action act = () => guid.Should().Be("11111111-aaaa-bbbb-cccc-999999999999");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            guid.Should().Be("11111111-aaaa-bbbb-cccc-999999999999");
         }
 
         [Fact]
@@ -128,12 +119,8 @@ public class GuidAssertionSpecs
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
             var differentGuid = new Guid("55555555-ffff-eeee-dddd-444444444444");
 
-            // Act
-            Action act = () =>
-                guid.Should().NotBe(differentGuid);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            guid.Should().NotBe(differentGuid);
         }
 
         [Fact]
@@ -171,12 +158,8 @@ public class GuidAssertionSpecs
             // Arrange
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
-            // Act
-            Action act = () =>
-                guid.Should().NotBe("55555555-ffff-eeee-dddd-444444444444");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            guid.Should().NotBe("55555555-ffff-eeee-dddd-444444444444");
         }
 
         [Fact]

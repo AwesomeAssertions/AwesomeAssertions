@@ -73,11 +73,8 @@ public partial class GenericDictionaryAssertionSpecs
         public void When_using_a_dictionary_like_collection_it_should_preserve_reference_equality<T>(T subject)
             where T : IEnumerable<KeyValuePair<int, int>>
         {
-            // Act
-            Action act = () => subject.Should().BeSameAs(subject);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeSameAs(subject);
         }
 
         [Theory]
@@ -85,11 +82,8 @@ public partial class GenericDictionaryAssertionSpecs
         public void When_a_dictionary_like_collection_contains_the_expected_key_it_should_succeed<T>(T subject)
             where T : IEnumerable<KeyValuePair<int, int>>
         {
-            // Act
-            Action act = () => subject.Should().ContainKey(1);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().ContainKey(1);
         }
 
         [Theory]
@@ -97,11 +91,8 @@ public partial class GenericDictionaryAssertionSpecs
         public void When_a_dictionary_like_collection_contains_the_expected_value_it_should_succeed<T>(T subject)
             where T : IEnumerable<KeyValuePair<int, int>>
         {
-            // Act
-            Action act = () => subject.Should().ContainValue(42);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().ContainValue(42);
         }
 
         [Theory]
@@ -110,11 +101,8 @@ public partial class GenericDictionaryAssertionSpecs
             where T1 : IEnumerable<KeyValuePair<int, int>>
             where T2 : IEnumerable<KeyValuePair<int, int>>
         {
-            // Act
-            Action act = () => subject.Should().Equal(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Equal(expected);
         }
 
         [Theory]

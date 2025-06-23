@@ -123,15 +123,11 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(TypeWithConversionOperators);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitConversionOperator<TypeWithConversionOperators, byte>()
-                    .Which.Should()
-                    .NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitConversionOperator<TypeWithConversionOperators, byte>()
+                .Which.Should()
+                .NotBeNull();
         }
 
         [Fact]
@@ -181,13 +177,9 @@ public partial class TypeAssertionSpecs
             var sourceType = typeof(TypeWithConversionOperators);
             var targetType = typeof(string);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitConversionOperator(sourceType, targetType);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitConversionOperator(sourceType, targetType);
         }
 
         [Fact]
@@ -267,13 +259,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(TypeWithConversionOperators);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitConversionOperator<TypeWithConversionOperators, string>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitConversionOperator<TypeWithConversionOperators, string>();
         }
 
         [Fact]

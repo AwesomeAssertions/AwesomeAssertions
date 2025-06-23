@@ -25,12 +25,8 @@ public class XmlElementAssertionSpecs
             expectedDoc.LoadXml("<user>grega</user>");
             var expected = expectedDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeEquivalentTo(expected);
         }
     }
 
@@ -44,12 +40,8 @@ public class XmlElementAssertionSpecs
             xmlDoc.LoadXml("<user>grega</user>");
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveInnerText("grega");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveInnerText("grega");
         }
 
         [Fact]
@@ -97,12 +89,8 @@ public class XmlElementAssertionSpecs
             xmlDoc.LoadXml("""<user name="martin" />""");
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveAttribute("name", "martin");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveAttribute("name", "martin");
         }
 
         [Fact]
@@ -189,12 +177,8 @@ public class XmlElementAssertionSpecs
             xmlDoc.LoadXml("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveAttributeWithNamespace("name", "http://www.example.com/2012/test", "martin");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveAttributeWithNamespace("name", "http://www.example.com/2012/test", "martin");
         }
 
         [Fact]
@@ -296,12 +280,8 @@ public class XmlElementAssertionSpecs
 
             var element = xml.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElement("child");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElement("child");
         }
 
         [Fact]
@@ -393,12 +373,8 @@ public class XmlElementAssertionSpecs
 
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElement("child");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElement("child");
         }
 
         [Fact]
@@ -416,12 +392,8 @@ public class XmlElementAssertionSpecs
 
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElement("child");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElement("child");
         }
     }
 
@@ -442,12 +414,8 @@ public class XmlElementAssertionSpecs
 
             var element = xmlDoc.DocumentElement;
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElementWithNamespace("child", "http://www.example.com/2012/test");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElementWithNamespace("child", "http://www.example.com/2012/test");
         }
 
         [Fact]

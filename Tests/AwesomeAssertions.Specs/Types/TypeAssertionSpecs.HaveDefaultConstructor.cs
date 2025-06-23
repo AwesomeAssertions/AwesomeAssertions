@@ -18,15 +18,11 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveDefaultConstructor()
-                    .Which.Should()
-                    .HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveDefaultConstructor()
+                .Which.Should()
+                .HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -35,15 +31,11 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithNoMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveDefaultConstructor()
-                    .Which.Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveDefaultConstructor()
+                .Which.Should()
+                .HaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -52,20 +44,11 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithCctor);
 
-            // Act
+            // Act / Assert
             type.Should()
                 .HaveDefaultConstructor()
                 .Which.Should()
                 .HaveAccessModifier(CSharpAccessModifier.Public);
-
-            Action act = () =>
-                type.Should()
-                    .HaveDefaultConstructor()
-                    .Which.Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -109,13 +92,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithCctorAndNonDefaultConstructor);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveDefaultConstructor();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveDefaultConstructor();
         }
 
         [Fact]
@@ -155,12 +134,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithCctorAndNonDefaultConstructor);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveDefaultConstructor();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveDefaultConstructor();
         }
 
         [Fact]

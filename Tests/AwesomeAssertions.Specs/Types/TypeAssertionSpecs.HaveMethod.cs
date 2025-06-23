@@ -18,16 +18,12 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveMethod("VoidMethod", [])
-                    .Which.Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Private)
-                    .And.ReturnVoid();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveMethod("VoidMethod", [])
+                .Which.Should()
+                .HaveAccessModifier(CSharpAccessModifier.Private)
+                .And.ReturnVoid();
         }
 
         [Fact]
@@ -135,12 +131,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithoutMembers);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveMethod("NonExistentMethod", []);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveMethod("NonExistentMethod", []);
         }
 
         [Fact]
@@ -149,12 +141,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveMethod("VoidMethod", [typeof(int)]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveMethod("VoidMethod", [typeof(int)]);
         }
 
         [Fact]

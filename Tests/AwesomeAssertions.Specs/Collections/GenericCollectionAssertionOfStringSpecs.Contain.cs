@@ -45,11 +45,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             var expected = new List<string> { "hello", "world" };
             var actual = new List<string> { "hello", "world" };
 
-            // Act
-            Action act = () => expected.Should().Contain(actual, "they are in the collection");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().Contain(expected, "they are in the collection");
         }
 
         [Fact]
@@ -58,11 +55,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Arrange
             IEnumerable<string> collection = ["one", "two", "three"];
 
-            // Act
-            Action act = () => collection.Should().Contain("one");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().Contain("one");
         }
 
         [Fact]

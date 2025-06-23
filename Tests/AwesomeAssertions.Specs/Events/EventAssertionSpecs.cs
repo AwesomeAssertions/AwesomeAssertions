@@ -75,11 +75,8 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseEventWithoutSender();
 
-            // Act
-            Action act = () => monitor.Should().Raise("PropertyChanged");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().Raise("PropertyChanged");
         }
 
         [Fact]
@@ -107,11 +104,8 @@ public class EventAssertionSpecs
             var subject = new EventRaisingClass();
             using var monitor = subject.Monitor();
 
-            // Act
-            Action act = () => monitor.Should().NotRaise("PropertyChanged");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().NotRaise("PropertyChanged");
         }
 
         [Fact]
@@ -138,11 +132,8 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseEventWithSender();
 
-            // Act
-            Action act = () => monitor.Should().Raise("PropertyChanged").WithSender(subject);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().Raise("PropertyChanged").WithSender(subject);
         }
 
         [Fact]
@@ -210,13 +201,10 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseEventWithSenderAndPropertyName("SomeProperty");
 
-            // Act
-            Action act = () => monitor
+            // Act / Assert
+            monitor
                 .Should().Raise("PropertyChanged")
                 .WithArgs<PropertyChangedEventArgs>(args => args.PropertyName == "SomeProperty");
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -263,13 +251,10 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseNonConventionalEvent("first argument", 2, "third argument");
 
-            // Act
-            Action act = () => monitor
+            // Act / Assert
+            monitor
                 .Should().Raise("NonConventionalEvent")
                 .WithArgs<string>(args => args == "third argument");
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -280,13 +265,10 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseNonConventionalEvent("first argument", 2, "third argument");
 
-            // Act
-            Action act = () => monitor
+            // Act / Assert
+            monitor
                 .Should().Raise("NonConventionalEvent")
                 .WithArgs<string>(null, args => args == "third argument");
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -464,11 +446,8 @@ public class EventAssertionSpecs
             subject.RaiseEventWithSenderAndPropertyName("SomeProperty");
             subject.RaiseEventWithSenderAndPropertyName("SomeOtherProperty");
 
-            // Act
-            Action act = () => monitor.Should().RaisePropertyChangeFor(x => x.SomeProperty);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().RaisePropertyChangeFor(x => x.SomeProperty);
         }
 
         [Fact]
@@ -479,11 +458,8 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseEventWithSenderAndPropertyName(null);
 
-            // Act
-            Action act = () => monitor.Should().RaisePropertyChangeFor(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().RaisePropertyChangeFor(null);
         }
 
         [Fact]
@@ -631,11 +607,8 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
             subject.RaiseEventWithSenderAndPropertyName("SomeOtherProperty");
 
-            // Act
-            Action act = () => monitor.Should().NotRaisePropertyChangeFor(x => x.SomeProperty);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            monitor.Should().NotRaisePropertyChangeFor(x => x.SomeProperty);
         }
 
         [Fact]

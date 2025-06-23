@@ -94,11 +94,8 @@ public class BasicSpecs
         // Arrange
         SomeDto subject = null;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo<object>(null);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo<object>(null);
     }
 
     [Fact]
@@ -107,12 +104,9 @@ public class BasicSpecs
         // Arrange
         SomeDto subject = null;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo<object>(null)
+        // Act / Assert
+        subject.Should().BeEquivalentTo<object>(null)
             .And.BeNull();
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -121,12 +115,9 @@ public class BasicSpecs
         // Arrange
         SomeDto subject = null;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo<object>(null, opt => opt)
+        // Act / Assert
+        subject.Should().BeEquivalentTo<object>(null, opt => opt)
             .And.BeNull();
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -135,12 +126,9 @@ public class BasicSpecs
         // Arrange
         SomeDto subject = null;
 
-        // Act
-        Action act = () => subject.Should().NotBeEquivalentTo<object>(new { })
+        // Act / Assert
+        subject.Should().NotBeEquivalentTo<object>(new { })
             .And.BeNull();
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -149,12 +137,9 @@ public class BasicSpecs
         // Arrange
         SomeDto subject = null;
 
-        // Act
-        Action act = () => subject.Should().NotBeEquivalentTo<object>(new { }, opt => opt)
+        // Act / Assert
+        subject.Should().NotBeEquivalentTo<object>(new { }, opt => opt)
             .And.BeNull();
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -168,11 +153,8 @@ public class BasicSpecs
 
         var date2 = new { Property = 1.January(2011) };
 
-        // Act
-        Action act = () => date1.Should().BeEquivalentTo(date2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        date1.Should().BeEquivalentTo(date2);
     }
 
     [Fact]
@@ -280,12 +262,9 @@ public class BasicSpecs
 
         var expected = new[] { new { Address = IPAddress.Parse("1.2.3.4"), Word = "a" } };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected,
             options => options.ComparingByValue<IPAddress>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -296,12 +275,9 @@ public class BasicSpecs
 
         var expected = new { Address = IPAddress.Parse("1.2.3.4"), Word = "a" };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected,
             options => options.ComparingByValue<IPAddress>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -343,12 +319,9 @@ public class BasicSpecs
         var subject = new Option<int[]>([1, 3, 2]);
         var expected = new Option<int[]>([1, 2, 3]);
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, opt => opt
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected, opt => opt
             .ComparingByMembers(typeof(Option<>)));
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -374,13 +347,10 @@ public class BasicSpecs
         var subject = new Option<int[]>([1, 3, 2]);
         var expected = new Option<int[]>([1, 2, 3]);
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, opt => opt
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected, opt => opt
             .ComparingByValue(typeof(Option<>))
             .ComparingByMembers<Option<int[]>>());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     private readonly struct Option<T> : IEquatable<Option<T>>
@@ -490,11 +460,8 @@ public class BasicSpecs
         object s1 = new string('h', 2);
         object s2 = "hh";
 
-        // Act
-        Action act = () => s1.Should().BeEquivalentTo(s2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        s1.Should().BeEquivalentTo(s2);
     }
 
     [Fact]
@@ -505,10 +472,7 @@ public class BasicSpecs
         object s2 = 1;
 
         // Act
-        Action act = () => s1.Should().BeEquivalentTo(s2);
-
-        // Assert
-        act.Should().NotThrow();
+        s1.Should().BeEquivalentTo(s2);
     }
 
     [Fact]
@@ -518,11 +482,8 @@ public class BasicSpecs
         var object1 = new ClassWithOnlyAField { Value = 1 };
         var object2 = new ClassWithOnlyAField { Value = 1 };
 
-        // Act
-        Action act = () => object1.Should().BeEquivalentTo(object2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        object1.Should().BeEquivalentTo(object2);
     }
 
     [Fact]
@@ -533,11 +494,8 @@ public class BasicSpecs
 
         var expected = new Dictionary<string, int> { ["001"] = 1, ["002"] = 2 };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected);
     }
 
     [Fact]

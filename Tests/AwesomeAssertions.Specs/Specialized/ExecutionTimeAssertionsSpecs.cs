@@ -35,11 +35,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             var subject = new SleepingClass();
 
-            // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(0)).Should().BeLessThanOrEqualTo(500.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.ExecutionTimeOf(s => s.Sleep(0)).Should().BeLessThanOrEqualTo(500.Milliseconds());
         }
 
         [Fact]
@@ -62,11 +59,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Action someAction = () => Thread.Sleep(100);
 
-            // Act
-            Action act = () => someAction.ExecutionTime().Should().BeLessThanOrEqualTo(1.Seconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime().Should().BeLessThanOrEqualTo(1.Seconds());
         }
 
         [Fact]
@@ -139,11 +133,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             var subject = new SleepingClass();
 
-            // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(0)).Should().BeLessThan(500.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.ExecutionTimeOf(s => s.Sleep(0)).Should().BeLessThan(500.Milliseconds());
         }
 
         [Fact]
@@ -180,11 +171,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Action someAction = () => Thread.Sleep(100);
 
-            // Act
-            Action act = () => someAction.ExecutionTime().Should().BeLessThan(2.Seconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime().Should().BeLessThan(2.Seconds());
         }
 
         [Fact]
@@ -193,11 +181,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Func<Task> someAction = () => Task.Delay(TimeSpan.FromMilliseconds(100));
 
-            // Act
-            Action act = () => someAction.ExecutionTime().Should().BeLessThan(20.Seconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime().Should().BeLessThan(20.Seconds());
         }
 
         [Fact]
@@ -257,11 +242,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             var subject = new SleepingClass();
 
-            // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(100)).Should().BeGreaterThanOrEqualTo(50.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.ExecutionTimeOf(s => s.Sleep(100)).Should().BeGreaterThanOrEqualTo(50.Milliseconds());
         }
 
         [Fact]
@@ -284,11 +266,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Action someAction = () => Thread.Sleep(100);
 
-            // Act
-            Action act = () => someAction.ExecutionTime().Should().BeGreaterThanOrEqualTo(50.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime().Should().BeGreaterThanOrEqualTo(50.Milliseconds());
         }
 
         [Fact]
@@ -360,11 +339,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             var subject = new SleepingClass();
 
-            // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(200)).Should().BeGreaterThan(100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.ExecutionTimeOf(s => s.Sleep(200)).Should().BeGreaterThan(100.Milliseconds());
         }
 
         [Fact]
@@ -387,11 +363,8 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Action someAction = () => Thread.Sleep(200);
 
-            // Act
-            Action act = () => someAction.ExecutionTime().Should().BeGreaterThan(100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime().Should().BeGreaterThan(100.Milliseconds());
         }
 
         [Fact]
@@ -468,12 +441,9 @@ public class ExecutionTimeAssertionsSpecs
             var subject = new SleepingClass();
             var timer = new TestTimer(() => 210.Milliseconds());
 
-            // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(0), () => timer).Should().BeCloseTo(200.Milliseconds(),
+            // Act / Assert
+            subject.ExecutionTimeOf(s => s.Sleep(0), () => timer).Should().BeCloseTo(200.Milliseconds(),
                 150.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -497,11 +467,8 @@ public class ExecutionTimeAssertionsSpecs
             Action someAction = () => { };
             var timer = new TestTimer(() => 210.Milliseconds());
 
-            // Act
-            Action act = () => someAction.ExecutionTime(() => timer).Should().BeCloseTo(200.Milliseconds(), 15.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someAction.ExecutionTime(() => timer).Should().BeCloseTo(200.Milliseconds(), 15.Milliseconds());
         }
 
         [Fact]
@@ -560,18 +527,12 @@ public class ExecutionTimeAssertionsSpecs
             // Arrange
             Action someAction = () => Thread.Sleep(300);
 
-            // Act
-            Action act = () =>
-            {
-                // I know it's not meant to be used like this,
-                // but since you can, it should still give consistent results
-                ExecutionTime time = someAction.ExecutionTime();
-                time.Should().BeGreaterThan(100.Milliseconds());
-                time.Should().BeGreaterThan(200.Milliseconds());
-            };
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            // I know it's not meant to be used like this,
+            // but since you can, it should still give consistent results
+            ExecutionTime time = someAction.ExecutionTime();
+            time.Should().BeGreaterThan(100.Milliseconds());
+            time.Should().BeGreaterThan(200.Milliseconds());
         }
 
         [Fact]

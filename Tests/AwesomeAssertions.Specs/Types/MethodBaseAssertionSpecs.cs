@@ -16,12 +16,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().Return(typeof(int));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().Return(typeof(int));
         }
 
         [Fact]
@@ -96,12 +92,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotReturn(typeof(string));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotReturn(typeof(string));
         }
 
         [Fact]
@@ -160,12 +152,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().Return<int>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().Return<int>();
         }
 
         [Fact]
@@ -208,12 +196,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotReturn<string>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotReturn<string>();
         }
 
         [Fact]
@@ -257,12 +241,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("VoidMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().ReturnVoid();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().ReturnVoid();
         }
 
         [Fact]
@@ -306,12 +286,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotReturnVoid();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotReturnVoid();
         }
 
         [Fact]
@@ -353,12 +329,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("PrivateMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -367,12 +339,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("PrivateProtectedMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.PrivateProtected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.PrivateProtected);
         }
 
         [Fact]
@@ -401,12 +369,8 @@ public class MethodBaseAssertionSpecs
 
             MethodInfo setMethod = propertyInfo.SetMethod;
 
-            // Act
-            Action act = () =>
-                setMethod.Should().HaveAccessModifier(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            setMethod.Should().HaveAccessModifier(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -438,12 +402,8 @@ public class MethodBaseAssertionSpecs
 
             MethodInfo getMethod = propertyInfo.GetMethod;
 
-            // Act
-            Action act = () =>
-                getMethod.Should().HaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            getMethod.Should().HaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -473,12 +433,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("InternalMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Internal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Internal);
         }
 
         [Fact]
@@ -505,12 +461,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("ProtectedInternalMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -569,12 +521,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("PrivateMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -583,12 +531,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("PrivateMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.PrivateProtected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.PrivateProtected);
         }
 
         [Fact]
@@ -614,12 +558,8 @@ public class MethodBaseAssertionSpecs
             PropertyInfo propertyInfo = typeof(TestClass).FindPropertyByName("ProtectedSetProperty");
             MethodInfo setMethod = propertyInfo.SetMethod;
 
-            // Act
-            Action act = () =>
-                setMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            setMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal);
         }
 
         [Fact]
@@ -648,12 +588,8 @@ public class MethodBaseAssertionSpecs
             PropertyInfo propertyInfo = typeof(TestClass).FindPropertyByName("PublicGetProperty");
             MethodInfo getMethod = propertyInfo.GetMethod;
 
-            // Act
-            Action act = () =>
-                getMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            getMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -663,12 +599,8 @@ public class MethodBaseAssertionSpecs
             PropertyInfo propertyInfo = typeof(TestClass).FindPropertyByName("PublicGetPrivateProtectedSet");
             MethodInfo setMethod = propertyInfo.SetMethod;
 
-            // Act
-            Action act = () =>
-                setMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            setMethod.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -695,12 +627,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("InternalMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -725,12 +653,8 @@ public class MethodBaseAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("ProtectedInternalMethod");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]

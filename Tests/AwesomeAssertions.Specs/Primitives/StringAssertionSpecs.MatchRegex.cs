@@ -20,12 +20,9 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
+            // Act / Assert
             // ReSharper disable once StringLiteralTypo
-            Action act = () => subject.Should().MatchRegex("h.*\\sworld.$");
-
-            // Assert
-            act.Should().NotThrow();
+            subject.Should().MatchRegex("h.*\\sworld.$");
         }
 
         [Fact]
@@ -129,12 +126,9 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
+            // Act / Assert
             // ReSharper disable once StringLiteralTypo
-            Action act = () => subject.Should().MatchRegex(new Regex("h.*\\sworld.$"));
-
-            // Assert
-            act.Should().NotThrow();
+            subject.Should().MatchRegex(new Regex("h.*\\sworld.$"));
         }
 
         [Fact]
@@ -207,11 +201,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world";
 
-            // Act
-            Action act = () => subject.Should().MatchRegex(new Regex("hello.*"), AtLeast.Once());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().MatchRegex(new Regex("hello.*"), AtLeast.Once());
         }
 
         [Fact]
@@ -236,11 +227,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "a";
 
-            // Act
-            Action act = () => subject.Should().MatchRegex("b", Exactly.Times(0));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().MatchRegex("b", Exactly.Times(0));
         }
 
         [Fact]
@@ -281,15 +269,9 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = string.Empty;
 
-            // Act
-            Action act = () =>
-            {
-                using var _ = new AssertionScope();
-                subject.Should().MatchRegex("a", Exactly.Times(0));
-            };
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            using var _ = new AssertionScope();
+            subject.Should().MatchRegex("a", Exactly.Times(0));
         }
 
         [Fact]
@@ -365,11 +347,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
-            Action act = () => subject.Should().NotMatchRegex(".*earth.*");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotMatchRegex(".*earth.*");
         }
 
         [Fact]
@@ -473,11 +452,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string subject = "hello world!";
 
-            // Act
-            Action act = () => subject.Should().NotMatchRegex(new Regex(".*earth.*"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotMatchRegex(new Regex(".*earth.*"));
         }
 
         [Fact]

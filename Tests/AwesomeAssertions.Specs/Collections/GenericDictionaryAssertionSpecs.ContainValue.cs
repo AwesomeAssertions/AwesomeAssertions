@@ -20,11 +20,8 @@ public partial class GenericDictionaryAssertionSpecs
                 [2] = "Two"
             };
 
-            // Act
-            Action act = () => dictionary.Should().ContainValue("One");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dictionary.Should().ContainValue("One");
         }
 
         [Fact]
@@ -71,11 +68,8 @@ public partial class GenericDictionaryAssertionSpecs
                 [1] = null
             };
 
-            // Act
-            Action act = () => dictionary.Should().ContainValue(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dictionary.Should().ContainValue(null);
         }
 
         [Fact]

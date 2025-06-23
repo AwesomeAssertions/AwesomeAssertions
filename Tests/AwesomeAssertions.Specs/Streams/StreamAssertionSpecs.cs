@@ -16,12 +16,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Writable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().BeWritable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().BeWritable();
         }
 
         [Fact]
@@ -66,12 +62,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Writable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeWritable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeWritable();
         }
 
         [Fact]
@@ -116,12 +108,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().BeSeekable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().BeSeekable();
         }
 
         [Fact]
@@ -166,12 +154,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeSeekable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeSeekable();
         }
 
         [Fact]
@@ -216,12 +200,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().BeReadable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().BeReadable();
         }
 
         [Fact]
@@ -266,12 +246,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeReadable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeReadable();
         }
 
         [Fact]
@@ -316,12 +292,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = true, Position = 10 };
 
-            // Act
-            Action act = () =>
-                stream.Should().HavePosition(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().HavePosition(10);
         }
 
         [Fact]
@@ -383,12 +355,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = true, Position = 1 };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotHavePosition(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotHavePosition(10);
         }
 
         [Fact]
@@ -458,12 +426,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = true, WithLength = 10 };
 
-            // Act
-            Action act = () =>
-                stream.Should().HaveLength(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().HaveLength(10);
         }
 
         [Fact]
@@ -525,12 +489,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Seekable = true, WithLength = 1 };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotHaveLength(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotHaveLength(10);
         }
 
         [Fact]
@@ -600,12 +560,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = true, Writable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().BeReadOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().BeReadOnly();
         }
 
         [Fact]
@@ -665,12 +621,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = false, Writable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeReadOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeReadOnly();
         }
 
         [Fact]
@@ -679,12 +631,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = true, Writable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeReadOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeReadOnly();
         }
 
         [Fact]
@@ -729,12 +677,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = false, Writable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().BeWriteOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().BeWriteOnly();
         }
 
         [Fact]
@@ -794,12 +738,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = false, Writable = false };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeWriteOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeWriteOnly();
         }
 
         [Fact]
@@ -808,12 +748,8 @@ public class StreamAssertionSpecs
             // Arrange
             using var stream = new TestStream { Readable = true, Writable = true };
 
-            // Act
-            Action act = () =>
-                stream.Should().NotBeWriteOnly();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotBeWriteOnly();
         }
 
         [Fact]

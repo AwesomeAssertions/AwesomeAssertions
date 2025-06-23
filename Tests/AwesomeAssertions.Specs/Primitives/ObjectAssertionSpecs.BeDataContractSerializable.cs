@@ -21,11 +21,8 @@ public partial class ObjectAssertionSpecs
                 Id = 1
             };
 
-            // Act
-            Action act = () => subject.Should().BeDataContractSerializable();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeDataContractSerializable();
         }
 
         [Fact]
@@ -71,13 +68,10 @@ public partial class ObjectAssertionSpecs
                 BirthDay = 20.September(1973)
             };
 
-            // Act
-            Action act = () => subject.Should()
+            // Act / Assert
+            subject.Should()
                 .BeDataContractSerializable<DataContractSerializableClassNotRestoringAllProperties>(
                     options => options.Excluding(x => x.Name));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]

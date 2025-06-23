@@ -15,11 +15,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = new(new DateTime(2009, 06, 04), TimeSpan.Zero);
             int expectation = 2009;
 
-            // Act
-            Action act = () => subject.Should().HaveYear(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveYear(expectation);
         }
 
         [Fact]
@@ -77,11 +74,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = new(new DateTime(2009, 06, 04), TimeSpan.Zero);
             int expectation = 2008;
 
-            // Act
-            Action act = () => subject.Should().NotHaveYear(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveYear(expectation);
         }
 
         [Fact]

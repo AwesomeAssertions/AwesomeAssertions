@@ -20,12 +20,8 @@ public partial class TypeAssertionSpecs
             Type type = typeof(ClassWithAttribute);
             Type sameType = typeof(ClassWithAttribute);
 
-            // Act
-            Action act = () =>
-                type.Should().Be(sameType);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().Be(sameType);
         }
 
         [Fact]
@@ -51,11 +47,8 @@ public partial class TypeAssertionSpecs
             Type nullType = null;
             Type someType = null;
 
-            // Act
-            Action act = () => nullType.Should().Be(someType);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            nullType.Should().Be(someType);
         }
 
         [Fact]
@@ -119,12 +112,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(ClassWithAttribute);
 
-            // Act
-            Action act = () =>
-                type.Should().Be<ClassWithAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().Be<ClassWithAttribute>();
         }
 
         [Fact]
@@ -152,12 +141,8 @@ public partial class TypeAssertionSpecs
             Type type = typeof(ClassWithAttribute);
             Type otherType = typeof(ClassWithoutAttribute);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBe(otherType);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBe(otherType);
         }
 
         [Fact]
@@ -197,12 +182,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(ClassWithAttribute);
 
-            // Act
-            Action act = () =>
-                type.Should().NotBe<ClassWithoutAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotBe<ClassWithoutAttribute>();
         }
 
         [Fact]

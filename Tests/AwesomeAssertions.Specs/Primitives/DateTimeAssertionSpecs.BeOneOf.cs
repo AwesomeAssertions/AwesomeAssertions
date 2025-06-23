@@ -46,12 +46,9 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             DateTime value = new(2016, 12, 30, 23, 58, 57);
 
-            // Act
-            Action action = () => value.Should().BeOneOf(new DateTime(2216, 1, 30, 0, 5, 7),
+            // Act / Assert
+            value.Should().BeOneOf(new DateTime(2216, 1, 30, 0, 5, 7),
                 new DateTime(2016, 12, 30, 23, 58, 57), new DateTime(2012, 3, 3));
-
-            // Assert
-            action.Should().NotThrow();
         }
 
         [Fact]
@@ -74,11 +71,8 @@ public partial class DateTimeAssertionSpecs
             // Arrange
             DateTime? value = null;
 
-            // Act
-            Action action = () => value.Should().BeOneOf(new DateTime(2216, 1, 30, 0, 5, 7), null);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf(new DateTime(2216, 1, 30, 0, 5, 7), null);
         }
     }
 }

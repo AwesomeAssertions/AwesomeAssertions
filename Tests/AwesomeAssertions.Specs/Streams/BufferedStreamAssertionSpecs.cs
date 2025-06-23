@@ -17,12 +17,8 @@ public class BufferedStreamAssertionSpecs
             // Arrange
             using var stream = new BufferedStream(new MemoryStream(), 10);
 
-            // Act
-            Action act = () =>
-                stream.Should().HaveBufferSize(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().HaveBufferSize(10);
         }
 
         [Fact]
@@ -67,12 +63,8 @@ public class BufferedStreamAssertionSpecs
             // Arrange
             using var stream = new BufferedStream(new MemoryStream(), 1);
 
-            // Act
-            Action act = () =>
-                stream.Should().NotHaveBufferSize(10);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            stream.Should().NotHaveBufferSize(10);
         }
 
         [Fact]

@@ -15,15 +15,11 @@ public partial class DateTimeAssertionSpecs
             DateTime earlierDateTime = new(2016, 06, 03);
             DateTime? nullableDateTime = new DateTime(2016, 06, 04);
 
-            // Act
-            Action action = () =>
-                nullableDateTime.Should()
-                    .HaveValue()
-                    .And
-                    .BeAfter(earlierDateTime);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTime.Should()
+                .HaveValue()
+                .And
+                .BeAfter(earlierDateTime);
         }
     }
 

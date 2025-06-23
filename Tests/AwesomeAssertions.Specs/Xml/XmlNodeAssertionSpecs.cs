@@ -15,12 +15,8 @@ public class XmlNodeAssertionSpecs
             // Arrange
             var doc = new XmlDocument();
 
-            // Act
-            Action act = () =>
-                doc.Should().BeSameAs(doc);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            doc.Should().BeSameAs(doc);
         }
 
         [Fact]
@@ -87,12 +83,8 @@ public class XmlNodeAssertionSpecs
             // Arrange
             XmlNode node = null;
 
-            // Act
-            Action act = () =>
-                node.Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            node.Should().BeNull();
         }
 
         [Fact]
@@ -137,12 +129,8 @@ public class XmlNodeAssertionSpecs
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml("<xml/>");
 
-            // Act
-            Action act = () =>
-                xmlDoc.Should().NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            xmlDoc.Should().NotBeNull();
         }
 
         [Fact]
@@ -183,12 +171,8 @@ public class XmlNodeAssertionSpecs
             // Arrange
             var doc = new XmlDocument();
 
-            // Act
-            Action act = () =>
-                doc.Should().BeEquivalentTo(doc);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            doc.Should().BeEquivalentTo(doc);
         }
 
         [Fact]
@@ -222,12 +206,8 @@ public class XmlNodeAssertionSpecs
             var expected = new XmlDocument();
             expected.LoadXml(xml);
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -240,12 +220,8 @@ public class XmlNodeAssertionSpecs
             var expected = new XmlDocument();
             expected.LoadXml("<a:xml xmlns:a=\"urn:a\"/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -258,12 +234,8 @@ public class XmlNodeAssertionSpecs
             var expected = new XmlDocument();
             expected.LoadXml("<xml/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -475,11 +447,8 @@ public class XmlNodeAssertionSpecs
             var expected = new XmlDocument();
             expected.LoadXml("<xml><a/><!--Comment--></xml>");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -495,11 +464,8 @@ public class XmlNodeAssertionSpecs
 
             expected.LoadXml("<xml>\n<a>   \n   <b/></a>\r\n</xml>");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -548,12 +514,8 @@ public class XmlNodeAssertionSpecs
             var unexpected = new XmlDocument();
             unexpected.LoadXml("<xml>b</xml>");
 
-            // Act
-            Action act = () =>
-                subject.Should().NotBeEquivalentTo(unexpected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBeEquivalentTo(unexpected);
         }
 
         [Fact]

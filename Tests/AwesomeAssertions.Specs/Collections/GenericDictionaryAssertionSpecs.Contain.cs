@@ -398,11 +398,8 @@ public partial class GenericDictionaryAssertionSpecs
             var subject = new List<KeyValuePair<int, int>>
                 { new(0, 0) };
 
-            // Act
-            Action act = () => subject.Should().Contain(0, 0);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Contain(0, 0);
         }
     }
 
@@ -658,11 +655,8 @@ public partial class GenericDictionaryAssertionSpecs
                 [1] = null
             };
 
-            // Act
-            Action action = () => dictionary.Should().NotContain(1, "other");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            dictionary.Should().NotContain(1, "other");
         }
 
         [Fact]

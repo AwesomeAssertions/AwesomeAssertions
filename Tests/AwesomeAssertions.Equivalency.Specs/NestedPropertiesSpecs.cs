@@ -23,11 +23,8 @@ public class NestedPropertiesSpecs
             Level = new Level1Dto { Text = "Level1", Level = new Level2Dto { Text = "Level2" } }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -69,12 +66,9 @@ public class NestedPropertiesSpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected,
             options => options.WithoutRecursing());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -240,11 +234,8 @@ public class NestedPropertiesSpecs
 
         var expected = new { Level = new { Text = "Level1", OtherProperty = "OtherProperty" } };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, options => options.ExcludingMissingMembers());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expected, options => options.ExcludingMissingMembers());
     }
 
     [Fact]
@@ -280,11 +271,8 @@ public class NestedPropertiesSpecs
         var c1 = new ClassOne();
         var c2 = new ClassOne();
 
-        // Act
-        Action act = () => c1.Should().BeEquivalentTo(c2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        c1.Should().BeEquivalentTo(c2);
     }
 
     [Fact]

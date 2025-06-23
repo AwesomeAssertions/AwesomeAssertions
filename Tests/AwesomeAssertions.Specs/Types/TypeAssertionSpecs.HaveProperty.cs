@@ -18,16 +18,12 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveProperty(typeof(string), "PrivateWriteProtectedReadProperty")
-                    .Which.Should()
-                    .BeWritable(CSharpAccessModifier.Private)
-                    .And.BeReadable(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveProperty(typeof(string), "PrivateWriteProtectedReadProperty")
+                .Which.Should()
+                .BeWritable(CSharpAccessModifier.Private)
+                .And.BeReadable(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -36,16 +32,12 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveProperty("PrivateWriteProtectedReadProperty")
-                    .Which.Should()
-                    .BeWritable(CSharpAccessModifier.Private)
-                    .And.BeReadable(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveProperty("PrivateWriteProtectedReadProperty")
+                .Which.Should()
+                .BeWritable(CSharpAccessModifier.Private)
+                .And.BeReadable(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -224,16 +216,12 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveProperty<string>("PrivateWriteProtectedReadProperty")
-                    .Which.Should()
-                    .BeWritable(CSharpAccessModifier.Private)
-                    .And.BeReadable(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveProperty<string>("PrivateWriteProtectedReadProperty")
+                .Which.Should()
+                .BeWritable(CSharpAccessModifier.Private)
+                .And.BeReadable(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -275,11 +263,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithoutMembers);
 
-            // Act
-            Action act = () => type.Should().NotHaveProperty("Property");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveProperty("Property");
         }
 
         [Fact]

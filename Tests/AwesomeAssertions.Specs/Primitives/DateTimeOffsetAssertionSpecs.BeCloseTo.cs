@@ -33,11 +33,8 @@ public partial class DateTimeOffsetAssertionSpecs
             var dateTime = DateTimeOffset.UtcNow;
             var actual = new DateTimeOffset(dateTime.Ticks - 1, TimeSpan.Zero);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -47,11 +44,8 @@ public partial class DateTimeOffsetAssertionSpecs
             var dateTime = DateTimeOffset.UtcNow;
             var actual = new DateTimeOffset(dateTime.Ticks + 1, TimeSpan.Zero);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -61,11 +55,8 @@ public partial class DateTimeOffsetAssertionSpecs
             var dateTime = DateTimeOffset.MinValue;
             var actual = new DateTimeOffset(dateTime.Ticks + 1, TimeSpan.Zero);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -75,11 +66,8 @@ public partial class DateTimeOffsetAssertionSpecs
             var dateTime = DateTimeOffset.MaxValue;
             var actual = new DateTimeOffset(dateTime.Ticks - 1, TimeSpan.Zero);
 
-            // Act
-            Action act = () => actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeCloseTo(dateTime, TimeSpan.FromTicks(1));
         }
 
         [Fact]
@@ -89,11 +77,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = new(2016, 06, 04, 12, 15, 30, 980, TimeSpan.Zero);
             DateTimeOffset nearbyTime = new(2016, 06, 04, 12, 15, 31, 0, TimeSpan.Zero);
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -103,11 +88,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = new(2016, 06, 04, 12, 15, 31, 020, TimeSpan.Zero);
             DateTimeOffset nearbyTime = new(2016, 06, 04, 12, 15, 31, 0, TimeSpan.Zero);
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -168,11 +150,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = 13.March(2012).At(12, 15, 31, 035).ToDateTimeOffset(1.Hours());
             DateTimeOffset nearbyTime = 13.March(2012).At(12, 15, 31).ToDateTimeOffset(1.Hours());
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 35.Milliseconds());
         }
 
         [Fact]
@@ -197,11 +176,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = DateTimeOffset.MaxValue - 50.Milliseconds();
             DateTimeOffset nearbyTime = DateTimeOffset.MaxValue;
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
         }
 
         [Fact]
@@ -211,11 +187,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = DateTimeOffset.MinValue + 50.Milliseconds();
             DateTimeOffset nearbyTime = DateTimeOffset.MinValue;
 
-            // Act
-            Action act = () => time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().BeCloseTo(nearbyTime, 100.Milliseconds());
         }
     }
 
@@ -349,11 +322,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = 13.March(2012).At(12, 15, 30, 979).ToDateTimeOffset(1.Hours());
             DateTimeOffset nearbyTime = 13.March(2012).At(12, 15, 31).ToDateTimeOffset(1.Hours());
 
-            // Act
-            Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]
@@ -364,11 +334,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset time = 13.March(2012).At(12, 15, 31, 021).ToDateTimeOffset(1.Hours());
             DateTimeOffset nearbyTime = 13.March(2012).At(12, 15, 31).ToDateTimeOffset(1.Hours());
 
-            // Act
-            Action act = () => time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            time.Should().NotBeCloseTo(nearbyTime, 20.Milliseconds());
         }
 
         [Fact]

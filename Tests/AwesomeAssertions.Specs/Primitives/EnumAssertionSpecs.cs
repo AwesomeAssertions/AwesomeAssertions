@@ -94,11 +94,8 @@ public class EnumAssertionSpecs
             // Arrange
             TestEnum? someObject = null;
 
-            // Act
-            Action act = () => someObject.Should().NotHaveFlag(TestEnum.Three);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someObject.Should().NotHaveFlag(TestEnum.Three);
         }
     }
 
@@ -128,11 +125,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnum expected = MyEnum.One;
 
-            // Act
-            Action act = () => subject.Should().Be(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Be(expected);
         }
 
         [Theory]
@@ -140,11 +134,8 @@ public class EnumAssertionSpecs
         [InlineData(MyEnum.One, MyEnum.One)]
         public void When_nullable_enums_are_equal_it_should_succeed(MyEnum? subject, MyEnum? expected)
         {
-            // Act
-            Action act = () => subject.Should().Be(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().Be(expected);
         }
 
         [Fact]
@@ -200,11 +191,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnum expected = MyEnum.Two;
 
-            // Act
-            Action act = () => subject.Should().NotBe(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBe(expected);
         }
 
         [Fact]
@@ -214,11 +202,8 @@ public class EnumAssertionSpecs
             MyEnum? subject = null;
             MyEnum expected = MyEnum.Two;
 
-            // Act
-            Action act = () => subject.Should().NotBe(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBe(expected);
         }
 
         [Theory]
@@ -227,11 +212,8 @@ public class EnumAssertionSpecs
         [InlineData(MyEnum.One, MyEnum.Two)]
         public void When_nullable_enums_are_unequal_it_should_succeed(MyEnum? subject, MyEnum? expected)
         {
-            // Act
-            Action act = () => subject.Should().NotBe(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotBe(expected);
         }
 
         [Fact]
@@ -314,12 +296,9 @@ public class EnumAssertionSpecs
             // Arrange
             MyEnum? subject = MyEnum.One;
 
-            // Act
-            Action act = () => subject.Should().HaveValue()
+            // Act / Assert
+            subject.Should().HaveValue()
                 .Which.Should().Be(MyEnum.One);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -369,11 +348,8 @@ public class EnumAssertionSpecs
             // Arrange
             TestEnum? someObject = null;
 
-            // Act
-            Action act = () => someObject.Should().NotHaveValue(3);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someObject.Should().NotHaveValue(3);
         }
 
         [Fact]
@@ -382,11 +358,8 @@ public class EnumAssertionSpecs
             // Arrange
             MyEnum? subject = null;
 
-            // Act
-            Action act = () => subject.Should().NotHaveValue();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveValue();
         }
 
         [Fact]
@@ -413,11 +386,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnumOtherName expected = MyEnumOtherName.OtherOne;
 
-            // Act
-            Action act = () => subject.Should().HaveSameValueAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveSameValueAs(expected);
         }
 
         [Fact]
@@ -427,11 +397,8 @@ public class EnumAssertionSpecs
             MyEnum? subject = MyEnum.One;
             MyEnumOtherName expected = MyEnumOtherName.OtherOne;
 
-            // Act
-            Action act = () => subject.Should().HaveSameValueAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveSameValueAs(expected);
         }
 
         [Fact]
@@ -472,11 +439,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnumOtherName expected = MyEnumOtherName.OtherTwo;
 
-            // Act
-            Action act = () => subject.Should().NotHaveSameValueAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveSameValueAs(expected);
         }
 
         [Theory]
@@ -484,11 +448,8 @@ public class EnumAssertionSpecs
         [InlineData(MyEnum.One, MyEnumOtherName.OtherTwo)]
         public void When_nullable_enums_have_unequal_values_it_should_succeed(MyEnum? subject, MyEnumOtherName expected)
         {
-            // Act
-            Action act = () => subject.Should().NotHaveSameValueAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveSameValueAs(expected);
         }
 
         [Fact]
@@ -537,11 +498,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnumOtherValue expected = MyEnumOtherValue.One;
 
-            // Act
-            Action act = () => subject.Should().HaveSameNameAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveSameNameAs(expected);
         }
 
         [Fact]
@@ -551,11 +509,8 @@ public class EnumAssertionSpecs
             MyEnum? subject = MyEnum.One;
             MyEnumOtherValue expected = MyEnumOtherValue.One;
 
-            // Act
-            Action act = () => subject.Should().HaveSameNameAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveSameNameAs(expected);
         }
 
         [Fact]
@@ -596,11 +551,8 @@ public class EnumAssertionSpecs
             MyEnum subject = MyEnum.One;
             MyEnumOtherValue expected = MyEnumOtherValue.Two;
 
-            // Act
-            Action act = () => subject.Should().NotHaveSameNameAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveSameNameAs(expected);
         }
 
         [Theory]
@@ -608,11 +560,8 @@ public class EnumAssertionSpecs
         [InlineData(MyEnum.One, MyEnumOtherValue.Two)]
         public void When_nullable_enums_have_unequal_names_it_should_succeed(MyEnum? subject, MyEnumOtherValue expected)
         {
-            // Act
-            Action act = () => subject.Should().NotHaveSameNameAs(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveSameNameAs(expected);
         }
 
         [Fact]
@@ -660,11 +609,8 @@ public class EnumAssertionSpecs
             // Arrange
             MyEnum? subject = null;
 
-            // Act
-            Action act = () => subject.Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeNull();
         }
 
         [Fact]
@@ -690,12 +636,9 @@ public class EnumAssertionSpecs
             // Arrange
             MyEnum? subject = MyEnum.One;
 
-            // Act
-            Action act = () => subject.Should().NotBeNull()
+            // Act / Assert
+            subject.Should().NotBeNull()
                 .Which.Should().Be(MyEnum.One);
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]

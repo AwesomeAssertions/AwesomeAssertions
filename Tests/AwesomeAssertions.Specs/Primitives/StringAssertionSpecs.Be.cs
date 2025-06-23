@@ -25,11 +25,8 @@ public partial class StringAssertionSpecs
             string actualString = null;
             string expectedString = null;
 
-            // Act
-            Action act = () => actualString.Should().Be(expectedString);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actualString.Should().Be(expectedString);
         }
 
         [Fact]

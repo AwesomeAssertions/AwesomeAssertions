@@ -133,11 +133,8 @@ public class EquivalencyOptionsSpecs
                 Value = 0.33D
             };
 
-            // Act
-            Action act = () => actual.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -185,11 +182,8 @@ public class EquivalencyOptionsSpecs
                 Value = 0.33D
             };
 
-            // Act
-            Action act = () => actual.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            actual.Should().BeEquivalentTo(expected);
         }
 
         public void Dispose() =>

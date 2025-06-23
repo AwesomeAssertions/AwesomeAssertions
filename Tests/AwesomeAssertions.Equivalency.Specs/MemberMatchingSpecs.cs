@@ -25,12 +25,8 @@ public class MemberMatchingSpecs
 
         var class2 = new { Field1 = "Lorem" };
 
-        // Act
-        Action act =
-            () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingMissingMembers());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingMissingMembers());
     }
 
     [Fact]

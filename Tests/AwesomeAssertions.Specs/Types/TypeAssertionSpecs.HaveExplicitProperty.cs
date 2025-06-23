@@ -20,13 +20,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitProperty(interfaceType, "ExplicitStringProperty");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitProperty(interfaceType, "ExplicitStringProperty");
         }
 
         [Fact]
@@ -38,13 +34,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitProperty(interfaceType, "ExplicitImplicitStringProperty");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitProperty(interfaceType, "ExplicitImplicitStringProperty");
         }
 
         [Fact]
@@ -192,13 +184,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassExplicitlyImplementingInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveExplicitProperty<IExplicitInterface>("ExplicitStringProperty");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveExplicitProperty<IExplicitInterface>("ExplicitStringProperty");
         }
 
         [Fact]
@@ -301,13 +289,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitProperty(interfaceType, "ImplicitStringProperty");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitProperty(interfaceType, "ImplicitStringProperty");
         }
 
         [Fact]
@@ -318,13 +302,9 @@ public partial class TypeAssertionSpecs
 
             var interfaceType = typeof(IExplicitInterface);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveExplicitProperty(interfaceType, "NonExistentProperty");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveExplicitProperty(interfaceType, "NonExistentProperty");
         }
 
         [Fact]

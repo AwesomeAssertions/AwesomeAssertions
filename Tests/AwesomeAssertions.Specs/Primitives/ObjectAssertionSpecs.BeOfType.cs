@@ -31,11 +31,8 @@ public partial class ObjectAssertionSpecs
             // Arrange
             var someObject = new Exception();
 
-            // Act
-            Action act = () => someObject.Should().BeOfType<Exception>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someObject.Should().BeOfType<Exception>();
         }
 
         [Fact]
@@ -44,11 +41,8 @@ public partial class ObjectAssertionSpecs
             // Arrange
             int valueTypeObject = 42;
 
-            // Act
-            Action act = () => valueTypeObject.Should().BeOfType(typeof(int));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            valueTypeObject.Should().BeOfType(typeof(int));
         }
 
         [Fact]
@@ -210,11 +204,8 @@ public partial class ObjectAssertionSpecs
             // Arrange
             int valueTypeObject = 42;
 
-            // Act
-            Action act = () => valueTypeObject.Should().NotBeOfType(typeof(double));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            valueTypeObject.Should().NotBeOfType(typeof(double));
         }
 
         [Fact]

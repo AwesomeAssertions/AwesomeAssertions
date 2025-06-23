@@ -135,11 +135,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             float value = 3.5F;
 
-            // Act
-            Action act = () => value.Should().Be(3.5F);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(3.5F);
         }
 
         [Fact]
@@ -179,11 +176,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             double value = 3.5;
 
-            // Act
-            Action act = () => value.Should().Be(3.5);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(3.5);
         }
 
         [Fact]
@@ -222,11 +216,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             decimal value = 3.5m;
 
-            // Act
-            Action act = () => value.Should().Be(3.5m);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(3.5m);
         }
 
         [Fact]
@@ -355,11 +346,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             byte value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -368,11 +356,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             sbyte value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -381,11 +366,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             short value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -394,11 +376,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             ushort value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -407,11 +386,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             uint value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -420,11 +396,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             long value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -433,11 +406,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             ulong value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
     }
 
@@ -449,11 +419,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             byte? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -462,11 +429,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             sbyte? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -475,11 +439,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             short? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -488,11 +449,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             ushort? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -501,11 +459,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             uint? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -514,11 +469,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             long? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
 
         [Fact]
@@ -527,11 +479,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             ulong? value = 2;
 
-            // Act
-            Action act = () => value.Should().Be(2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().Be(2);
         }
     }
 }

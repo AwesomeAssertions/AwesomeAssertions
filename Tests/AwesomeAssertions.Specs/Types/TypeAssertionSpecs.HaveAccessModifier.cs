@@ -19,12 +19,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(IPublicInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -171,12 +167,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested).GetNestedType("PrivateClass", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -201,12 +193,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested).GetNestedType("ProtectedEnum", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -230,12 +218,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.IPublicInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]
@@ -261,12 +245,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.InternalClass);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Internal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.Internal);
         }
 
         [Fact]
@@ -291,12 +271,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.IProtectedInternalInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().HaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -354,12 +330,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(IPublicInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -385,12 +357,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(InternalClass);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -415,12 +383,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested).GetNestedType("PrivateClass", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Protected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.Protected);
         }
 
         [Fact]
@@ -445,12 +409,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested).GetNestedType("ProtectedEnum", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal);
         }
 
         [Fact]
@@ -474,12 +434,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.IPublicInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -505,12 +461,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.InternalClass);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal);
         }
 
         [Fact]
@@ -535,12 +487,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             Type type = typeof(Nested.IProtectedInternalInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Public);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveAccessModifier(CSharpAccessModifier.Public);
         }
 
         [Fact]

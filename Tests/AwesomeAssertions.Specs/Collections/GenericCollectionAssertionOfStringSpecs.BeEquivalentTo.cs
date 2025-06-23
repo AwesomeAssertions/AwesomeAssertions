@@ -78,11 +78,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> subject = new string[0];
             IEnumerable<string> otherCollection = new string[0];
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(otherCollection);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(otherCollection);
         }
 
         [Fact]
@@ -159,11 +156,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection1 = ["one", "two", "three"];
             IEnumerable<string> collection2 = new string[0];
 
-            // Act
-            Action act = () => collection1.Should().NotBeEquivalentTo(collection2);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection1.Should().NotBeEquivalentTo(collection2);
         }
 
         [Fact]

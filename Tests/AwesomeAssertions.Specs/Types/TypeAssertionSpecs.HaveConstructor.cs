@@ -18,14 +18,10 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveConstructor([typeof(string)])
-                    .Which.Should().HaveAccessModifier(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveConstructor([typeof(string)])
+                .Which.Should().HaveAccessModifier(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -84,13 +80,9 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithNoMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveConstructor([typeof(string)]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .NotHaveConstructor([typeof(string)]);
         }
 
         [Fact]

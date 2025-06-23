@@ -280,41 +280,29 @@ public partial class StringAssertionSpecs
         [Fact]
         public void When_strings_differ_other_than_by_case_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ADC".Should().NotBeEquivalentTo("abc");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ADC".Should().NotBeEquivalentTo("abc");
         }
 
         [Fact]
         public void When_non_null_string_is_expected_to_be_equivalent_to_null_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABCDEF".Should().NotBeEquivalentTo(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABCDEF".Should().NotBeEquivalentTo(null);
         }
 
         [Fact]
         public void When_non_empty_string_is_expected_to_be_equivalent_to_empty_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABC".Should().NotBeEquivalentTo("");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABC".Should().NotBeEquivalentTo("");
         }
 
         [Fact]
         public void When_string_is_equivalent_but_too_short_it_should_not_throw()
         {
-            // Act
-            Action act = () => "AB".Should().NotBeEquivalentTo("ABCD");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "AB".Should().NotBeEquivalentTo("ABCD");
         }
 
         [Fact]
@@ -323,31 +311,22 @@ public partial class StringAssertionSpecs
             // Arrange
             string someString = null;
 
-            // Act
-            Action act = () => someString.Should().NotBeEquivalentTo("abc");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            someString.Should().NotBeEquivalentTo("abc");
         }
 
         [Fact]
         public void When_the_expected_string_is_equivalent_to_the_actual_string_but_with_trailing_spaces_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABC".Should().NotBeEquivalentTo("abc ");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABC".Should().NotBeEquivalentTo("abc ");
         }
 
         [Fact]
         public void When_the_actual_string_equivalent_to_the_expected_but_with_trailing_spaces_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABC ".Should().NotBeEquivalentTo("abc");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABC ".Should().NotBeEquivalentTo("abc");
         }
     }
 }

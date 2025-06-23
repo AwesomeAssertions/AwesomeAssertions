@@ -21,11 +21,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["cris", "mick", "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementPreceding("mick", "cris");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementPreceding("mick", "cris");
         }
 
         [Fact]
@@ -79,11 +76,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [null, "mick", "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementPreceding("mick", null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementPreceding("mick", null);
         }
 
         [Fact]
@@ -107,11 +101,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["mick", null, "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementPreceding(null, "mick");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementPreceding(null, "mick");
         }
 
         [Fact]

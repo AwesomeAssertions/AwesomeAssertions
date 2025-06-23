@@ -15,11 +15,8 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = new(2009, 12, 31, 23, 59, 00);
             int expectation = 59;
 
-            // Act
-            Action act = () => subject.Should().HaveMinute(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().HaveMinute(expectation);
         }
 
         [Fact]
@@ -77,11 +74,8 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = new(2009, 12, 31, 23, 59, 00);
             int expectation = 58;
 
-            // Act
-            Action act = () => subject.Should().NotHaveMinute(expectation);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().NotHaveMinute(expectation);
         }
 
         [Fact]

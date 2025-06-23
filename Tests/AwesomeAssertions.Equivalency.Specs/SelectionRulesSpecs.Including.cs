@@ -29,13 +29,10 @@ public partial class SelectionRulesSpecs
                 Name = "Dennis"
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+            // Act / Assert
+            subject.Should().BeEquivalentTo(customer, options => options
                 .Including(d => d.Age)
                 .Including(d => d.Birthdate));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -102,13 +99,10 @@ public partial class SelectionRulesSpecs
                 Name = "Dennis"
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+            // Act / Assert
+            subject.Should().BeEquivalentTo(customer, options => options
                 .Including(info => info.Path.EndsWith("Age", StringComparison.Ordinal))
                 .Including(info => info.Path.EndsWith("Birthdate", StringComparison.Ordinal)));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -141,12 +135,9 @@ public partial class SelectionRulesSpecs
                 DeclaredType = LocalOtherType.NonDefault
             };
 
-            // Act
-            Action act = () => actual.Should().BeEquivalentTo(expectation,
+            // Act / Assert
+            actual.Should().BeEquivalentTo(expectation,
                 config => config.Including(o => o.DeclaredType));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         private enum LocalOtherType : byte

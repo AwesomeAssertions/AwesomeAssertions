@@ -17,12 +17,8 @@ public class XElementAssertionSpecs
             var theElement = new XElement("element");
             var sameElement = new XElement("element");
 
-            // Act
-            Action act = () =>
-                theElement.Should().Be(sameElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().Be(sameElement);
         }
 
         [Fact]
@@ -98,11 +94,8 @@ public class XElementAssertionSpecs
             // Arrange
             XElement theElement = null;
 
-            // Act
-            Action act = () => theElement.Should().Be(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().Be(null);
         }
     }
 
@@ -115,12 +108,8 @@ public class XElementAssertionSpecs
             var element = new XElement("element");
             var otherElement = new XElement("other");
 
-            // Act
-            Action act = () =>
-                element.Should().NotBe(otherElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().NotBe(otherElement);
         }
 
         [Fact]
@@ -137,11 +126,8 @@ public class XElementAssertionSpecs
                     new XElement("child",
                         new XElement("grandChild2")));
 
-            // Act
-            Action act = () => element.Should().NotBe(differentElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().NotBe(differentElement);
         }
 
         [Fact]
@@ -166,11 +152,8 @@ public class XElementAssertionSpecs
             // Arrange
             XElement theElement = new("element");
 
-            // Act
-            Action act = () => theElement.Should().NotBe(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().NotBe(null);
         }
 
         [Fact]
@@ -179,11 +162,8 @@ public class XElementAssertionSpecs
             // Arrange
             XElement theElement = null;
 
-            // Act
-            Action act = () => theElement.Should().NotBe(new XElement("other"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().NotBe(new XElement("other"));
         }
 
         [Fact]
@@ -209,12 +189,8 @@ public class XElementAssertionSpecs
             // Arrange
             XElement element = null;
 
-            // Act
-            Action act = () =>
-                element.Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeNull();
         }
 
         [Fact]
@@ -256,12 +232,8 @@ public class XElementAssertionSpecs
             // Arrange
             var element = new XElement("element");
 
-            // Act
-            Action act = () =>
-                element.Should().NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().NotBeNull();
         }
 
         [Fact]
@@ -303,12 +275,8 @@ public class XElementAssertionSpecs
             var element = new XElement("element");
             var sameXElement = element;
 
-            // Act
-            Action act = () =>
-                element.Should().BeEquivalentTo(sameXElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeEquivalentTo(sameXElement);
         }
 
         [Fact]
@@ -318,12 +286,8 @@ public class XElementAssertionSpecs
             var element = XElement.Parse("<parent><child /></parent>");
             var otherXElement = XElement.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () =>
-                element.Should().BeEquivalentTo(otherXElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeEquivalentTo(otherXElement);
         }
 
         [Fact]
@@ -333,12 +297,8 @@ public class XElementAssertionSpecs
             var element = XElement.Parse("<parent><child></child></parent>");
             var otherElement = XElement.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () =>
-                element.Should().BeEquivalentTo(otherElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeEquivalentTo(otherElement);
         }
 
         [Fact]
@@ -348,12 +308,8 @@ public class XElementAssertionSpecs
             var element = XElement.Parse("<parent><child /></parent>");
             var otherElement = XElement.Parse("<parent><child></child></parent>");
 
-            // Act
-            Action act = () =>
-                element.Should().BeEquivalentTo(otherElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().BeEquivalentTo(otherElement);
         }
 
         [Fact]
@@ -444,11 +400,8 @@ public class XElementAssertionSpecs
         {
             XElement theElement = null;
 
-            // Act
-            Action act = () => theElement.Should().BeEquivalentTo(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().BeEquivalentTo(null);
         }
 
         [Fact]
@@ -487,12 +440,8 @@ public class XElementAssertionSpecs
             var subject = XElement.Parse("<xml xmlns=\"urn:a\"/>");
             var expected = XElement.Parse("<a:xml xmlns:a=\"urn:a\"/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -503,12 +452,8 @@ public class XElementAssertionSpecs
             var subject = XElement.Parse("<xml xmlns:a=\"urn:a\"/>");
             var expected = XElement.Parse("<xml/>");
 
-            // Act
-            Action act = () =>
-                subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -604,11 +549,8 @@ public class XElementAssertionSpecs
             var subject = XElement.Parse("<xml><!--Comment--><a/></xml>");
             var expected = XElement.Parse("<xml><a/><!--Comment--></xml>");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
     }
 
@@ -622,12 +564,8 @@ public class XElementAssertionSpecs
             var element = XElement.Parse("<parent><child /><child2 /></parent>");
             var otherXElement = XElement.Parse("<parent><child /></parent>");
 
-            // Act
-            Action act = () =>
-                element.Should().NotBeEquivalentTo(otherXElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().NotBeEquivalentTo(otherXElement);
         }
 
         [Fact]
@@ -638,12 +576,8 @@ public class XElementAssertionSpecs
             var element = XElement.Parse("<parent><child /></parent>");
             var otherXElement = XElement.Parse("<parent><child /><child2 /></parent>");
 
-            // Act
-            Action act = () =>
-                element.Should().NotBeEquivalentTo(otherXElement);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().NotBeEquivalentTo(otherXElement);
         }
 
         [Fact]
@@ -764,11 +698,8 @@ public class XElementAssertionSpecs
         {
             XElement theElement = null;
 
-            // Act
-            Action act = () => theElement.Should().NotBeEquivalentTo(new XElement("element"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().NotBeEquivalentTo(new XElement("element"));
         }
 
         [Fact]
@@ -776,11 +707,8 @@ public class XElementAssertionSpecs
         {
             XElement theElement = new("element");
 
-            // Act
-            Action act = () => theElement.Should().NotBeEquivalentTo(null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            theElement.Should().NotBeEquivalentTo(null);
         }
     }
 
@@ -792,12 +720,8 @@ public class XElementAssertionSpecs
             // Arrange
             var element = XElement.Parse("<user>grega</user>");
 
-            // Act
-            Action act = () =>
-                element.Should().HaveValue("grega");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveValue("grega");
         }
 
         [Fact]
@@ -1112,12 +1036,8 @@ public class XElementAssertionSpecs
             // Arrange
             var element = XElement.Parse(@"<user name=""martin"" />");
 
-            // Act
-            Action act = () =>
-                element.Should().HaveAttributeWithValue("name", "martin");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveAttributeWithValue("name", "martin");
         }
 
         [Fact]
@@ -1126,12 +1046,8 @@ public class XElementAssertionSpecs
             // Arrange
             var element = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
 
-            // Act
-            Action act = () =>
-                element.Should().HaveAttributeWithValue(XName.Get("name", "http://www.example.com/2012/test"), "martin");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveAttributeWithValue(XName.Get("name", "http://www.example.com/2012/test"), "martin");
         }
 
         [Fact]
@@ -1562,12 +1478,8 @@ public class XElementAssertionSpecs
                 </parent>
                 """);
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElement("child");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElement("child");
         }
 
         [Fact]
@@ -1581,12 +1493,8 @@ public class XElementAssertionSpecs
                 </parent>
                 """);
 
-            // Act
-            Action act = () =>
-                element.Should().HaveElement(XName.Get("child", "http://www.example.com/2012/test"));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            element.Should().HaveElement(XName.Get("child", "http://www.example.com/2012/test"));
         }
 
         [Fact]

@@ -184,11 +184,8 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpanA = null;
         TimeSpan? nullableTimeSpanB = null;
 
-        // Act
-        Action action = () => nullableTimeSpanA.Should().Be(nullableTimeSpanB);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullableTimeSpanA.Should().Be(nullableTimeSpanB);
     }
 
     [Fact]
@@ -198,11 +195,8 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpanA = default(TimeSpan);
         TimeSpan? nullableTimeSpanB = default(TimeSpan);
 
-        // Act
-        Action action = () => nullableTimeSpanA.Should().Be(nullableTimeSpanB);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullableTimeSpanA.Should().Be(nullableTimeSpanB);
     }
 
     [Fact]

@@ -134,11 +134,8 @@ public partial class StringAssertionSpecs
         [Fact]
         public void When_start_of_string_is_compared_with_equivalent_of_empty_string_it_should_not_throw()
         {
-            // Act
-            Action act = () => "ABC".Should().StartWithEquivalentOf("");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            "ABC".Should().StartWithEquivalentOf("");
         }
 
         [Fact]
@@ -259,12 +256,8 @@ public partial class StringAssertionSpecs
             // Arrange
             string value = "ABC";
 
-            // Act
-            Action action = () =>
-                value.Should().NotStartWithEquivalentOf("Bc");
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            value.Should().NotStartWithEquivalentOf("Bc");
         }
 
         [Fact]

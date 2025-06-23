@@ -91,11 +91,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith("john");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith("john");
         }
 
         [Fact]
@@ -104,11 +101,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith(["john", "bill"]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith(["john", "bill"]);
         }
 
         [Fact]
@@ -118,12 +112,9 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith(["JoHn", "bIlL"],
+            // Act / Assert
+            collection.Should().StartWith(["JoHn", "bIlL"],
                 (s1, s2) => string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -132,11 +123,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [null, "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith((string)null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith((string)null);
         }
 
         [Fact]
@@ -145,11 +133,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith(new string[] { });
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith(new string[] { });
         }
 
         [Fact]
@@ -158,11 +143,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [];
 
-            // Act
-            Action act = () => collection.Should().StartWith(new string[] { });
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith(new string[] { });
         }
 
         [Fact]
@@ -171,11 +153,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [null, "john", null, "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith([null, "john", null, "bill"]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().StartWith([null, "john", null, "bill"]);
         }
 
         [Fact]
@@ -185,12 +164,9 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [null, "john", null, "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().StartWith([null, "JoHn", null, "bIlL"],
+            // Act / Assert
+            collection.Should().StartWith([null, "JoHn", null, "bIlL"],
                 (s1, s2) => string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]

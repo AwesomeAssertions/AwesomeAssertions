@@ -13,11 +13,8 @@ public class TupleSpecs
 
         var expected = new { Tuple = (new[] { "string1" }, new[] { "string2" }) };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
@@ -27,10 +24,7 @@ public class TupleSpecs
         var actual = Tuple.Create("Hello", true, new[] { 3, 2, 1 });
         var expected = Tuple.Create("Hello", true, new[] { 1, 2, 3 });
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected);
     }
 }

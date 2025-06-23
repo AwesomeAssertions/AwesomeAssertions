@@ -157,13 +157,9 @@ public class MiscellaneousExceptionSpecs
         // Arrange
         Action throwException = () => throw new ArgumentNullException("someParameter");
 
-        // Act
-        Action act = () =>
-            throwException.Should().Throw<ArgumentException>()
-                .WithParameterName("someParameter");
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        throwException.Should().Throw<ArgumentException>()
+            .WithParameterName("someParameter");
     }
 
     [Fact]

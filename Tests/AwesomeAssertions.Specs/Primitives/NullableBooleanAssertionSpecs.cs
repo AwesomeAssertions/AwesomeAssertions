@@ -226,12 +226,8 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = null;
         bool? otherNullableBoolean = null;
 
-        // Act
-        Action action = () =>
-            nullableBoolean.Should().Be(otherNullableBoolean);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullableBoolean.Should().Be(otherNullableBoolean);
     }
 
     [Fact]
@@ -241,12 +237,8 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = true;
         bool? otherNullableBoolean = null;
 
-        // Act
-        Action action = () =>
-            nullableBoolean.Should().NotBe(otherNullableBoolean);
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullableBoolean.Should().NotBe(otherNullableBoolean);
     }
 
     [Fact]
@@ -255,12 +247,8 @@ public class NullableBooleanAssertionSpecs
         // Arrange
         bool? trueBoolean = true;
 
-        // Act
-        Action action = () =>
-            trueBoolean.Should().NotBeFalse();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        trueBoolean.Should().NotBeFalse();
     }
 
     [Fact]
@@ -269,12 +257,8 @@ public class NullableBooleanAssertionSpecs
         // Arrange
         bool? nullValue = null;
 
-        // Act
-        Action action = () =>
-            nullValue.Should().NotBeFalse();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullValue.Should().NotBeFalse();
     }
 
     [Fact]
@@ -298,12 +282,8 @@ public class NullableBooleanAssertionSpecs
         // Arrange
         bool? trueBoolean = false;
 
-        // Act
-        Action action = () =>
-            trueBoolean.Should().NotBeTrue();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        trueBoolean.Should().NotBeTrue();
     }
 
     [Fact]
@@ -312,12 +292,8 @@ public class NullableBooleanAssertionSpecs
         // Arrange
         bool? nullValue = null;
 
-        // Act
-        Action action = () =>
-            nullValue.Should().NotBeTrue();
-
-        // Assert
-        action.Should().NotThrow();
+        // Act / Assert
+        nullValue.Should().NotBeTrue();
     }
 
     [Fact]

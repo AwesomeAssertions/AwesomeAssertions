@@ -25,11 +25,8 @@ public partial class SelectionRulesSpecs
                 SomeOtherProperty = "whatever"
             };
 
-            // Act
-            Action action = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
@@ -50,11 +47,8 @@ public partial class SelectionRulesSpecs
                 Name = "John"
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(other);
         }
 
         [Fact]
@@ -71,11 +65,8 @@ public partial class SelectionRulesSpecs
                 Value = 1
             };
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(other);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(other);
         }
 
         [Fact]
@@ -100,11 +91,8 @@ public partial class SelectionRulesSpecs
 
             expected.SetProtected("ExpectedValue");
 
-            // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]

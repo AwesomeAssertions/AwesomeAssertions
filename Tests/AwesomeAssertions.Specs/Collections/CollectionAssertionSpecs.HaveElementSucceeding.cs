@@ -21,11 +21,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["cris", "mick", "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementSucceeding("cris", "mick");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementSucceeding("cris", "mick");
         }
 
         [Fact]
@@ -78,11 +75,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["mick", null, "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementSucceeding("mick", null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementSucceeding("mick", null);
         }
 
         [Fact]
@@ -105,11 +99,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["mick", null, "john"];
 
-            // Act
-            Action act = () => collection.Should().HaveElementSucceeding(null, "john");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().HaveElementSucceeding(null, "john");
         }
 
         [Fact]

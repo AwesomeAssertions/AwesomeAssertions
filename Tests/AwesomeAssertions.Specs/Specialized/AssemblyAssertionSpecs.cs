@@ -19,11 +19,8 @@ public class AssemblyAssertionSpecs
             var assemblyA = FindAssembly.Containing<ClassA>();
             var assemblyB = FindAssembly.Containing<ClassB>();
 
-            // Act
-            Action act = () => assemblyB.Should().NotReference(assemblyA);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            assemblyB.Should().NotReference(assemblyA);
         }
 
         [Fact]
@@ -33,12 +30,9 @@ public class AssemblyAssertionSpecs
             var assemblyA = FindAssembly.Containing<ClassA>();
             var assemblyB = FindAssembly.Containing<ClassB>();
 
-            // Act
-            Action act = () => assemblyB.Should().NotReference(assemblyA)
+            // Act / Assert
+            assemblyB.Should().NotReference(assemblyA)
                 .And.NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -95,11 +89,8 @@ public class AssemblyAssertionSpecs
             var assemblyA = FindAssembly.Containing<ClassA>();
             var assemblyB = FindAssembly.Containing<ClassB>();
 
-            // Act
-            Action act = () => assemblyA.Should().Reference(assemblyB);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            assemblyA.Should().Reference(assemblyB);
         }
 
         [Fact]
@@ -109,12 +100,9 @@ public class AssemblyAssertionSpecs
             var assemblyA = FindAssembly.Containing<ClassA>();
             var assemblyB = FindAssembly.Containing<ClassB>();
 
-            // Act
-            Action act = () => assemblyA.Should().Reference(assemblyB)
+            // Act / Assert
+            assemblyA.Should().Reference(assemblyB)
                 .And.NotBeNull();
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -170,13 +158,10 @@ public class AssemblyAssertionSpecs
             // Arrange
             var thisAssembly = GetType().Assembly;
 
-            // Act
-            Action act = () => thisAssembly
+            // Act / Assert
+            thisAssembly
                 .Should().DefineType(GetType().Namespace, typeof(WellKnownClassWithAttribute).Name)
                 .Which.Should().BeDecoratedWith<DummyClassAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -268,12 +253,9 @@ public class AssemblyAssertionSpecs
             // Arrange
             Assembly thisAssembly = null;
 
-            // Act
-            Action act = () => thisAssembly
+            // Act / Assert
+            thisAssembly
                 .Should().BeNull();
-
-            // Assert
-            act.Should().NotThrow();
         }
     }
 

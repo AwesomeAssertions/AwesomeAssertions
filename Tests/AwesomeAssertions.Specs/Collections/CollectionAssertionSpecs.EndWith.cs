@@ -33,16 +33,13 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "jane", "mike"];
 
-            // Act
+            // Act / Assert
 #pragma warning disable CA2241
             // ReSharper disable FormatStringProblem
-            Action act = () => collection.Should().EndWith("mike", "of some reason {0,abc}", 1, 2);
+            collection.Should().EndWith("mike", "of some reason {0,abc}", 1, 2);
 
             // ReSharper restore FormatStringProblem
 #pragma warning restore CA2241
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -109,11 +106,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().EndWith("mike");
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith("mike");
         }
 
         [Fact]
@@ -122,11 +116,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().EndWith(["jane", "mike"]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith(["jane", "mike"]);
         }
 
         [Fact]
@@ -136,12 +127,9 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().EndWith(["JaNe", "mIkE"],
+            // Act / Assert
+            collection.Should().EndWith(["JaNe", "mIkE"],
                 (s1, s2) => string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -150,11 +138,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["jane", "mike", null];
 
-            // Act
-            Action act = () => collection.Should().EndWith((string)null);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith((string)null);
         }
 
         [Fact]
@@ -163,11 +148,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", null, "mike", null];
 
-            // Act
-            Action act = () => collection.Should().EndWith(["jane", null, "mike", null]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith(["jane", null, "mike", null]);
         }
 
         [Fact]
@@ -177,12 +159,9 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["john", "bill", "jane", null, "mike", null];
 
-            // Act
-            Action act = () => collection.Should().EndWith(["JaNe", null, "mIkE", null],
+            // Act / Assert
+            collection.Should().EndWith(["JaNe", null, "mIkE", null],
                 (s1, s2) => string.Equals(s1, s2, StringComparison.OrdinalIgnoreCase));
-
-            // Assert
-            act.Should().NotThrow();
         }
 
         [Fact]
@@ -223,11 +202,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = ["jane", "mike"];
 
-            // Act
-            Action act = () => collection.Should().EndWith(new string[] { });
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith(new string[] { });
         }
 
         [Fact]
@@ -236,11 +212,8 @@ public partial class CollectionAssertionSpecs
             // Arrange
             string[] collection = [];
 
-            // Act
-            Action act = () => collection.Should().EndWith(new string[] { });
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            collection.Should().EndWith(new string[] { });
         }
     }
 }

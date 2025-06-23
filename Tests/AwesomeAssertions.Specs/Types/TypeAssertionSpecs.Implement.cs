@@ -17,12 +17,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassThatImplementsInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().Implement(typeof(IDummyInterface));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().Implement(typeof(IDummyInterface));
         }
 
         [Fact]
@@ -97,12 +93,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassThatImplementsInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().Implement<IDummyInterface>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().Implement<IDummyInterface>();
         }
     }
 
@@ -114,12 +106,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassThatDoesNotImplementInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().NotImplement(typeof(IDummyInterface));
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotImplement(typeof(IDummyInterface));
         }
 
         [Fact]
@@ -190,12 +178,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassThatDoesNotImplementInterface);
 
-            // Act
-            Action act = () =>
-                type.Should().NotImplement<IDummyInterface>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotImplement<IDummyInterface>();
         }
     }
 }

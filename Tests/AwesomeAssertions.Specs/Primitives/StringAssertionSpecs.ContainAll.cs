@@ -44,11 +44,8 @@ public partial class StringAssertionSpecs
             const string yellow = "yellow";
             var testString = $"{red} {green} {yellow}";
 
-            // Act
-            Action act = () => testString.Should().ContainAll(red, green, yellow);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            testString.Should().ContainAll(red, green, yellow);
         }
 
         [Fact]
@@ -206,11 +203,8 @@ public partial class StringAssertionSpecs
             const string purple = "purple";
             var testString = $"{red} {green} {yellow}";
 
-            // Act
-            Action act = () => testString.Should().NotContainAll(red, green, yellow, purple);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            testString.Should().NotContainAll(red, green, yellow, purple);
         }
 
         [Fact]
@@ -224,11 +218,8 @@ public partial class StringAssertionSpecs
             const string purple = "purple";
             var testString = $"{red} {green}";
 
-            // Act
-            Action act = () => testString.Should().NotContainAll(yellow, purple);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            testString.Should().NotContainAll(yellow, purple);
         }
 
         [Fact]
@@ -242,11 +233,8 @@ public partial class StringAssertionSpecs
             const string upperCaseGreen = "GREEN";
             var testString = $"{redWithoutWhitespace} {lowerCaseGreen}";
 
-            // Act
-            Action act = () => testString.Should().NotContainAll(redWithWhitespace, upperCaseGreen);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            testString.Should().NotContainAll(redWithWhitespace, upperCaseGreen);
         }
     }
 }

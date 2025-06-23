@@ -18,12 +18,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithAllMethodsVirtual).GetParameterlessMethod("PublicVirtualDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeVirtual();
         }
 
         [Fact]
@@ -67,12 +63,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithNonVirtualPublicMethods).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotBeVirtual();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotBeVirtual();
         }
 
         [Fact]
@@ -117,12 +109,8 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo =
                 typeof(ClassWithAllMethodsDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>();
         }
 
         [Fact]
@@ -131,12 +119,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeDecoratedWith<MethodImplAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeDecoratedWith<MethodImplAttribute>();
         }
 
         [Fact]
@@ -146,12 +130,8 @@ public class MethodInfoAssertionSpecs
             ConstructorInfo constructorMethodInfo =
                 typeof(ClassWithMethodWithImplementationAttribute).GetConstructor(Type.EmptyTypes);
 
-            // Act
-            Action act = () =>
-                constructorMethodInfo.Should().BeDecoratedWith<MethodImplAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            constructorMethodInfo.Should().BeDecoratedWith<MethodImplAttribute>();
         }
 
         [Fact]
@@ -295,12 +275,8 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo =
                 typeof(ClassWithAllMethodsDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>(d => d.Filter);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>(d => d.Filter);
         }
 
         [Fact]
@@ -309,12 +285,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithMethodWithImplementationAttribute).GetParameterlessMethod("DoNotInlineMe");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeDecoratedWith<MethodImplAttribute>(x => x.Value == MethodImplOptions.NoInlining);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeDecoratedWith<MethodImplAttribute>(x => x.Value == MethodImplOptions.NoInlining);
         }
 
         [Fact]
@@ -403,12 +375,8 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo =
                 typeof(ClassWithMethodsThatAreNotDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>();
         }
 
         [Fact]
@@ -418,12 +386,8 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo =
                 typeof(ClassWithMethodsThatAreNotDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotBeDecoratedWith<MethodImplAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotBeDecoratedWith<MethodImplAttribute>();
         }
 
         [Fact]
@@ -433,12 +397,8 @@ public class MethodInfoAssertionSpecs
             ConstructorInfo constructorMethodInfo =
                 typeof(ClassWithMethodsThatAreNotDecoratedWithDummyAttribute).GetConstructor([typeof(string)]);
 
-            // Act
-            Action act = () =>
-                constructorMethodInfo.Should().NotBeDecoratedWith<MethodImplAttribute>();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            constructorMethodInfo.Should().NotBeDecoratedWith<MethodImplAttribute>();
         }
 
         [Fact]
@@ -502,12 +462,8 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo =
                 typeof(ClassWithAllMethodsDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>(d => !d.Filter);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>(d => !d.Filter);
         }
 
         [Fact]
@@ -572,12 +528,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithAllMethodsAsync).GetParameterlessMethod("PublicAsyncDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().BeAsync();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().BeAsync();
         }
 
         [Fact]
@@ -621,12 +573,8 @@ public class MethodInfoAssertionSpecs
             // Arrange
             MethodInfo methodInfo = typeof(ClassWithNonAsyncMethods).GetParameterlessMethod("PublicDoNothing");
 
-            // Act
-            Action act = () =>
-                methodInfo.Should().NotBeAsync();
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            methodInfo.Should().NotBeAsync();
         }
 
         [Fact]

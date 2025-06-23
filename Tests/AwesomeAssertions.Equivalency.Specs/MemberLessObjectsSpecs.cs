@@ -102,11 +102,8 @@ public class MemberLessObjectsSpecs
         object actual = new int[0];
         object expectation = new int[0];
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -117,12 +114,9 @@ public class MemberLessObjectsSpecs
 
         var expectation = new { Version = 2, Age = 36 };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation,
             options => options.ThrowingOnMissingMembers());
-
-        // Assert
-        act.Should().NotThrow();
     }
 
     [Fact]
@@ -150,11 +144,8 @@ public class MemberLessObjectsSpecs
 
         var expectation = new { Version = 2, Age = 36 };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation,
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation,
             options => options.ThrowingOnMissingMembers());
-
-        // Assert
-        act.Should().NotThrow();
     }
 }

@@ -18,16 +18,12 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithMembers);
 
-            // Act
-            Action act = () =>
-                type.Should()
-                    .HaveIndexer(typeof(string), [typeof(string)])
-                    .Which.Should()
-                    .BeWritable(CSharpAccessModifier.Internal)
-                    .And.BeReadable(CSharpAccessModifier.Private);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should()
+                .HaveIndexer(typeof(string), [typeof(string)])
+                .Which.Should()
+                .BeWritable(CSharpAccessModifier.Internal)
+                .And.BeReadable(CSharpAccessModifier.Private);
         }
 
         [Fact]
@@ -119,12 +115,8 @@ public partial class TypeAssertionSpecs
             // Arrange
             var type = typeof(ClassWithoutMembers);
 
-            // Act
-            Action act = () =>
-                type.Should().NotHaveIndexer([typeof(string)]);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            type.Should().NotHaveIndexer([typeof(string)]);
         }
 
         [Fact]

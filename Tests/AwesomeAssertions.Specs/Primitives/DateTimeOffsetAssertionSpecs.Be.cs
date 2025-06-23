@@ -17,11 +17,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = new DateTime(2016, 06, 04).ToDateTimeOffset();
             DateTimeOffset sameDateTime = new DateTime(2016, 06, 04).ToDateTimeOffset();
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -31,11 +28,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = 4.June(2016).ToDateTimeOffset();
             DateTimeOffset? sameDateTime = 4.June(2016).ToDateTimeOffset();
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -45,11 +39,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = DateTimeOffset.MinValue;
             DateTimeOffset sameDateTime = DateTimeOffset.MinValue;
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -59,11 +50,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = DateTimeOffset.MaxValue;
             DateTimeOffset sameDateTime = DateTimeOffset.MaxValue;
 
-            // Act
-            Action act = () => dateTime.Should().Be(sameDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().Be(sameDateTime);
         }
 
         [Fact]
@@ -103,12 +91,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset? nullableDateTimeA = new DateTime(2016, 06, 04).ToDateTimeOffset();
             DateTimeOffset? nullableDateTimeB = new DateTime(2016, 06, 04).ToDateTimeOffset();
 
-            // Act
-            Action action = () =>
-                nullableDateTimeA.Should().Be(nullableDateTimeB);
-
-            // Assert
-            action.Should().NotThrow();
+            // Act / Assert
+            nullableDateTimeA.Should().Be(nullableDateTimeB);
         }
 
         [Fact]
@@ -196,11 +180,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = new DateTime(2016, 06, 04).ToDateTimeOffset();
             DateTimeOffset otherDateTime = new DateTime(2016, 06, 05).ToDateTimeOffset();
 
-            // Act
-            Action act = () => dateTime.Should().NotBe(otherDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().NotBe(otherDateTime);
         }
 
         [Fact]
@@ -210,11 +191,8 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset dateTime = 4.June(2016).ToDateTimeOffset();
             DateTimeOffset? otherDateTime = 5.June(2016).ToDateTimeOffset();
 
-            // Act
-            Action act = () => dateTime.Should().NotBe(otherDateTime);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            dateTime.Should().NotBe(otherDateTime);
         }
 
         [Fact]

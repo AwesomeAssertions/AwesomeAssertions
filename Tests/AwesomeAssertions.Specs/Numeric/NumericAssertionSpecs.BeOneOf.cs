@@ -44,11 +44,8 @@ public partial class NumericAssertionSpecs
             // Arrange
             int value = 4;
 
-            // Act
-            Action act = () => value.Should().BeOneOf(4, 5);
-
-            // Assert
-            act.Should().NotThrow();
+            // Act / Assert
+            value.Should().BeOneOf(4, 5);
         }
 
         [Fact]

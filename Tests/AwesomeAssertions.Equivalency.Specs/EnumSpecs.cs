@@ -13,11 +13,8 @@ public class EnumSpecs
         object subject = EnumOne.One;
         object expectation = EnumOne.One;
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -122,11 +119,8 @@ public class EnumSpecs
         var subject = new ClassWithEnumOne();
         var expectation = new ClassWithEnumTwo();
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
@@ -136,11 +130,8 @@ public class EnumSpecs
         var subject = new ClassWithEnumOne { Enum = EnumOne.One };
         var expectation = new ClassWithEnumThree { Enum = EnumThree.ValueZero };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByValue());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByValue());
     }
 
     [Fact]
@@ -151,11 +142,8 @@ public class EnumSpecs
 
         var expectation = new ClassWithEnumThree { Enum = EnumThree.Two };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByName());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByName());
     }
 
     [Fact]
@@ -181,11 +169,8 @@ public class EnumSpecs
         var subject = new ClassWithEnumCharOne { Enum = EnumCharOne.B };
         var expectation = new ClassWithEnumCharTwo { Enum = EnumCharTwo.ValueB };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByValue());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        subject.Should().BeEquivalentTo(expectation, config => config.ComparingEnumsByValue());
     }
 
     [Fact]
@@ -195,11 +180,8 @@ public class EnumSpecs
         object e1 = EnumOne.One;
         object e2 = EnumOne.One;
 
-        // Act
-        Action act = () => e1.Should().BeEquivalentTo(e2);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        e1.Should().BeEquivalentTo(e2);
     }
 
     [Fact]
@@ -240,11 +222,8 @@ public class EnumSpecs
 
         var expected = new { Property = null as TestEnum? };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, options => options.ComparingEnumsByName());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected, options => options.ComparingEnumsByName());
     }
 
     [Fact]
@@ -255,11 +234,8 @@ public class EnumSpecs
 
         var expected = new { Property = null as TestEnum? };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, options => options.ComparingEnumsByValue());
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        actual.Should().BeEquivalentTo(expected, options => options.ComparingEnumsByValue());
     }
 
     [Fact]
@@ -322,11 +298,8 @@ public class EnumSpecs
         object enumOne = EnumULong.UInt64Max;
         object enumTwo = EnumULong.UInt64Max;
 
-        // Act
-        Action act = () => enumOne.Should().BeEquivalentTo(enumTwo);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        enumOne.Should().BeEquivalentTo(enumTwo);
     }
 
     [Fact]
@@ -336,11 +309,8 @@ public class EnumSpecs
         object enumOne = EnumLong.Int64Max;
         object enumTwo = EnumULong.Int64Max;
 
-        // Act
-        Action act = () => enumOne.Should().BeEquivalentTo(enumTwo);
-
-        // Assert
-        act.Should().NotThrow();
+        // Act / Assert
+        enumOne.Should().BeEquivalentTo(enumTwo);
     }
 
     [Fact]
