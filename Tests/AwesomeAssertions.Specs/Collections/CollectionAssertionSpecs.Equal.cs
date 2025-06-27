@@ -410,5 +410,27 @@ public partial class CollectionAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected collections not to be equal because we want to test the behaviour with same objects, but they both reference the same object.");
         }
+
+        [Fact]
+        public void When_asserting_two_collections_not_to_be_equal_because_the_actual_collection_contains_more_items_it_should_succeed()
+        {
+            // Arrange
+            int[] collection1 = [1, 2, 3];
+            int[] collection2 = [1, 2];
+
+            // Act / Assert
+            collection1.Should().NotEqual(collection2);
+        }
+
+        [Fact]
+        public void When_asserting_two_collections_not_to_be_equal_because_the_actual_collection_contains_less_items_it_should_succeed()
+        {
+            // Arrange
+            int[] collection1 = [1, 2, 3];
+            int[] collection2 = [1, 2, 3, 4];
+
+            // Act / Assert
+            collection1.Should().NotEqual(collection2);
+        }
     }
 }
