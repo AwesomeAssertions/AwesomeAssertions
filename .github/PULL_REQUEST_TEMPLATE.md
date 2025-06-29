@@ -10,3 +10,7 @@
 * [ ] If the PR changes the public API the changes needs to be included by running [AcceptApiChanges.ps1](../tree/main/AcceptApiChanges.ps1) or [AcceptApiChanges.sh](../tree/main/AcceptApiChanges.sh).
 * [ ] If the PR affects [the documentation](../tree/main/docs/_pages), please include your changes in this pull request so the documentation will appear on the [website](https://awesomeassertions.org/introduction).
     * [ ] Please also run `./build.sh --target spellcheck` or `.\build.ps1 --target spellcheck` before pushing and check the good outcome
+
+## Legal checklist
+
+* [ ] This work is entirely original, it is not derived from any existing code incompatible with the Apache 2.0 License, like FluentAssertions.
