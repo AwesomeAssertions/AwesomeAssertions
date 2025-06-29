@@ -41,7 +41,7 @@ public class TypeSelectorAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected all types to be sealed *failure message*, but the following types are not:*\"*.Abstract\".");
+                    "Expected all types to be sealed *failure message*, but the following types are not:*.Abstract.");
         }
     }
 
@@ -75,7 +75,7 @@ public class TypeSelectorAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected all types not to be sealed *failure message*, but the following types are:*\"*.Sealed\".");
+                .WithMessage("Expected all types not to be sealed *failure message*, but the following types are:*.Sealed.");
         }
     }
 
@@ -114,7 +114,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to be decorated with *.DummyClassAttribute *failure message*" +
                     ", but the attribute was not found on the following types:" +
-                    "*\"*.ClassWithoutAttribute*.OtherClassWithoutAttribute\".");
+                    "**.ClassWithoutAttribute*.OtherClassWithoutAttribute.");
         }
 
         [Fact]
@@ -154,7 +154,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to be decorated with *.DummyClassAttribute that matches " +
                     "(a.Name == \"Expected\") * a.IsEnabled *failure message*, but no matching attribute was found on " +
-                    "the following types:*\"*.ClassWithoutAttribute*.OtherClassWithoutAttribute\".");
+                    "the following types:*.ClassWithoutAttribute*.OtherClassWithoutAttribute.");
         }
     }
 
@@ -193,7 +193,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to be decorated with or inherit *.DummyClassAttribute *failure message*" +
                     ", but the attribute was not found on the following types:" +
-                    "*\"*.ClassWithoutAttribute*.OtherClassWithoutAttribute\".");
+                    "*.ClassWithoutAttribute*.OtherClassWithoutAttribute.");
         }
 
         [Fact]
@@ -235,7 +235,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to be decorated with or inherit *.DummyClassAttribute that matches " +
                     "(a.Name == \"Expected\")*a.IsEnabled *failure message*, but no matching attribute was found " +
-                    "on the following types:*\"*.ClassWithoutAttribute*.OtherClassWithoutAttribute\".");
+                    "on the following types:*.ClassWithoutAttribute*.OtherClassWithoutAttribute.");
         }
     }
 
@@ -273,7 +273,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected all types to not be decorated *.DummyClassAttribute *failure message*" +
-                    ", but the attribute was found on the following types:*\"*.ClassWithAttribute\".");
+                    ", but the attribute was found on the following types:*.ClassWithAttribute.");
         }
 
         [Fact]
@@ -312,7 +312,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to not be decorated with *.DummyClassAttribute that matches " +
                     "(a.Name == \"Expected\") * a.IsEnabled *failure message*, but a matching attribute was found " +
-                    "on the following types:*\"*.ClassWithAttribute\".");
+                    "on the following types:*.ClassWithAttribute.");
         }
     }
 
@@ -350,7 +350,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected all types to not be decorated with or inherit *.DummyClassAttribute *failure message*" +
-                    ", but the attribute was found on the following types:*\"*.ClassWithInheritedAttribute\".");
+                    ", but the attribute was found on the following types:*.ClassWithInheritedAttribute.");
         }
 
         [Fact]
@@ -369,7 +369,7 @@ public class TypeSelectorAssertionSpecs
                 .WithMessage(
                     "Expected all types to not be decorated with or inherit *.DummyClassAttribute that matches " +
                     "(a.Name == \"Expected\") * a.IsEnabled *failure message*, but a matching attribute was found " +
-                    "on the following types:*\"*.ClassWithInheritedAttribute\".");
+                    "on the following types:*.ClassWithInheritedAttribute.");
         }
 
         [Fact]
@@ -430,7 +430,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected all types to be in namespace \"DummyNamespace\" *failure message*, but the following types " +
-                    "are in a different namespace:*\"*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace\".");
+                    "are in a different namespace:*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace.");
         }
 
         [Fact]
@@ -456,7 +456,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected all types to be in namespace \"DummyNamespace\", but the following types " +
-                    "are in a different namespace:*\"ClassInGlobalNamespace\".");
+                    "are in a different namespace:*ClassInGlobalNamespace.");
         }
 
         [Fact]
@@ -477,7 +477,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected all types to be in namespace <null>, but the following types are in a different namespace:" +
-                    "*\"*.ClassInDummyNamespace*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace\".");
+                    "*.ClassInDummyNamespace*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace.");
         }
     }
 
@@ -522,7 +522,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected no types to be in namespace \"DummyNamespace\" *failure message*" +
-                    ", but the following types are in the namespace:*\"DummyNamespace.ClassInDummyNamespace\".");
+                    ", but the following types are in the namespace:*DummyNamespace.ClassInDummyNamespace.");
         }
     }
 
@@ -596,7 +596,7 @@ public class TypeSelectorAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected the namespaces of all types to start with \"DummyNamespace\" *failure message*" +
-                    ", but the namespaces of the following types do not start with it:*\"*.ClassInDummyNamespaceTwo\".");
+                    ", but the namespaces of the following types do not start with it:*.ClassInDummyNamespaceTwo.");
         }
 
         [Fact]
@@ -617,7 +617,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to start with \"DummyNamespace.InnerDummyNamespace\"" +
-                    ", but the namespaces of the following types do not start with it:*\"*.ClassInDummyNamespace\".");
+                    ", but the namespaces of the following types do not start with it:*.ClassInDummyNamespace.");
         }
     }
 
@@ -652,7 +652,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to not start with \"DummyNamespace\" *failure message*" +
-                    ", but the namespaces of the following types start with it:*\"*.ClassInDummyNamespace\".");
+                    ", but the namespaces of the following types start with it:*.ClassInDummyNamespace.");
         }
 
         [Fact]
@@ -669,7 +669,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to not start with \"DummyNamespace.InnerDummyNamespace\"" +
-                    ", but the namespaces of the following types start with it:*\"*.ClassInInnerDummyNamespace\".");
+                    ", but the namespaces of the following types start with it:*.ClassInInnerDummyNamespace.");
         }
 
         [Fact]
@@ -685,7 +685,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to not start with \"DummyNamespace\"" +
-                    ", but the namespaces of the following types start with it:*\"*.ClassInInnerDummyNamespace\".");
+                    ", but the namespaces of the following types start with it:*.ClassInInnerDummyNamespace.");
         }
 
         [Fact]
@@ -701,7 +701,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to not start with <null>" +
-                    ", but the namespaces of the following types start with it:*\"ClassInGlobalNamespace\".");
+                    ", but the namespaces of the following types start with it:*ClassInGlobalNamespace.");
         }
 
         [Fact]
@@ -722,7 +722,7 @@ public class TypeSelectorAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected the namespaces of all types to not start with <null>, but the namespaces of the following types " +
-                    "start with it:*\"*.ClassInDummyNamespace*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace\".");
+                    "start with it:*.ClassInDummyNamespace*.ClassNotInDummyNamespace*.OtherClassNotInDummyNamespace.");
         }
 
         [Fact]

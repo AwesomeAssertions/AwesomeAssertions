@@ -11,6 +11,9 @@ sidebar:
 ### What's new
 * Add new assertions for strings: `[Not]BeParsableInto` - [#185](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/185)
 
+### Fixes
+* Remove unnecessary quotes from `TypeSelectorAssertions` failure messages - [#200](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/200)
+
 ## 9.0.0
 
 ### Breaking Changes
