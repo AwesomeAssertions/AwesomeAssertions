@@ -6,7 +6,7 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
-## Unreleased
+## 9.1.0
 
 ### What's new
 * Add new assertions for strings: `[Not]BeParsableInto` - [#185](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/185)
