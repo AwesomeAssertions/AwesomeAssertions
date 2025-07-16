@@ -6,6 +6,11 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
+## Unreleased
+
+### Fixes
+* Use consistent newlines in failure messages - [#212](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/212)
+
 ## 9.1.0
 
 ### What's new

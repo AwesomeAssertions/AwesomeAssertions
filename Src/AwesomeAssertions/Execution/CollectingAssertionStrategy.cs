@@ -39,7 +39,8 @@ internal class CollectingAssertionStrategy : IAssertionStrategy
             {
                 foreach (KeyValuePair<string, object> pair in context)
                 {
-                    builder.AppendFormat(CultureInfo.InvariantCulture, "\nWith {0}:\n{1}", pair.Key, pair.Value);
+                    builder.AppendFormat(CultureInfo.InvariantCulture,
+                        $"{Environment.NewLine}With {pair.Key}:{Environment.NewLine}{{0}}", pair.Value);
                 }
             }
 
