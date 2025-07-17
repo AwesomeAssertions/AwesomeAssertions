@@ -260,7 +260,13 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().ThrowExactly<XunitException>()
-                .WithMessage("*With SomeKey:\nSomeValue\nWith AnotherKey:\nAnotherValue");
+                .WithMessage("""
+                    *With SomeKey:
+                    SomeValue
+                    With AnotherKey:
+                    AnotherValue
+
+                    """);
         }
 
         [Fact]
