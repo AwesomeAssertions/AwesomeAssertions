@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Equivalency.Steps;
+namespace AwesomeAssertions.Equivalency.Steps;
 
 /// <summary>
 /// Represents a composite equivalency step that passes the execution to all user-supplied steps that can handle the

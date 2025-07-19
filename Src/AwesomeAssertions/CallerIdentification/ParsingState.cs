@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.CallerIdentification;
+namespace AwesomeAssertions.CallerIdentification;
 
 internal enum ParsingState
 {

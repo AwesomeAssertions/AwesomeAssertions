@@ -1,4 +1,4 @@
-﻿using AssemblyB;
+using AssemblyB;
 
 namespace AssemblyA;
 

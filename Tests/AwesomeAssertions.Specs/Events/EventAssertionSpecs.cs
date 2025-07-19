@@ -1,4 +1,4 @@
-﻿#if NET47
+#if NET47
 using System.Reflection.Emit;
 #endif
 

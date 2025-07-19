@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 
 // ReSharper disable once CheckNamespace
 namespace System.Runtime.CompilerServices;

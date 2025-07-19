@@ -1,4 +1,4 @@
-﻿F:System.StringComparison.CurrentCulture;Use Ordinal instead
+F:System.StringComparison.CurrentCulture;Use Ordinal instead
 F:System.StringComparison.CurrentCultureIgnoreCase;Use OrdinalIgnoreCase instead
 F:System.StringComparison.InvariantCulture;Use Ordinal instead
 F:System.StringComparison.InvariantCultureIgnoreCase;Use OrdinalIgnoreCase instead

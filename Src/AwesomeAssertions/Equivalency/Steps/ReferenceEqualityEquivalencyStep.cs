@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Equivalency.Steps;
+namespace AwesomeAssertions.Equivalency.Steps;
 
 public class ReferenceEqualityEquivalencyStep : IEquivalencyStep
 {

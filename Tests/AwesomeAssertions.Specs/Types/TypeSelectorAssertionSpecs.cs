@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeAssertions.Types;
 using DummyNamespace;
 using DummyNamespace.InnerDummyNamespace;

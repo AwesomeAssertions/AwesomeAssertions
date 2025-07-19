@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 
 // With specific initialization code to invoke before the first assertion happens

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeAssertions.Execution;
 #if NET47
 using AwesomeAssertions.Specs.Common;

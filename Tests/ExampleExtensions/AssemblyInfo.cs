@@ -1,3 +1,3 @@
-﻿using AwesomeAssertions;
+using AwesomeAssertions;
 
 [assembly: CustomAssertionsAssembly]

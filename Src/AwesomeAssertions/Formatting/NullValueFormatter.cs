@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Formatting;
+namespace AwesomeAssertions.Formatting;
 
 public class NullValueFormatter : IValueFormatter
 {

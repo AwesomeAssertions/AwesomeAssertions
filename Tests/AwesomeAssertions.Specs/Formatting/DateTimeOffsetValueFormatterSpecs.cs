@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using AwesomeAssertions.Extensions;
 using AwesomeAssertions.Formatting;

@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Common;
+namespace AwesomeAssertions.Common;
 
 public enum CSharpAccessModifier
 {

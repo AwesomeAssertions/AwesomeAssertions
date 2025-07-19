@@ -1,4 +1,4 @@
-﻿using AwesomeAssertions.Common;
+using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Equivalency;
 

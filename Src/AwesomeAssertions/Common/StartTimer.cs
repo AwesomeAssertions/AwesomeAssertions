@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Common;
+namespace AwesomeAssertions.Common;
 
 /// <summary>
 /// Factory for starting a timer on demand.

@@ -1,4 +1,4 @@
-﻿using AwesomeAssertions.Configuration;
+using AwesomeAssertions.Configuration;
 
 namespace AwesomeAssertions;
 

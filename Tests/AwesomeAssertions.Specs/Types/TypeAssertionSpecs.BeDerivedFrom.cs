@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeAssertions.Specs.Primitives;
 using Xunit;
 using Xunit.Sdk;
