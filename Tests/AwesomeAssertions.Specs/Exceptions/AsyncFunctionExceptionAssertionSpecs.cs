@@ -1,4 +1,4 @@
-﻿// ReSharper disable AsyncVoidLambda
+// ReSharper disable AsyncVoidLambda
 
 using System;
 using System.Threading.Tasks;

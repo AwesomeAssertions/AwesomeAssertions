@@ -1,3 +1,3 @@
-﻿namespace AssemblyB;
+namespace AssemblyB;
 
 public class ClassC;

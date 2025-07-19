@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeAssertions.Primitives;
 using ExampleExtensions;
 using Xunit;

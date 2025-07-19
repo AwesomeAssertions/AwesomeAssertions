@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Equivalency;
+namespace AwesomeAssertions.Equivalency;
 
 /// <summary>
 ///  Convenient implementation of <see cref="IEquivalencyStep"/> that will only invoke

@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Extensibility.Specs;
+namespace AwesomeAssertions.Extensibility.Specs;
 
 public class ExtensionAssemblyAttributeSpecs
 {

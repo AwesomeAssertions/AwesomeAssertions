@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Execution;
+namespace AwesomeAssertions.Execution;
 
 internal class MSpecFramework : LateBoundTestFramework
 {
