@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions;
+namespace AwesomeAssertions;
 
 public static class MoreThan
 {

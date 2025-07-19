@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestExecutor;
+using Microsoft.VisualStudio.TestPlatform.TestExecutor;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;

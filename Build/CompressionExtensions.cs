@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using Nuke.Common.IO;
 using SharpCompress.Common;
 using SharpCompress.Readers;

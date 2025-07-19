@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AssemblyA;
 using AssemblyB;
 using AwesomeAssertions.Execution;

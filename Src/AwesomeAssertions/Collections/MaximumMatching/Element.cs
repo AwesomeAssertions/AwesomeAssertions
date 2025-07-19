@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Collections.MaximumMatching;
+namespace AwesomeAssertions.Collections.MaximumMatching;
 
 /// <summary>
 /// Stores an element's value and index in the maximum matching problem.

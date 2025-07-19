@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AwesomeAssertions.Extensions;
 using Xunit;
 using Xunit.Sdk;

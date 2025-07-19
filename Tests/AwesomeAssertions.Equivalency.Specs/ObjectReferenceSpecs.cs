@@ -1,4 +1,4 @@
-﻿using AwesomeAssertions.Equivalency.Execution;
+using AwesomeAssertions.Equivalency.Execution;
 using Xunit;
 
 namespace AwesomeAssertions.Equivalency.Specs;

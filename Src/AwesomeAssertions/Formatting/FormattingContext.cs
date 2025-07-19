@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Formatting;
+namespace AwesomeAssertions.Formatting;
 
 /// <summary>
 /// Provides information about the current formatting action.

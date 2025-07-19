@@ -1,4 +1,4 @@
-﻿namespace AwesomeAssertions.Execution;
+namespace AwesomeAssertions.Execution;
 
 /// <summary>
 /// Enables chaining multiple assertions on an <see cref="AssertionScope"/>.

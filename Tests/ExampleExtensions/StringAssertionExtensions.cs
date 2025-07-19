@@ -1,4 +1,4 @@
-﻿using AwesomeAssertions;
+using AwesomeAssertions;
 using AwesomeAssertions.Primitives;
 
 namespace ExampleExtensions;
