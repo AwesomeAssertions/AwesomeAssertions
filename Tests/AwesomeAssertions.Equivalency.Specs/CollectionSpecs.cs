@@ -450,7 +450,7 @@ public class CollectionSpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*Customers[0].Name*John*Jane*");
+            .WithMessage("*Customers[0].Name*Jane*John*");
     }
 
     [Fact]
@@ -1144,9 +1144,10 @@ public class CollectionSpecs
         Action action = () => subject.Should().AllBe("one");
 
         // Assert
-        action.Should().Throw<XunitException>().WithMessage(
-            "Expected subject[1]*to be \"one\", but \"two\" differs near \"two\" (index 0).*" +
-            "Expected subject[2]*to be \"one\", but \"six\" differs near \"six\" (index 0).*");
+        action.Should().Throw<XunitException>().WithMessage("""
+            Expected subject[1]*to be *"two"*"one"*
+            Expected subject[2]*to be *"six"*"one"*
+            """);
     }
 
     [Fact]
@@ -1159,9 +1160,10 @@ public class CollectionSpecs
         Action action = () => subject.Should().AllBe("one");
 
         // Assert
-        action.Should().Throw<XunitException>().WithMessage(
-            "Expected subject[1]*to be \"one\", but \"One\" differs near \"One\" (index 0).*" +
-            "Expected subject[2]*to be \"one\", but \"ONE\" differs near \"ONE\" (index 0).*");
+        action.Should().Throw<XunitException>().WithMessage("""
+            Expected subject[1]*to be *"One"*"one"*
+            Expected subject[2]*to be *"ONE"*"one"*
+            """);
     }
 
     [Fact]
@@ -1175,7 +1177,13 @@ public class CollectionSpecs
 
         // Assert
         action.Should().Throw<XunitException>().Which
-            .Message.Should().Contain("subject[9] to be \"one\", but \"two\" differs near \"two\" (index 0)")
+            .Message.Should().Contain("""
+                subject[9] to be the same string, but they differ at index 0:
+                   ↓ (actual)
+                  "two"
+                  "one"
+                   ↑ (expected).
+                """)
             .And.NotContain("subject[10]");
     }
 
@@ -2160,13 +2168,13 @@ public class CollectionSpecs
         var subject = new List<Customer>
         {
             new() { Name = "John", Age = 27, Id = 1 },
-            new() { Name = "Jane", Age = 24, Id = 2 }
+            new() { Name = "Jane", Age = 24, Id = 2 },
         };
 
         var expectation = new List<Customer>
         {
             new() { Name = "John", Age = 27, Id = 1 },
-            new() { Name = "John", Age = 27, Id = 1 }
+            new() { Name = "John", Age = 27, Id = 1 },
         };
 
         // Act
@@ -2176,7 +2184,7 @@ public class CollectionSpecs
         // Assert
         action.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected property subject[1].Name*to be \"John\", but \"Jane\" differs near*");
+                "Expected property subject[1].Name*to be *actual*\"Jane\" *\"John\"*expected*");
     }
 
     [Fact]
@@ -2202,7 +2210,7 @@ public class CollectionSpecs
         // Assert
         action.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected property subject[1].Name*to be \"Jane\", but \"John\" differs near*");
+                "Expected property subject[1].Name*to be *actual*\"John\" *\"Jane\"*expected*");
     }
 
     [Fact]
@@ -2406,7 +2414,7 @@ public class CollectionSpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected*Roles[*][1]*Other*Special*");
+            .WithMessage("Expected*Roles[*][1]*Special*Other*");
     }
 
     [Fact]
@@ -2422,7 +2430,7 @@ public class CollectionSpecs
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            "Expected*ReferencedEquipment[1]*Bla1*Bla2*2*index 3*");
+            "Expected*ReferencedEquipment[1]*Bla2*Bla1*");
     }
 
     [Fact]
@@ -2469,7 +2477,7 @@ public class CollectionSpecs
         // Assert
         action.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected property subject[0].Name*Jane*John*subject[1].Name*John*Jane*");
+                "Expected property subject[0].Name*John*Jane*subject[1].Name*Jane*John*");
     }
 
     [Fact]
@@ -2501,7 +2509,7 @@ public class CollectionSpecs
         // Assert
         action.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected property subject[0].Name*Jane*John*subject[1].Name*John*Jane*");
+                "Expected property subject[0].Name*John*Jane*subject[1].Name*Jane*John*");
     }
 
     [Fact]

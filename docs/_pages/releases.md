@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### Improvements
+* Always use improved string difference visualization independent of the subject's or expectation's string length - [#215](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/215)
+
 ### Fixes
 * Use consistent newlines in failure messages - [#212](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/212)
 

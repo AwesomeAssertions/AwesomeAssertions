@@ -348,7 +348,7 @@ public class DictionarySpecs
         });
 
         // Assert
-        act.Should().Throw<XunitException>().WithMessage("Expected dictionary[Key2][0]*Value3*Value2*");
+        act.Should().Throw<XunitException>().WithMessage("Expected dictionary[Key2][0]*Value2*Value3*");
     }
 
     [Fact]
@@ -696,7 +696,7 @@ public class DictionarySpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*Other*Special*");
+            .WithMessage("*Special*Other*");
     }
 
     [Fact]
@@ -756,7 +756,7 @@ public class DictionarySpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected*Roles[*][1]*Other*Special*");
+            .WithMessage("Expected*Roles[*][1]*Special*Other*");
     }
 
     [Fact]
@@ -1076,7 +1076,7 @@ public class DictionarySpecs
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            "Expected*ReferencedEquipment[1]*Bla1*Bla2*2*index 3*");
+            "Expected*ReferencedEquipment[1]*Bla2*Bla1*");
     }
 
     [Fact]

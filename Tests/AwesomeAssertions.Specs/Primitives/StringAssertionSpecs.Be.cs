@@ -36,34 +36,40 @@ public partial class StringAssertionSpecs
             Action act = () => "ADC".Should().Be("ABC", "because we {0}", "do");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be \"ABC\" because we do, but \"ADC\" differs near \"DC\" (index 1).");
+            // we want one assertion with the full message.
+            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
+                Expected string to be the same string because we do, but they differ at index 1:
+                    ↓ (actual)
+                  "ADC"
+                  "ABC"
+                    ↑ (expected).
+                """);
         }
 
         [Fact]
         public void When_two_strings_differ_unexpectedly_containing_double_curly_closing_braces_it_should_throw()
         {
-            // Act
             const string expect = "}}";
             const string actual = "}}}}";
+
+            // Act
             Action act = () => actual.Should().Be(expect);
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "*to be \"}}\" with a length of 2, but \"}}}}\" has a length of 4*");
+            act.Should().Throw<XunitException>().WithMessage("*differ at index 2*}}}}\"*\"}}\"*");
         }
 
         [Fact]
         public void When_two_strings_differ_unexpectedly_containing_double_curly_opening_braces_it_should_throw()
         {
-            // Act
             const string expect = "{{";
             const string actual = "{{{{";
+
+            // Act
             Action act = () => actual.Should().Be(expect);
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "*to be \"{{\" with a length of 2, but \"{{{{\" has a length of 4*");
+            act.Should().Throw<XunitException>().WithMessage("*differ at index 2*{{{{\"*\"{{\"*");
         }
 
         [Fact]
@@ -73,7 +79,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().Be("AB");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*index 2*");
+            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
+                Expected string to be the same string, but they differ at index 2:
+                     ↓ (actual)
+                  "ABC"
+                  "AB"
+                     ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -83,7 +95,13 @@ public partial class StringAssertionSpecs
             Action act = () => "AB".Should().Be("ABC");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*index 1*");
+            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
+                Expected string to be the same string, but they differ at index 2:
+                     ↓ (actual)
+                  "AB"
+                  "ABC"
+                     ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -283,7 +301,7 @@ public partial class StringAssertionSpecs
             Action act = () => "".Should().Be("ThisIsALongText");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*length*15*differs*");
+            act.Should().Throw<XunitException>().WithMessage("*differ at index 0*\"\"*\"ThisIsALongText\"**");
         }
 
         [Fact]
@@ -368,7 +386,11 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*Foo { };\"*Foo { }\"*differs near \"}\" (index 19).", "because no formatting warning must be appended");
+                .Which.Message.Should().Match("""
+                    *"…class Foo { }"
+                    *"…class Foo { };"
+                    *(expected).
+                    """);
         }
     }
 

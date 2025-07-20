@@ -36,8 +36,8 @@ public partial class GenericCollectionAssertionOfStringSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     "Expected collection to contain only items satisfying the inspector because we want to test the failure message:"
-                    + "*John*Jack"
-                    + "*John*Jessica*");
+                    + "*Jack*John"
+                    + "*Jessica*John*");
         }
     }
 }

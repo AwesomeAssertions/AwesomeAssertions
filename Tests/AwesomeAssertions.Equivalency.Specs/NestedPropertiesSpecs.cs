@@ -110,7 +110,11 @@ public class NestedPropertiesSpecs
             // test confirming that whole mechanism of gathering description from
             // equivalency steps works.
             .Should().Be("""
-                Expected property subject.Level.Text to be "Level2", but "Level1" differs near "1" (index 5).
+                Expected property subject.Level.Text to be the same string, but they differ at index 5:
+                        ↓ (actual)
+                  "Level1"
+                  "Level2"
+                        ↑ (expected).
 
                 With configuration:
                 - Prefer the declared type of the members

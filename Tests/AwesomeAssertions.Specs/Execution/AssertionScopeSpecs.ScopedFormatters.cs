@@ -91,7 +91,7 @@ public partial class AssertionScopeSpecs
         {
             // Act 2
             innerScope.FormattingOptions.AddFormatter(innerFormatter);
-            "1".Should().Be("2"); // InnerFormatter
+            MyEnum.Value1.Should().Be(MyEnum.Value2); // InnerFormatter
             1.Should().Be(2); // OuterFormatter
 
             // Assert 2
@@ -123,7 +123,7 @@ public partial class AssertionScopeSpecs
         innerScope.FormattingOptions.AddFormatter(innerFormatter);
         innerScope.FormattingOptions.RemoveFormatter(outerFormatter);
         1.Should().Be(2);
-        "1".Should().Be("2");
+        MyEnum.Value1.Should().Be(MyEnum.Value2);
 
         // Assert
         innerScope.Discard().Should().SatisfyRespectively(
@@ -147,11 +147,17 @@ public partial class AssertionScopeSpecs
 
     private class InnerFormatter : IValueFormatter
     {
-        public bool CanHandle(object value) => value is string;
+        public bool CanHandle(object value) => value is MyEnum;
 
         public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
         {
             formattedGraph.AddFragment(nameof(InnerFormatter));
         }
+    }
+
+    private enum MyEnum
+    {
+        Value1,
+        Value2,
     }
 }

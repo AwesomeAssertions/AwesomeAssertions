@@ -448,7 +448,7 @@ public class BasicSpecs
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*to be*\"good-bye\" with a length of 8, but \"hello\" has a length of 5*");
+            .WithMessage("""*be equivalent to *differ at index 0:*(actual)*"hello"*"good-bye"*(expected).""");
     }
 
     [Fact]
@@ -569,7 +569,7 @@ public class BasicSpecs
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            @"Expected property record.Member1* to be*""different"" with a length of 9, but*"""" has a length of 0*");
+            """Expected property record.Member1 to be the same string* differ at index 0:*(actual)*""*"different"*(expected).*""");
     }
 
     [Fact]

@@ -9,6 +9,13 @@ namespace AwesomeAssertions.Primitives;
 
 internal class StringEqualityStrategy : IStringComparisonStrategy
 {
+    private const string Indentation = "  ";
+    private const string Prefix = Indentation + "\"";
+    private const string Suffix = "\"";
+    private const char ArrowDown = '\u2193';
+    private const char ArrowUp = '\u2191';
+    private const char Ellipsis = '\u2026';
+
     private readonly IEqualityComparer<string> comparer;
     private readonly string predicateDescription;
 
@@ -18,55 +25,44 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         this.predicateDescription = predicateDescription;
     }
 
-    public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
-    {
-        ValidateAgainstSuperfluousWhitespace(assertionChain, subject, expected);
-
-        if (expected.IsLongOrMultiline() || subject.IsLongOrMultiline())
-        {
-            int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
-
-            if (indexOfMismatch == -1)
-            {
-                ValidateAgainstLengthDifferences(assertionChain, subject, expected);
-                return;
-            }
-
-            string locationDescription = $"at index {indexOfMismatch}";
-            var matchingString = subject[..indexOfMismatch];
-            int lineNumber = matchingString.Count(c => c == '\n');
-
-            if (lineNumber > 0)
-            {
-                var indexOfLastNewlineBeforeMismatch = matchingString.LastIndexOf('\n');
-                var column = matchingString.Length - indexOfLastNewlineBeforeMismatch;
-                locationDescription = $"on line {lineNumber + 1} and column {column} (index {indexOfMismatch})";
-            }
-
-            string mismatchSegment = GetMismatchSegmentForLongStrings(subject, expected, indexOfMismatch).EscapePlaceholders();
-
-            assertionChain.FailWith($$"""
-                {{ExpectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
-                {{mismatchSegment}}.
-                """);
-        }
-        else if (ValidateAgainstLengthDifferences(assertionChain, subject, expected))
-        {
-            int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
-
-            if (indexOfMismatch != -1)
-            {
-                assertionChain.FailWith(
-                    $"{ExpectationDescription}{{0}}{{reason}}, but {{1}} differs near " + subject.IndexedSegmentAt(indexOfMismatch) +
-                    ".",
-                    expected, subject);
-            }
-        }
-    }
-
     public string ExpectationDescription => $"Expected {{context:string}} to {predicateDescription} ";
 
-    private void ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)
+    public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
+    {
+        if (ValidateAgainstSuperfluousWhitespace(assertionChain, subject, expected))
+        {
+            return;
+        }
+
+        int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
+
+        assertionChain
+            .ForCondition(indexOfMismatch == -1)
+            .FailWith(() => new FailReason(CreateFailureMessage(subject, expected, indexOfMismatch)));
+    }
+
+    private string CreateFailureMessage(string subject, string expected, int indexOfMismatch)
+    {
+        string locationDescription = $"at index {indexOfMismatch}";
+        var matchingString = subject[..indexOfMismatch];
+        int lineNumber = matchingString.Count(c => c == '\n');
+
+        if (lineNumber > 0)
+        {
+            var indexOfLastNewlineBeforeMismatch = matchingString.LastIndexOf('\n');
+            var column = matchingString.Length - indexOfLastNewlineBeforeMismatch;
+            locationDescription = $"on line {lineNumber + 1} and column {column} (index {indexOfMismatch})";
+        }
+
+        string mismatchSegment = GetMismatchSegment(subject, expected, indexOfMismatch).EscapePlaceholders();
+
+        return $$"""
+            {{ExpectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
+            {{mismatchSegment}}.
+            """;
+    }
+
+    private bool ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)
     {
         assertion
             .ForCondition(!(expected.Length > subject.Length && comparer.Equals(expected.TrimEnd(), subject)))
@@ -74,54 +70,19 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             .Then
             .ForCondition(!(subject.Length > expected.Length && comparer.Equals(subject.TrimEnd(), expected)))
             .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but it has unexpected whitespace at the end.", expected);
-    }
 
-    private bool ValidateAgainstLengthDifferences(AssertionChain assertion, string subject, string expected)
-    {
-        assertion
-            .ForCondition(subject.Length == expected.Length)
-            .FailWith(() =>
-            {
-                string mismatchSegment = GetMismatchSegmentForStringsOfDifferentLengths(subject, expected);
-
-                string message = $"{ExpectationDescription}{{0}} with a length of {{1}}{{reason}}, but {{2}} has a length of {{3}}, differs near " + mismatchSegment + ".";
-
-                return new FailReason(message, expected, expected.Length, subject, subject.Length);
-            });
-
-        return assertion.Succeeded;
-    }
-
-    private string GetMismatchSegmentForStringsOfDifferentLengths(string subject, string expected)
-    {
-        int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
-
-        // If there is no difference it means that expected starts with subject and subject is shorter than expected
-        if (indexOfMismatch == -1)
-        {
-            // Subject is shorter so we point at its last character.
-            // We would like to point at next character as it is the real
-            // index of first mismatch, but we need to point at character existing in
-            // subject, so the next best thing is the last subject character.
-            indexOfMismatch = Math.Max(0, subject.Length - 1);
-        }
-
-        return subject.IndexedSegmentAt(indexOfMismatch);
+        return !assertion.Succeeded;
     }
 
     /// <summary>
-    /// Get the mismatch segment between <paramref name="expected"/> and <paramref name="subject"/> for long strings,
+    /// Get the mismatch segment between <paramref name="expected"/> and <paramref name="subject"/>,
     /// when they differ at index <paramref name="firstIndexOfMismatch"/>.
     /// </summary>
-    private static string GetMismatchSegmentForLongStrings(string subject, string expected, int firstIndexOfMismatch)
+    private static string GetMismatchSegment(string subject, string expected, int firstIndexOfMismatch)
     {
         int trimStart = GetStartIndexOfPhraseToShowBeforeTheMismatchingIndex(subject, firstIndexOfMismatch);
-        const string prefix = "  \"";
-        const string suffix = "\"";
-        const char arrowDown = '\u2193';
-        const char arrowUp = '\u2191';
 
-        int whiteSpaceCountBeforeArrow = (firstIndexOfMismatch - trimStart) + prefix.Length;
+        int whiteSpaceCountBeforeArrow = (firstIndexOfMismatch - trimStart) + Prefix.Length;
 
         if (trimStart > 0)
         {
@@ -133,29 +94,28 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
 
         var sb = new StringBuilder();
 
-        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(arrowDown).AppendLine(" (actual)");
-        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, prefix, subject, trimStart, suffix);
-        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, prefix, expected, trimStart, suffix);
-        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(arrowUp).Append(" (expected)");
+        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(ArrowDown).AppendLine(" (actual)");
+        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, subject, trimStart);
+        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, expected, trimStart);
+        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(ArrowUp).Append(" (expected)");
 
         return sb.ToString();
     }
 
     /// <summary>
-    /// Appends the <paramref name="prefix"/>, the escaped visible <paramref name="text"/> phrase decorated with ellipsis and the <paramref name="suffix"/> to the <paramref name="stringBuilder"/>.
+    /// Appends the prefix, the escaped visible <paramref name="text"/> phrase decorated with ellipsis and the suffix to the <paramref name="stringBuilder"/>.
     /// </summary>
     /// <remarks>When text phrase starts at <paramref name="indexOfStartingPhrase"/> and with a calculated length omits text on start or end, an ellipsis is added.</remarks>
     private static void AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(StringBuilder stringBuilder,
-        string prefix, string text, int indexOfStartingPhrase, string suffix)
+        string text, int indexOfStartingPhrase)
     {
         var subjectLength = GetLengthOfPhraseToShowOrDefaultLength(text[indexOfStartingPhrase..]);
-        const char ellipsis = '\u2026';
 
-        stringBuilder.Append(prefix);
+        stringBuilder.Append(Prefix);
 
         if (indexOfStartingPhrase > 0)
         {
-            stringBuilder.Append(ellipsis);
+            stringBuilder.Append(Ellipsis);
         }
 
         stringBuilder.Append(text
@@ -165,10 +125,10 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
 
         if (text.Length > (indexOfStartingPhrase + subjectLength))
         {
-            stringBuilder.Append(ellipsis);
+            stringBuilder.Append(Ellipsis);
         }
 
-        stringBuilder.AppendLine(suffix);
+        stringBuilder.AppendLine(Suffix);
     }
 
     /// <summary>
@@ -226,5 +186,30 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         }
 
         return Math.Min(defaultLength, value.Length);
+    }
+
+    /// <summary>
+    /// Get index of the first mismatch between <paramref name="subject"/> and <paramref name="expected"/>. 
+    /// </summary>
+    /// <param name="subject"></param>
+    /// <param name="expected"></param>
+    /// <returns>Returns the index of the first mismatch, or -1 if the strings are equal.</returns>
+    private int GetIndexOfFirstMismatch(string subject, string expected)
+    {
+        int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
+
+        if (indexOfMismatch != -1)
+        {
+            return indexOfMismatch;
+        }
+
+        // If no mismatch is found, we can assume the strings are equal when they also have the same length.
+        if (subject.Length == expected.Length)
+        {
+            return -1;
+        }
+
+        // the mismatch is the first character of the longer string.
+        return Math.Min(subject.Length, expected.Length);
     }
 }

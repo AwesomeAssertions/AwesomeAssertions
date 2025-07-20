@@ -96,7 +96,7 @@ public class AssertionRuleSpecs
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            "Expected*Name to be \"Dennis\", but \"Dennes\" differs near \"es\" (index 4)*");
+            "Expected*Name to be*index 4*\"Dennes\"*\"Dennis\"*");
     }
 
     [Fact]
