@@ -38,7 +38,7 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () => dictionary.Should().ContainValue("One").Which.Should().Be("Two");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*Expected dictionary[1] to be*Two*, but*One*differs*");
+            act.Should().Throw<XunitException>().WithMessage("*Expected dictionary[1] to be*\"One\"*\"Two\"*");
         }
 
         [Fact]

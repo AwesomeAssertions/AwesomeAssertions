@@ -82,8 +82,11 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected * to contain key 0.\nExpected * to contain key 1.\n");
+                .Which.Message.Should().Match("""
+                    Expected * to contain key 0.
+                    Expected * to contain key 1.
+
+                    """);
         }
 
         [Fact]
@@ -100,9 +103,11 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected * to contain a single item, but the collection is empty.\n" +
-                    "Expected * to contain a single item, but the collection is empty.\n");
+                .Which.Message.Should().Match("""
+                    Expected * to contain a single item, but the collection is empty.
+                    Expected * to contain a single item, but the collection is empty.
+
+                    """);
         }
 
         [Fact]
@@ -166,7 +171,7 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected string to be \"{bar}\", but \"{foo}\" differs near*");
+                .WithMessage("Expected string to be the same string*\"{foo}\"*\"{bar}\"*");
         }
 
         [Fact]
@@ -231,7 +236,7 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("""* near "\" *""");
+                .WithMessage("""*"A\"*"A"*""");
         }
 
         [Fact]
@@ -242,7 +247,7 @@ public partial class AssertionChainSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("""* to be "A\" *""");
+                .WithMessage("""*"A"*"A\"*""");
         }
 
         [Fact]

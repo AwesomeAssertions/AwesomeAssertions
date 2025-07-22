@@ -340,7 +340,7 @@ public partial class SelectionRulesSpecs
                 options => options.WithoutRecursing().IncludingNestedObjects());
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*Level.Level.Text*Level2*Mismatch*");
+            act.Should().Throw<XunitException>().WithMessage("*Level.Level.Text*Mismatch*Level2*");
         }
 
 #if NETCOREAPP3_0_OR_GREATER

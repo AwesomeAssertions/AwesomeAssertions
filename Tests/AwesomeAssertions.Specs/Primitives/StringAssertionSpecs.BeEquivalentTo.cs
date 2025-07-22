@@ -102,7 +102,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent to \"abc\" because we will test 1 + 2, but \"ADC\" differs near \"DC\" (index 1).");
+                "Expected string to be equivalent *because we will test 1 + 2, but*index 1*\"ADC\"*\"abc\"*.");
         }
 
         [Fact]
@@ -125,7 +125,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent to \"\" with a length of 0, but \"ABC\" has a length of 3, differs near \"ABC\" (index 0).");
+                "Expected string to be equivalent * index 0*\"ABC\"*\"\"*.");
         }
 
         [Fact]
@@ -137,7 +137,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent to \"ABCD\" with a length of 4, but \"AB\" has a length of 2*");
+                "Expected string to be equivalent *index 2*\"AB\"*\"ABCD\"*.");
         }
 
         [Fact]

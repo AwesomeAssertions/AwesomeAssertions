@@ -358,7 +358,7 @@ public partial class SelectionRulesSpecs
                 () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingProperties());
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*color*dolor*");
+            act.Should().Throw<XunitException>().WithMessage("*dolor*color*");
         }
 
         [Fact]

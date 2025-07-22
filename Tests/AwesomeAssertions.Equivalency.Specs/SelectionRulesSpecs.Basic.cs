@@ -175,9 +175,11 @@ public partial class SelectionRulesSpecs
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("*property subject.Property1*to be \"1\", but \"A\" differs near \"A\"*")
-                .WithMessage("*property subject.Property2*to be \"2\", but \"B\" differs near \"B\"*")
-                .WithMessage("*property subject.SubType1.SubProperty1*to be \"3\", but \"C\" differs near \"C\"*");
+                .WithMessage("""
+                    *property subject.Property1*to be *"A" *"1"
+                    *property subject.Property2*to be *"B" *"2"
+                    *property subject.SubType1.SubProperty1*to be *"C" * "3"*
+                    """);
         }
 
         [Fact]
@@ -300,9 +302,9 @@ public partial class SelectionRulesSpecs
 
         private interface ITest
         {
-            public string Name { get; }
+            string Name { get; }
 
-            public int NameLength => Name.Length;
+            int NameLength => Name.Length;
         }
 #endif
 
