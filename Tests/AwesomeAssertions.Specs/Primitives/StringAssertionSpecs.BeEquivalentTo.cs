@@ -40,6 +40,32 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
+        public void When_comparer_does_not_need_equivalent_lengths_strings_are_still_equivalent()
+        {
+            // Arrange
+            var comparer = new ForwardSlashTrimmingEqualityComparer();
+            string actual = "ABC";
+            string expect = "ABC/";
+
+            // Act / Assert
+            actual.Should().BeEquivalentTo(expect, o => o.Using(comparer));
+        }
+
+        [Fact]
+        public void When_comparer_trims_nonwhitespace_whitespace_still_disqualifies_equivalency_with_logical_error_message()
+        {
+            // Arrange
+            var comparer = new ForwardSlashTrimmingEqualityComparer();
+
+            // Act
+            Action act = () => "ab ".Should().BeEquivalentTo("ab/", o => o.Using(comparer));
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected string to be equivalent *index 2*\"ab \"*\"ab/\"*.");
+        }
+
+        [Fact]
         public void Can_ignore_casing_while_comparing_strings_to_be_equivalent()
         {
             // Arrange

@@ -29,6 +29,11 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
+        if (comparer.Equals(subject, expected))
+        {
+            return;
+        }
+
         if (ValidateAgainstSuperfluousWhitespace(assertionChain, subject, expected))
         {
             return;
@@ -37,7 +42,6 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
 
         assertionChain
-            .ForCondition(indexOfMismatch == -1)
             .FailWith(() => new FailReason(CreateFailureMessage(subject, expected, indexOfMismatch)));
     }
 
@@ -189,7 +193,7 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
     }
 
     /// <summary>
-    /// Get index of the first mismatch between <paramref name="subject"/> and <paramref name="expected"/>. 
+    /// Get index of the first mismatch between <paramref name="subject"/> and <paramref name="expected"/>.
     /// </summary>
     /// <param name="subject"></param>
     /// <param name="expected"></param>
@@ -201,12 +205,6 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         if (indexOfMismatch != -1)
         {
             return indexOfMismatch;
-        }
-
-        // If no mismatch is found, we can assume the strings are equal when they also have the same length.
-        if (subject.Length == expected.Length)
-        {
-            return -1;
         }
 
         // the mismatch is the first character of the longer string.
