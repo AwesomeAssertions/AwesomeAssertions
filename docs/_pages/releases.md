@@ -13,6 +13,7 @@ sidebar:
 
 ### Fixes
 * Use consistent newlines in failure messages - [#212](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/212)
+* Fix string equivalency check for custom comparer [#221](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/221)
 
 ## 9.1.0
 
