@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
@@ -49,5 +50,15 @@ public partial class StringAssertionSpecs
         {
             return obj.GetHashCode();
         }
+    }
+
+    private sealed class ForwardSlashTrimmingEqualityComparer : IEqualityComparer<string>
+    {
+        public bool Equals(string x, string y)
+        {
+            return x.Trim('/').Equals(y.Trim('/'), StringComparison.Ordinal);
+        }
+
+        public int GetHashCode(string obj) => obj.Trim('/').GetHashCode();
     }
 }
