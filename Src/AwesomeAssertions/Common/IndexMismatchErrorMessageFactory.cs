@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using AwesomeAssertions.Common;
 
-namespace AwesomeAssertions.Primitives;
+namespace AwesomeAssertions.Common;
 
 internal static class IndexMismatchErrorMessageFactory
 {
