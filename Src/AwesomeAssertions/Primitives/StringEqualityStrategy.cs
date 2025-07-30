@@ -31,10 +31,18 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             return;
         }
 
-        int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
+        var indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
 
-        assertionChain
-            .FailWith(() => new FailReason(MismatchRenderer.CreateFailureMessage(ExpectationDescription, subject, expected, indexOfMismatch)));
+        var failureMessage = MismatchRenderer.RenderMessage(new MismatchContext
+        {
+            Subject = subject,
+            Expected = expected,
+            IndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            Comparer = comparer
+        });
+
+        assertionChain.FailWith(failureMessage);
     }
 
     private bool ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)

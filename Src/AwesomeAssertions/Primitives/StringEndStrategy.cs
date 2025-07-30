@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
+using AwesomeAssertions.Common.Mismatch;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -28,15 +29,23 @@ internal class StringEndStrategy : IStringComparisonStrategy
             return;
         }
 
-        int indexOfMismatch = subject.Substring(subject.Length - expected.Length).IndexOfFirstMismatch(expected, comparer);
+        int indexOfMismatch = subject.IndexOfLastMismatch(expected, comparer);
 
         if (indexOfMismatch < 0)
         {
             return;
         }
 
-        assertionChain.FailWith(
-            $"{ExpectationDescription}{{0}}{{reason}}, but {{1}} differs near {subject.IndexedSegmentAt(indexOfMismatch)}.",
-            expected, subject);
+        var failureMessage = MismatchRenderer.RenderMessage(new MismatchContext
+        {
+            Subject = subject,
+            Expected = expected,
+            IndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            Comparer = comparer,
+            IsStringEndStrategy = true
+        });
+
+        assertionChain.FailWith(failureMessage);
     }
 }

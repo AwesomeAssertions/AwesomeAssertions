@@ -27,6 +27,50 @@ internal static class StringExtensions
     }
 
     /// <summary>
+    /// Finds the first index at which the longer string does not match the shorter string
+    /// string anymore, accounting for the specified <paramref name="comparer"/>.
+    /// </summary>
+    /// <returns>
+    /// The index of the mismatch, or -1 if there is no mismatch.
+    /// </returns>
+    public static int IndexOfFirstMismatchBidirectional(this string self, string other, IEqualityComparer<string> comparer)
+    {
+        int smallerStrLen = Math.Min(self.Length, other.Length);
+        int largerStrLen = Math.Max(self.Length, other.Length);
+        for (int index = 0; index < largerStrLen; index++)
+        {
+            if (index >= smallerStrLen || !comparer.Equals(self[index..(index + 1)], other[index..(index + 1)]))
+            {
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
+    /// <summary>
+    /// Finds the last index at which the <paramref name="value"/> does not match the <paramref name="expected"/>
+    /// string anymore, accounting for the specified <paramref name="comparer"/>.
+    /// </summary>
+    public static int IndexOfLastMismatch(this string value, string expected, IEqualityComparer<string> comparer)
+    {
+        var valueIndex = value.Length - 1;
+        var expectedIndex = expected.Length - 1;
+        while (valueIndex >= 0 && expectedIndex >= 0)
+        {
+            if (!comparer.Equals(value[valueIndex..(valueIndex + 1)], expected[expectedIndex..(expectedIndex + 1)]))
+            {
+                return valueIndex;
+            }
+
+            valueIndex--;
+            expectedIndex--;
+        }
+
+        return -1;
+    }
+
+    /// <summary>
     /// Gets the quoted three characters at the specified index of a string, including the index itself.
     /// </summary>
     public static string IndexedSegmentAt(this string value, int index)
@@ -156,5 +200,18 @@ internal static class StringExtensions
     public static bool IsNullOrEmpty([NotNullWhen(false)] this string value)
     {
         return string.IsNullOrEmpty(value);
+    }
+
+    public static string EscapeNewLines(this string value)
+    {
+        return value.Replace("\r", "\\r", StringComparison.OrdinalIgnoreCase).Replace("\n", "\\n", StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Reverses the string <paramref name="value"/>.
+    /// </summary>
+    public static string Reversed(this string value)
+    {
+        return string.Join("", value.Reverse());
     }
 }

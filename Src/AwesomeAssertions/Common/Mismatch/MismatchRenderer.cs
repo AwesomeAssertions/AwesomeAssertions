@@ -1,4 +1,3 @@
-﻿using System;
 using System.Linq;
 using System.Text;
 
@@ -9,13 +8,23 @@ internal static class MismatchRenderer
     private const string Indentation = "  ";
     private const string Prefix = Indentation + "\"";
     private const string Suffix = "\"";
-    private const char ArrowDown = '\u2193';
-    private const char ArrowUp = '\u2191';
-    private const char Ellipsis = '\u2026';
+    private const string ArrowDown = "\u2193";
+    private const string ArrowUp = "\u2191";
+    private const string Ellipsis = "\u2026";
 
-    public static string CreateFailureMessage(string expectationDescription, string subject, string expected, int indexOfMismatch)
+    public static string RenderMessage(MismatchContext context)
     {
-        string locationDescription = $"at index {indexOfMismatch}";
+        var mismatchSegment = GetMismatchSegment(context).EscapePlaceholders();
+        var prefix = context.IsStringEndStrategy ? "before" : "at";
+
+        var locationDescription =
+            CreateLocationDescription(context.Subject, context.IndexOfMismatch, prefix);
+
+        return CreateMessage(context.ExpectationDescription, locationDescription, mismatchSegment);
+    }
+
+    private static string CreateLocationDescription(string subject, int indexOfMismatch, string prefix)
+    {
         var matchingString = subject[..indexOfMismatch];
         int lineNumber = matchingString.Count(c => c == '\n');
 
@@ -23,128 +32,74 @@ internal static class MismatchRenderer
         {
             var indexOfLastNewlineBeforeMismatch = matchingString.LastIndexOf('\n');
             var column = matchingString.Length - indexOfLastNewlineBeforeMismatch;
-            locationDescription = $"on line {lineNumber + 1} and column {column} (index {indexOfMismatch})";
+            return $"on line {lineNumber + 1} and column {column} (index {indexOfMismatch})";
         }
 
-        string mismatchSegment = GetMismatchSegment(subject, expected, indexOfMismatch).EscapePlaceholders();
+        return $"{prefix} index {indexOfMismatch}";
+    }
 
+    private static string CreateMessage(string expectationDescription, string locationDescription, string mismatchSegment)
+    {
         return $$"""
-            {{expectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
-            {{mismatchSegment}}.
-            """;
+                 {{expectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
+                 {{mismatchSegment}}.
+                 """;
     }
 
     /// <summary>
-    /// Get the mismatch segment between <paramref name="expected"/> and <paramref name="subject"/>,
-    /// when they differ at index <paramref name="firstIndexOfMismatch"/>.
+    /// Get the mismatch segment between expected and subject,
+    /// when they differ at index firstIndexOfMismatch.
     /// </summary>
-    private static string GetMismatchSegment(string subject, string expected, int firstIndexOfMismatch)
+    private static string GetMismatchSegment(MismatchContext context)
     {
-        int trimStart = GetStartIndexOfPhraseToShowBeforeTheMismatchingIndex(subject, firstIndexOfMismatch);
+        var subject = context.SubjectVisibleSpan;
+        var expected = context.ExpectedVisibleSpan;
+        var isStringEndStrategy = context.IsStringEndStrategy;
 
-        int whiteSpaceCountBeforeArrow = (firstIndexOfMismatch - trimStart) + Prefix.Length;
+        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(subject);
+        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(expected);
 
-        if (trimStart > 0)
+        var (shorterSpan, longerSpan) = subject.Length >= expected.Length
+            ? (expected, subject)
+            : (subject, expected);
+
+        if (isStringEndStrategy)
         {
-            whiteSpaceCountBeforeArrow++;
+            shorterSpan.Prepend(new string(' ', longerSpan.Length - shorterSpan.Length));
         }
 
-        var visibleText = subject[trimStart..firstIndexOfMismatch];
-        whiteSpaceCountBeforeArrow += visibleText.Count(c => c is '\r' or '\n');
+        int whiteSpaceCountBeforeArrow = longerSpan.MismatchIndex;
 
-        var sb = new StringBuilder();
-
-        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(ArrowDown).AppendLine(" (actual)");
-        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, subject, trimStart);
-        AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(sb, expected, trimStart);
-        sb.Append(' ', whiteSpaceCountBeforeArrow).Append(ArrowUp).Append(" (expected)");
-
-        return sb.ToString();
+        return new StringBuilder()
+            .Append(' ', whiteSpaceCountBeforeArrow)
+            .AppendLine($"{ArrowDown} (actual)")
+            .AppendLine(subject.Text)
+            .AppendLine(expected.Text)
+            .Append(' ', whiteSpaceCountBeforeArrow)
+            .Append($"{ArrowUp} (expected)")
+            .ToString();
     }
 
     /// <summary>
-    /// Appends the prefix, the escaped visible <paramref name="text"/> phrase decorated with ellipsis and the suffix to the <paramref name="stringBuilder"/>.
+    /// Appends the prefix, the escaped visible <paramref name="span"/> decorated with ellipsis and the suffix to the <paramref name="span"/>.
     /// </summary>
-    /// <remarks>When text phrase starts at <paramref name="indexOfStartingPhrase"/> and with a calculated length omits text on start or end, an ellipsis is added.</remarks>
-    private static void AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(StringBuilder stringBuilder,
-        string text, int indexOfStartingPhrase)
+    /// <remarks>Ellipses are added for truncated ends of the <paramref name="span"/>.</remarks>
+    private static void AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(MismatchSpan span)
     {
-        var subjectLength = GetLengthOfPhraseToShowOrDefaultLength(text[indexOfStartingPhrase..]);
+        var startTruncated = span.StartTruncated;
+        var endTruncated = span.EndTruncated;
 
-        stringBuilder.Append(Prefix);
-
-        if (indexOfStartingPhrase > 0)
+        if (startTruncated)
         {
-            stringBuilder.Append(Ellipsis);
+            span.Prepend(Ellipsis);
         }
 
-        stringBuilder.Append(text
-            .Substring(indexOfStartingPhrase, subjectLength)
-            .Replace("\r", "\\r", StringComparison.OrdinalIgnoreCase)
-            .Replace("\n", "\\n", StringComparison.OrdinalIgnoreCase));
-
-        if (text.Length > (indexOfStartingPhrase + subjectLength))
+        if (endTruncated)
         {
-            stringBuilder.Append(Ellipsis);
+            span.Append(Ellipsis);
         }
 
-        stringBuilder.AppendLine(Suffix);
-    }
-
-    /// <summary>
-    /// Calculates the start index of the visible segment from <paramref name="value"/> when highlighting the difference at <paramref name="indexOfFirstMismatch"/>.
-    /// </summary>
-    /// <remarks>
-    /// Either keep the last 10 characters before <paramref name="indexOfFirstMismatch"/> or a word begin (separated by whitespace) between 15 and 5 characters before <paramref name="indexOfFirstMismatch"/>.
-    /// </remarks>
-    private static int GetStartIndexOfPhraseToShowBeforeTheMismatchingIndex(string value, int indexOfFirstMismatch)
-    {
-        const int defaultCharactersToKeep = 10;
-        const int minCharactersToKeep = 5;
-        const int maxCharactersToKeep = 15;
-        const int lengthOfWhitespace = 1;
-        const int phraseLengthToCheckForWordBoundary = (maxCharactersToKeep - minCharactersToKeep) + lengthOfWhitespace;
-
-        if (indexOfFirstMismatch <= defaultCharactersToKeep)
-        {
-            return 0;
-        }
-
-        var indexToStartSearchingForWordBoundary = Math.Max(indexOfFirstMismatch - (maxCharactersToKeep + lengthOfWhitespace), 0);
-
-        var indexOfWordBoundary = value
-                .IndexOf(' ', indexToStartSearchingForWordBoundary, phraseLengthToCheckForWordBoundary) -
-            indexToStartSearchingForWordBoundary;
-
-        if (indexOfWordBoundary >= 0)
-        {
-            return indexToStartSearchingForWordBoundary + indexOfWordBoundary + lengthOfWhitespace;
-        }
-
-        return indexOfFirstMismatch - defaultCharactersToKeep;
-    }
-
-    /// <summary>
-    /// Calculates how many characters to keep in <paramref name="value"/>.
-    /// </summary>
-    /// <remarks>
-    /// If a word end is found between 45 and 60 characters, use this word end, otherwise keep 50 characters.
-    /// </remarks>
-    private static int GetLengthOfPhraseToShowOrDefaultLength(string value)
-    {
-        var defaultLength = AssertionConfiguration.Current.Formatting.StringPrintLength;
-        int minLength = defaultLength - 5;
-        int maxLength = defaultLength + 10;
-        const int lengthOfWhitespace = 1;
-
-        var indexOfWordBoundary = value
-            .LastIndexOf(' ', Math.Min(maxLength + lengthOfWhitespace, value.Length) - 1);
-
-        if (indexOfWordBoundary >= minLength)
-        {
-            return indexOfWordBoundary;
-        }
-
-        return Math.Min(defaultLength, value.Length);
+        span.Prepend(Prefix);
+        span.Append(Suffix);
     }
 }
