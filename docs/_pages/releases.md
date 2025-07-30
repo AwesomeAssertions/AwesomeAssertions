@@ -10,6 +10,7 @@ sidebar:
 
 ### Improvements
 * Always use improved string difference visualization independent of the subject's or expectation's string length - [#215](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/215)
+* Use string difference visualization for `StartWith` string assertions - [#225](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/225)
 
 ### Fixes
 * Use consistent newlines in failure messages - [#212](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/212)
