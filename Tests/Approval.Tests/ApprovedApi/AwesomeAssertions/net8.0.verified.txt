@@ -1,4 +1,4 @@
-[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/AwesomeAssertions/AwesomeAssertions")]
+﻿[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/AwesomeAssertions/AwesomeAssertions")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo(@"AwesomeAssertions.Equivalency.Specs, PublicKey=00240000048000009400000006020000002400005253413100040000010001002d25ff515c85b13ba08f61d466cff5d80a7f28ba197bbf8796085213e7a3406f970d2a4874932fed35db546e89af2da88c194bf1b7f7ac70de7988c78406f7629c547283061282a825616eb7eb48a9514a7570942936020a9bb37dca9ff60b778309900851575614491c6d25018fadb75828f4c7a17bf2d7dc86e7b6eafc5d8f")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo(@"AwesomeAssertions.Specs, PublicKey=00240000048000009400000006020000002400005253413100040000010001002d25ff515c85b13ba08f61d466cff5d80a7f28ba197bbf8796085213e7a3406f970d2a4874932fed35db546e89af2da88c194bf1b7f7ac70de7988c78406f7629c547283061282a825616eb7eb48a9514a7570942936020a9bb37dca9ff60b778309900851575614491c6d25018fadb75828f4c7a17bf2d7dc86e7b6eafc5d8f")]
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo(@"Benchmarks, PublicKey=00240000048000009400000006020000002400005253413100040000010001002d25ff515c85b13ba08f61d466cff5d80a7f28ba197bbf8796085213e7a3406f970d2a4874932fed35db546e89af2da88c194bf1b7f7ac70de7988c78406f7629c547283061282a825616eb7eb48a9514a7570942936020a9bb37dca9ff60b778309900851575614491c6d25018fadb75828f4c7a17bf2d7dc86e7b6eafc5d8f")]
@@ -32,25 +32,39 @@ namespace AwesomeAssertions
     {
         public static AwesomeAssertions.Configuration.GlobalConfiguration Configuration { get; }
         public static AwesomeAssertions.Execution.ITestFramework TestFramework { get; set; }
+        [JetBrains.Annotations.PublicAPI]
         public static void ResetToDefaults() { }
     }
     public static class AssertionExtensions
     {
+        [JetBrains.Annotations.Pure]
         public static TTo As<TTo>(this object subject) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task> Awaiting<T>(this T subject, System.Func<T, System.Threading.Tasks.Task> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task> Awaiting<T>(this T subject, System.Func<T, System.Threading.Tasks.ValueTask> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task<TResult>> Awaiting<T, TResult>(this T subject, System.Func<T, System.Threading.Tasks.Task<TResult>> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task<TResult>> Awaiting<T, TResult>(this T subject, System.Func<T, System.Threading.Tasks.ValueTask<TResult>> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Enumerating(this System.Func<System.Collections.IEnumerable> enumerable) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Enumerating<T>(this System.Func<System.Collections.Generic.IEnumerable<T>> enumerable) { }
         public static System.Action Enumerating<T, TResult>(this T subject, System.Func<T, System.Collections.Generic.IEnumerable<TResult>> enumerable) { }
+        [JetBrains.Annotations.MustUseReturnValue]
         public static AwesomeAssertions.Specialized.ExecutionTime ExecutionTime(this System.Func<System.Threading.Tasks.Task> action) { }
+        [JetBrains.Annotations.MustUseReturnValue]
         public static AwesomeAssertions.Specialized.ExecutionTime ExecutionTime(this System.Action action, AwesomeAssertions.Common.StartTimer createTimer = null) { }
+        [JetBrains.Annotations.MustUseReturnValue]
         public static AwesomeAssertions.Specialized.MemberExecutionTime<T> ExecutionTimeOf<T>(this T subject, System.Linq.Expressions.Expression<System.Action<T>> action, AwesomeAssertions.Common.StartTimer createTimer = null) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Invoking<T>(this T subject, System.Action<T> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<TResult> Invoking<T, TResult>(this T subject, System.Func<T, TResult> action) { }
         public static AwesomeAssertions.Events.IMonitor<T> Monitor<T>(this T eventSource) { }
         public static AwesomeAssertions.Events.IMonitor<T> Monitor<T>(this T eventSource, System.Action<AwesomeAssertions.Events.EventMonitorOptions> configureOptions) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.ExecutionTimeAssertions Should(this AwesomeAssertions.Specialized.ExecutionTime executionTime) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
@@ -58,69 +72,124 @@ namespace AwesomeAssertions
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Specialized.TaskCompletionSourceAssertionsBase _) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.MethodInfoSelectorAssertions Should(this AwesomeAssertions.Types.MethodInfoSelector methodSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.MethodInfoSelectorAssertions _) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.PropertyInfoSelectorAssertions Should(this AwesomeAssertions.Types.PropertyInfoSelector propertyInfoSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.PropertyInfoSelectorAssertions _) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.TypeSelectorAssertions Should(this AwesomeAssertions.Types.TypeSelector typeSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.TypeSelectorAssertions _) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.ActionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Action action) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Collections.StringCollectionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<string> @this) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.DateOnlyAssertions Should(this System.DateOnly actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableDateOnlyAssertions Should(this System.DateOnly? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.DateTimeAssertions Should(this System.DateTime actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableDateTimeAssertions Should(this System.DateTime? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.DateTimeOffsetAssertions Should(this System.DateTimeOffset actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableDateTimeOffsetAssertions Should(this System.DateTimeOffset? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.NonGenericAsyncFunctionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<System.Threading.Tasks.Task> action) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.GuidAssertions Should(this System.Guid actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableGuidAssertions Should(this System.Guid? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Streams.BufferedStreamAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.IO.BufferedStream actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Streams.StreamAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.IO.Stream actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.AssemblyAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.Assembly assembly) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.ConstructorInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.ConstructorInfo constructorInfo) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.MethodInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.MethodInfo methodInfo) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.PropertyInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.PropertyInfo propertyInfo) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.TaskCompletionSourceAssertions Should(this System.Threading.Tasks.TaskCompletionSource tcs) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.TimeOnlyAssertions Should(this System.TimeOnly actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableTimeOnlyAssertions Should(this System.TimeOnly? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.SimpleTimeSpanAssertions Should(this System.TimeSpan actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableSimpleTimeSpanAssertions Should(this System.TimeSpan? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Types.TypeAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Type subject) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Xml.XAttributeAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XAttribute actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Xml.XDocumentAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XDocument actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Xml.XElementAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XElement actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.BooleanAssertions Should(this bool actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.NullableBooleanAssertions Should(this bool? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<byte> Should(this byte actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<byte> Should(this byte? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<decimal> Should(this decimal actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<decimal> Should(this decimal? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<double> Should(this double actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<double> Should(this double? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<float> Should(this float actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<float> Should(this float? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<int> Should(this int actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<int> Should(this int? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<long> Should(this long actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<long> Should(this long? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.ObjectAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this object actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<sbyte> Should(this sbyte actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<sbyte> Should(this sbyte? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<short> Should(this short actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<short> Should(this short? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Primitives.StringAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this string actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<uint> Should(this uint actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<uint> Should(this uint? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<ulong> Should(this ulong actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<ulong> Should(this ulong? actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NumericAssertions<ushort> Should(this ushort actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<ushort> Should(this ushort? actualValue) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
@@ -158,10 +227,15 @@ namespace AwesomeAssertions
             "ly following \'And\'", true)]
         public static void Should<TAssertions>(this AwesomeAssertions.Primitives.TimeOnlyAssertions<TAssertions> _)
             where TAssertions : AwesomeAssertions.Primitives.TimeOnlyAssertions<TAssertions> { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Collections.GenericCollectionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<T> actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.GenericAsyncFunctionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<System.Threading.Tasks.Task<T>> action) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.FunctionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<T> func) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Numeric.ComparableTypeAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.IComparable<T> comparableValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Specialized.TaskCompletionSourceAssertions<T> Should<T>(this System.Threading.Tasks.TaskCompletionSource<T> tcs) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
@@ -177,8 +251,11 @@ namespace AwesomeAssertions
             "ly following \'And\'", true)]
         public static void Should<TSubject, TAssertions>(this AwesomeAssertions.Primitives.ReferenceTypeAssertions<TSubject, TAssertions> _)
             where TAssertions : AwesomeAssertions.Primitives.ReferenceTypeAssertions<TSubject, TAssertions> { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<System.Collections.Generic.IDictionary<TKey, TValue>, TKey, TValue> Should<TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IDictionary<TKey, TValue> actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, TKey, TValue> Should<TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> actualValue) { }
+        [JetBrains.Annotations.Pure]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<TCollection, TKey, TValue> Should<TCollection, TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this TCollection actualValue)
             where TCollection : System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> { }
     }
@@ -264,11 +341,17 @@ namespace AwesomeAssertions
     }
     public static class FluentActions
     {
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task> Awaiting(System.Func<System.Threading.Tasks.Task> action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<System.Threading.Tasks.Task<T>> Awaiting<T>(System.Func<System.Threading.Tasks.Task<T>> func) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Enumerating(System.Func<System.Collections.IEnumerable> enumerable) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Enumerating<T>(System.Func<System.Collections.Generic.IEnumerable<T>> enumerable) { }
+        [JetBrains.Annotations.Pure]
         public static System.Action Invoking(System.Action action) { }
+        [JetBrains.Annotations.Pure]
         public static System.Func<T> Invoking<T>(System.Func<T> func) { }
     }
     public static class LessThan
@@ -620,6 +703,7 @@ namespace AwesomeAssertions.Configuration
     {
         public GlobalEquivalencyOptions() { }
         public AwesomeAssertions.Equivalency.EquivalencyPlan Plan { get; }
+        [JetBrains.Annotations.PublicAPI]
         public AwesomeAssertions.Equivalency.EquivalencyOptions<T> CloneDefaults<T>() { }
         public void Modify(System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions, AwesomeAssertions.Equivalency.EquivalencyOptions> configureOptions) { }
     }
@@ -832,6 +916,7 @@ namespace AwesomeAssertions.Equivalency
     public interface IObjectInfo
     {
         System.Type CompileTimeType { get; }
+        [JetBrains.Annotations.CanBeNull]
         System.Type ParentType { get; }
         string Path { get; set; }
         System.Type RuntimeType { get; }
@@ -2127,9 +2212,9 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> MatchEquivalentOf(string wildcardPattern, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> MatchEquivalentOf(string wildcardPattern, System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions<string>, AwesomeAssertions.Equivalency.EquivalencyOptions<string>> config, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex(System.Text.RegularExpressions.Regex regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex([System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex([JetBrains.Annotations.RegexPattern] [System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex(System.Text.RegularExpressions.Regex regularExpression, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex([System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> MatchRegex([JetBrains.Annotations.RegexPattern] [System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBe(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeEmpty([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeEquivalentTo(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2156,7 +2241,7 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> NotMatchEquivalentOf(string wildcardPattern, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotMatchEquivalentOf(string wildcardPattern, System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions<string>, AwesomeAssertions.Equivalency.EquivalencyOptions<string>> config, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotMatchRegex(System.Text.RegularExpressions.Regex regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotMatchRegex([System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotMatchRegex([JetBrains.Annotations.RegexPattern] [System.Diagnostics.CodeAnalysis.StringSyntax("Regex")] string regularExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotStartWith(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotStartWithEquivalentOf(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotStartWithEquivalentOf(string unexpected, System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions<string>, AwesomeAssertions.Equivalency.EquivalencyOptions<string>> config, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
