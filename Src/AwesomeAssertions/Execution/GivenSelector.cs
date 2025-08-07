@@ -91,4 +91,10 @@ public class GivenSelector<T>
         assertionChain.FailWith(message(selector));
         return new ContinuationOfGiven<T>(this);
     }
+
+    public ContinuationOfGiven<T> FailWith(Func<T, FailReason> failReason)
+    {
+        assertionChain.FailWith(() => failReason(selector));
+        return new ContinuationOfGiven<T>(this);
+    }
 }
