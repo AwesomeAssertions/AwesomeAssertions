@@ -505,6 +505,8 @@ namespace AwesomeAssertions.Collections
         public AwesomeAssertions.AndConstraint<TAssertions> Contain(System.Collections.Generic.IEnumerable<T> expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndWhichConstraint<TAssertions, T> Contain(System.Linq.Expressions.Expression<System.Func<T, bool>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndWhichConstraint<TAssertions, T> Contain(T expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, System.Collections.Generic.IEnumerable<T>> Contain(System.Linq.Expressions.Expression<System.Func<T, bool>> predicate, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, System.Collections.Generic.IEnumerable<T>> Contain(T expected, AwesomeAssertions.OccurrenceConstraint occurrenceConstraint, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndWhichConstraint<TAssertions, T> ContainEquivalentOf<TExpectation>(TExpectation expectation, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndWhichConstraint<TAssertions, T> ContainEquivalentOf<TExpectation>(TExpectation expectation, System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions<TExpectation>, AwesomeAssertions.Equivalency.EquivalencyOptions<TExpectation>> config, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> ContainInConsecutiveOrder(params T[] expected) { }
@@ -1293,6 +1295,7 @@ namespace AwesomeAssertions.Execution
     public class GivenSelector<T>
     {
         public bool Succeeded { get; }
+        public AwesomeAssertions.Execution.ContinuationOfGiven<T> FailWith(System.Func<T, AwesomeAssertions.Execution.FailReason> failReason) { }
         public AwesomeAssertions.Execution.ContinuationOfGiven<T> FailWith(System.Func<T, string> message) { }
         public AwesomeAssertions.Execution.ContinuationOfGiven<T> FailWith(string message) { }
         public AwesomeAssertions.Execution.ContinuationOfGiven<T> FailWith(string message, params System.Func<T, object>[] args) { }
