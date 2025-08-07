@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using AwesomeAssertions.Common;
 
-namespace AwesomeAssertions.Primitives;
+namespace AwesomeAssertions.Common.Mismatch;
 
-internal static class IndexMismatchErrorMessageFactory
+internal static class MismatchRenderer
 {
     private const string Indentation = "  ";
     private const string Prefix = Indentation + "\"";
