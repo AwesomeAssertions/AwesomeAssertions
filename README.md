@@ -60,10 +60,6 @@ If you've verified the changes and decided they are valid, you can accept them  
 **Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**  
 **A:** This was possible because the license change was made at the final stage of the version 8 release. Any commits made before the license change were free to use, as licenses cannot be applied retroactively. If commits were added to the branch while it was under the Apache 2.0 license, they remain under Apache 2.0. So, any commits before this change [fluentassertions/fluentassertions@df7e9bf](https://github.com/fluentassertions/fluentassertions/commit/df7e9bf8305ef5e26ae58fe4142f8d1b6c4fc4af) can be legally used under the Apache 2.0 terms.
 
-**Q: What is the benefit of this project, and will it continue to evolve and be maintained?**  
-**A:** The development of the project depends on the community. We will review and merge pull requests that meet the project's requirements. We actively cherry-pick relevant changes from FluentAssertions version 7 and add them to our fork, as FluentAssertions version 7 is under the old license.  
-This project is useful for users who are concerned about potential license issues with version 8 or those working in environments where commercial use could cause licensing complications. Our fork eliminates these concerns and offers a clean solution for such cases.
-
 **Q: Where can I find the documentation?**  
 **A:** You can find the documentation at https://awesomeassertions.org
 
