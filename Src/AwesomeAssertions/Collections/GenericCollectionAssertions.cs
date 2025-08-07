@@ -729,6 +729,45 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     }
 
     /// <summary>
+    /// Asserts that the collection contains the specified item a certain number of times.
+    /// </summary>
+    /// <param name="expected">The expectation item.</param>
+    /// <param name="occurrenceConstraint">
+    /// A constraint specifying the number of times the specified elements should appear.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
+    /// </param>
+    public AndWhichConstraint<TAssertions, IEnumerable<T>> Contain(T expected, OccurrenceConstraint occurrenceConstraint,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+    {
+        Guard.ThrowIfArgumentIsNull(occurrenceConstraint);
+
+        IEnumerable<T> matches = [];
+
+        assertionChain
+            .BecauseOf(because, becauseArgs)
+            .ForCondition(Subject is not null)
+            .FailWith("Expected {context:collection} to contain {0}{reason}, but found <null>.", expected)
+            .Then
+            .WithExpectation("Expected {context:collection} {0} to contain {1} ", Subject, expected, chain => chain
+            .Given(() =>
+            {
+                ICollection<T> collection = Subject.ConvertOrCastToCollection();
+                matches = collection.Where(item => EqualityComparer<T>.Default.Equals(item, expected));
+                return matches.Count();
+            })
+            .ForConstraint(occurrenceConstraint, actual => actual)
+            .FailWith(actual => $"{{expectedOccurrence}}{{reason}}, but found it {actual.Times()}."));
+
+        return new AndWhichConstraint<TAssertions, IEnumerable<T>>((TAssertions)this, matches);
+    }
+
+    /// <summary>
     /// Asserts that the collection contains at least one item that matches the predicate.
     /// </summary>
     /// <param name="predicate">A predicate to match the items in the collection against.</param>
@@ -778,6 +817,48 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         assertionChain.WithCallerPostfix($"[{firstMatchingIndex}]").ReuseOnce();
 
         return new AndWhichConstraint<TAssertions, T>((TAssertions)this, matches);
+    }
+
+    /// <summary>
+    /// Asserts that the collection contains items matching the predicate a certain number of times.
+    /// </summary>
+    /// <param name="predicate">A predicate to match each item of the collection against.</param>
+    /// <param name="occurrenceConstraint">
+    /// A constraint specifying the number of times the specified elements should appear.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    public AndWhichConstraint<TAssertions, IEnumerable<T>> Contain(Expression<Func<T, bool>> predicate, OccurrenceConstraint occurrenceConstraint,
+        [StringSyntax("CompositeFormat")] string because = "",
+        params object[] becauseArgs)
+    {
+        Guard.ThrowIfArgumentIsNull(predicate);
+        Guard.ThrowIfArgumentIsNull(occurrenceConstraint);
+
+        IEnumerable<T> matches = [];
+        assertionChain
+            .BecauseOf(because, becauseArgs)
+            .ForCondition(Subject is not null)
+            .FailWith("Expected {context:collection} to contain {0}{reason}, but found <null>.", predicate.Body)
+            .Then
+            .WithExpectation("Expected {context:collection} {0} to contain items matching {1} ", Subject, predicate.Body, chain => chain
+            .Given(() =>
+            {
+                Func<T, bool> func = predicate.Compile();
+                ICollection<T> collection = Subject.ConvertOrCastToCollection();
+                matches = Subject!.Where(func);
+                return matches.Count();
+            })
+            .ForConstraint(occurrenceConstraint, actual => actual)
+            .FailWith(actual => $"{{expectedOccurrence}}{{reason}}, but found it {actual.Times()}."));
+
+        return new AndWhichConstraint<TAssertions, IEnumerable<T>>((TAssertions)this, matches);
     }
 
     /// <summary>
