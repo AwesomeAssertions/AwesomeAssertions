@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
+using AwesomeAssertions.Common.Mismatch;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -33,7 +34,7 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
 
         assertionChain
-            .FailWith(() => new FailReason(IndexMismatchErrorMessageFactory.CreateFailureMessage(ExpectationDescription, subject, expected, indexOfMismatch)));
+            .FailWith(() => new FailReason(MismatchRenderer.CreateFailureMessage(ExpectationDescription, subject, expected, indexOfMismatch)));
     }
 
     private bool ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)

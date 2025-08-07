@@ -41,7 +41,7 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection[2] to start with*test*pack failed*");
+                .WithMessage("Expected collection[2] to start with*pack failed*test*");
         }
 
         [Fact]
