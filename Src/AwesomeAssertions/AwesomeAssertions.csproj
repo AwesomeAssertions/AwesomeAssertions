@@ -15,6 +15,7 @@
     <PackageId>AwesomeAssertions</PackageId>
     <Company>AwesomeAssertions</Company>
     <Product>AwesomeAssertions</Product>
+    <SonarQubeTestProject>false</SonarQubeTestProject>
   </PropertyGroup>
 
   <PropertyGroup Label="Package info">
