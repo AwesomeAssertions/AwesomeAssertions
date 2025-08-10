@@ -31,10 +31,21 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             return;
         }
 
-        int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
+        var indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
+
+        var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
+        {
+            Subject = subject,
+            Expected = expected,
+            SubjectIndexOfMismatch = indexOfMismatch,
+            ExpectedIndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            TruncationStrategy = new StandardTruncationStrategy(),
+            AlignRight = false
+        });
 
         assertionChain
-            .FailWith(() => new FailReason(MismatchRenderer.CreateFailureMessage(ExpectationDescription, subject, expected, indexOfMismatch)));
+            .FailWith(failureMessage);
     }
 
     private bool ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)

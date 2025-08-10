@@ -36,6 +36,17 @@ internal class StringStartStrategy : IStringComparisonStrategy
             return;
         }
 
-        assertionChain.FailWith(() => new FailReason(IndexMismatchErrorMessageFactory.CreateFailureMessage(ExpectationDescription, subject, expected, indexOfMismatch)));
+        var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
+        {
+            Subject = subject,
+            Expected = expected,
+            SubjectIndexOfMismatch = indexOfMismatch,
+            ExpectedIndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            TruncationStrategy = new StandardTruncationStrategy(),
+            AlignRight = false
+        });
+
+        assertionChain.FailWith(failureMessage);
     }
 }
