@@ -11,6 +11,7 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.ReportGenerator;
+using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.Xunit;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
@@ -52,6 +53,10 @@ class Build : NukeBuild
     [Secret]
     readonly string NuGetApiKey;
 
+    [Parameter("The key to publish SonarQube analysis")]
+    [Secret]
+    readonly string SonarQubeApiKey;
+
     [Solution(GenerateProjects = true)]
     readonly Solution Solution;
 
@@ -62,6 +67,7 @@ class Build : NukeBuild
     [Required]
     [GitRepository]
     readonly GitRepository GitRepository;
+
     AbsolutePath ArtifactsDirectory => RootDirectory / "Artifacts";
 
     AbsolutePath TestResultsDirectory => RootDirectory / "TestResults";
@@ -305,19 +311,60 @@ class Build : NukeBuild
                             $"--report-trx-filename {v.project.Name}_{v.framework}.trx",
                             $"--results-directory {TestResultsDirectory}"
                         )
-                    )
-                );
+                )
+            );
         });
 
     Target TestFrameworks => _ => _
         .DependsOn(VSTestFrameworks)
         .DependsOn(TestingPlatformFrameworks);
 
+    Target SonarBegin => _ => _
+        .Before(Compile)
+        .Executes(() =>
+        {
+            SonarScannerTasks.SonarScannerBegin(s =>
+            {
+                SonarScannerBeginSettings settings = s
+                    .SetFramework("net8.0")
+                    .SetProjectKey("AwesomeAssertions_AwesomeAssertions")
+                    .SetOrganization("awesomeassertions")
+                    .SetToken(SonarQubeApiKey)
+                    .EnableQualityGateWait();
+
+                if (!GitHubActions.IsPullRequest)
+                {
+                    return settings;
+                }
+
+                string sourceBranch = GitHubActions.RefName;
+
+                Information("Analyzing PullRequest {PrId} from branch {BranchName}", GitHubActions.PullRequestNumber, sourceBranch);
+
+                settings = settings
+                    .SetPullRequestKey(GitHubActions.PullRequestNumber.ToString())
+                    .SetPullRequestBranch(sourceBranch);
+
+                return settings;
+            });
+        });
+
+    Target SonarEnd => _ => _
+        .After(UnitTests)
+        .Executes(() =>
+        {
+            Information("Sonar End");
+        });
+
+    Target Sonar => _ => _
+        .DependsOn(SonarBegin, SonarEnd);
+
     Target Pack => _ => _
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)
         .DependsOn(CodeCoverage)
+        .DependsOn(Sonar)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
