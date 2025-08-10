@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using AwesomeAssertions.Formatting;
 
@@ -156,5 +157,24 @@ internal static class StringExtensions
     public static bool IsNullOrEmpty([NotNullWhen(false)] this string value)
     {
         return string.IsNullOrEmpty(value);
+    }
+
+    /// <summary>
+    /// Reverses the string <paramref name="value"/>.
+    /// </summary>
+    public static string Reversed(this string value)
+    {
+        var stringBuilder = new StringBuilder(value.Length);
+        for (int i = value.Length - 1; i >= 0; i--)
+        {
+            stringBuilder.Append(value[i]);
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    public static string NormalizeLineEndings(this string value)
+    {
+        return value.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);
     }
 }

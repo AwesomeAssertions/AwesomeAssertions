@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using AwesomeAssertions.Common;
+using AwesomeAssertions.Common.Mismatch;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -28,15 +28,49 @@ internal class StringEndStrategy : IStringComparisonStrategy
             return;
         }
 
-        int indexOfMismatch = subject.Substring(subject.Length - expected.Length).IndexOfFirstMismatch(expected, comparer);
-
-        if (indexOfMismatch < 0)
+        var (subjectIndexOfMismatch, expectedIndexOfMismatch) = IndexOfLastMismatch(subject, expected, comparer);
+        if (subjectIndexOfMismatch < 0)
         {
             return;
         }
 
-        assertionChain.FailWith(
-            $"{ExpectationDescription}{{0}}{{reason}}, but {{1}} differs near {subject.IndexedSegmentAt(indexOfMismatch)}.",
-            expected, subject);
+        var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
+        {
+            Subject = subject,
+            Expected = expected,
+            SubjectIndexOfMismatch = subjectIndexOfMismatch,
+            ExpectedIndexOfMismatch = expectedIndexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            IndexFormatter = index => $"before index {index}",
+            AlignRight = true,
+            TruncationStrategy = new InverseTruncationBasisDecorator(new StandardTruncationStrategy()),
+        });
+
+        assertionChain.FailWith(failureMessage);
+    }
+
+    /// <summary>
+    /// Finds the last index at which the <paramref name="subject"/> does not match the <paramref name="expected"/>
+    /// string anymore, accounting for the specified <paramref name="comparer"/>.
+    /// </summary>
+    /// <returns>
+    /// The mismatch indexes for the subject and the expected, or (-1 -1) if no mismatch is found.
+    /// </returns>
+    private static (int subjectIndex, int expectedIndex) IndexOfLastMismatch(string subject, string expected, IEqualityComparer<string> comparer)
+    {
+        var subjectIndex = subject.Length - 1;
+        var expectedIndex = expected.Length - 1;
+        while (subjectIndex >= 0 && expectedIndex >= 0)
+        {
+            if (!comparer.Equals(subject[subjectIndex..(subjectIndex + 1)], expected[expectedIndex..(expectedIndex + 1)]))
+            {
+                return (subjectIndex, expectedIndex);
+            }
+
+            subjectIndex--;
+            expectedIndex--;
+        }
+
+        return (-1, -1);
     }
 }
