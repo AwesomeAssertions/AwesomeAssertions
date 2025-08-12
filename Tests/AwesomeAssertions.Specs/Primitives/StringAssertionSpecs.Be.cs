@@ -392,6 +392,29 @@ public partial class StringAssertionSpecs
                     *(expected).
                     """);
         }
+
+        [Fact]
+        public void Prefix_before_mismatch_is_truncated_earlier_than_suffix()
+        {
+            const string subject = "diff the text with very long suffix after point where mismatch is found";
+            const string expected = "diff the texT with very long suffix after point where mismatch is found";
+
+            // Act
+            Action act = () => subject.Should().Be(expected);
+
+            // Assert
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage("""
+                             *index 12*
+                                        ↓ (actual)
+                               "…the text with very long suffix after point where mismatch is…"
+                               "…the texT with very long suffix after point where mismatch is…"
+                                        ↑ (expected).
+                             """
+                );
+        }
     }
 
     public class NotBe
