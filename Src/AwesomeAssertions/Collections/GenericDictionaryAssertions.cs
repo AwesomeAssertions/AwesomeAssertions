@@ -641,7 +641,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Values are compared using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">The expected key/value pairs.</param>
-    public AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(params KeyValuePair<TKey, TValue>[] expected)
+    public AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>> Contain(params KeyValuePair<TKey, TValue>[] expected)
     {
         return Contain(expected, string.Empty);
     }
@@ -662,7 +662,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Needs refactoring")]
-    public new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(IEnumerable<KeyValuePair<TKey, TValue>> expected,
+    public new AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>> Contain(IEnumerable<KeyValuePair<TKey, TValue>> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(expected, nameof(expected), "Cannot compare dictionary with <null>.");
@@ -730,7 +730,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
             }
         }
 
-        return new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>>((TAssertions)this , Subject);
+        return new AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>>((TAssertions)this, Subject);
     }
 
     /// <summary>
@@ -746,7 +746,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(KeyValuePair<TKey, TValue> expected,
+    public new AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>> Contain(KeyValuePair<TKey, TValue> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         return Contain(expected.Key, expected.Value, because, becauseArgs);
@@ -767,7 +767,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(TKey key, TValue value,
+    public AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>> Contain(TKey key, TValue value,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -798,7 +798,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
             }
         }
 
-        return new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>>((TAssertions)this,Subject);
+        return new AndWhichConstraint<TAssertions, IEnumerable<KeyValuePair<TKey, TValue>>>((TAssertions)this, Subject);
     }
 
     #endregion
