@@ -26,18 +26,14 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue>
 /// <summary>
 /// Contains a number of methods to assert that a <typeparamref name="TCollection"/> is in the expected state.
 /// </summary>
-public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
-    : GenericCollectionAssertions<TCollection, KeyValuePair<TKey, TValue>, TAssertions>
+public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>(
+    TCollection keyValuePairs,
+    AssertionChain assertionChain)
+    : GenericCollectionAssertions<TCollection, KeyValuePair<TKey, TValue>, TAssertions>(keyValuePairs, assertionChain)
     where TCollection : IEnumerable<KeyValuePair<TKey, TValue>>
     where TAssertions : GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
 {
-    private readonly AssertionChain assertionChain;
-
-    public GenericDictionaryAssertions(TCollection keyValuePairs, AssertionChain assertionChain)
-        : base(keyValuePairs, assertionChain)
-    {
-        this.assertionChain = assertionChain;
-    }
+    private readonly AssertionChain assertionChain = assertionChain;
 
     #region Equal
 
@@ -266,7 +262,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     }
 
     /// <summary>
-    /// Asserts that the dictionary contains all of the specified keys.
+    /// Asserts that the dictionary contains all the specified keys.
     /// Key comparison will honor the equality comparer of the dictionary when applicable.
     /// </summary>
     /// <param name="expected">The expected keys</param>
@@ -276,7 +272,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     }
 
     /// <summary>
-    /// Asserts that the dictionary contains all of the specified keys.
+    /// Asserts that the dictionary contains all the specified keys.
     /// Key comparison will honor the equality comparer of the dictionary when applicable.
     /// </summary>
     /// <param name="expected">The expected keys</param>
@@ -457,7 +453,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     }
 
     /// <summary>
-    /// Asserts that the dictionary contains all of the specified values. Values are compared using
+    /// Asserts that the dictionary contains all the specified values. Values are compared using
     /// their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">The expected values</param>
@@ -645,7 +641,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Values are compared using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">The expected key/value pairs.</param>
-    public AndConstraint<TAssertions> Contain(params KeyValuePair<TKey, TValue>[] expected)
+    public AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(params KeyValuePair<TKey, TValue>[] expected)
     {
         return Contain(expected, string.Empty);
     }
@@ -666,7 +662,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Needs refactoring")]
-    public new AndConstraint<TAssertions> Contain(IEnumerable<KeyValuePair<TKey, TValue>> expected,
+    public new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(IEnumerable<KeyValuePair<TKey, TValue>> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(expected, nameof(expected), "Cannot compare dictionary with <null>.");
@@ -734,7 +730,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
             }
         }
 
-        return new AndConstraint<TAssertions>((TAssertions)this);
+        return new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>>((TAssertions)this , Subject);
     }
 
     /// <summary>
@@ -750,7 +746,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public new AndConstraint<TAssertions> Contain(KeyValuePair<TKey, TValue> expected,
+    public new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(KeyValuePair<TKey, TValue> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         return Contain(expected.Key, expected.Value, because, becauseArgs);
@@ -771,7 +767,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public AndConstraint<TAssertions> Contain(TKey key, TValue value,
+    public AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>> Contain(TKey key, TValue value,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -802,7 +798,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
             }
         }
 
-        return new AndConstraint<TAssertions>((TAssertions)this);
+        return new AndWhichConstraint<TAssertions,IEnumerable<KeyValuePair<TKey,TValue>>>((TAssertions)this,Subject);
     }
 
     #endregion
