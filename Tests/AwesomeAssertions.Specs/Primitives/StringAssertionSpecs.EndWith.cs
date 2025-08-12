@@ -145,10 +145,10 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("""
                              *index 66*
-                                                                               ↓ (actual)
-                               "…that has more than 60 characters so it requires ellipsis"
-                                                                    "requires an ellipsis"
-                                                                               ↑ (expected).
+                                              ↓ (actual)
+                               "…so it requires ellipsis"
+                                   "requires an ellipsis"
+                                              ↑ (expected).
                              """);
         }
 
@@ -166,10 +166,10 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage(
                 """
                 *before*index 66*
-                                                                    ↓ (actual)
-                       "…was coming from this is a long text pat thaT differs in…"
-                  "…to this the other they should and sad rhino whicH differs in…"
-                                                                    ↑ (expected).
+                                  ↓ (actual)
+                    "…text pat thaT differs in between two words"
+                  "…sad rhino whicH differs in between two words"
+                                  ↑ (expected).
                 """
                 );
         }
@@ -191,10 +191,10 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage("""
                              *index 55*
-                                                                                   ↓ (actual)
-                               "…is a very long text. it is very long text that12345 differs."
-                                "…is a very long text. it is very long text that1264 differs."
-                                                                                   ↑ (expected).
+                                              ↓ (actual)
+                               "…text that12345 differs."
+                                "…text that1264 differs."
+                                              ↑ (expected).
                              """
                 );
         }
@@ -216,10 +216,10 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage("""
                              *index 55*
-                                                                                ↓ (actual)
-                               "…a very long text. it is very long text that12345 differs in…"
-                                "…a very long text. it is very long text that1264 differs in…"
-                                                                                ↑ (expected).
+                                              ↓ (actual)
+                               "…text that12345 differs in between two words. it is very…"
+                                "…text that1264 differs in between two words. it is very…"
+                                              ↑ (expected).
                              """
                 );
         }
@@ -249,10 +249,10 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage("""
                              *line 2*column 9*index 55*
-                                                                                    ↓ (actual)
-                               "…is a very long text. it is very long text\nthat12345\ndiffers."
-                                "…is a very long text. it is very long text\nthat1264\ndiffers."
-                                                                                    ↑ (expected).
+                                               ↓ (actual)
+                               "…text\nthat12345\ndiffers."
+                                "…text\nthat1264\ndiffers."
+                                               ↑ (expected).
                              """);
         }
 
@@ -281,10 +281,10 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage("""
                      *line 2*column 9*index 33*
-                                                          ↓ (actual)
-                       "this is a very long text\nthat12345\ndiffers in…"
-                        "this is a very long text\nthat1264\ndiffers in…"
-                                                          ↑ (expected).
+                                       ↓ (actual)
+                       "…text\nthat12345\ndiffers in between two words. it is very…"
+                        "…text\nthat1264\ndiffers in between two words. it is very…"
+                                       ↑ (expected).
                      """);
         }
 
@@ -313,10 +313,10 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage("""
                              *line 2*column 9*index 55*
-                                                                                 ↓ (actual)
-                               "…a very long text. it is very long text\nthat12345\ndiffers in…"
-                                "…a very long text. it is very long text\nthat1264\ndiffers in…"
-                                                                                 ↑ (expected).
+                                               ↓ (actual)
+                               "…text\nthat12345\ndiffers in between two words. it is very…"
+                                "…text\nthat1264\ndiffers in between two words. it is very…"
+                                               ↑ (expected).
                              """
                 );
         }
