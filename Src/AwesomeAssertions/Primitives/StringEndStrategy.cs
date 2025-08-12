@@ -43,7 +43,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
             ExpectationDescription = ExpectationDescription,
             IndexFormatter = index => $"before index {index}",
             AlignRight = true,
-            TruncationStrategy = new InverseTruncationBasisDecorator(new StandardTruncationStrategy()),
+            TruncationStrategy = new StandardTruncationStrategy(),
         });
 
         assertionChain.FailWith(failureMessage);
