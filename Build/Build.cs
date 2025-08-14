@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LibGit2Sharp;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
@@ -323,6 +325,10 @@ class Build : NukeBuild
         .Before(Compile)
         .Executes(() =>
         {
+            Assert.False(
+                string.IsNullOrWhiteSpace(SonarQubeApiKey),
+                $"The SonarQube credentials must be set with {nameof(SonarQubeApiKey)}.");
+
             SonarScannerTasks.SonarScannerBegin(s =>
             {
                 SonarScannerBeginSettings settings = s
@@ -332,12 +338,12 @@ class Build : NukeBuild
                     .SetToken(SonarQubeApiKey)
                     .EnableQualityGateWait();
 
-                if (!GitHubActions.IsPullRequest)
+                if (GitHubActions is not { IsPullRequest: true })
                 {
                     return settings;
                 }
 
-                string sourceBranch = GitHubActions.RefName;
+                string sourceBranch = GitHubActions!.RefName;
 
                 Information("Analyzing PullRequest {PrId} from branch {BranchName}", GitHubActions.PullRequestNumber, sourceBranch);
 
@@ -353,7 +359,33 @@ class Build : NukeBuild
         .After(UnitTests)
         .Executes(() =>
         {
-            Information("Sonar End");
+            IReadOnlyCollection<Output> outputs = SonarScannerTasks.SonarScannerEnd(
+#pragma warning disable CS0618 // SetProcessExitHandler is obsolete unfortunately
+                s => s
+                    .SetFramework("net8.0")
+                    .SetToken(SonarQubeApiKey)
+                    .SetProcessExitHandler(
+                        _ =>
+                        {
+                            // ignore exist code
+                        }));
+#pragma warning restore CS0618
+
+            var output = string.Join(Environment.NewLine, outputs.Select(x => x.Text));
+            Match match = Regex.Match(
+                output,
+                @"(QUALITY GATE STATUS: )(?<state>[A-Z]+)([ -]+View details on )(?<url>https:[a-zA-Z0-9-\/\.=?&]+)",
+                RegexOptions.Compiled,
+                TimeSpan.FromSeconds(1));
+            if (!match.Success)
+            {
+                return;
+            }
+
+            string state = match.Groups["state"].Value;
+            string url = match.Groups["url"].Value;
+            Information("Quality gate state: {State}", state);
+            Information("Status page: {Link}", url);
         });
 
     Target Sonar => _ => _
