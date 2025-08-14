@@ -34,6 +34,7 @@ jobs:
       run: ./build.ps1
       env:
         NuGetApiKey: ${{ secrets.NUGETAPIKEY }}
+        SonarQubeApiKey: ${{ secrets.SONARQUBEAPIKEY }}
 
     - name: Check for 'lcov.info' existence
       id: check_files
