@@ -40,9 +40,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().StartWith("ABB", "it should {0}", "start");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with \"ABB\" because it should start," +
-                " but \"ABC\" differs near \"C\" (index 2).");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             Expected string to start with the same string because it should start, but they differ at index 2:
+                                                                  ↓ (actual)
+                                                               "ABC"
+                                                               "ABB"
+                                                                  ↑ (expected).
+                                                             """);
         }
 
         [Fact]
@@ -54,10 +58,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABCDEFGHI".Should().StartWith("ABCDDFGHI", "it should {0}", "start");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with " +
-                "*\"ABCDDFGHI\" because it should start, but " +
-                "*\"ABCDEFGHI\" differs near \"EFG\" (index 4).");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                              Expected string to start with the same string because it should start, but they differ at index 4:
+                                                                     ↓ (actual)
+                                                                "ABCDEFGHI"
+                                                                "ABCDDFGHI"
+                                                                     ↑ (expected).
+                                                              """);
         }
 
         [Fact]
