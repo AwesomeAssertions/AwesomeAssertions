@@ -24,6 +24,16 @@ public partial class CollectionAssertionSpecs
         }
 
         [Fact]
+        public void Should_succeed_when_asserting_collection_contains_an_item_from_the_collection_a_given_number_of_times()
+        {
+            // Arrange
+            int[] collection = [1, 2, 1];
+
+            // Act / Assert
+            collection.Should().Contain(1, AtLeast.Twice());
+        }
+
+        [Fact]
         public void Should_succeed_when_asserting_collection_contains_multiple_items_from_the_collection_in_any_order()
         {
             // Arrange
@@ -48,6 +58,20 @@ public partial class CollectionAssertionSpecs
         }
 
         [Fact]
+        public void When_a_collection_does_not_contain_item_the_expected_number_of_times_it_should_throw_with_clear_explanation()
+        {
+            // Arrange
+            int[] collection = [1, 2, 1];
+
+            // Act
+            Action act = () => collection.Should().Contain(1, AtMost.Once(), "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection {1, 2, 1} to contain 1 at most 1 time because failure message, but found it 2 times.");
+        }
+
+        [Fact]
         public void When_asserting_collection_does_contain_item_against_null_collection_it_should_throw()
         {
             // Arrange
@@ -63,6 +87,21 @@ public partial class CollectionAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected collection to contain 1 because we want to test the behaviour with a null subject, but found <null>.");
+        }
+
+        [Fact]
+        public void When_asserting_collection_does_contain_item_a_given_number_of_times_against_null_collection_it_should_throw()
+        {
+            // Arrange
+            int[] collection = null;
+
+            // Act
+            Action act = () =>
+                collection.Should().Contain(1, AtLeast.Once(), "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection to contain 1 because failure message, but found <null>.");
         }
 
         [Fact]
@@ -146,6 +185,20 @@ public partial class CollectionAssertionSpecs
         }
 
         [Fact]
+        public void When_injecting_a_null_occurrence_constraint_into_Contain_it_should_throw()
+        {
+            // Arrange
+            IEnumerable<int> collection = [];
+
+            // Act
+            Action act = () => collection.Should().Contain(1, occurrenceConstraint: null);
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("occurrenceConstraint");
+        }
+
+        [Fact]
         public void When_injecting_a_null_predicate_into_Contain_it_should_throw()
         {
             // Arrange
@@ -160,6 +213,34 @@ public partial class CollectionAssertionSpecs
         }
 
         [Fact]
+        public void When_injecting_a_null_predicate_into_Contain_with_occurrence_constraint_it_should_throw()
+        {
+            // Arrange
+            IEnumerable<int> collection = [];
+
+            // Act
+            Action act = () => collection.Should().Contain(predicate: null, AtLeast.Once());
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("predicate");
+        }
+
+        [Fact]
+        public void When_injecting_a_null_occurrence_constraint_into_Contain_with_predicate_it_should_throw()
+        {
+            // Arrange
+            IEnumerable<int> collection = [];
+
+            // Act
+            Action act = () => collection.Should().Contain(_ => true, occurrenceConstraint: null);
+
+            // Assert
+            act.Should().ThrowExactly<ArgumentNullException>()
+                .WithParameterName("occurrenceConstraint");
+        }
+
+        [Fact]
         public void When_collection_does_not_contain_an_expected_item_matching_a_predicate_it_should_throw()
         {
             // Arrange
@@ -169,8 +250,22 @@ public partial class CollectionAssertionSpecs
             Action act = () => collection.Should().Contain(item => item > 3, "at least {0} item should be larger than 3", 1);
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
                 "Expected collection {1, 2, 3} to have an item matching (item > 3) because at least 1 item should be larger than 3.");
+        }
+
+        [Fact]
+        public void When_collection_does_not_contain_an_item_matching_a_predicate_a_given_number_of_times_it_should_throw()
+        {
+            // Arrange
+            IEnumerable<int> collection = [1, 2, 3];
+
+            // Act
+            Action act = () => collection.Should().Contain(item => item >= 2, Exactly.Times(3), "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
+                "Expected collection {1, 2, 3} to contain items matching (item >= 2) exactly 3 times because failure message, but found it 2 times.");
         }
 
         [Fact]
@@ -185,6 +280,21 @@ public partial class CollectionAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected*greater*4*2*");
+        }
+
+        [Fact]
+        public void When_collection_does_contain_items_matching_a_predicate_a_given_number_of_times_it_should_allow_chaining_them()
+        {
+            // Arrange
+            IEnumerable<int> collection = [1, 2, 1];
+
+            // Act
+            Action act = () => collection.Should().Contain(item => item == 1, AtLeast.Once())
+                .Which.Should().ContainSingle();
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected*single item*{1, 1}*");
         }
 
         [Fact]
