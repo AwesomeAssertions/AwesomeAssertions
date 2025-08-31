@@ -52,7 +52,7 @@ If you've verified the changes and decided they are valid, you can accept them  
 # FAQ
 
 **Q: Who are the maintainers?**  
-**A:** The current maintainers of AwesomeAssertions are @cbersch, @jcfnomada, @jupjohn, @IT-VBFK, and @ScarletKuro.
+**A:** The current maintainers of AwesomeAssertions are @cbersch, @IT-VBFK, @jcfnomada, @jupjohn, @lg2de, and @ScarletKuro.
 
 **Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**  
 **A:** The license will never change, not even to MIT. We will only maintain the original Apache 2.0 license.
