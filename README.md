@@ -42,7 +42,7 @@ Renovate will then open PRs to replace FluentAssertions with AwesomeAssertions w
 Alternatively, use PowerShell [script](https://github.com/AwesomeAssertions/AwesomeAssertions/discussions/6) to replace the dependencies.
 
 # How do I build this?
-Install Visual Studio 2022 17.8+ or JetBrains Rider 2021.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 8.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
+Install Visual Studio 2022 17.14+ or JetBrains Rider 2024.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 9.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
 
 # What are these Approval.Tests?
 This is a special set of tests that use the [Verify](https://github.com/VerifyTests/Verify) project to verify whether you've introduced any breaking changes in the public API of the library.
