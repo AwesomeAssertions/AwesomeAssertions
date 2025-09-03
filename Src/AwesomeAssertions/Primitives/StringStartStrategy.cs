@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
+using AwesomeAssertions.Common.Mismatch;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -35,8 +36,17 @@ internal class StringStartStrategy : IStringComparisonStrategy
             return;
         }
 
-        assertionChain.FailWith(
-            $"{ExpectationDescription}{{0}}{{reason}}, but {{1}} differs near {subject.IndexedSegmentAt(indexOfMismatch)}.",
-            expected, subject);
+        var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
+        {
+            Subject = subject,
+            Expected = expected,
+            SubjectIndexOfMismatch = indexOfMismatch,
+            ExpectedIndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            TruncationStrategy = new StandardTruncationStrategy(),
+            AlignRight = false
+        });
+
+        assertionChain.FailWith(failureMessage);
     }
 }
