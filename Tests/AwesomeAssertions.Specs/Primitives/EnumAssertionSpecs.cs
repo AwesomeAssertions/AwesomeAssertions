@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using AwesomeAssertions.Execution;
 using Xunit;
 using Xunit.Sdk;
 
@@ -717,6 +718,39 @@ public class EnumAssertionSpecs
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage("Expected*Public*ExactBinding*because that's what we need*found*DeclaredOnly*");
+        }
+
+        [Fact]
+        public void An_enum_cannot_be_null()
+        {
+            // Arrange
+            BindingFlags? flags = null;
+
+            // Act / Assert
+            Action act = () =>
+                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "failure {0}", "message");
+
+            act.Should()
+                .Throw<XunitException>()
+                .WithMessage("Expected*Public*ExactBinding*because failure message*found*<null>*");
+        }
+
+        [Fact]
+        public void When_enum_is_null_chaining_is_handled_properly()
+        {
+            // Arrange
+            BindingFlags? flags = null;
+
+            // Act / Assert
+            Action act = () =>
+            {
+                using AssertionScope _ = new();
+                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "failure {0}", "message");
+            };
+
+            act.Should()
+                .Throw<XunitException>()
+                .WithMessage("Expected*Public*ExactBinding*because failure message*found*<null>*");
         }
 
         [Fact]

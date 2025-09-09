@@ -437,12 +437,18 @@ public class EnumAssertions<TEnum, TAssertions>
             "Cannot assert that an enum is one of an empty list of enums");
 
         CurrentAssertionChain
-            .ForCondition(Subject is not null)
-            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found <null>", validValues)
-            .Then
-            .ForCondition(validValues.Contains(Subject.Value))
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found {1}.", validValues, Subject);
+            .ForCondition(Subject is not null)
+            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found <null>", validValues);
+
+        if (CurrentAssertionChain.Succeeded)
+        {
+            CurrentAssertionChain
+#pragma warning disable S3655 // Empty nullable value should not be accessed: AssertionChain.Succeeded makes sure, that this doesn't happen
+                .ForCondition(validValues.Contains(Subject!.Value))
+#pragma warning restore S3655
+                .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found {1}.", validValues, Subject);
+        }
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }

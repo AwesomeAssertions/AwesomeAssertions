@@ -40,7 +40,7 @@ public class EnumerableEquivalencyStep : IEquivalencyStep
         if (assertionChain.Succeeded)
         {
             assertionChain
-                .ForCondition(IsCollection(subject.GetType()))
+                .ForCondition(IsCollection(subject!.GetType()))
                 .FailWith("Expected a collection, but {context:Subject} is of a non-collection type.");
         }
 
