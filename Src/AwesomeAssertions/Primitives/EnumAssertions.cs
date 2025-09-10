@@ -436,13 +436,20 @@ public class EnumAssertions<TEnum, TAssertions>
         Guard.ThrowIfArgumentIsEmpty(validValues, nameof(validValues),
             "Cannot assert that an enum is one of an empty list of enums");
 
-        CurrentAssertionChain
-            .ForCondition(Subject is not null)
-            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found <null>", validValues)
-            .Then
-            .ForCondition(validValues.Contains(Subject.Value))
+        var subject = Subject;
+        var assertion = CurrentAssertionChain;
+
+        assertion
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found {1}.", validValues, Subject);
+            .ForCondition(subject is not null)
+            .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found <null>", validValues);
+
+        if (assertion.Succeeded)
+        {
+            assertion
+                .ForCondition(validValues.Contains(subject!.Value))
+                .FailWith("Expected {context:the enum} to be one of {0}{reason}, but found {1}.", validValues, subject);
+        }
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }

@@ -944,15 +944,15 @@ public static class NumericAssertionsExtensions
         var assertion = parent.CurrentAssertionChain;
 
         assertion
-            .ForCondition(expectedValue is not null)
+            .ForCondition(expectedValue is not null) // c
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:value} to approximate {0} +/- {1}{reason}, but it was {2}.", expectedValue, precision,
                 parent.Subject);
 
-        if (assertion.Succeeded)
-        {
+        if (assertion.Succeeded) // c1
+        { // c2
             // ReSharper disable once PossibleInvalidOperationException
-            parent.BeApproximately(expectedValue.Value, precision, because, becauseArgs);
+            parent.BeApproximately(expectedValue!.Value, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<double>>(parent);
