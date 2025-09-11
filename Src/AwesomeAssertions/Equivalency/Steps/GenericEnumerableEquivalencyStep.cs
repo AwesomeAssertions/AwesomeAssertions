@@ -73,7 +73,7 @@ public class GenericEnumerableEquivalencyStep : IEquivalencyStep
         if (assertionChain.Succeeded)
         {
             assertionChain
-                .ForCondition(IsCollection(subject.GetType()))
+                .ForCondition(IsCollection(subject!.GetType()))
                 .FailWith("Expected {context:subject} to be a collection, but it was a {0}", subject.GetType());
         }
 
