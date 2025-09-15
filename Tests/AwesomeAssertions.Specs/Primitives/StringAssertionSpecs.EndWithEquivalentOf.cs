@@ -113,7 +113,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to end with equivalent of \"ab\" because it should end, but \"ABC\" differs near \"ABC\" (index 0).");
+                "Expected string*it should*index 2*ABC*ab*");
         }
 
         [Fact]
