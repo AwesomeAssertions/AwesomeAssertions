@@ -172,6 +172,60 @@ public sealed class AssertionChain
         return this;
     }
 
+    /// <summary>
+    /// Allows combining one or more failing assertions using the other assertion methods that this library offers.
+    /// </summary>
+    /// <remarks>
+    /// This is only evaluated when all previous assertions in the chain have succeeded.
+    /// </remarks>
+    /// <param name="failingAssertion">The element inspector which must not be satisfied.</param>
+    /// <returns>The current <see cref="AssertionChain"/> instance, allowing for method chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="failingAssertion"/> is <see langword="null"/>.</exception>
+    public AssertionChain NotSatisfy(Action failingAssertion)
+    {
+        Guard.ThrowIfArgumentIsNull(failingAssertion);
+
+        if (PreviousAssertionSucceeded)
+        {
+            using AssertionScope scope = new();
+            failingAssertion();
+
+            succeeded = scope.HasFailures();
+
+            // we don't want to see the failures, because here they indicate that we were successful.
+            _ = scope.Discard();
+        }
+
+        return this;
+    }
+
+    /// <summary>
+    /// Allows combining one or more assertions using the other assertion methods that this library offers.
+    /// </summary>
+    /// <remarks>
+    /// This is only evaluated when all previous assertions in the chain have succeeded.
+    /// </remarks>
+    /// <param name="assertion">The element inspector which must be satisfied.</param>
+    /// <returns>The current <see cref="AssertionChain"/> instance, allowing for method chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="assertion"/> is <see langword="null"/>.</exception>
+    public AssertionChain Satisfy(Action assertion)
+    {
+        Guard.ThrowIfArgumentIsNull(assertion);
+
+        if (PreviousAssertionSucceeded)
+        {
+            using AssertionScope scope = new();
+            assertion();
+
+            succeeded = !scope.HasFailures();
+
+            // we don't want to see the failures, we'll add our own failure message with FailWith.
+            _ = scope.Discard();
+        }
+
+        return this;
+    }
+
     public Continuation WithExpectation(string message, object arg1, Action<AssertionChain> chain)
     {
         return WithExpectation(message, chain, arg1);

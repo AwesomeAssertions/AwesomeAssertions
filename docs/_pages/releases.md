@@ -11,6 +11,7 @@ sidebar:
 ### What's new
 
 * Added overload for collection's `Contain` to assert the occurrences - [#238](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/238)
+* Allow using assertions in a chained assertion with `[Not]Satisfy` - 
 
 ### Improvements
 * Always use improved string difference visualization independent of the subject's or expectation's string length - [#215](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/215)
