@@ -26,11 +26,6 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             return;
         }
 
-        if (ValidateAgainstSuperfluousWhitespace(assertionChain, subject, expected))
-        {
-            return;
-        }
-
         var indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
 
         var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
@@ -39,25 +34,10 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             Expected = expected,
             SubjectIndexOfMismatch = indexOfMismatch,
             ExpectedIndexOfMismatch = indexOfMismatch,
-            ExpectationDescription = ExpectationDescription,
-            TruncationStrategy = new StandardTruncationStrategy(),
-            AlignRight = false
+            ExpectationDescription = ExpectationDescription
         });
 
-        assertionChain
-            .FailWith(failureMessage);
-    }
-
-    private bool ValidateAgainstSuperfluousWhitespace(AssertionChain assertion, string subject, string expected)
-    {
-        assertion
-            .ForCondition(!(expected.Length > subject.Length && comparer.Equals(expected.TrimEnd(), subject)))
-            .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but it misses some extra whitespace at the end.", expected)
-            .Then
-            .ForCondition(!(subject.Length > expected.Length && comparer.Equals(subject.TrimEnd(), expected)))
-            .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but it has unexpected whitespace at the end.", expected);
-
-        return !assertion.Succeeded;
+        assertionChain.FailWith(failureMessage);
     }
 
     /// <summary>

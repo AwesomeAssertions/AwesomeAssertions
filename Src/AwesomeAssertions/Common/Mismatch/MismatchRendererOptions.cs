@@ -16,7 +16,7 @@ internal class MismatchRendererOptions
 
     public required string ExpectationDescription { get; init; }
 
-    public required ITruncationStrategy TruncationStrategy { get; init; }
+    public ITruncationStrategy TruncationStrategy { get; init; } = new StandardTruncationStrategy();
 
     public Func<int, string> IndexFormatter { get; init; } = index => $"at index {index}";
 }

@@ -57,6 +57,8 @@ internal static class MismatchRenderer
         FormatSpan(subject, truncationStrategy);
         FormatSpan(expected, truncationStrategy);
 
+        // Sometimes, the subject becomes longer than the expected as a result of the truncation algorithm, or vice versa.
+        // We need to align them relative to the length of the longer one.
         var (shorterSpan, longerSpan) = subject.Length >= expected.Length
             ? (expected, subject)
             : (subject, expected);
@@ -66,6 +68,7 @@ internal static class MismatchRenderer
             shorterSpan.Prepend(new string(' ', longerSpan.Length - shorterSpan.Length));
         }
 
+        // When they are aligned, they should have the number of characters to the left of the mismatch.
         int whiteSpaceCountBeforeArrow = longerSpan.MismatchIndex;
 
         return new StringBuilder()

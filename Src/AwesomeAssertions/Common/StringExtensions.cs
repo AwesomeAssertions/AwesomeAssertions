@@ -159,20 +159,6 @@ internal static class StringExtensions
         return string.IsNullOrEmpty(value);
     }
 
-    /// <summary>
-    /// Reverses the string <paramref name="value"/>.
-    /// </summary>
-    public static string Reversed(this string value)
-    {
-        var stringBuilder = new StringBuilder(value.Length);
-        for (int i = value.Length - 1; i >= 0; i--)
-        {
-            stringBuilder.Append(value[i]);
-        }
-
-        return stringBuilder.ToString();
-    }
-
     public static string NormalizeLineEndings(this string value)
     {
         return value.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);

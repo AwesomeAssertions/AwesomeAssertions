@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
 using AwesomeAssertions.Common.Mismatch;
@@ -20,16 +21,12 @@ internal class StringStartStrategy : IStringComparisonStrategy
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
-        assertionChain
-            .ForCondition(subject.Length >= expected.Length)
-            .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} is too short.", expected, subject);
-
-        if (!assertionChain.Succeeded)
+        if (comparer.Equals(subject, expected))
         {
             return;
         }
 
-        int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
+        int indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
 
         if (indexOfMismatch < 0 || indexOfMismatch >= expected.Length)
         {
@@ -42,11 +39,28 @@ internal class StringStartStrategy : IStringComparisonStrategy
             Expected = expected,
             SubjectIndexOfMismatch = indexOfMismatch,
             ExpectedIndexOfMismatch = indexOfMismatch,
-            ExpectationDescription = ExpectationDescription,
-            TruncationStrategy = new StandardTruncationStrategy(),
-            AlignRight = false
+            ExpectationDescription = ExpectationDescription
         });
 
         assertionChain.FailWith(failureMessage);
+    }
+
+    /// <summary>
+    /// Get index of the first mismatch between <paramref name="subject"/> and <paramref name="expected"/>.
+    /// </summary>
+    /// <param name="subject"></param>
+    /// <param name="expected"></param>
+    /// <returns>Returns the index of the first mismatch, or -1 if the strings are equal.</returns>
+    private int GetIndexOfFirstMismatch(string subject, string expected)
+    {
+        int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
+
+        if (indexOfMismatch != -1)
+        {
+            return indexOfMismatch;
+        }
+
+        // the mismatch is the first character of the longer string.
+        return Math.Min(subject.Length, expected.Length);
     }
 }

@@ -151,9 +151,14 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with equivalent of " +
-                "\"abcdef\", but " +
-                "\"ABC\" is too short.");
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC"
+                  "abcdef"
+                      ↑ (expected).
+                """
+                );
         }
 
         [Fact]

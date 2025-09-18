@@ -142,9 +142,14 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to end with equivalent of " +
-                "\"00abc\", but " +
-                "\"ABC\" is too short.");
+                """
+                *index 1*
+                    ↓ (actual)
+                    "ABC"
+                  "00abc"
+                    ↑ (expected).
+                """
+               );
         }
 
         [Fact]

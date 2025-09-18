@@ -75,10 +75,16 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().EndWith("00ABC");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to end with " +
-                "\"00ABC\", but " +
-                "\"ABC\" is too short.");
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage("""
+                             *index 1*
+                                 ↓ (actual)
+                                 "ABC"
+                               "00ABC"
+                                 ↑ (expected).
+                             """);
         }
 
         [Fact]
@@ -149,6 +155,39 @@ public partial class StringAssertionSpecs
                                "…so it requires ellipsis"
                                    "requires an ellipsis"
                                               ↑ (expected).
+                             """);
+        }
+
+        [Fact]
+        public void When_expected_is_short_strings_are_right_aligned()
+        {
+            // Act
+            Action act = () => "ABCDEFGHI".Should().EndWith("H");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *before*index 8*
+                                                                        ↓ (actual)
+                                                               "ABCDEFGHI"
+                                                                       "H"
+                                                                        ↑ (expected).
+                                                             """);
+        }
+
+        [Fact]
+        public void When_long_string_does_not_end_with_long_string_at_middle_strings_are_right_aligned()
+        {
+            // Act
+            Action act = () => "ABCDEFGHI".Should().EndWith("DEXGHI");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("""
+                             *index 5*
+                                     ↓ (actual)
+                               "ABCDEFGHI"
+                                  "DEXGHI"
+                                     ↑ (expected).
                              """);
         }
 
@@ -320,6 +359,29 @@ public partial class StringAssertionSpecs
                              """
                 );
         }
+
+        [Fact]
+        public void When_subject_shorter_than_expected_arrows_are_aligned()
+        {
+            // Act
+            Action act = () => "H".Should().EndWith("ABCDEFGHI");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *before*index 8*
+                                                                        ↓ (actual)
+                                                                       "H"
+                                                               "ABCDEFGHI"
+                                                                        ↑ (expected).
+                                                             """);
+        }
+
+        [Fact]
+        public void When_both_strings_blank_they_are_equal()
+        {
+            // Assert
+            "".Should().EndWith("");
+        }
     }
 
     public class NotEndWith
@@ -395,39 +457,6 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected someString not to end with \"ABC\"*some reason*, but found <null>.");
-        }
-
-        [Fact]
-        public void When_expected_is_short_strings_are_right_aligned()
-        {
-            // Act
-            Action act = () => "ABCDEFGHI".Should().EndWith("H");
-
-            // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *before*index 8*
-                                                                        ↓ (actual)
-                                                               "ABCDEFGHI"
-                                                                       "H"
-                                                                        ↑ (expected).
-                                                             """);
-        }
-
-        [Fact]
-        public void When_long_string_does_not_end_with_long_string_at_middle_it_should_show_aligned_diff()
-        {
-            // Act
-            Action act = () => "ABCDEFGHI".Should().EndWith("DEXGHI");
-
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("""
-                             *index 5*
-                                     ↓ (actual)
-                               "ABCDEFGHI"
-                                  "DEXGHI"
-                                     ↑ (expected).
-                             """);
         }
     }
 }
