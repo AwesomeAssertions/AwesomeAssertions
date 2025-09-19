@@ -142,7 +142,7 @@ public partial class StringAssertionSpecs
                 value.Should().NotStartWith("AB", "because of some reason");
 
             // Assert
-            action.Should().Throw<XunitException>().WithMessage(
+            action.Should().Throw<XunitException>().Which.Message.Should().Be(
                 "Expected value not to start with \"AB\" because of some reason, but found \"ABC\".");
         }
 
@@ -172,7 +172,7 @@ public partial class StringAssertionSpecs
                 value.Should().NotStartWith("");
 
             // Assert
-            action.Should().Throw<XunitException>().WithMessage(
+            action.Should().Throw<XunitException>().Which.Message.Should().Be(
                 "Expected value not to start with \"\", but found \"ABC\".");
         }
 
