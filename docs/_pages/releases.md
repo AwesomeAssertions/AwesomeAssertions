@@ -8,6 +8,8 @@ sidebar:
 ---
 ## Unreleased
 
+## 9.2.0
+
 ### What's new
 
 * Added overload for collection's `Contain` to assert the occurrences - [#238](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/238)
