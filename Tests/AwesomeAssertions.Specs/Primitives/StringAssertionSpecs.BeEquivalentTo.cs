@@ -186,8 +186,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().BeEquivalentTo("abc ", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent to \"abc \" because I say so, but it misses some extra whitespace at the end.");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *index 3*
+                                                                   ↓ (actual)
+                                                               "ABC"
+                                                               "abc "
+                                                                   ↑ (expected).
+                                                             """);
         }
 
         [Fact]
@@ -198,8 +203,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC ".Should().BeEquivalentTo("abc", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent to \"abc\" because I say so, but it has unexpected whitespace at the end.");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *index 3*
+                                                                   ↓ (actual)
+                                                               "ABC "
+                                                               "abc"
+                                                                   ↑ (expected).
+                                                             """);
         }
     }
 

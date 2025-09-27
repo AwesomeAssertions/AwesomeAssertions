@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using AwesomeAssertions.Formatting;
 
@@ -156,5 +157,10 @@ internal static class StringExtensions
     public static bool IsNullOrEmpty([NotNullWhen(false)] this string value)
     {
         return string.IsNullOrEmpty(value);
+    }
+
+    public static string NormalizeLineEndings(this string value)
+    {
+        return value.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);
     }
 }

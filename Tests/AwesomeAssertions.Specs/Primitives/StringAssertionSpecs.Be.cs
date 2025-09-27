@@ -165,8 +165,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().Be("ABC ", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be \"ABC \" because I say so, but it misses some extra whitespace at the end.");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *index 3*
+                                                                   ↓ (actual)
+                                                               "ABC"
+                                                               "ABC "
+                                                                   ↑ (expected).
+                                                             """);
         }
 
         [Fact]
@@ -177,8 +182,13 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC ".Should().Be("ABC", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be \"ABC\" because I say so, but it has unexpected whitespace at the end.");
+            act.Should().Throw<XunitException>().WithMessage("""
+                                                             *index 3*
+                                                                   ↓ (actual)
+                                                               "ABC "
+                                                               "ABC"
+                                                                   ↑ (expected).
+                                                             """);
         }
 
         [Fact]
@@ -391,6 +401,29 @@ public partial class StringAssertionSpecs
                     *"…class Foo { };"
                     *(expected).
                     """);
+        }
+
+        [Fact]
+        public void Prefix_before_mismatch_is_truncated_earlier_than_suffix()
+        {
+            const string subject = "diff the text with very long suffix after point where mismatch is found";
+            const string expected = "diff the texT with very long suffix after point where mismatch is found";
+
+            // Act
+            Action act = () => subject.Should().Be(expected);
+
+            // Assert
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage("""
+                             *index 12*
+                                        ↓ (actual)
+                               "…the text with very long suffix after point where mismatch is…"
+                               "…the texT with very long suffix after point where mismatch is…"
+                                        ↑ (expected).
+                             """
+                );
         }
     }
 
