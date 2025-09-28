@@ -3,6 +3,11 @@ using System.Text;
 
 namespace AwesomeAssertions.Common.Mismatch;
 
+/// <summary>
+/// Provides functionality for rendering failure messages that describe mismatches between
+/// actual and expected string values, including contextual details such as the location
+/// of the mismatch and formatted descriptions.
+/// </summary>
 internal static class MismatchRenderer
 {
     private const string Indentation = "  ";
@@ -14,6 +19,9 @@ internal static class MismatchRenderer
     private const string ActualMarker = $"{ArrowDown} (actual)";
     private const string ExpectedMarker = $"{ArrowUp} (expected)";
 
+    /// <summary>
+    /// Creates a failure message showing where the mismatch occurred between the two strings.
+    /// </summary>
     public static string CreateFailureMessage(MismatchRendererOptions rendererOptions)
     {
         var mismatchSegment = GetMismatchSegment(rendererOptions).EscapePlaceholders();
@@ -28,6 +36,9 @@ internal static class MismatchRenderer
                  """;
     }
 
+    /// <summary>
+    /// Creates the location description portion of the message.
+    /// </summary>
     private static string CreateLocationDescription(string subject, int indexOfMismatch, string defaultMessage)
     {
         var matchingString = subject[..indexOfMismatch];
@@ -49,8 +60,8 @@ internal static class MismatchRenderer
     /// </summary>
     private static string GetMismatchSegment(MismatchRendererOptions rendererOptions)
     {
-        var subject = MismatchSpan.Create(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch);
-        var expected = MismatchSpan.Create(rendererOptions.Expected, rendererOptions.ExpectedIndexOfMismatch);
+        var subject = new MismatchSpan(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch);
+        var expected = new MismatchSpan(rendererOptions.Expected, rendererOptions.ExpectedIndexOfMismatch);
         var truncationStrategy = rendererOptions.TruncationStrategy;
         var alignRight = rendererOptions.AlignRight;
 

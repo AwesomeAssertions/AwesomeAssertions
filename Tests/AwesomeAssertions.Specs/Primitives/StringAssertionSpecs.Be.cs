@@ -397,10 +397,10 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .Which.Message.Should().Match("""
-                    *"…class Foo { }"
-                    *"…class Foo { };"
-                    *(expected).
-                    """);
+                                              *"…class Foo { }"
+                                              *"…class Foo { };"
+                                              *(expected).
+                                              """);
         }
 
         [Fact]
@@ -416,14 +416,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                             *index 12*
-                                        ↓ (actual)
-                               "…the text with very long suffix after point where mismatch is…"
-                               "…the texT with very long suffix after point where mismatch is…"
-                                        ↑ (expected).
-                             """
-                );
+                .WithMessage(
+                    """
+                    *index 12*
+                               ↓ (actual)
+                      "…the text with very long suffix after point where mismatch is…"
+                      "…the texT with very long suffix after point where mismatch is…"
+                               ↑ (expected).
+                    """);
         }
     }
 

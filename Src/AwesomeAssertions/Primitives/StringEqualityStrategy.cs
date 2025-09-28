@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
 using AwesomeAssertions.Common.Mismatch;
@@ -26,7 +25,7 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             return;
         }
 
-        var indexOfMismatch = GetIndexOfFirstMismatch(subject, expected);
+        var indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
 
         var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
         {
@@ -38,24 +37,5 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
         });
 
         assertionChain.FailWith(failureMessage);
-    }
-
-    /// <summary>
-    /// Get index of the first mismatch between <paramref name="subject"/> and <paramref name="expected"/>.
-    /// </summary>
-    /// <param name="subject"></param>
-    /// <param name="expected"></param>
-    /// <returns>Returns the index of the first mismatch, or -1 if the strings are equal.</returns>
-    private int GetIndexOfFirstMismatch(string subject, string expected)
-    {
-        int indexOfMismatch = subject.IndexOfFirstMismatch(expected, comparer);
-
-        if (indexOfMismatch != -1)
-        {
-            return indexOfMismatch;
-        }
-
-        // the mismatch is the first character of the longer string.
-        return Math.Min(subject.Length, expected.Length);
     }
 }

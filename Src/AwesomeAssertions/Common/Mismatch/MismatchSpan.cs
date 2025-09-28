@@ -3,42 +3,40 @@ using System.Linq;
 
 namespace AwesomeAssertions.Common.Mismatch;
 
+/// <summary>
+/// Represents a span of text with a mismatch identified at a specific index.
+/// </summary>
 internal sealed class MismatchSpan
 {
     /// <summary>
-    /// Whether the start has been truncated compared to the original text.
+    /// Gets a value indicating whether the start has been truncated compared to the original text.
     /// </summary>
     public bool StartTruncated { get; private set; }
 
     /// <summary>
-    /// Whether the end has been truncated compared to the original text.
+    /// Gets a value indicating whether the end has been truncated compared to the original text.
     /// </summary>
     public bool EndTruncated { get; private set; }
 
     /// <summary>
-    /// The mismatch index relative to the start of the span.
+    /// Gets the mismatch index relative to the start of the span.
     /// </summary>
     public int MismatchIndex { get; private set; }
 
     /// <summary>
-    /// The length of the span.
+    /// Gets the length of the span.
     /// </summary>
     public int Length => Text.Length;
 
     /// <summary>
-    /// The visible text.
+    /// Gets the visible text.
     /// </summary>
     public string Text { get; private set; }
 
-    private MismatchSpan(string text, int mismatchIndex)
+    public MismatchSpan(string text, int mismatchIndex)
     {
         Text = text;
         MismatchIndex = mismatchIndex;
-    }
-
-    public static MismatchSpan Create(string text, int mismatchIndex)
-    {
-        return new MismatchSpan(text, mismatchIndex);
     }
 
     /// <summary>
@@ -87,11 +85,6 @@ internal sealed class MismatchSpan
 
     private void Truncate(Range range)
     {
-        if (!Contains(range))
-        {
-            return;
-        }
-
         if (StartsBefore(range))
         {
             StartTruncated = true;
@@ -106,18 +99,19 @@ internal sealed class MismatchSpan
         Text = Text[range];
     }
 
+    /// <summary>
+    /// Returns a value indicating whether the range starts before the span.
+    /// </summary>
     private static bool StartsBefore(Range range)
     {
         return range.Start.Value > 0;
     }
 
+    /// <summary>
+    /// Returns a value indicating whether the range ends after the span.
+    /// </summary>
     private bool EndsAfter(Range range)
     {
         return Length > range.End.Value;
-    }
-
-    private bool Contains(Range range)
-    {
-        return range.Start.Value >= 0 && range.End.Value <= Length;
     }
 }

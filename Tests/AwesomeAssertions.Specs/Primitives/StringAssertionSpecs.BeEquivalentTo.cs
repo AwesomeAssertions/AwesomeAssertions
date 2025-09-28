@@ -186,13 +186,17 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().BeEquivalentTo("abc ", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *index 3*
-                                                                   ↓ (actual)
-                                                               "ABC"
-                                                               "abc "
-                                                                   ↑ (expected).
-                                                             """);
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *index 3*
+                          ↓ (actual)
+                      "ABC"
+                      "abc "
+                          ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -203,13 +207,17 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC ".Should().BeEquivalentTo("abc", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *index 3*
-                                                                   ↓ (actual)
-                                                               "ABC "
-                                                               "abc"
-                                                                   ↑ (expected).
-                                                             """);
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *index 3*
+                          ↓ (actual)
+                      "ABC "
+                      "abc"
+                          ↑ (expected).
+                    """);
         }
     }
 

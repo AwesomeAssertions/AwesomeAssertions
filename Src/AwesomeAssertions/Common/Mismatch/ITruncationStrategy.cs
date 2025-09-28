@@ -17,5 +17,5 @@ internal interface ITruncationStrategy
     /// <returns>
     /// The range of text to retain.
     /// </returns>
-    public Range GetTruncationRange(string text, int targetIndex);
+    Range GetTruncationRange(string text, int targetIndex);
 }

@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using AwesomeAssertions.Formatting;
 
 namespace AwesomeAssertions.Common;
 
@@ -24,18 +22,8 @@ internal static class StringExtensions
             }
         }
 
-        return -1;
-    }
-
-    /// <summary>
-    /// Gets the quoted three characters at the specified index of a string, including the index itself.
-    /// </summary>
-    public static string IndexedSegmentAt(this string value, int index)
-    {
-        int length = Math.Min(value.Length - index, 3);
-        string formattedString = Formatter.ToString(value.Substring(index, length));
-
-        return $"{formattedString} (index {index})".EscapePlaceholders();
+        // the mismatch is the first character of the longer string.
+        return Math.Min(value.Length, expected.Length);
     }
 
     /// <summary>
@@ -159,6 +147,9 @@ internal static class StringExtensions
         return string.IsNullOrEmpty(value);
     }
 
+    /// <summary>
+    /// Normalizes the line endings in the given string by replacing all occurrences of "\r\n" with "\n".
+    /// </summary>
     public static string NormalizeLineEndings(this string value)
     {
         return value.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);

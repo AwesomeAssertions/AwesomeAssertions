@@ -148,8 +148,7 @@ public partial class StringAssertionSpecs
                     "ABC"
                   "00abc"
                     ↑ (expected).
-                """
-               );
+                """);
         }
 
         [Fact]

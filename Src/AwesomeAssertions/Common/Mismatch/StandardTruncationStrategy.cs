@@ -2,8 +2,17 @@
 
 namespace AwesomeAssertions.Common.Mismatch;
 
+/// <summary>
+/// Implements a standard strategy for truncating text while retaining a specific range of interest around a target index.
+/// </summary>
+/// <remarks>
+/// The strategy determines the portion of text to display by dynamically calculating the start index
+/// and the length of the segment to show around a specified target index. It ensures the truncation
+/// prioritizes retaining relevant surrounding text by identifying word boundaries.
+/// </remarks>
 internal class StandardTruncationStrategy : ITruncationStrategy
 {
+    /// <inheritdoc />
     public Range GetTruncationRange(string text, int targetIndex)
     {
         var start = GetStartIndexOfPhraseToShowBeforeTheTargetIndex(text, targetIndex);

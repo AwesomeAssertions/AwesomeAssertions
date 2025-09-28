@@ -78,13 +78,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                             *index 1*
-                                 ↓ (actual)
-                                 "ABC"
-                               "00ABC"
-                                 ↑ (expected).
-                             """);
+                .WithMessage(
+                    """
+                    *index 1*
+                        ↓ (actual)
+                        "ABC"
+                      "00ABC"
+                        ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -127,8 +128,11 @@ public partial class StringAssertionSpecs
             Action act = () => "A".Should().EndWith("B");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("""
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
                     *index 0*
                        ↓ (actual)
                       "A"
@@ -148,14 +152,17 @@ public partial class StringAssertionSpecs
             Action act = () => subject.Should().EndWith(expected);
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("""
-                             *index 66*
-                                              ↓ (actual)
-                               "…so it requires ellipsis"
-                                   "requires an ellipsis"
-                                              ↑ (expected).
-                             """);
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *index 66*
+                                     ↓ (actual)
+                      "…so it requires ellipsis"
+                          "requires an ellipsis"
+                                     ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -165,13 +172,17 @@ public partial class StringAssertionSpecs
             Action act = () => "ABCDEFGHI".Should().EndWith("H");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *before*index 8*
-                                                                        ↓ (actual)
-                                                               "ABCDEFGHI"
-                                                                       "H"
-                                                                        ↑ (expected).
-                                                             """);
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *before*index 8*
+                               ↓ (actual)
+                      "ABCDEFGHI"
+                              "H"
+                               ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -181,14 +192,17 @@ public partial class StringAssertionSpecs
             Action act = () => "ABCDEFGHI".Should().EndWith("DEXGHI");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("""
-                             *index 5*
-                                     ↓ (actual)
-                               "ABCDEFGHI"
-                                  "DEXGHI"
-                                     ↑ (expected).
-                             """);
+            act
+                .Should()
+                .Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *index 5*
+                            ↓ (actual)
+                      "ABCDEFGHI"
+                         "DEXGHI"
+                            ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -209,8 +223,7 @@ public partial class StringAssertionSpecs
                     "…text pat thaT differs in between two words"
                   "…sad rhino whicH differs in between two words"
                                   ↑ (expected).
-                """
-                );
+                """);
         }
 
         [Fact]
@@ -228,14 +241,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                             *index 55*
-                                              ↓ (actual)
-                               "…text that12345 differs."
-                                "…text that1264 differs."
-                                              ↑ (expected).
-                             """
-                );
+                .WithMessage(
+                    """
+                    *index 55*
+                                     ↓ (actual)
+                      "…text that12345 differs."
+                       "…text that1264 differs."
+                                     ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -253,14 +266,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                             *index 55*
-                                              ↓ (actual)
-                               "…text that12345 differs in between two words. it is very…"
-                                "…text that1264 differs in between two words. it is very…"
-                                              ↑ (expected).
-                             """
-                );
+                .WithMessage(
+                    """
+                    *index 55*
+                                     ↓ (actual)
+                      "…text that12345 differs in between two words. it is very…"
+                       "…text that1264 differs in between two words. it is very…"
+                                     ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -286,13 +299,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                             *line 2*column 9*index 55*
-                                               ↓ (actual)
-                               "…text\nthat12345\ndiffers."
-                                "…text\nthat1264\ndiffers."
-                                               ↑ (expected).
-                             """);
+                .WithMessage(
+                    """
+                    *line 2*column 9*index 55*
+                                      ↓ (actual)
+                      "…text\nthat12345\ndiffers."
+                       "…text\nthat1264\ndiffers."
+                                      ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -318,13 +332,14 @@ public partial class StringAssertionSpecs
             act
                 .Should()
                 .Throw<XunitException>()
-                .WithMessage("""
-                     *line 2*column 9*index 33*
-                                       ↓ (actual)
-                       "…text\nthat12345\ndiffers in between two words. it is very…"
-                        "…text\nthat1264\ndiffers in between two words. it is very…"
-                                       ↑ (expected).
-                     """);
+                .WithMessage(
+                    """
+                    *line 2*column 9*index 33*
+                                      ↓ (actual)
+                      "…text\nthat12345\ndiffers in between two words. it is very…"
+                       "…text\nthat1264\ndiffers in between two words. it is very…"
+                                      ↑ (expected).
+                    """);
         }
 
         [Fact]
@@ -347,17 +362,14 @@ public partial class StringAssertionSpecs
             Action act = () => subject.Should().EndWith(expected);
 
             // Assert
-            act
-                .Should()
-                .Throw<XunitException>()
-                .WithMessage("""
-                             *line 2*column 9*index 55*
-                                               ↓ (actual)
-                               "…text\nthat12345\ndiffers in between two words. it is very…"
-                                "…text\nthat1264\ndiffers in between two words. it is very…"
-                                               ↑ (expected).
-                             """
-                );
+            act.Should().Throw<XunitException>().WithMessage(
+                """
+                *line 2*column 9*index 55*
+                                  ↓ (actual)
+                  "…text\nthat12345\ndiffers in between two words. it is very…"
+                   "…text\nthat1264\ndiffers in between two words. it is very…"
+                                  ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -367,13 +379,14 @@ public partial class StringAssertionSpecs
             Action act = () => "H".Should().EndWith("ABCDEFGHI");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *before*index 8*
-                                                                        ↓ (actual)
-                                                                       "H"
-                                                               "ABCDEFGHI"
-                                                                        ↑ (expected).
-                                                             """);
+            act.Should().Throw<XunitException>().WithMessage(
+                    """
+                    *before*index 8*
+                               ↓ (actual)
+                              "H"
+                      "ABCDEFGHI"
+                               ↑ (expected).
+                    """);
         }
 
         [Fact]

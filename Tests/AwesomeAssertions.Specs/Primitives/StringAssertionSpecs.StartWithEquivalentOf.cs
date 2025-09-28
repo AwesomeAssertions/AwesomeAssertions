@@ -157,8 +157,7 @@ public partial class StringAssertionSpecs
                   "ABC"
                   "abcdef"
                       ↑ (expected).
-                """
-                );
+                """);
         }
 
         [Fact]
