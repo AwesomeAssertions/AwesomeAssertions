@@ -165,13 +165,15 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().Be("ABC ", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *index 3*
-                                                                   ↓ (actual)
-                                                               "ABC"
-                                                               "ABC "
-                                                                   ↑ (expected).
-                                                             """);
+            act.Should().Throw<XunitException>().WithMessage(
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC"
+                  "ABC "
+                      ↑ (expected).
+                """
+            );
         }
 
         [Fact]
@@ -182,13 +184,15 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC ".Should().Be("ABC", "because I say {0}", "so");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                                                             *index 3*
-                                                                   ↓ (actual)
-                                                               "ABC "
-                                                               "ABC"
-                                                                   ↑ (expected).
-                                                             """);
+            act.Should().Throw<XunitException>().WithMessage(
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC "
+                  "ABC"
+                      ↑ (expected).
+                """
+            );
         }
 
         [Fact]
@@ -397,10 +401,10 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .Which.Message.Should().Match("""
-                                              *"…class Foo { }"
-                                              *"…class Foo { };"
-                                              *(expected).
-                                              """);
+                     *"…class Foo { }"
+                     *"…class Foo { };"
+                     *(expected).
+                     """);
         }
 
         [Fact]

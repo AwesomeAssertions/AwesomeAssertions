@@ -380,13 +380,14 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                    """
-                    *before*index 8*
-                               ↓ (actual)
-                              "H"
-                      "ABCDEFGHI"
-                               ↑ (expected).
-                    """);
+                """
+                *before*index 8*
+                           ↓ (actual)
+                          "H"
+                  "ABCDEFGHI"
+                           ↑ (expected).
+                """
+            );
         }
 
         [Fact]
