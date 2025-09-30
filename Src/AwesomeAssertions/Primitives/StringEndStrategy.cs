@@ -20,60 +20,70 @@ internal class StringEndStrategy : IStringComparisonStrategy
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
-        if (expected.Length is 0 || comparer.Equals(subject, expected))
+        var (mismatchInSubject, mismatchInExpectation) = IndexOfLastMismatch(subject, expected, comparer);
+        if (mismatchInExpectation < 0)
         {
             return;
         }
 
-        var indexes = IndexOfLastMismatch(subject, expected, comparer);
-
-        bool hasMismatch = expected.Length > subject.Length || indexes.index2 >= 0;
-
-        if (!hasMismatch)
-        {
-            return;
-        }
+        var (target, targetIndex) = subject.Length >= expected.Length
+            ? ("actual", mismatchInSubject)
+            : ("expected", mismatchInExpectation);
 
         var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
         {
             Subject = subject,
             Expected = expected,
-            SubjectIndexOfMismatch = Math.Max(indexes.index1, 0),
-            ExpectedIndexOfMismatch = Math.Max(indexes.index2, 0),
+            SubjectIndexOfMismatch = mismatchInSubject,
+            ExpectedIndexOfMismatch = mismatchInExpectation,
             ExpectationDescription = ExpectationDescription,
-            IndexFormatter = _ => $"before index {Math.Max(indexes.index1, indexes.index2)}",
-            AlignRight = true
+            MismatchLocationDescription = $"before index {targetIndex} of {target}",
+            Alignment = Alignment.Right,
         });
 
         assertionChain.FailWith(failureMessage);
     }
 
     /// <summary>
-    /// Finds the last index at which the <paramref name="string1"/> does not match the <paramref name="string2"/>
+    /// Finds the last index at which the <paramref name="subject"/> does not match the <paramref name="expected"/>
     /// string anymore, accounting for the specified <paramref name="comparer"/>.
     /// </summary>
     /// <returns>
     /// The mismatch indexes for the subject and the expected, or (-1 -1) if no mismatch is found.
     /// </returns>
-    private static (int index1, int index2) IndexOfLastMismatch(
-        string string1,
-        string string2,
+    private static (int mismatchInSubject, int mismatchInExpected) IndexOfLastMismatch(
+        string subject,
+        string expected,
         IEqualityComparer<string> comparer)
     {
-        var index1 = string1.Length - 1;
-        var index2 = string2.Length - 1;
-
-        while (index1 >= 0 && index2 >= 0)
+        // We can't have a mismatch if the expectation is empty.
+        if (expected.Length is 0 || comparer.Equals(subject, expected))
         {
-            if (!comparer.Equals(string1[index1..(index1 + 1)], string2[index2..(index2 + 1)]))
-            {
-                return (index1, index2);
-            }
-
-            index1--;
-            index2--;
+            return (-1, -1);
         }
 
-        return (index1, index2);
+        var subjectIndex = subject.Length - 1;
+        var expectedIndex = expected.Length - 1;
+
+        while (subjectIndex >= 0 && expectedIndex >= 0)
+        {
+            if (!comparer.Equals(subject[subjectIndex..(subjectIndex + 1)], expected[expectedIndex..(expectedIndex + 1)]))
+            {
+                return (subjectIndex, expectedIndex);
+            }
+
+            subjectIndex--;
+            expectedIndex--;
+        }
+
+        // If we reach here, one string is longer than the other and one of the indexes is -1.
+        // At this point, a mismatch would only occur if the expectation was the longer string (the subject index would be -1).
+        if (expectedIndex is -1)
+        {
+            return (-1, -1);
+        }
+
+        // We need to clamp the subject index to 0 to make it a valid index (i.e., ABC, 00ABC).
+        return (0, expectedIndex);
     }
 }

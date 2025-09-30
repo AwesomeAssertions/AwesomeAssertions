@@ -33,7 +33,8 @@ internal class StringEqualityStrategy : IStringComparisonStrategy
             Expected = expected,
             SubjectIndexOfMismatch = indexOfMismatch,
             ExpectedIndexOfMismatch = indexOfMismatch,
-            ExpectationDescription = ExpectationDescription
+            ExpectationDescription = ExpectationDescription,
+            MismatchLocationDescription = $"at index {indexOfMismatch}",
         });
 
         assertionChain.FailWith(failureMessage);

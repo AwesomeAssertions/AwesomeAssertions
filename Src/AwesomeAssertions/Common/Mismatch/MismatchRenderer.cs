@@ -26,9 +26,8 @@ internal static class MismatchRenderer
     {
         var mismatchSegment = GetMismatchSegment(rendererOptions).EscapePlaceholders();
 
-        var defaultIndexMessage = rendererOptions.IndexFormatter(rendererOptions.SubjectIndexOfMismatch);
         var locationDescription =
-            CreateLocationDescription(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch, defaultIndexMessage);
+            CreateLocationDescription(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch, rendererOptions.MismatchLocationDescription);
 
         return $$"""
                  {{rendererOptions.ExpectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
@@ -62,11 +61,10 @@ internal static class MismatchRenderer
     {
         var subject = new MismatchSpan(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch);
         var expected = new MismatchSpan(rendererOptions.Expected, rendererOptions.ExpectedIndexOfMismatch);
-        var truncationStrategy = rendererOptions.TruncationStrategy;
-        var alignRight = rendererOptions.AlignRight;
+        var alignment = rendererOptions.Alignment;
 
-        FormatSpan(subject, truncationStrategy);
-        FormatSpan(expected, truncationStrategy);
+        FormatSpan(subject);
+        FormatSpan(expected);
 
         // Sometimes, the subject becomes longer than the expected as a result of the truncation algorithm, or vice versa.
         // We need to align them relative to the length of the longer one.
@@ -74,12 +72,12 @@ internal static class MismatchRenderer
             ? (expected, subject)
             : (subject, expected);
 
-        if (alignRight)
+        if (alignment is Alignment.Right)
         {
             shorterSpan.Prepend(new string(' ', longerSpan.Length - shorterSpan.Length));
         }
 
-        // When they are aligned, they should have the number of characters to the left of the mismatch.
+        // When they are aligned, they should have the same number of characters to the left of the mismatch.
         int whiteSpaceCountBeforeArrow = longerSpan.MismatchIndex;
 
         return new StringBuilder()
@@ -95,9 +93,9 @@ internal static class MismatchRenderer
     /// <summary>
     /// Formats the text span for display in the failure message.
     /// </summary>
-    private static void FormatSpan(MismatchSpan span, ITruncationStrategy truncationStrategy)
+    private static void FormatSpan(MismatchSpan span)
     {
-        span.Truncate(truncationStrategy);
+        span.Truncate();
         span.EscapeNewLines();
         AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(span);
     }

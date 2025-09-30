@@ -47,7 +47,14 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string*it should*index 2*ABC*AB*");
+                """
+                Expected string to end with the same string because it should, but they differ before index 2 of actual:
+                     ↓ (actual)
+                  "ABC"
+                   "AB"
+                     ↑ (expected).
+                """
+            );
         }
 
         [Fact]
@@ -284,13 +291,13 @@ public partial class StringAssertionSpecs
                           this is a very long text. it is very long text
                           that12345
                           differs.
-                          """.NormalizeLineEndings();
+                          """.RemoveNewlineStyle();
 
             var expected = """
                            this is a very long text. it is very long text
                            that1264
                            differs.
-                           """.NormalizeLineEndings();
+                           """.RemoveNewlineStyle();
 
             // Act
             Action act = () => subject.Should().EndWith(expected);
@@ -317,13 +324,13 @@ public partial class StringAssertionSpecs
                           this is a very long text
                           that12345
                           differs in between two words. it is very lengthy.
-                          """.NormalizeLineEndings();
+                          """.RemoveNewlineStyle();
 
             var expected = """
                            this is a very long text
                            that1264
                            differs in between two words. it is very lengthy.
-                           """.NormalizeLineEndings();
+                           """.RemoveNewlineStyle();
 
             // Act
             Action act = () => subject.Should().EndWith(expected);
@@ -350,13 +357,13 @@ public partial class StringAssertionSpecs
                           this is a very long text. it is very long text
                           that12345
                           differs in between two words. it is very lengthy.
-                          """.NormalizeLineEndings();
+                          """.RemoveNewlineStyle();
 
             var expected = """
                            this is a very long text. it is very long text
                            that1264
                            differs in between two words. it is very lengthy.
-                           """.NormalizeLineEndings();
+                           """.RemoveNewlineStyle();
 
             // Act
             Action act = () => subject.Should().EndWith(expected);

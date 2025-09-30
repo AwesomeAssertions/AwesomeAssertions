@@ -146,12 +146,4 @@ internal static class StringExtensions
     {
         return string.IsNullOrEmpty(value);
     }
-
-    /// <summary>
-    /// Normalizes the line endings in the given string by replacing all occurrences of "\r\n" with "\n".
-    /// </summary>
-    public static string NormalizeLineEndings(this string value)
-    {
-        return value.Replace("\r\n", "\n", StringComparison.OrdinalIgnoreCase);
-    }
 }

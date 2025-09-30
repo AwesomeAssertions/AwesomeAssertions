@@ -141,14 +141,15 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().EndWithEquivalentOf("00abc");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
                 """
-                *index 1*
+                Expected string to end with equivalent of the same string, but they differ before index 1 of expected:
                     ↓ (actual)
                     "ABC"
                   "00abc"
                     ↑ (expected).
-                """);
+                """
+            );
         }
 
         [Fact]
