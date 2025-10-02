@@ -48,7 +48,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                Expected string to end with the same string because it should, but they differ before index 2 of actual:
+                Expected string to end with the same string because it should, but they differ before index 2:
                      ↓ (actual)
                   "ABC"
                    "AB"
@@ -87,7 +87,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 1*
+                    *before index 0*
                         ↓ (actual)
                         "ABC"
                       "00ABC"
@@ -140,7 +140,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 0*
+                    *before index 0*
                        ↓ (actual)
                       "A"
                       "B"
@@ -164,7 +164,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 66*
+                    *before index 66*
                                      ↓ (actual)
                       "…so it requires ellipsis"
                           "requires an ellipsis"
@@ -184,7 +184,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *before*index 8*
+                    *before index 8*
                                ↓ (actual)
                       "ABCDEFGHI"
                               "H"
@@ -204,7 +204,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 5*
+                    *before index 5*
                             ↓ (actual)
                       "ABCDEFGHI"
                          "DEXGHI"
@@ -225,7 +225,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                *before*index 66*
+                *before index 66*
                                   ↓ (actual)
                     "…text pat thaT differs in between two words"
                   "…sad rhino whicH differs in between two words"
@@ -250,7 +250,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 55*
+                    *before index 55*
                                      ↓ (actual)
                       "…text that12345 differs."
                        "…text that1264 differs."
@@ -275,7 +275,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 55*
+                    *before index 55*
                                      ↓ (actual)
                       "…text that12345 differs in between two words. it is very…"
                        "…text that1264 differs in between two words. it is very…"
@@ -388,7 +388,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                *before*index 8*
+                *before index 0*
                            ↓ (actual)
                           "H"
                   "ABCDEFGHI"

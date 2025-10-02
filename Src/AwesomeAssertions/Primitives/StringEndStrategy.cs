@@ -21,16 +21,12 @@ internal class StringEndStrategy : IStringComparisonStrategy
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
         var (mismatchInSubject, mismatchInExpectation) = IndexOfLastMismatch(subject, expected, comparer);
+
+        // IndexOfLastMismatch returns (-1, -1) when no mismatch is found, so checking either index is enough.
         if (mismatchInExpectation < 0)
         {
             return;
         }
-
-        var mismatchLocationDescription = subject.Length >= expected.Length
-            ? $"before index {mismatchInSubject} of actual"
-            : $"before index {mismatchInExpectation} of expected";
-            ? ("actual", mismatchInSubject)
-            : ("expected", mismatchInExpectation);
 
         var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
         {
@@ -39,7 +35,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
             SubjectIndexOfMismatch = mismatchInSubject,
             ExpectedIndexOfMismatch = mismatchInExpectation,
             ExpectationDescription = ExpectationDescription,
-            MismatchLocationDescription = $"before index {targetIndex} of {target}",
+            MismatchLocationDescription = $"before index {mismatchInSubject}", // We always base the index on the subject.
             Alignment = Alignment.Right,
         });
 
