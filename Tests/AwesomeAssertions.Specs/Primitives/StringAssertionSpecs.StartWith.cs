@@ -41,8 +41,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with \"ABB\" because it should start," +
-                " but \"ABC\" differs near \"C\" (index 2).");
+                """
+                Expected string to start with the same string because it should start, but they differ at index 2:
+                     ↓ (actual)
+                  "ABC"
+                  "ABB"
+                     ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -55,9 +60,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with " +
-                "*\"ABCDDFGHI\" because it should start, but " +
-                "*\"ABCDEFGHI\" differs near \"EFG\" (index 4).");
+                """
+                Expected string to start with the same string because it should start, but they differ at index 4:
+                       ↓ (actual)
+                  "ABCDEFGHI"
+                  "ABCDDFGHI"
+                       ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -87,7 +96,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with \"ABCDEF\", but \"ABC\" is too short.");
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC"
+                  "ABCDEF"
+                      ↑ (expected).
+                """);
         }
 
         [Fact]
