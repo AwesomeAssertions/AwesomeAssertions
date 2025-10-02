@@ -26,7 +26,9 @@ internal class StringEndStrategy : IStringComparisonStrategy
             return;
         }
 
-        var (target, targetIndex) = subject.Length >= expected.Length
+        var mismatchLocationDescription = subject.Length >= expected.Length
+            ? $"before index {mismatchInSubject} of actual"
+            : $"before index {mismatchInExpectation} of expected";
             ? ("actual", mismatchInSubject)
             : ("expected", mismatchInExpectation);
 
