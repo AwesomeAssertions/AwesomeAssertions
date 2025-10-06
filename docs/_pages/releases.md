@@ -12,7 +12,8 @@ sidebar:
 
 ### What's new
 * Added support for MSTest v4 - [#312](https://github.com/awesomeassertions/awesomeassertions/issues/312)
-* Add `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
+* Added `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
+* Added `EqualApproximately` for collections of `INumber<T>`
 
 ### Improvements
 * Hide irrelevant exception throwing details in stacktrace - [#327](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/327)
