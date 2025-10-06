@@ -113,7 +113,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string*it should*index 2*ABC*ab*");
+                "Expected string*it should*index 3*ABC*ab*");
         }
 
         [Fact]
@@ -143,7 +143,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().Which.Message.Should().Be(
                 """
-                Expected string to end with equivalent of the same string, but they differ before index 0:
+                Expected string to end with equivalent of the same string, but they differ before index 1:
                     ↓ (actual)
                     "ABC"
                   "00abc"

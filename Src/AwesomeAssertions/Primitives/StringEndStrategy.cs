@@ -35,7 +35,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
             SubjectIndexOfMismatch = mismatchInSubject,
             ExpectedIndexOfMismatch = mismatchInExpectation,
             ExpectationDescription = ExpectationDescription,
-            MismatchLocationDescription = $"before index {mismatchInSubject}", // We always base the index on the subject.
+            MismatchLocationDescription = $"before index {mismatchInSubject + 1}", // We always base the index on the subject. Since we are indicating that the mismatch occurs before this index, we need to offset it by 1.
             Alignment = Alignment.Right,
         });
 

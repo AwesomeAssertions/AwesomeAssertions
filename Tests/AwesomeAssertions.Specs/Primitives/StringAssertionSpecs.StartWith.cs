@@ -132,6 +132,44 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected someString to start with \"ABC\", but found <null>.");
         }
+
+        [Fact]
+        public void When_mismatch_outside_subject_bounds_arrows_are_still_aligned()
+        {
+            // Act
+            Action act = () => "A".Should().StartWith("ABCDEFGH");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *at index 1*
+                        ↓ (actual)
+                      "A"
+                      "ABCDEFGH"
+                        ↑ (expected).
+                    """
+                );
+        }
+
+        [Fact]
+        public void When_mismatch_within_subject_bounds_arrows_are_aligned()
+        {
+            // Act
+            Action act = () => "AFoo".Should().StartWith("ABCDEFGH");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *at index 1*
+                        ↓ (actual)
+                      "AFoo"
+                      "ABCDEFGH"
+                        ↑ (expected).
+                    """
+                );
+        }
     }
 
     public class NotStartWith
