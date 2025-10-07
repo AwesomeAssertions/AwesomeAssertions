@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using AwesomeAssertions.Common;
 using Xunit;
 using Xunit.Sdk;
 
@@ -101,8 +102,7 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().StartWithEquivalentOf("bc", "because it should start");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with equivalent of \"bc\" because it should start, but \"ABC\" differs near \"ABC\" (index 0).");
+            act.Should().Throw<XunitException>().WithMessage("Expected string to start with*ABC*bc*");
         }
 
         [Fact]
@@ -115,9 +115,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with equivalent of " +
-                "*\"abcddfghi\" because it should start, but " +
-                "*\"ABCDEFGHI\" differs near \"EFG\" (index 4).");
+                """
+                Expected string to start with equivalent of the same string because it should start, but they differ at index 4:
+                       ↓ (actual)
+                  "ABCDEFGHI"
+                  "abcddfghi"
+                       ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -147,9 +151,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with equivalent of " +
-                "\"abcdef\", but " +
-                "\"ABC\" is too short.");
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC"
+                  "abcdef"
+                      ↑ (expected).
+                """);
         }
 
         [Fact]
