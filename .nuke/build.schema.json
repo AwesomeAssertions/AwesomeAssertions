@@ -33,6 +33,9 @@
         "Pack",
         "Push",
         "Restore",
+        "Sonar",
+        "SonarBegin",
+        "SonarEnd",
         "SpellCheck",
         "TestFrameworks",
         "TestingPlatformFrameworks",
@@ -136,6 +139,11 @@
         "Solution": {
           "type": "string",
           "description": "Path to a solution file that is automatically loaded"
+        },
+        "SonarQubeApiKey": {
+          "type": "string",
+          "description": "The key to publish SonarQube analysis",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         }
       }
     },
