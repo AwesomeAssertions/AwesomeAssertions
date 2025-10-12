@@ -87,7 +87,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *before index 1*
+                    *before index 0*
                         ↓ (actual)
                         "ABC"
                       "00ABC"
@@ -389,7 +389,7 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     """
-                    *before index 1*
+                    *before index 0*
                              ↓ (actual)
                              "H"
                       "ABCDEFGH"

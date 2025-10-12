@@ -143,7 +143,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().Which.Message.Should().Be(
                 """
-                Expected string to end with equivalent of the same string, but they differ before index 1:
+                Expected string to end with equivalent of the same string, but they differ before index 0:
                     ↓ (actual)
                     "ABC"
                   "00abc"

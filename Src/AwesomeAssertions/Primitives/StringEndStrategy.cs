@@ -22,7 +22,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
     {
         var (mismatchInSubject, mismatchInExpectation) = IndexOfLastMismatch(subject, expected, comparer);
 
-        // IndexOfLastMismatch returns (-1, -1) when no mismatch is found, so checking either index is enough.
+        // IndexOfLastMismatch returns -1 for expected index when no mismatch is found.
         if (mismatchInExpectation < 0)
         {
             return;
@@ -32,7 +32,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
         {
             Subject = subject,
             Expected = expected,
-            SubjectIndexOfMismatch = mismatchInSubject,
+            SubjectIndexOfMismatch = Math.Max(mismatchInSubject, 0), // We need to clamp the subject index to 0 to make it a valid index (i.e., ABC, 00ABC).
             ExpectedIndexOfMismatch = mismatchInExpectation,
             ExpectationDescription = ExpectationDescription,
             MismatchLocationDescription = $"before index {mismatchInSubject + 1}", // We always base the index on the subject. Since we are indicating that the mismatch occurs before this index, we need to offset it by 1.
@@ -47,7 +47,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
     /// string anymore, accounting for the specified <paramref name="comparer"/>.
     /// </summary>
     /// <returns>
-    /// The mismatch indexes for the subject and the expected, or (-1 -1) if no mismatch is found.
+    /// The mismatch indexes for the subject and the expected. No mismatch exists if the expected index is -1.
     /// </returns>
     private static (int mismatchInSubject, int mismatchInExpected) IndexOfLastMismatch(
         string subject,
@@ -63,6 +63,7 @@ internal class StringEndStrategy : IStringComparisonStrategy
         var subjectIndex = subject.Length - 1;
         var expectedIndex = expected.Length - 1;
 
+        // Walk backwards through both strings until we find a mismatch.
         while (subjectIndex >= 0 && expectedIndex >= 0)
         {
             if (!comparer.Equals(subject[subjectIndex..(subjectIndex + 1)], expected[expectedIndex..(expectedIndex + 1)]))
@@ -81,7 +82,8 @@ internal class StringEndStrategy : IStringComparisonStrategy
             return (-1, -1);
         }
 
-        // We need to clamp the subject index to 0 to make it a valid index (i.e., ABC, 00ABC).
-        return (0, expectedIndex);
+        // The subject index should be -1 and expected index should be > -1. We need to return the subject index as is for offsetting to work correctly.
+        // Therefore, the result can contain (-1, >=0).
+        return (subjectIndex, expectedIndex);
     }
 }
