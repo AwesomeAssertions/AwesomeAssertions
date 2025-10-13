@@ -41,8 +41,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with \"ABB\" because it should start," +
-                " but \"ABC\" differs near \"C\" (index 2).");
+                """
+                Expected string to start with the same string because it should start, but they differ at index 2:
+                     ↓ (actual)
+                  "ABC"
+                  "ABB"
+                     ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -55,9 +60,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with " +
-                "*\"ABCDDFGHI\" because it should start, but " +
-                "*\"ABCDEFGHI\" differs near \"EFG\" (index 4).");
+                """
+                Expected string to start with the same string because it should start, but they differ at index 4:
+                       ↓ (actual)
+                  "ABCDEFGHI"
+                  "ABCDDFGHI"
+                       ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -87,7 +96,13 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to start with \"ABCDEF\", but \"ABC\" is too short.");
+                """
+                *index 3*
+                      ↓ (actual)
+                  "ABC"
+                  "ABCDEF"
+                      ↑ (expected).
+                """);
         }
 
         [Fact]
@@ -116,6 +131,44 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected someString to start with \"ABC\", but found <null>.");
+        }
+
+        [Fact]
+        public void When_mismatch_outside_subject_bounds_arrows_are_still_aligned()
+        {
+            // Act
+            Action act = () => "A".Should().StartWith("ABCDEFGH");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *at index 1*
+                        ↓ (actual)
+                      "A"
+                      "ABCDEFGH"
+                        ↑ (expected).
+                    """
+                );
+        }
+
+        [Fact]
+        public void When_mismatch_within_subject_bounds_arrows_are_aligned()
+        {
+            // Act
+            Action act = () => "AFoo".Should().StartWith("ABCDEFGH");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage(
+                    """
+                    *at index 1*
+                        ↓ (actual)
+                      "AFoo"
+                      "ABCDEFGH"
+                        ↑ (expected).
+                    """
+                );
         }
     }
 

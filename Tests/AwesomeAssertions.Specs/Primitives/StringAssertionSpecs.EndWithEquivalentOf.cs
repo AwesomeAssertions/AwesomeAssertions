@@ -113,7 +113,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to end with equivalent of \"ab\" because it should end, but \"ABC\" differs near \"ABC\" (index 0).");
+                "Expected string*it should*index 3*ABC*ab*");
         }
 
         [Fact]
@@ -141,10 +141,15 @@ public partial class StringAssertionSpecs
             Action act = () => "ABC".Should().EndWithEquivalentOf("00abc");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to end with equivalent of " +
-                "\"00abc\", but " +
-                "\"ABC\" is too short.");
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
+                """
+                Expected string to end with equivalent of the same string, but they differ before index 0:
+                    ↓ (actual)
+                    "ABC"
+                  "00abc"
+                    ↑ (expected).
+                """
+            );
         }
 
         [Fact]

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AwesomeAssertions.Common;
+using AwesomeAssertions.Common.Mismatch;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -19,11 +20,7 @@ internal class StringStartStrategy : IStringComparisonStrategy
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
-        assertionChain
-            .ForCondition(subject.Length >= expected.Length)
-            .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} is too short.", expected, subject);
-
-        if (!assertionChain.Succeeded)
+        if (comparer.Equals(subject, expected))
         {
             return;
         }
@@ -35,8 +32,16 @@ internal class StringStartStrategy : IStringComparisonStrategy
             return;
         }
 
-        assertionChain.FailWith(
-            $"{ExpectationDescription}{{0}}{{reason}}, but {{1}} differs near {subject.IndexedSegmentAt(indexOfMismatch)}.",
-            expected, subject);
+        var failureMessage = MismatchRenderer.CreateFailureMessage(new MismatchRendererOptions
+        {
+            Subject = subject,
+            Expected = expected,
+            SubjectIndexOfMismatch = indexOfMismatch,
+            ExpectedIndexOfMismatch = indexOfMismatch,
+            ExpectationDescription = ExpectationDescription,
+            MismatchLocationDescription = $"at index {indexOfMismatch}",
+        });
+
+        assertionChain.FailWith(failureMessage);
     }
 }
