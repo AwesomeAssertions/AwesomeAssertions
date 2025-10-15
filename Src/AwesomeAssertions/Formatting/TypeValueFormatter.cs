@@ -105,12 +105,22 @@ public sealed class TypeValueFormatter : IValueFormatter
     {
         FormatDeclaringTypeNames(type, append);
 
-        append(type.Name[..type.Name.LastIndexOf('`')]);
-        append("<");
+        int backtickIndex = type.Name.LastIndexOf('`');
 
-        FormatGenericArguments(type, append, withNamespace);
+        if (backtickIndex == -1)
+        {
+            append(type.Name);
+        }
+        else
+        {
+            append(type.Name[..backtickIndex]);
 
-        append(">");
+            append("<");
+
+            FormatGenericArguments(type, append, withNamespace);
+
+            append(">");
+        }
     }
 
     /// <summary>

@@ -239,6 +239,7 @@ public sealed class FormatterSpecs : IDisposable
     [InlineData(typeof(NestedClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass")]
     [InlineData(typeof(NestedClass<int>), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass<int>")]
     [InlineData(typeof(NestedClass<float>.InnerClass<string, object>), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass`1+InnerClass<string, object>")]
+    [InlineData(typeof(NestedClass<float>.InnerRegularClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass`1+InnerRegularClass")]
     public void When_the_object_is_a_nested_class_its_declaring_types_should_be_formatted_like_the_clr_shorthand(Type subject, string expected)
     {
         // Act
@@ -321,6 +322,8 @@ public sealed class FormatterSpecs : IDisposable
     private sealed class NestedClass<T>
     {
         public sealed class InnerClass<T1, T2>;
+
+        public sealed class InnerRegularClass;
     }
 
     [Fact]
