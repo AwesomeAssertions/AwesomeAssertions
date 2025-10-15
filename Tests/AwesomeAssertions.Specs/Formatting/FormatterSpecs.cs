@@ -238,9 +238,10 @@ public sealed class FormatterSpecs : IDisposable
     [Theory]
     [InlineData(typeof(NestedClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass")]
     [InlineData(typeof(NestedClass<int>), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass<int>")]
-    [InlineData(typeof(NestedClass<float>.InnerClass<string, object>), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass`1+InnerClass<string, object>")]
-    [InlineData(typeof(NestedClass<float>.InnerRegularClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass`1+InnerRegularClass")]
-    public void When_the_object_is_a_nested_class_its_declaring_types_should_be_formatted_like_the_clr_shorthand(Type subject, string expected)
+    [InlineData(typeof(NestedClass<float>.InnerClass<string, object>), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass<float>+InnerClass<string, object>")]
+    [InlineData(typeof(NestedClass<float>.InnerRegularClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass<float>+InnerRegularClass")]
+    [InlineData(typeof(NestedClass<>.InnerRegularClass), "AwesomeAssertions.Specs.Formatting.FormatterSpecs+NestedClass<T>+InnerRegularClass")]
+    public void When_the_object_is_a_nested_class_its_declaring_types_should_include_generic_type_arguments_when_known(Type subject, string expected)
     {
         // Act
         string result = Formatter.ToString(subject);

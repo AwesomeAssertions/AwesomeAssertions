@@ -103,24 +103,71 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
     private static void FormatGenericType(Type type, Action<string> append, bool withNamespace)
     {
-        FormatDeclaringTypeNames(type, append);
+        var arguments = new Queue<Type>(type.GenericTypeArguments);
 
+        foreach (Type declaringType in GetDeclaringTypes(type))
+        {
+            append(GenericTypeBaseName(declaringType));
+            FormatGenericArgumentsWithMarkers(type, arguments, append, withNamespace, GetNumberOfGenericArguments(declaringType));
+
+            append("+");
+        }
+
+        append(GenericTypeBaseName(type));
+        FormatGenericArgumentsWithMarkers(type, arguments, append, withNamespace, GetNumberOfGenericArguments(type));
+    }
+
+    /// <summary>
+    /// Format a bound or unbound generic type.
+    /// </summary>
+    /// <param name="type">The generic type. Can be bound or unbound generic.</param>
+    /// <param name="arguments">Generic type arguments queue.</param>
+    /// <param name="append">Function for appending the formatted type part.</param>
+    /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
+    /// <param name="arity">Number of generic arguments to format.</param>
+    private static void FormatGenericArgumentsWithMarkers(Type type, Queue<Type> arguments, Action<string> append, bool withNamespace, int arity)
+    {
+        if (arity == 0)
+        {
+            return;
+        }
+
+        append("<");
+
+        var types = type.ContainsGenericParameters ? type.GetGenericArguments() : DequeueMany(arguments, arity);
+
+        FormatGenericArguments(type, append, withNamespace, types);
+
+        append(">");
+    }
+
+    /// <summary>
+    /// Dequeue many items from a queue.
+    /// </summary>
+    /// <typeparam name="T">Type of the elements</typeparam>
+    /// <param name="queue">The queue of type arguments.</param>
+    /// <param name="count">The number of type arguments to dequeue.</param>
+    private static T[] DequeueMany<T>(Queue<T> queue, int count)
+    {
+        T[] typeArguments = new T[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            typeArguments[i] = queue.Dequeue();
+        }
+
+        return typeArguments;
+    }
+
+    /// <summary>
+    /// Retrieve type base name without arity.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    private static string GenericTypeBaseName(Type type)
+    {
         int backtickIndex = type.Name.LastIndexOf('`');
-
-        if (backtickIndex == -1)
-        {
-            append(type.Name);
-        }
-        else
-        {
-            append(type.Name[..backtickIndex]);
-
-            append("<");
-
-            FormatGenericArguments(type, append, withNamespace);
-
-            append(">");
-        }
+        return backtickIndex == -1 ? type.Name : type.Name[..backtickIndex];
     }
 
     /// <summary>
@@ -129,14 +176,13 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// <param name="type">The generic base type, of which the generic arguments are formatted.</param>
     /// <param name="append">Function for appending the formatted type part.</param>
     /// <param name="withNamespace">If true, the type is formatted with its full namespace.</param>
-    private static void FormatGenericArguments(Type type, Action<string> append, bool withNamespace)
+    /// <param name="genericTypeArguments">Type arguments to render.</param>
+    private static void FormatGenericArguments(Type type, Action<string> append, bool withNamespace, Type[] genericTypeArguments)
     {
-        Type[] types = type.GetGenericArguments();
+        Type[] types = genericTypeArguments;
         bool isUnboundType = type.ContainsGenericParameters;
 
-        int numberOfGenericArguments = GetNumberOfGenericArguments(type);
-        int firstGenericArgumentIndex = types.Length - numberOfGenericArguments;
-        for (int index = firstGenericArgumentIndex; index < types.Length; index++)
+        for (int index = 0; index < types.Length; index++)
         {
             if (isUnboundType)
             {
@@ -165,22 +211,7 @@ public sealed class TypeValueFormatter : IValueFormatter
     /// <param name="type">The generic type of which to get the generic arguments.</param>
     /// <returns>The count of generic arguments which are associated only with <paramref name="type"/>.</returns>
     private static int GetNumberOfGenericArguments(Type type) =>
-        int.Parse(type.Name[(type.Name.LastIndexOf('`') + 1)..], CultureInfo.InvariantCulture);
-
-    /// <summary>
-    /// Format all declaring type names of type <paramref name="type"/>.
-    /// </summary>
-    /// <param name="type">The type, of which to format the declaring types.</param>
-    /// <param name="append">Function for appending the formatted type part.</param>
-    private static void FormatDeclaringTypeNames(Type type, Action<string> append)
-    {
-        foreach (Type declaringType in GetDeclaringTypes(type))
-        {
-            // for the declaring types we stick to the default, short notation like Dictionary`2.
-            append(declaringType.Name);
-            append("+");
-        }
-    }
+        type.Name.LastIndexOf('`') != -1 ? int.Parse(type.Name[(type.Name.LastIndexOf('`') + 1)..], CultureInfo.InvariantCulture) : 0;
 
     /// <summary>
     /// Get all declaring types, ordered from outer to inner.
