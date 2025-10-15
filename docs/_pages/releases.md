@@ -11,6 +11,9 @@ sidebar:
 ### Improvements
 * Use string difference visualization for `StartWith` and `EndWith` string assertions - [#225](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/225)
 
+### Fixes
+* Fix ArgumentOutOfRangeException when describing non-generic classes nested inside generic classes [#307](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/307)
+
 ## 9.2.0
 
 ### What's new
