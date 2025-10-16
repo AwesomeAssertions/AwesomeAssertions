@@ -8,11 +8,14 @@ sidebar:
 ---
 ## Unreleased
 
+## 9.2.1
+
 ### Improvements
 * Use string difference visualization for `StartWith` and `EndWith` string assertions - [#225](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/225)
 
 ### Fixes
-* Fix ArgumentOutOfRangeException when describing non-generic classes nested inside generic classes [#307](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/307)
+* Fix ArgumentOutOfRangeException when describing non-generic classes nested inside generic classes - [#307](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/307)
+* Fix broken, unwanted dependency to JetBrains.Annotations #310 - [#310](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/310)
 
 ## 9.2.0
 
