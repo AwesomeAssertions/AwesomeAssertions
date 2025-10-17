@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using Xunit;
 using Xunit.Sdk;
 
@@ -84,11 +85,12 @@ public partial class StringAssertionSpecs
 
         [InlineData("aa", "A")]
         [InlineData("aCCa", "acca")]
+        [InlineData("this is a long stringg", "this is a long string")]
         [Theory]
         public void Should_pass_when_contains_equivalent_of(string actual, string equivalentSubstring)
         {
             // Assert
-            actual.Should().ContainEquivalentOf(equivalentSubstring);
+            actual.Should().ContainEquivalentOf(equivalentSubstring, "failure {0}", "message");
         }
 
         [Fact]
@@ -592,6 +594,20 @@ public partial class StringAssertionSpecs
         {
             // Act / Assert
             "aAa".Should().NotContainEquivalentOf("aa ");
+        }
+
+        [Fact]
+        public void Should_fail_when_assertion_null_string_does_not_contain_equivalent_of_another_string()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().NotContainEquivalentOf("ANY", "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Did not expect *\"ANY\"* failure message*<null>*");
         }
     }
 }

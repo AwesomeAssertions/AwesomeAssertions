@@ -534,5 +534,20 @@ public partial class StringAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected someString not to be <null> because we don't like null.");
         }
+
+        [Fact]
+        public void When_both_subject_and_expected_are_null_it_should_throw()
+        {
+            // Arrange
+            string actualString = null;
+            string expectedString = null;
+
+            // Act
+            Action act = () => actualString.Should().NotBe(expectedString, "failure {0}", "message");
+
+            // Act / Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "*not to be <null>*failure message*");
+        }
     }
 }

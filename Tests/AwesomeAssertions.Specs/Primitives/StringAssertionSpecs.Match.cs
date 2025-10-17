@@ -167,5 +167,20 @@ public partial class StringAssertionSpecs
                     "Cannot match string against an empty string. Provide a wildcard pattern or use the NotBeEmpty method.*")
                 .WithParameterName("wildcardPattern");
         }
+
+        [Fact]
+        public void Null_does_not_negatively_match_to_any_pattern()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().NotMatch("*", "because that is the {0}", "current behavior");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be(
+                    "Did not expect subject to match \"*\" because that is the current behavior, but found <null>.");
+        }
     }
 }
