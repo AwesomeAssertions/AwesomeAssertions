@@ -2,20 +2,15 @@ using System;
 using AwesomeAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MSTestV2.Specs;
+[assembly: Parallelize]
+
+namespace MSTestV4.Specs;
 
 [TestClass]
 public class FrameworkSpecs
 {
-    /// <summary>
-    ///     We are testing MSTest here version 2 and 3.
-    /// </summary>
-    /// <remarks>
-    ///     MSTest V2 and V3 are compatible.
-    ///     So, testing "as" V2 with reference to V3 is fine.
-    /// </remarks>
     [TestMethod]
-    public void When_mstestv2_is_used_it_should_throw_mstest_exceptions_for_assertion_failures()
+    public void When_mstestv4_is_used_it_should_throw_mstest_exceptions_for_assertion_failures()
     {
         // Act
         Action act = () => 0.Should().Be(1);

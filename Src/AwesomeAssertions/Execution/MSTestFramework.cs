@@ -1,8 +1,8 @@
 namespace AwesomeAssertions.Execution;
 
-internal class MSTestFrameworkV2 : LateBoundTestFramework
+internal class MSTestFramework(string assemblyName) : LateBoundTestFramework
 {
     protected override string ExceptionFullName => "Microsoft.VisualStudio.TestTools.UnitTesting.AssertFailedException";
 
-    protected internal override string AssemblyName => "Microsoft.VisualStudio.TestPlatform.TestFramework";
+    protected internal override string AssemblyName => assemblyName;
 }

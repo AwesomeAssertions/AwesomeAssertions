@@ -8,7 +8,16 @@ public enum TestFramework
     XUnit2,
     XUnit3,
     TUnit,
+
+    /// <summary>
+    ///     MSTest version 2 an 3.
+    /// </summary>
     MsTest,
     NUnit,
-    MSpec
+    MSpec,
+
+    /// <summary>
+    ///     MSTest version 4.
+    /// </summary>
+    MsTest4
 }
