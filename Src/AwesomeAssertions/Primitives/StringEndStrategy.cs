@@ -5,7 +5,7 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
 
-internal class StringEndStrategy : IStringComparisonStrategy
+internal class StringEndStrategy : StringComparisonBaseStrategy, IStringComparisonStrategy
 {
     private readonly IEqualityComparer<string> comparer;
     private readonly string predicateDescription;
@@ -16,10 +16,15 @@ internal class StringEndStrategy : IStringComparisonStrategy
         this.predicateDescription = predicateDescription;
     }
 
-    public string ExpectationDescription => $"Expected {{context:string}} to {predicateDescription} ";
+    protected override string ExpectationDescription => $"Expected {{context:string}} to {predicateDescription} ";
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
+        if (!ValidateAgainstNulls(assertionChain, subject, expected))
+        {
+            return;
+        }
+
         var (mismatchInSubject, mismatchInExpectation) = IndexOfLastMismatch(subject, expected, comparer);
 
         // IndexOfLastMismatch returns -1 for expected index when no mismatch is found.

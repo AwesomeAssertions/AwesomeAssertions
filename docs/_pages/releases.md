@@ -14,6 +14,9 @@ sidebar:
 ### Improvements
 * Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
 
+### Fixes
+* Fix failure message when matching a `string null` subject - [#314](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/314)
+
 ## 9.2.1
 
 ### Improvements

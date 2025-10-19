@@ -117,11 +117,15 @@ public partial class StringAssertionSpecs
             string someString = null;
 
             // Act
-            Action act = () => someString.Should().EndWith("ABCDEFGHI");
+            Action act = () =>
+            {
+                using var _ = new AssertionScope();
+                someString.Should().EndWith("ABC");
+            };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someString to end with \"ABCDEFGHI\", but found <null>.");
+                "Expected someString to end with \"ABC\", but found <null>.");
         }
 
         [Fact]

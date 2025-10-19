@@ -1,5 +1,4 @@
 using System;
-using System.Security.Cryptography;
 using Xunit;
 using Xunit.Sdk;
 
@@ -85,12 +84,11 @@ public partial class StringAssertionSpecs
 
         [InlineData("aa", "A")]
         [InlineData("aCCa", "acca")]
-        [InlineData("this is a long stringg", "this is a long string")]
         [Theory]
         public void Should_pass_when_contains_equivalent_of(string actual, string equivalentSubstring)
         {
             // Assert
-            actual.Should().ContainEquivalentOf(equivalentSubstring, "failure {0}", "message");
+            actual.Should().ContainEquivalentOf(equivalentSubstring);
         }
 
         [Fact]
@@ -98,11 +96,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             Action act = () =>
-                "a".Should().ContainEquivalentOf("aa");
+                "a".Should().ContainEquivalentOf("aa", "failure {0}", "message");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time, but found it 0 times.");
+                .WithMessage("Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time because failure message, but found it 0 times.");
         }
 
         [Fact]
@@ -110,7 +108,7 @@ public partial class StringAssertionSpecs
         {
             // Act
             Action act = () =>
-                "a".Should().ContainEquivalentOf(null);
+                "a".Should().ContainEquivalentOf(expected: null);
 
             // Assert
             act.Should().Throw<ArgumentNullException>()
@@ -597,7 +595,7 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
-        public void Should_fail_when_assertion_null_string_does_not_contain_equivalent_of_another_string()
+        public void Assertion_null_string_does_not_contain_equivalent_of_any_another_string()
         {
             // Arrange
             string subject = null;
@@ -607,7 +605,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect *\"ANY\"* failure message*<null>*");
+                .Which.Message.Should().Be("Did not expect subject to contain the equivalent of \"ANY\" because failure message, but found <null>.");
         }
     }
 }
