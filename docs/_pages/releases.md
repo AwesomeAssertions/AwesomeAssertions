@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### Improvements
+* Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
+
 ## 9.2.1
 
 ### Improvements
