@@ -49,19 +49,20 @@ internal sealed class MismatchSpan
     }
 
     /// <summary>
-    /// Escapes new lines within the text span.
+    /// Escapes white spaces within the text span.
     /// </summary>
-    public void EscapeNewLines()
+    public void EscapeWhiteSpaces()
     {
         var indexOffset = Text
             .Take(MismatchIndex)
-            .Count(c => c is '\n' or '\r');
+            .Count(c => c is '\n' or '\r' or '\t');
 
         MismatchIndex += indexOffset;
 
         Text = Text
-            .Replace("\n", "\\n", StringComparison.OrdinalIgnoreCase)
-            .Replace("\r", "\\r", StringComparison.OrdinalIgnoreCase);
+            .Replace("\n", "\\n", StringComparison.Ordinal)
+            .Replace("\r", "\\r", StringComparison.Ordinal)
+            .Replace("\t", "\\t", StringComparison.Ordinal);
     }
 
     /// <summary>

@@ -228,6 +228,25 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
+        public void When_two_strings_differ_and_contain_white_spaces_to_escape_these_are_shown_in_the_message_and_respected_in_the_index()
+        {
+            string subject = "\t\r\nand now some longer text, parts of which get truncated, and \t\r\ndiff\r\n\t";
+            string expected = "\t\r\nand now some longer text, parts of which get truncated, and \t\r\nDIFF\r\n\t";
+
+            // Act
+            Action act = () => subject.Should().Be(expected);
+
+            // Assert
+            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
+                Expected subject to be the same string, but they differ on line 3 and column 1 (index 66):
+                              ↓ (actual)
+                  "…and \t\r\ndiff\r\n\t"
+                  "…and \t\r\nDIFF\r\n\t"
+                              ↑ (expected).
+                """);
+        }
+
+        [Fact]
         public void Use_arrows_for_text_longer_than_8_characters()
         {
             const string subject = "this is a long text that differs in between two words";

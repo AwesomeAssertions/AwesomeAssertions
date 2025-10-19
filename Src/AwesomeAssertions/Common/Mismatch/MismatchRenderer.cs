@@ -96,7 +96,7 @@ internal static class MismatchRenderer
     private static void FormatSpan(MismatchSpan span)
     {
         span.Truncate();
-        span.EscapeNewLines();
+        span.EscapeWhiteSpaces();
         AppendPrefixAndEscapedPhraseToShowWithEllipsisAndSuffix(span);
     }
 
