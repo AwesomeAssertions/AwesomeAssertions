@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### What's new
+* Added support for MSTest v4 - [#312](https://github.com/awesomeassertions/awesomeassertions/issues/312)
+
 ### Improvements
 * Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
 

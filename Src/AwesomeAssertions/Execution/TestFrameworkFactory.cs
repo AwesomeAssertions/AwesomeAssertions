@@ -15,7 +15,8 @@ internal static class TestFrameworkFactory
     {
         [TestFramework.MSpec] = new MSpecFramework(),
         [TestFramework.NUnit] = new NUnitTestFramework(),
-        [TestFramework.MsTest] = new MSTestFrameworkV2(),
+        [TestFramework.MsTest] = new MSTestFramework("Microsoft.VisualStudio.TestPlatform.TestFramework"),
+        [TestFramework.MsTest4] = new MSTestFramework("MSTest.TestFramework"),
 
         // Keep TUnitFramework and XUnitTestFramework last as they use a try/catch approach
         [TestFramework.TUnit] = new TUnitFramework(),

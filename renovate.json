@@ -10,7 +10,7 @@
     "ignorePaths": [
         "Build/**"
     ],
-	"ignoreDeps": [
+    "ignoreDeps": [
         "system.threading.tasks.extensions",
         "Microsoft.NET.Test.Sdk"
     ],
@@ -44,10 +44,40 @@
             "matchPackageNames": [ "xunit.stafact" ],
             "allowedVersions": "< 2.0.0"
         },
+
+        {
+            "matchPackageNames": [
+                "MSTest.TestAdapter",
+                "MSTest.TestFramework"
+            ],
+            "enabled": false
+        },
+        {
+            "matchPackageNames": [
+                "MSTest.TestAdapter",
+                "MSTest.TestFramework"
+            ],
+            "matchPaths": [
+                "**/MSTestV2.Specs/**"
+            ],
+            "allowedVersions": "< 4.0.0",
+            "enabled": true
+        },
+        {
+            "matchPackageNames": [
+                "MSTest.TestAdapter",
+                "MSTest.TestFramework"
+            ],
+            "matchPaths": [
+                "**/MSTestV4.Specs/**"
+            ],
+            "allowedVersions": ">= 4.0.0",
+            "enabled": true
+        },
+
         {
             "matchPackageNames": [ "*" ],
             "schedule": [ "after 4pm on monday" ]
         }
     ]
 }
-

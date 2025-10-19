@@ -46,7 +46,7 @@ To verify that a particular business rule is enforced using exceptions:
 var recipe = new RecipeBuilder()
   .With(new IngredientBuilder().For("Milk").WithQuantity(200, Unit.Milliliters))
   .Build();
-                    
+
 var action = () => recipe.AddIngredient("Milk", 100, Unit.Spoon);
 
 action
@@ -92,12 +92,12 @@ public static class Initializer
 
 Awesome Assertions supports a lot of different unit testing frameworks. Just add a reference to the corresponding test framework assembly to the unit test project. Awesome Assertions will automatically find the corresponding assembly and use it for throwing the framework-specific exceptions.
 
-If, for some unknown reason, Awesome Assertions fails to find the assembly, and you're running under .NET 4.7 or a .NET 6.0 project, try specifying the framework explicitly using a configuration setting in the project’s app.config. If it cannot find any of the supported frameworks, it will fall back to using a custom `AssertionFailedException` exception class.
+If, for some unknown reason, Awesome Assertions fails to find the assembly, and you're running under .NET 4.7 or a .NET 8.0 project, try specifying the framework explicitly using a configuration setting in the project’s app.config. If it cannot find any of the supported frameworks, it will fall back to using a custom `AssertionFailedException` exception class.
 
 ```xml
 <configuration>
   <appSettings>
-    <!-- Supported values: nunit, xunit2, xunit3, mstestv2, mspec and tunit -->
+    <!-- Supported values: nunit, xunit2, xunit3, mstest, mstestv4, mspec and tunit -->
     <add key="AwesomeAssertions.TestFramework" value="nunit"/>
   </appSettings>
 </configuration>

@@ -618,6 +618,7 @@ namespace AwesomeAssertions.Configuration
         MsTest = 3,
         NUnit = 4,
         MSpec = 5,
+        MsTest4 = 6,
     }
 }
 namespace AwesomeAssertions.Equivalency
