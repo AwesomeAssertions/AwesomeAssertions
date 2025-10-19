@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LibGit2Sharp;
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
@@ -11,6 +13,7 @@ using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Tools.ReportGenerator;
+using Nuke.Common.Tools.SonarScanner;
 using Nuke.Common.Tools.Xunit;
 using Nuke.Common.Utilities;
 using Nuke.Common.Utilities.Collections;
@@ -52,6 +55,10 @@ class Build : NukeBuild
     [Secret]
     readonly string NuGetApiKey;
 
+    [Parameter("The key to publish SonarQube analysis")]
+    [Secret]
+    readonly string SonarQubeApiKey;
+
     [Solution(GenerateProjects = true)]
     readonly Solution Solution;
 
@@ -62,6 +69,7 @@ class Build : NukeBuild
     [Required]
     [GitRepository]
     readonly GitRepository GitRepository;
+
     AbsolutePath ArtifactsDirectory => RootDirectory / "Artifacts";
 
     AbsolutePath TestResultsDirectory => RootDirectory / "TestResults";
@@ -306,19 +314,90 @@ class Build : NukeBuild
                             $"--report-trx-filename {v.project.Name}_{v.framework}.trx",
                             $"--results-directory {TestResultsDirectory}"
                         )
-                    )
-                );
+                )
+            );
         });
 
     Target TestFrameworks => _ => _
         .DependsOn(VSTestFrameworks)
         .DependsOn(TestingPlatformFrameworks);
 
+    Target SonarBegin => _ => _
+        .Before(Compile)
+        .Executes(() =>
+        {
+            Assert.False(
+                string.IsNullOrWhiteSpace(SonarQubeApiKey),
+                $"The SonarQube credentials must be set with {nameof(SonarQubeApiKey)}.");
+
+            SonarScannerTasks.SonarScannerBegin(s =>
+            {
+                SonarScannerBeginSettings settings = s
+                    .SetFramework("net8.0")
+                    .SetProjectKey("AwesomeAssertions_AwesomeAssertions")
+                    .SetOrganization("awesomeassertions")
+                    .SetToken(SonarQubeApiKey)
+                    .EnableQualityGateWait();
+
+                if (GitHubActions is not { IsPullRequest: true })
+                {
+                    return settings;
+                }
+
+                string sourceBranch = GitHubActions!.RefName;
+
+                Information("Analyzing PullRequest {PrId} from branch {BranchName}", GitHubActions.PullRequestNumber, sourceBranch);
+
+                settings = settings
+                    .SetPullRequestKey(GitHubActions.PullRequestNumber.ToString())
+                    .SetPullRequestBranch(sourceBranch);
+
+                return settings;
+            });
+        });
+
+    Target SonarEnd => _ => _
+        .After(UnitTests)
+        .Executes(() =>
+        {
+            IReadOnlyCollection<Output> outputs = SonarScannerTasks.SonarScannerEnd(
+#pragma warning disable CS0618 // SetProcessExitHandler is obsolete unfortunately
+                s => s
+                    .SetFramework("net8.0")
+                    .SetToken(SonarQubeApiKey)
+                    .SetProcessExitHandler(
+                        _ =>
+                        {
+                            // ignore exist code
+                        }));
+#pragma warning restore CS0618
+
+            var output = string.Join(Environment.NewLine, outputs.Select(x => x.Text));
+            Match match = Regex.Match(
+                output,
+                @"(QUALITY GATE STATUS: )(?<state>[A-Z]+)([ -]+View details on )(?<url>https:[a-zA-Z0-9-\/\.=?&]+)",
+                RegexOptions.Compiled,
+                TimeSpan.FromSeconds(1));
+            if (!match.Success)
+            {
+                return;
+            }
+
+            string state = match.Groups["state"].Value;
+            string url = match.Groups["url"].Value;
+            Information("Quality gate state: {State}", state);
+            Information("Status page: {Link}", url);
+        });
+
+    Target Sonar => _ => _
+        .DependsOn(SonarBegin, SonarEnd);
+
     Target Pack => _ => _
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)
         .DependsOn(CodeCoverage)
+        .DependsOn(Sonar)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
