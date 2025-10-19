@@ -48,7 +48,8 @@
         {
             "matchPackageNames": [
                 "MSTest.TestAdapter",
-                "MSTest.TestFramework"
+                "MSTest.TestFramework",
+                "NUnit"
             ],
             "enabled": false
         },
@@ -70,6 +71,26 @@
             ],
             "matchPaths": [
                 "**/MSTestV4.Specs/**"
+            ],
+            "allowedVersions": ">= 4.0.0",
+            "enabled": true
+        },
+        {
+            "matchPackageNames": [
+                "NUnit"
+            ],
+            "matchPaths": [
+                "**/NUnit3.Specs/**"
+            ],
+            "allowedVersions": "< 4.0.0",
+            "enabled": true
+        },
+        {
+            "matchPackageNames": [
+                "NUnit"
+            ],
+            "matchPaths": [
+                "**/NUnit4.Specs/**"
             ],
             "allowedVersions": ">= 4.0.0",
             "enabled": true
