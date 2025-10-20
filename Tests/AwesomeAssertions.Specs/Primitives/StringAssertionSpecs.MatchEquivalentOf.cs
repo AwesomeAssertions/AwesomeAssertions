@@ -120,6 +120,20 @@ public partial class StringAssertionSpecs
                     "Cannot match string against an empty string. Provide a wildcard pattern or use the BeEmpty method.*")
                 .WithParameterName("wildcardPattern");
         }
+
+        [Fact]
+        public void Null_does_not_match_to_any_string()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().MatchEquivalentOf("*");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("Expected subject to match the equivalent of \"*\", but found <null>.");
+        }
     }
 
     public class NotMatchEquivalentOf
@@ -261,6 +275,21 @@ public partial class StringAssertionSpecs
 
             // Act / Assert
             actual.Should().NotMatchEquivalentOf(expect);
+        }
+
+        [Fact]
+        public void Null_does_not_negatively_match_to_any_pattern()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().NotMatchEquivalentOf("*", "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be(// use `Be` because we cannot match a literal * in `WithMessage`
+                    "Did not expect subject to match the equivalent of \"*\" because failure message, but found <null>.");
         }
     }
 }

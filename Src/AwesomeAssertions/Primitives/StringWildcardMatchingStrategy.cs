@@ -6,10 +6,19 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
 
-internal class StringWildcardMatchingStrategy : IStringComparisonStrategy
+internal class StringWildcardMatchingStrategy : StringComparisonBaseStrategy, IStringComparisonStrategy
 {
+    protected override string ExpectationDescription =>
+        $"{(Negate ? "Did not expect" : "Expected")}" +
+        $" {{context:string}} {(IgnoreCase ? "to match the equivalent of" : "to match")} ";
+
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
+        if (!ValidateAgainstNulls(assertionChain, subject, expected))
+        {
+            return;
+        }
+
         bool isMatch = IsMatch(subject, expected);
 
         if (isMatch != Negate)
@@ -19,11 +28,11 @@ internal class StringWildcardMatchingStrategy : IStringComparisonStrategy
 
         if (Negate)
         {
-            assertionChain.FailWith($"{ExpectationDescription}but {{1}} matches.", expected, subject);
+            assertionChain.FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} matches.", expected, subject);
         }
         else
         {
-            assertionChain.FailWith($"{ExpectationDescription}but {{1}} does not.", expected, subject);
+            assertionChain.FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} does not.", expected, subject);
         }
     }
 
@@ -61,22 +70,6 @@ internal class StringWildcardMatchingStrategy : IStringComparisonStrategy
         }
 
         return input;
-    }
-
-    public string ExpectationDescription
-    {
-        get
-        {
-            var builder = new StringBuilder();
-
-            builder
-                .Append(Negate ? "Did not expect " : "Expected ")
-                .Append("{context:string}")
-                .Append(IgnoreCase ? " to match the equivalent of" : " to match")
-                .Append(" {0}{reason}, ");
-
-            return builder.ToString();
-        }
     }
 
     /// <summary>

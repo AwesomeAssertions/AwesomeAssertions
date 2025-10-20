@@ -1465,7 +1465,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         Guard.ThrowIfArgumentIsNull(expected, nameof(expected), "Cannot assert string containment against <null>.");
         Guard.ThrowIfArgumentIsEmpty(expected, nameof(expected), "Cannot assert string containment against an empty string.");
 
-        var stringContainValidator = new StringValidatorSupportingNull(assertionChain,
+        var stringContainValidator = new StringValidator(assertionChain,
             new StringContainsStrategy(StringComparer.OrdinalIgnoreCase, AtLeast.Once()),
             because, becauseArgs);
 
@@ -1531,7 +1531,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
         EquivalencyOptions<string> options = config(AssertionConfiguration.Current.Equivalency.CloneDefaults<string>());
 
-        var stringContainValidator = new StringValidatorSupportingNull(assertionChain,
+        var stringContainValidator = new StringValidator(assertionChain,
             new StringContainsStrategy(options.GetStringComparerOrDefault(), occurrenceConstraint),
             because, becauseArgs);
 
@@ -1572,7 +1572,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         Guard.ThrowIfArgumentIsEmpty(expected, nameof(expected), "Cannot assert string containment against an empty string.");
         Guard.ThrowIfArgumentIsNull(occurrenceConstraint);
 
-        var stringContainValidator = new StringValidatorSupportingNull(assertionChain,
+        var stringContainValidator = new StringValidator(assertionChain,
             new StringContainsStrategy(StringComparer.OrdinalIgnoreCase, occurrenceConstraint),
             because, becauseArgs);
 

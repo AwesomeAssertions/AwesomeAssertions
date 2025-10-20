@@ -18,12 +18,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().Match("h*earth!", "that's the universal greeting");
+            Action act = () => subject.Should().Match("h*earth!", "failure {0}", "message");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected subject to match*\"h*earth!\" because that's the universal greeting, but*\"hello world!\" does not.");
+                    "Expected subject to match*\"h*earth!\" because failure message, but*\"hello world!\" does not.");
         }
 
         [Fact]
@@ -166,6 +166,21 @@ public partial class StringAssertionSpecs
                 .WithMessage(
                     "Cannot match string against an empty string. Provide a wildcard pattern or use the NotBeEmpty method.*")
                 .WithParameterName("wildcardPattern");
+        }
+
+        [Fact]
+        public void Null_does_not_negatively_match_to_any_pattern()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().NotMatch("*", "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be(
+                    "Did not expect subject to match \"*\" because failure message, but found <null>.");
         }
     }
 }

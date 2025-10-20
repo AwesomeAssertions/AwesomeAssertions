@@ -96,11 +96,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             Action act = () =>
-                "a".Should().ContainEquivalentOf("aa");
+                "a".Should().ContainEquivalentOf("aa", "failure {0}", "message");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time, but found it 0 times.");
+                .WithMessage("Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time because failure message, but found it 0 times.");
         }
 
         [Fact]
@@ -108,7 +108,7 @@ public partial class StringAssertionSpecs
         {
             // Act
             Action act = () =>
-                "a".Should().ContainEquivalentOf(null);
+                "a".Should().ContainEquivalentOf(expected: null);
 
             // Assert
             act.Should().Throw<ArgumentNullException>()
@@ -592,6 +592,20 @@ public partial class StringAssertionSpecs
         {
             // Act / Assert
             "aAa".Should().NotContainEquivalentOf("aa ");
+        }
+
+        [Fact]
+        public void Assertion_null_string_does_not_contain_equivalent_of_any_another_string()
+        {
+            // Arrange
+            string subject = null;
+
+            // Act
+            Action act = () => subject.Should().NotContainEquivalentOf("ANY", "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("Did not expect subject to contain the equivalent of \"ANY\" because failure message, but found <null>.");
         }
     }
 }

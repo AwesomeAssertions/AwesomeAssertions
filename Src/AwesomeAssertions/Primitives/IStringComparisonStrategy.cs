@@ -8,11 +8,6 @@ namespace AwesomeAssertions.Primitives;
 internal interface IStringComparisonStrategy
 {
     /// <summary>
-    /// The prefix for the message when the assertion fails.
-    /// </summary>
-    string ExpectationDescription { get; }
-
-    /// <summary>
     /// Asserts that the <paramref name="subject"/> matches the <paramref name="expected"/> value.
     /// </summary>
     void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected);
