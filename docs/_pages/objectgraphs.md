@@ -130,7 +130,7 @@ orderDto.Should().BeEquivalentTo(order, options =>
     options.Excluding(o => o.Products[1].Status));
 ```
 
-You can also exclude all members with of a specific name:
+You can also exclude all members with a specific name anywhere in the object graph:
 ```csharp
 orderDto.Should().BeEquivalentTo(order, options => 
     options.ExcludingMembersNamed("Products", "Parts"));

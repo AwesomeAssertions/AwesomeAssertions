@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AwesomeAssertions.Equivalency;
 
 namespace AwesomeAssertions.Equivalency.Selection;
 
@@ -11,11 +10,11 @@ namespace AwesomeAssertions.Equivalency.Selection;
 internal class ExcludeMemberByNameSelectionRule : IMemberSelectionRule
 {
     private readonly Func<string, bool> predicate;
-    private readonly string description;
+    private readonly string[] memberNames;
 
     public ExcludeMemberByNameSelectionRule(string[] memberNames)
     {
-        description = string.Join(", ", memberNames);
+        this.memberNames = memberNames;
         predicate = name => memberNames.Contains(name, StringComparer.Ordinal);
     }
 
@@ -31,6 +30,6 @@ internal class ExcludeMemberByNameSelectionRule : IMemberSelectionRule
     /// <filterpriority>2</filterpriority>
     public override string ToString()
     {
-        return $"Exclude members named: {description}";
+        return $"Exclude members named: {string.Join(", ", memberNames)}";
     }
 }

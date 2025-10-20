@@ -65,16 +65,6 @@ internal static class Guard
         }
     }
 
-    public static void ThrowIfArgumentContainsNullOrEmpty<T>(IEnumerable<IEnumerable<T>> values,
-        [CallerArgumentExpression(nameof(values))]
-        string paramName = "")
-    {
-        if (values.Any(t => t is null || !t.Any()))
-        {
-            throw new ArgumentNullException(paramName, "Collection contains a null or empty value.");
-        }
-    }
-
     public static void ThrowIfArgumentIsEmpty<T>(IEnumerable<T> values, string paramName, string message)
     {
         if (!values.Any())

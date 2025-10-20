@@ -10,7 +10,7 @@ sidebar:
 
 ### What's new
 * Added support for MSTest v4 - [#312](https://github.com/awesomeassertions/awesomeassertions/issues/312)
-* Add `ExcludingMembersNamed` to `BeEquivalentTo` which enables excluding members with specified name - [#183](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/183)
+* Add `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
 
 ### Improvements
 * Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
