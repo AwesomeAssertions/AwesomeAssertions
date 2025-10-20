@@ -63,6 +63,144 @@ public partial class SelectionRulesSpecs
         }
 
         [Fact]
+        public void A_member_excluded_by_name_is_described_in_the_failure_message()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Name = "John",
+                Age = 13,
+            };
+
+            var customer = new
+            {
+                Id = 2,
+                Name = "Jack",
+                Age = 37,
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name", "Age"));
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Exclude members named: Name, Age*");
+        }
+
+        [Fact]
+        public void Excluding_member_by_name_should_succeed()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Name = "John",
+                Age = 13,
+            };
+
+            var customer = new
+            {
+                Id = 1,
+                Name = "Jack",
+                Age = 13,
+            };
+
+            // Act / Assert
+            subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name"));
+        }
+
+        [Fact]
+        public void Excluding_member_by_name_respects_casing()
+        {
+            // Arrange
+            var subject = new
+            {
+                Name = "John",
+            };
+
+            var customer = new
+            {
+                Name = "Jack",
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("name"));
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Match("Expected property subject.Name*- Exclude members named: name*");
+        }
+
+        [Fact]
+        public void Excluding_member_by_name_should_pass_in_nested_types()
+        {
+            // Arrange
+            var subject = new
+            {
+                Id = 1,
+                Nested = new
+                {
+                    Name = "John",
+                    Age = 13,
+                },
+            };
+
+            var customer = new
+            {
+                Id = 1,
+                Nested = new
+                {
+                    Age = 13,
+                },
+            };
+
+            // Act / Assert
+            subject.Should().BeEquivalentTo(customer, options => options
+                .ExcludingMembersNamed("Name"));
+        }
+
+        [Fact]
+        public void Passing_a_null_parameter_as_member_names_should_throw()
+        {
+            // Arrange
+            var subject = new
+            {
+                Age = 10,
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(subject, options => options
+                .ExcludingMembersNamed(null!));
+
+            // Assert
+            act.Should().Throw<ArgumentNullException>()
+                .WithParameterName("memberNames");
+        }
+
+        [Fact]
+        public void Passing_an_empty_collection_parameter_as_member_names_should_throw()
+        {
+            // Arrange
+            var subject = new
+            {
+                Age = 10,
+            };
+
+            // Act
+            Action act = () => subject.Should().BeEquivalentTo(subject, options => options
+                .ExcludingMembersNamed([]));
+
+            // Assert
+            act.Should().Throw<ArgumentException>()
+                .WithParameterName("memberNames")
+                .WithMessage("At least one member name must be specified*memberNames*");
+        }
+
+        [Fact]
         public void When_only_the_excluded_property_doesnt_match_it_should_not_throw()
         {
             // Arrange
@@ -129,14 +267,9 @@ public partial class SelectionRulesSpecs
                 Field2 = "ipsum"
             };
 
-            // Act
-            Action act =
-                () =>
-                    class1.Should().BeEquivalentTo(class2,
-                        opts => opts.Excluding(o => o.Field3).Excluding(o => o.Property1));
-
-            // Assert
-            act.Should().NotThrow("the non-excluded fields have the same value");
+            // Act / Assert
+            class1.Should().BeEquivalentTo(class2,
+                opts => opts.Excluding(o => o.Field3).Excluding(o => o.Property1));
         }
 
         [Fact]
@@ -163,7 +296,58 @@ public partial class SelectionRulesSpecs
                 () => class1.Should().BeEquivalentTo(class2, opts => opts.Excluding(o => o.Property1));
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Expected*Field3*");
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected*Field3*");
+        }
+
+        [Fact]
+        public void When_excluding_member_names_it_should_pass_if_only_the_excluded_members_are_different()
+        {
+            // Arrange
+            var class1 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "First",
+                Field2 = "Second",
+                Field3 = "Rhird",
+                Property1 = "FirstProperty",
+            };
+
+            var class2 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "First",
+                Field2 = "Second",
+            };
+
+            // Act / Assert
+            class1.Should().BeEquivalentTo(class2,
+                opts => opts.ExcludingMembersNamed("Field3", "Property1"));
+        }
+
+        [Fact]
+        public void When_excluding_member_names_it_should_fail_if_any_non_excluded_members_are_different()
+        {
+            // Arrange
+            var class1 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "First",
+                Field2 = "Second",
+                Field3 = "Rhird",
+                Property1 = "FirstProperty",
+            };
+
+            var class2 = new ClassWithSomeFieldsAndProperties
+            {
+                Field1 = "First",
+                Field2 = "Second",
+            };
+
+            // Act
+            Action act =
+                () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingMembersNamed("Property1"));
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected*Field3*");
         }
 
         [Fact]
@@ -358,7 +542,8 @@ public partial class SelectionRulesSpecs
                 () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingProperties());
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*dolor*color*");
+            act.Should().Throw<XunitException>()
+                .WithMessage("*dolor*color*");
         }
 
         [Fact]
@@ -387,7 +572,8 @@ public partial class SelectionRulesSpecs
                 () => class1.Should().BeEquivalentTo(class2, opts => opts.ExcludingFields());
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*Property3*consectetur*");
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Property3*consectetur*");
         }
 
         [Fact]
@@ -662,7 +848,8 @@ public partial class SelectionRulesSpecs
             Action act = () => obj1.Should().BeEquivalentTo(obj2, opt => opt
                 .Excluding(o => o.AbstractProperty + "B"));
 
-            act.Should().Throw<ArgumentException>().WithMessage("*(o.AbstractProperty + \"B\")*cannot be used to select a member*");
+            act.Should().Throw<ArgumentException>()
+                .WithMessage("*(o.AbstractProperty + \"B\")*cannot be used to select a member*");
         }
 
 #if NETCOREAPP3_0_OR_GREATER
@@ -1131,7 +1318,8 @@ public partial class SelectionRulesSpecs
                 .Exclude(p => new { }));
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*Pets[1].Name*Pets[1].Age*");
+            act.Should().Throw<XunitException>()
+                .WithMessage("*Pets[1].Name*Pets[1].Age*");
         }
     }
 }

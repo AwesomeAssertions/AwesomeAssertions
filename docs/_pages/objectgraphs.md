@@ -130,6 +130,12 @@ orderDto.Should().BeEquivalentTo(order, options =>
     options.Excluding(o => o.Products[1].Status));
 ```
 
+You can also exclude all members with a specific name anywhere in the object graph:
+```csharp
+orderDto.Should().BeEquivalentTo(order, options => 
+    options.ExcludingMembersNamed("Products", "Parts"));
+```
+
 You can use `For` and `Exclude` if you want to exclude a member on each nested object regardless of its index.
 
 ```csharp
