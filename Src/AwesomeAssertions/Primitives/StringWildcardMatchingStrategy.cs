@@ -10,7 +10,7 @@ internal class StringWildcardMatchingStrategy : StringComparisonBaseStrategy, IS
 {
     protected override string ExpectationDescription =>
         $"{(Negate ? "Did not expect" : "Expected")}" +
-        $" {{context:string}} {(IgnoreCase ? "to match the equivalent of" : "to match")} ";
+        $" {{context:string}} {(IgnoreCase ? "to match the equivalent of" : "to match")}";
 
     public void ValidateAgainstMismatch(AssertionChain assertionChain, string subject, string expected)
     {
@@ -26,14 +26,28 @@ internal class StringWildcardMatchingStrategy : StringComparisonBaseStrategy, IS
             return;
         }
 
-        if (Negate)
+        assertionChain.FailWith(() => GetFailureDescription(subject, expected));
+    }
+
+    private FailReason GetFailureDescription(string subject, string expected)
+    {
+        string butDescription = Negate ? "matches" : "does not";
+        if (subject.IsLongOrMultiline() || expected.IsLongOrMultiline())
         {
-            assertionChain.FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} matches.", expected, subject);
+            return new($$"""
+                {{ExpectationDescription}}
+
+                  {0},
+
+                {reason}, but
+
+                  {1}
+
+                {{butDescription}}.
+                """, expected, subject);
         }
-        else
-        {
-            assertionChain.FailWith($"{ExpectationDescription}{{0}}{{reason}}, but {{1}} does not.", expected, subject);
-        }
+
+        return new($"{ExpectationDescription} {{0}}{{reason}}, but {{1}} {butDescription}.", expected, subject);
     }
 
     private bool IsMatch(string subject, string expected)
