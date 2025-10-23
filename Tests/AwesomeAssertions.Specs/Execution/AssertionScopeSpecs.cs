@@ -367,6 +367,40 @@ namespace AwesomeAssertions.Specs.Execution
                     "*Expected value to be 23, but found 42*");
         }
 
+#if NET6_0_OR_GREATER
+        [Fact]
+        public void No_internal_assertion_defails_appear_in_stacktrace_of_scope_with_failures()
+        {
+            // Act
+            Action act = () =>
+            {
+                using var scope = new AssertionScope();
+                AssertionChain.GetOrCreate().FailWith("Failure message");
+            };
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.StackTrace.Should().NotContainAny(
+                    "AssertionScope.",
+                    "AssertionStrategy.",
+                    "AssertionChain.");
+        }
+
+        [Fact]
+        public void No_internal_assertion_defails_appear_in_stacktrace_of_failing_chain()
+        {
+            // Act
+            Action act = () => AssertionChain.GetOrCreate().FailWith("Failure message");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .Which.StackTrace.Should().NotContainAny(
+                    "AssertionScope.",
+                    "AssertionStrategy.",
+                    "AssertionChain.");
+        }
+#endif
+
         public class CustomAssertionStrategy : IAssertionStrategy
         {
             private readonly List<string> failureMessages = [];

@@ -13,6 +13,7 @@ sidebar:
 * Add `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
 
 ### Improvements
+* Hide irrelevant exception throwing details in stacktrace - [#327](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/327)
 * Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
 
 ### Fixes
