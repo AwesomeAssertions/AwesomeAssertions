@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ internal class CollectingAssertionStrategy : IAssertionStrategy
     /// <summary>
     /// Will throw a combined exception for any failures have been collected.
     /// </summary>
+    [StackTraceHidden]
     public void ThrowIfAny(IDictionary<string, object> context)
     {
         if (failureMessages.Count > 0)

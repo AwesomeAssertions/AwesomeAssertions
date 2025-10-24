@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -163,6 +164,7 @@ public sealed class AssertionScope : IDisposable
     /// <summary>
     /// Adds a pre-formatted failure message to the current scope.
     /// </summary>
+    [StackTraceHidden]
     public void AddPreFormattedFailure(string formattedFailureMessage)
     {
         assertionStrategy.HandleFailure(formattedFailureMessage);
@@ -210,6 +212,7 @@ public sealed class AssertionScope : IDisposable
     }
 
     /// <inheritdoc/>
+    [StackTraceHidden]
     public void Dispose()
     {
         CurrentScope.Value = parent;

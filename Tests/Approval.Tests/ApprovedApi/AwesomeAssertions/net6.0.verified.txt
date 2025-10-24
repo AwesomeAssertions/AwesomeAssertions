@@ -1158,9 +1158,13 @@ namespace AwesomeAssertions.Execution
         public void AddReportable(string key, string value) { }
         public AwesomeAssertions.Execution.AssertionChain BecauseOf(AwesomeAssertions.Execution.Reason reason) { }
         public AwesomeAssertions.Execution.AssertionChain BecauseOf(string because, params object[] becauseArgs) { }
+        [System.Diagnostics.StackTraceHidden]
         public AwesomeAssertions.Execution.Continuation FailWith(System.Func<AwesomeAssertions.Execution.FailReason> getFailureReason) { }
+        [System.Diagnostics.StackTraceHidden]
         public AwesomeAssertions.Execution.Continuation FailWith(string message) { }
+        [System.Diagnostics.StackTraceHidden]
         public AwesomeAssertions.Execution.Continuation FailWith(string message, params System.Func<object>[] argProviders) { }
+        [System.Diagnostics.StackTraceHidden]
         public AwesomeAssertions.Execution.Continuation FailWith(string message, params object[] args) { }
         public AwesomeAssertions.Execution.AssertionChain ForCondition(bool condition) { }
         public AwesomeAssertions.Execution.AssertionChain ForConstraint(AwesomeAssertions.OccurrenceConstraint constraint, int actualOccurrences) { }
@@ -1188,9 +1192,11 @@ namespace AwesomeAssertions.Execution
         public AwesomeAssertions.Formatting.FormattingOptions FormattingOptions { get; }
         public System.Func<string> Name { get; }
         public static AwesomeAssertions.Execution.AssertionScope Current { get; }
+        [System.Diagnostics.StackTraceHidden]
         public void AddPreFormattedFailure(string formattedFailureMessage) { }
         public void AppendTracing(string tracingBlock) { }
         public string[] Discard() { }
+        [System.Diagnostics.StackTraceHidden]
         public void Dispose() { }
         public bool HasFailures() { }
     }

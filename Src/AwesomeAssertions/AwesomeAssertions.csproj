@@ -33,6 +33,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
+  </PropertyGroup>
+
   <ItemGroup Label="Internals visible to">
     <InternalsVisibleTo Include="AwesomeAssertions.Specs" />
     <InternalsVisibleTo Include="AwesomeAssertions.Equivalency.Specs" />
