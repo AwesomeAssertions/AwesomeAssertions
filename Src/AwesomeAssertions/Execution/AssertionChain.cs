@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -221,21 +222,25 @@ public sealed class AssertionChain
         return new GivenSelector<T>(selector, this);
     }
 
+    [StackTraceHidden]
     internal Continuation FailWithPreFormatted(string formattedFailReason)
     {
         return FailWith(() => formattedFailReason);
     }
 
+    [StackTraceHidden]
     public Continuation FailWith(string message)
     {
         return FailWith(() => new FailReason(message));
     }
 
+    [StackTraceHidden]
     public Continuation FailWith(string message, params object[] args)
     {
         return FailWith(() => new FailReason(message, args));
     }
 
+    [StackTraceHidden]
     public Continuation FailWith(string message, params Func<object>[] argProviders)
     {
         return FailWith(
@@ -244,6 +249,7 @@ public sealed class AssertionChain
                 argProviders.Select(a => a()).ToArray()));
     }
 
+    [StackTraceHidden]
     public Continuation FailWith(Func<FailReason> getFailureReason)
     {
         return FailWith(() =>
@@ -260,6 +266,7 @@ public sealed class AssertionChain
         });
     }
 
+    [StackTraceHidden]
     private Continuation FailWith(Func<string> getFailureReason)
     {
         if (PreviousAssertionSucceeded)
@@ -341,6 +348,7 @@ public sealed class AssertionChain
     /// <summary>
     /// Registers a failure in the chain that doesn't need any parsing or formatting anymore.
     /// </summary>
+    [StackTraceHidden]
     internal void AddPreFormattedFailure(string failure)
     {
         getCurrentScope().AddPreFormattedFailure(failure);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AwesomeAssertions.Execution;
@@ -14,6 +15,7 @@ internal class DefaultAssertionStrategy : IAssertionStrategy
     /// <summary>
     /// Instructs the strategy to handle a assertion failure.
     /// </summary>
+    [StackTraceHidden]
     public void HandleFailure(string message)
     {
         AssertionEngine.TestFramework.Throw(message);
