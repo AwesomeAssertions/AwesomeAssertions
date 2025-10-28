@@ -1,6 +1,8 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "labels": ["dependencies"],
+    "labels": [
+        "dependencies"
+    ],
     "extends": [
         "config:recommended"
     ],
@@ -33,18 +35,23 @@
             "enabled": false
         },
         {
-            "matchPackageNames": [ "xunit.runner.visualstudio" ],
+            "matchPackageNames": [
+                "xunit.runner.visualstudio"
+            ],
             "allowedVersions": "< 3.0.0"
         },
         {
-            "matchPackageNames": [ "/xunit.v3/" ],
+            "matchPackageNames": [
+                "/xunit.v3/"
+            ],
             "allowedVersions": "< 2.0.0"
         },
         {
-            "matchPackageNames": [ "xunit.stafact" ],
+            "matchPackageNames": [
+                "xunit.stafact"
+            ],
             "allowedVersions": "< 2.0.0"
         },
-
         {
             "matchPackageNames": [
                 "MSTest.TestAdapter",
@@ -58,7 +65,7 @@
                 "MSTest.TestAdapter",
                 "MSTest.TestFramework"
             ],
-            "matchPaths": [
+            "matchFileNames": [
                 "**/MSTestV2.Specs/**"
             ],
             "allowedVersions": "< 4.0.0",
@@ -69,7 +76,7 @@
                 "MSTest.TestAdapter",
                 "MSTest.TestFramework"
             ],
-            "matchPaths": [
+            "matchFileNames": [
                 "**/MSTestV4.Specs/**"
             ],
             "allowedVersions": ">= 4.0.0",
@@ -79,7 +86,7 @@
             "matchPackageNames": [
                 "NUnit"
             ],
-            "matchPaths": [
+            "matchFileNames": [
                 "**/NUnit3.Specs/**"
             ],
             "allowedVersions": "< 4.0.0",
@@ -89,16 +96,19 @@
             "matchPackageNames": [
                 "NUnit"
             ],
-            "matchPaths": [
+            "matchFileNames": [
                 "**/NUnit4.Specs/**"
             ],
             "allowedVersions": ">= 4.0.0",
             "enabled": true
         },
-
         {
-            "matchPackageNames": [ "*" ],
-            "schedule": [ "after 4pm on monday" ]
+            "matchPackageNames": [
+                "*"
+            ],
+            "schedule": [
+                "after 4pm on monday"
+            ]
         }
     ]
 }
