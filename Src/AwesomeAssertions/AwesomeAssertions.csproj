@@ -35,6 +35,7 @@
 
   <PropertyGroup>
     <PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
+    <DelaySign>True</DelaySign>
   </PropertyGroup>
 
   <ItemGroup Label="Internals visible to">
@@ -45,7 +46,7 @@
 
   <ItemGroup Label="Package files">
     <None Include="..\AwesomeAssertions.png" Pack="true" Visible="false" PackagePath="" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>
