@@ -45,6 +45,50 @@ public class GivenSelector<T>
         return this;
     }
 
+    /// <summary>
+    /// Allows combining one or more failing assertions using the other assertion methods that this library offers
+    /// upon the subject selected through a prior selector.
+    /// </summary>
+    /// <remarks>
+    /// This is only evaluated when all previous assertions in the chain have succeeded.
+    /// </remarks>
+    /// <param name="failingAssertion">The element inspector which must not be satisfied by the previously selected subject.</param>
+    /// <returns>The current <see cref="AssertionChain"/> instance, allowing for method chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="failingAssertion"/> is <see langword="null"/>.</exception>
+    public GivenSelector<T> NotSatisfy(Action<T> failingAssertion)
+    {
+        Guard.ThrowIfArgumentIsNull(failingAssertion);
+
+        if (assertionChain.Succeeded)
+        {
+            assertionChain.NotSatisfy(() => failingAssertion(selector));
+        }
+
+        return this;
+    }
+
+    /// <summary>
+    /// Allows combining one or more assertions using the other assertion methods that this library offers
+    /// upon the subject selected through a prior selector.
+    /// </summary>
+    /// <remarks>
+    /// This is only evaluated when all previous assertions in the chain have succeeded.
+    /// </remarks>
+    /// <param name="assertion">The element inspector which must be satisfied by the previously selected subject.</param>
+    /// <returns>The current <see cref="AssertionChain"/> instance, allowing for method chaining.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="assertion"/> is <see langword="null"/>.</exception>
+    public GivenSelector<T> Satisfy(Action<T> assertion)
+    {
+        Guard.ThrowIfArgumentIsNull(assertion);
+
+        if (assertionChain.Succeeded)
+        {
+            assertionChain.Satisfy(() => assertion(selector));
+        }
+
+        return this;
+    }
+
     public GivenSelector<T> ForConstraint(OccurrenceConstraint constraint, Func<T, int> func)
     {
         Guard.ThrowIfArgumentIsNull(func);
