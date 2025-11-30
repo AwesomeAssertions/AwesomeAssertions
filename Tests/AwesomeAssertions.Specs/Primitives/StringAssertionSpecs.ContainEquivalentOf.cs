@@ -560,7 +560,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect string to contain the equivalent of <null>, but found \"a\".");
+                .Which.Message.Should().Be("Did not expect string to contain the equivalent of <null>, but found \"a\".");
         }
 
         [Fact]
@@ -572,7 +572,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect string to contain the equivalent of \"\", but found \"a\".");
+                .Which.Message.Should().Be("Did not expect string to contain the equivalent of \"\", but found \"a\".");
         }
 
         [Fact]
@@ -584,7 +584,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect string to contain the equivalent of \", worLD!\" but found \"Hello, world!\".");
+                .Which.Message.Should().Be("Did not expect string to contain the equivalent of \", worLD!\", but found \"Hello, world!\".");
         }
 
         [Fact]
