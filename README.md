@@ -15,7 +15,7 @@
 [![open issues](https://img.shields.io/github/issues/AwesomeAssertions/AwesomeAssertions)](https://github.com/AwesomeAssertions/AwesomeAssertions/issues)
 ![](https://img.shields.io/badge/release%20strategy-githubflow-orange.svg)
 
-FluentAssertions, up to version 7.x, was licensed under Apache 2.0. Starting with later versions, licensing changes introduced potential fees for developers.  
+FluentAssertions, up to version 7.x, was licensed under Apache 2.0. Starting with later versions, licensing changes introduced potential fees for developers.
 In response to these changes, this community project was created. Please read the [FAQ](#FAQ) for more details.
 
 Visit https://awesomeassertions.org for [background information](https://awesomeassertions.org/about/), [usage documentation](https://awesomeassertions.org/introduction), an [extensibility guide](https://awesomeassertions.org/extensibility/), support information and more [tips & tricks](https://awesomeassertions.org/tips/).
@@ -42,7 +42,7 @@ Renovate will then open PRs to replace FluentAssertions with AwesomeAssertions w
 Alternatively, use PowerShell [script](https://github.com/AwesomeAssertions/AwesomeAssertions/discussions/6) to replace the dependencies.
 
 # How do I build this?
-Install Visual Studio 2022 17.8+ or JetBrains Rider 2021.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK and .NET 8.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
+Install Visual Studio 2026 18.0+ or JetBrains Rider 2025.3 as well as the Build Tools 2022 (including the Universal Windows Platform build tools). You will also need to have .NET Framework 4.7 SDK, .NET 6.0 SDK, .NET 8.0 SDK and .NET 10.0 SDK installed. Check the [global.json](global.json) for the current minimum required version.
 
 # What are these Approval.Tests?
 This is a special set of tests that use the [Verify](https://github.com/VerifyTests/Verify) project to verify whether you've introduced any breaking changes in the public API of the library.
@@ -51,16 +51,16 @@ If you've verified the changes and decided they are valid, you can accept them  
 
 # FAQ
 
-**Q: Who are the maintainers?**  
+**Q: Who are the maintainers?**
 **A:** The current maintainers of AwesomeAssertions are @cbersch, @IT-VBFK, @jcfnomada, @jupjohn, @lg2de, and @ScarletKuro.
 
-**Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**  
+**Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**
 **A:** The license will never change, not even to MIT. We will only maintain the original Apache 2.0 license.
 
-**Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**  
+**Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**
 **A:** This was possible because the license change was made at the final stage of the version 8 release. Any commits made before the license change were free to use, as licenses cannot be applied retroactively. If commits were added to the branch while it was under the Apache 2.0 license, they remain under Apache 2.0. So, any commits before this change [fluentassertions/fluentassertions@df7e9bf](https://github.com/fluentassertions/fluentassertions/commit/df7e9bf8305ef5e26ae58fe4142f8d1b6c4fc4af) can be legally used under the Apache 2.0 terms.
 
-**Q: Where can I find the documentation?**  
+**Q: Where can I find the documentation?**
 **A:** You can find the documentation at https://awesomeassertions.org
 
 # Legal Disclaimer

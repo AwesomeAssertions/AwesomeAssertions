@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32505.426
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -57,13 +57,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnit4.Specs", "Tests\TestF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSpec.Specs", "Tests\TestFrameworks\MSpec.Specs\MSpec.Specs.csproj", "{4F210C41-7E8E-424A-B956-FC1AA47663C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUnit.Specs", "Tests\TestFrameworks\TUnit.Specs\TUnit.Specs.csproj", "{6540564E-9B6E-4E1E-8881-6F0DD0F35576}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnit3.Specs", "Tests\TestFrameworks\XUnit3.Specs\XUnit3.Specs.csproj", "{AF1479D8-519F-4C6B-9E8C-5A84A6D5549A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnit3Core.Specs", "Tests\TestFrameworks\XUnit3Core.Specs\XUnit3Core.Specs.csproj", "{77BB9496-169D-43DA-BCED-7DB3ACD9179A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSTestV4.Specs", "Tests\TestFrameworks\MSTestV4.Specs\MSTestV4.Specs.csproj", "{D089AC9B-A727-4633-BCF0-7F6EB2E14E01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicrosoftTestingPlatform", "MicrosoftTestingPlatform", "{F8178CB5-FDF8-3FE6-389E-4AF22BD21DB5}"
+	ProjectSection(SolutionItems) = preProject
+		Tests\TestFrameworks\MicrosoftTestingPlatform\global.json = Tests\TestFrameworks\MicrosoftTestingPlatform\global.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TUnit.Specs", "Tests\TestFrameworks\MicrosoftTestingPlatform\TUnit.Specs\TUnit.Specs.csproj", "{6540564E-9B6E-4E1E-8881-6F0DD0F35576}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -219,10 +224,11 @@ Global
 		{C8335EA3-C6CE-47C9-AB4F-CE37157E1EB2} = {4D8FA213-8724-4C43-B68A-F018148D238C}
 		{23891E7D-05CE-4893-AC38-A95CC9D3603E} = {4D8FA213-8724-4C43-B68A-F018148D238C}
 		{4F210C41-7E8E-424A-B956-FC1AA47663C9} = {4D8FA213-8724-4C43-B68A-F018148D238C}
-		{6540564E-9B6E-4E1E-8881-6F0DD0F35576} = {4D8FA213-8724-4C43-B68A-F018148D238C}
 		{AF1479D8-519F-4C6B-9E8C-5A84A6D5549A} = {4D8FA213-8724-4C43-B68A-F018148D238C}
 		{77BB9496-169D-43DA-BCED-7DB3ACD9179A} = {4D8FA213-8724-4C43-B68A-F018148D238C}
 		{D089AC9B-A727-4633-BCF0-7F6EB2E14E01} = {4D8FA213-8724-4C43-B68A-F018148D238C}
+		{F8178CB5-FDF8-3FE6-389E-4AF22BD21DB5} = {4D8FA213-8724-4C43-B68A-F018148D238C}
+		{6540564E-9B6E-4E1E-8881-6F0DD0F35576} = {F8178CB5-FDF8-3FE6-389E-4AF22BD21DB5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {75DDA3D8-9D6F-4865-93F4-DDE11DEE8290}

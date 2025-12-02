@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AwesomeAssertions.Formatting;
@@ -92,7 +93,7 @@ public class PredicateLambdaExpressionValueFormatterSpecs
     public void When_condition_contains_linq_extension_method_then_extension_method_must_be_formatted()
     {
         // Arrange
-        int[] allowed = [1, 2, 3];
+        IEnumerable<int> allowed = new[] { 1, 2, 3 };
 
         // Act
         string result = Format<int>(a => allowed.Contains(a));
