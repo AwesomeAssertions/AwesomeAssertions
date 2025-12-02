@@ -56,7 +56,7 @@ class Build : NukeBuild
     readonly Solution Solution;
 
     [Required]
-    [GitVersion(Framework = "net8.0", NoCache = true, NoFetch = true)]
+    [GitVersion(Framework = "net10.0", NoCache = true, NoFetch = true)]
     readonly GitVersion GitVersion;
 
     [Required]
@@ -281,7 +281,7 @@ class Build : NukeBuild
         {
             Project[] projects =
             [
-                Solution.TestFrameworks.TUnit_Specs
+                Solution.TestFrameworks.MicrosoftTestingPlatform.TUnit_Specs
             ];
 
             var testCombinations =
@@ -293,14 +293,14 @@ class Build : NukeBuild
             DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "MicrosoftTestingPlatform")
                 .EnableNoBuild()
                 .CombineWith(
                     testCombinations,
                     (settings, v) => settings
-                        .SetProjectFile(v.project)
                         .SetFramework(v.framework)
                         .SetProcessAdditionalArguments(
-                            "--",
+                            $"--project {v.project.Path}",
                             "--coverage",
                             "--report-trx",
                             $"--report-trx-filename {v.project.Name}_{v.framework}.trx",

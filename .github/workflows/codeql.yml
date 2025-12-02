@@ -48,8 +48,8 @@ jobs:
 
     - name: Build
       run: |
-        dotnet restore AwesomeAssertions.sln --configfile nuget.config
-        dotnet build AwesomeAssertions.sln --configuration CI --no-restore
+        dotnet restore AwesomeAssertions.slnx --configfile nuget.config
+        dotnet build AwesomeAssertions.slnx --configuration CI --no-restore
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4

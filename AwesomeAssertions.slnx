@@ -1,0 +1,98 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="CI" />
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Folder Name="/Core/">
+    <Project Path="Src/AwesomeAssertions/AwesomeAssertions.csproj">
+      <BuildType Solution="CI|*" Project="Release" />
+    </Project>
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+    <File Path="docs/_pages/releases.md" />
+    <File Path="nuget.config" />
+    <File Path="README.md" />
+    <File Path="Tests/Default.testsettings" />
+  </Folder>
+  <Folder Name="/Specs/">
+    <File Path="Tests/.editorconfig" />
+    <Project Path="Tests/Approval.Tests/Approval.Tests.csproj">
+      <BuildType Solution="CI|*" Project="Release" />
+    </Project>
+    <Project Path="Tests/AssemblyA/AssemblyA.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/AssemblyB/AssemblyB.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/AwesomeAssertions.Equivalency.Specs/AwesomeAssertions.Equivalency.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/AwesomeAssertions.Extensibility.Specs/AwesomeAssertions.Extensibility.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/AwesomeAssertions.Specs/AwesomeAssertions.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/Benchmarks/Benchmarks.csproj">
+      <BuildType Solution="CI|*" Project="Release" />
+      <Build Solution="CI|*" Project="false" />
+    </Project>
+    <Project Path="Tests/ExampleExtensions/ExampleExtensions.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/FSharp.Specs/FSharp.Specs.fsproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/UWP.Specs/UWP.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+      <Platform Project="x64" />
+      <Build Project="false" />
+    </Project>
+    <Project Path="Tests/VB.Specs/VB.Specs.vbproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+  </Folder>
+  <Folder Name="/TestFrameworks/">
+    <Project Path="Tests/TestFrameworks/MSpec.Specs/MSpec.Specs.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/MSTestV2.Specs/MSTestV2.Specs.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/MSTestV4.Specs/MSTestV4.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/NUnit3.Specs/NUnit3.Specs.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/NUnit4.Specs/NUnit4.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/XUnit2.Specs/XUnit2.Specs.csproj">
+      <BuildType Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/XUnit3.Specs/XUnit3.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/XUnit3Core.Specs/XUnit3Core.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+  </Folder>
+  <Folder Name="/TestFrameworks/MicrosoftTestingPlatform/">
+    <File Path="Tests/TestFrameworks/MicrosoftTestingPlatform/global.json" />
+    <Project Path="Tests/TestFrameworks/MicrosoftTestingPlatform/TUnit.Specs/TUnit.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+  </Folder>
+  <Project Path="Build/_build.csproj">
+    <BuildType Solution="CI|*" Project="Release" />
+    <Build Project="false" />
+  </Project>
+  <Properties Name="MonoDevelopProperties">
+    <Property Name="StartupItem" Value="Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+  </Properties>
+</Solution>
