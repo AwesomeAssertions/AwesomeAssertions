@@ -30,9 +30,9 @@ internal static class MismatchRenderer
             CreateLocationDescription(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch, rendererOptions.MismatchLocationDescription);
 
         return $$"""
-                 {{rendererOptions.ExpectationDescription}}the same string{reason}, but they differ {{locationDescription}}:
-                 {{mismatchSegment}}.
-                 """;
+            {{rendererOptions.ExpectationDescription}} the same string{reason}, but they differ {{locationDescription}}:
+            {{mismatchSegment}}.
+            """;
     }
 
     /// <summary>

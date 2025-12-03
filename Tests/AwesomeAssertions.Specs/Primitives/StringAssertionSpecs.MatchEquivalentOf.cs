@@ -62,12 +62,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().MatchEquivalentOf("h*earth!", "that's the universal greeting");
+            Action act = () => subject.Should().MatchEquivalentOf("h*earth!", "failure {0}", "message");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject to match the equivalent of*\"h*earth!\" " +
-                "because that's the universal greeting, but*\"hello world!\" does not.");
+                "Expected subject to match the equivalent of*\"h*earth!\",*" +
+                "because failure message, but*\"hello world!\"*does not.");
         }
 
         [Fact]
@@ -211,13 +211,21 @@ public partial class StringAssertionSpecs
             string subject = "hello WORLD";
 
             // Act
-            Action act = () => subject.Should().NotMatchEquivalentOf("*world*", "because that's illegal");
+            Action act = () => subject.Should().NotMatchEquivalentOf("*world*", "failure {0}", "message");
 
             // Assert
-            act
-                .Should().Throw<XunitException>()
-                .WithMessage("Did not expect subject to match the equivalent of*\"*world*\" because that's illegal, " +
-                    "but*\"hello WORLD\" matches.");
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("""
+                    Did not expect subject to match the equivalent of
+
+                      "*world*",
+
+                    because failure message, but
+
+                      "hello WORLD"
+
+                    matches.
+                    """);
         }
 
         [Fact]
