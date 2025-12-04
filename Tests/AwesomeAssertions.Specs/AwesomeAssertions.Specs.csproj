@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net47;net6.0;net8.0;net10.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Src\AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <IsPackable>false</IsPackable>
@@ -20,11 +20,8 @@
     <PackageReference Include="System.Collections.Immutable" Version="[1.5.0]" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net8.0'">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-  </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2025.2.2" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
