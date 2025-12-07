@@ -1,0 +1,12 @@
+﻿<Project>
+  <!-- inherit solution wide configuration -->
+  <Import Project="../Directory.Build.props"/>
+
+  <ItemGroup>
+    <!--
+    Starting version 17.14.0 net6 support has been removed.
+    As long as we want to build for net6 we need to reference version 17.13.
+    -->
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="[17.13.0]" />
+  </ItemGroup>
+</Project>
