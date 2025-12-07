@@ -63,6 +63,17 @@
   </ItemGroup>
 
   <!-- Target framework dependent configuration -->
+  <PropertyGroup>
+    <!--
+      System.Threading.Tasks.Extensions
+      The version 4.5.4 is part of the API. Changing the version creates a breaking change.
+      So, we pin the version to make an explicit update when it gets required.
+
+      Note that BenchmarkDotNet requires a higher version.
+      When updating STTE, please check wether the warning suppression in Benchmarks.csproj can be removed.
+    -->
+    <SystemThreadingTasksExtensionsVersion>[4.5.4]</SystemThreadingTasksExtensionsVersion>
+  </PropertyGroup>
   <Choose>
     <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
       <ItemGroup>
@@ -70,12 +81,12 @@
         <Compile Remove="EventRaisingExtensions.cs" />
       </ItemGroup>
       <ItemGroup>
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="$(SystemThreadingTasksExtensionsVersion)" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'net47'">
       <ItemGroup>
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="$(SystemThreadingTasksExtensionsVersion)" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Xml.Linq" />
       </ItemGroup>

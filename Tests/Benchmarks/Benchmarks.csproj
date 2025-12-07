@@ -4,6 +4,13 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Src\AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <OutputType>Exe</OutputType>
+    <!--
+      NU1608: Detected package version outside of dependency constraint
+      While AA Core has pinned System.Threading.Tasks.Extensions to version 4.5.4 to API compatibility,
+      BenchmarkDotNet already references a higher version.
+      So, we need to disable this warning to not break the build (because of WarningsAsError).
+    -->
+    <NoWarn>$(NoWarn);NU1608</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
