@@ -8,7 +8,7 @@ Start reading the section titles, go in deep if the title is not self-explanator
 
 * Lines should not be wider than 130 characters.
 * Prefer `is null` and `is not null` over `!=/== null`.
-* String formatting should use Invariant culture when formatting non-strings.
+* String formatting should use invariant culture when formatting non-strings.
 * Follow the style presented in the [Coding Guidelines for C#](https://csharpcodingguidelines.com/).
 
 ## Design guidelines
@@ -22,7 +22,7 @@ Start reading the section titles, go in deep if the title is not self-explanator
 * Mind the API fluent design. (Test should be readable like natural human language.)
 * Design the features discoverable.
 
-* ✅ Prefer "Did not expect something to be" over "Expected something not to be".
+* ✅ Prefer "Did not expect something to be [...]" over "Expected something not to be [...]".
 * ✅ Be aware that an assertion might be wrapped in an `AssertionScope` so `FailWith` does not halt execution
   and extra precautions must be taken to avoid e.g. a `NullReferenceException` after verifying that `Subject is not null`.
 
@@ -41,7 +41,7 @@ Start reading the section titles, go in deep if the title is not self-explanator
 * Remember to test the "because formatting" overloads.
   * ✅ Always use the pattern `"we format {0} message", "the"`
     resulting in generated string `"because we format the message""`.
-* ❌ Don't use `Should().NotThrow` in the asserting.
+* ❌ Don't use `Should().NotThrow` in the asserting for tests which are meant to pass.
 
 ### TODO - unsorted
 

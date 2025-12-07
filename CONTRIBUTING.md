@@ -21,7 +21,7 @@ The better a bug report, the faster the problem will be resolved.
 Ideally, a bug report should contain the following information:
 
 * A high-level description of the problem.
-* A _minimal reproduction_, e.g. the smallest size of code/configuration required to reproduce the wrong behavior.
+* A _minimal reproduction_, i.e. the smallest size of code/configuration required to reproduce the wrong behavior.
 * A description of the _expected behavior_, contrasted with the _actual behavior_ observed.
 * Information on the environment: nuget version, .NET version, etc.
 * Additional information, e.g. is it a regression from previous versions? Are there any known workarounds?
@@ -85,7 +85,7 @@ Please do:
 * Target the [Pull Request](https://help.github.com/articles/using-pull-requests) at the `develop` branch.
 * Align with the [Design Guide](./DESIGN-GUIDE.md).
 * Ensure that changes are covered by a new or existing set of unit tests.
-  Also, the code coverage reported by the coveralls must be non-decreasing unless accepted by the authors.
+  Also, the code coverage reported by the coveralls must be non-decreasing unless accepted by the maintainers.
 * If the contribution adds a feature or fixes a bug, please update the
   [**release notes**](./docs/_pages/releases.md),
   which is published on the [website](https://awesomeassertions.org/releases).
