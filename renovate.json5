@@ -84,6 +84,14 @@
             "enabled": true
         },
 
+        // Disable updates for pinned packages.
+        // https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/nuget/readme.md#disabling-updates-for-pinned-versions
+        {
+            "matchManagers": ["nuget"],
+            "matchCurrentValue": "/^\\[[^,]+\\]$/",
+            "enabled": false
+        },
+
         // We want to have package updates only once per week, on monday afternoon.
         {
             "matchPackageNames": ["*"],
