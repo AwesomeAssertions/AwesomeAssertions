@@ -1,0 +1,19 @@
+name: Validate Renovate config
+
+on:
+  pull_request:
+    paths:
+      - 'renovate.json5'
+
+jobs:
+  validate:
+    name: Validate Renovate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Renovate Validator
+        run: npm install -g renovate
+
+      - name: Validate config
+        run: renovate-config-validator
