@@ -1,9 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+#if NET6_0_OR_GREATER
+using System.Runtime.Loader;
+#endif
 
 namespace AwesomeAssertions.Execution;
+
+#nullable enable
 
 internal abstract class LateBoundTestFramework : ITestFramework
 {
@@ -23,20 +30,44 @@ internal abstract class LateBoundTestFramework : ITestFramework
     {
         get
         {
-            var assembly = FindExceptionAssembly();
-            var exceptionType = assembly?.GetType(ExceptionFullName);
+            Assembly? assembly = FindExceptionAssembly();
+            Type? exceptionType = assembly?.GetType(ExceptionFullName);
 
-            exceptionFactory = exceptionType != null
-                ? message => (Exception)Activator.CreateInstance(exceptionType, message)
+            exceptionFactory = exceptionType is not null
+                ? message => (Exception)Activator.CreateInstance(exceptionType, message)!
                 : _ => throw new InvalidOperationException($"{GetType().Name} is not available");
 
             return exceptionType is not null;
         }
     }
 
-    private Assembly FindExceptionAssembly()
+    protected internal abstract string AssemblyName { get; }
+
+    protected abstract string ExceptionFullName { get; }
+
+    private static IEnumerable<Assembly> GetAssemblies()
     {
-        var assembly = Array.Find(AppDomain.CurrentDomain.GetAssemblies(), a => a.GetName().Name == AssemblyName);
+#if NET6_0_OR_GREATER
+        // In some constellations a test framework assembly might have been loaded more than once. Make sure we get the correct one:
+        // AppDomain.GetAssemblies: Gets the assemblies that have been loaded into 
+        // the execution context of this application domain.
+        // And in the case of NUnit4.Mtp.Specs this returns nunit.framework twice, with the first one 
+        // being the wrong assembly, which is a different one than used for running the tests.
+        //
+        // So we are looking for the nunit.framework assembly which is used during test execution,
+        // which we get through AssemblyLoadContext.
+        AssemblyLoadContext loadContext = AssemblyLoadContext.GetLoadContext(Assembly.GetExecutingAssembly()) ??
+            AssemblyLoadContext.Default;
+
+        return loadContext.Assemblies;
+#else
+        return AppDomain.CurrentDomain.GetAssemblies();
+#endif
+    }
+
+    private Assembly? FindExceptionAssembly()
+    {
+        Assembly? assembly = GetAssemblies().FirstOrDefault(a => a.GetName().Name == AssemblyName);
 
         if (assembly is null && loadAssembly)
         {
@@ -56,8 +87,4 @@ internal abstract class LateBoundTestFramework : ITestFramework
 
         return assembly;
     }
-
-    protected internal abstract string AssemblyName { get; }
-
-    protected abstract string ExceptionFullName { get; }
 }
