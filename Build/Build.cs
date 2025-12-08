@@ -279,10 +279,7 @@ class Build : NukeBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
-            Project[] projects =
-            [
-                Solution.TestFrameworks.MicrosoftTestingPlatform.TUnit_Specs
-            ];
+            var projects = Solution.TestFrameworks.MicrosoftTestingPlatform.Projects;
 
             var testCombinations =
                 from project in projects

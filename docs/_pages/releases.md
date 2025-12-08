@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### Fixes
+* Fix assembly loading for NUnit4 and `LifeCycle.InstancePerTestCase` with Microsoft.Testing.Platform - [#362](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/362)
+
 ## 9.3.0
 
 ### What's new

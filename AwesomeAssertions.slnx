@@ -84,6 +84,9 @@
   </Folder>
   <Folder Name="/TestFrameworks/MicrosoftTestingPlatform/">
     <File Path="Tests/TestFrameworks/MicrosoftTestingPlatform/global.json" />
+    <Project Path="Tests/TestFrameworks/MicrosoftTestingPlatform/NUnit4.Mtp.Specs/NUnit4.Mtp.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
     <Project Path="Tests/TestFrameworks/MicrosoftTestingPlatform/TUnit.Specs/TUnit.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
