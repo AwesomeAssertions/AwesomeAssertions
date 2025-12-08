@@ -10,7 +10,7 @@ jobs:
     name: Validate Renovate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Renovate Validator
         run: npm install -g renovate
