@@ -1,114 +1,82 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "labels": [
-        "dependencies"
-    ],
-    "extends": [
-        "config:recommended"
-    ],
-    "ignorePresets": [
-        ":ignoreModulesAndTests"
-    ],
-    "ignorePaths": [
-        "Build/**"
-    ],
-    "ignoreDeps": [
-        "system.threading.tasks.extensions",
-        "Microsoft.NET.Test.Sdk"
-    ],
+
+    // https://docs.renovatebot.com/presets-config/#configrecommended
+    "extends": ["config:recommended"],
+    // ... except "ignoreModulesAndTests"
+    // TODO Why?
+    "ignorePresets": [":ignoreModulesAndTests"],
+
+    // Use "dependencies" as label for all created pull requests.
+    "labels": ["dependencies"],
+
+    // Do not update the build project.
+    // NUKE sometimes change API break without major version.
+    // Let's update manually.
+    "ignorePaths": ["Build/**"],
+
     "packageRules": [
+        // Do not update xunit runner.
+        // Versions 3.0.0 and above does not support net47(0) anymore.
+        // As long as we want to build for net47 we need to reference version below V3.
         {
-            "matchSourceUrls": [
-                "https://github.com/dotnet/aspnetcore",
-                "https://github.com/dotnet/efcore",
-                "https://github.com/dotnet/extensions",
-                "https://github.com/dotnet/fsharp",
-                "https://github.com/dotnet/maui",
-                "https://github.com/dotnet/roslyn",
-                "https://github.com/dotnet/runtime",
-                "https://github.com/dotnet/scaffolding",
-                "https://github.com/dotnet/sdk",
-                "https://github.com/dotnet/windowsdesktop",
-                "https://github.com/dotnet/winforms",
-                "https://github.com/dotnet/wpf"
-            ],
-            "enabled": false
-        },
-        {
-            "matchPackageNames": [
-                "xunit.runner.visualstudio"
-            ],
+            "matchPackageNames": ["xunit.runner.visualstudio"],
             "allowedVersions": "< 3.0.0"
         },
+
+        // We are supporting test frameworks in different major versions.
+        // They have different test projects in the solution.
+        // We need to limit the updates for individual projects.
+        // First, we disable the update rule for the affected packages...
         {
             "matchPackageNames": [
-                "/xunit.v3/"
-            ],
-            "allowedVersions": "< 2.0.0"
-        },
-        {
-            "matchPackageNames": [
-                "xunit.stafact"
-            ],
-            "allowedVersions": "< 2.0.0"
-        },
-        {
-            "matchPackageNames": [
-                "MSTest.TestAdapter",
-                "MSTest.TestFramework",
+                "MSTest.TestAdapter", "MSTest.TestFramework",
                 "NUnit"
             ],
             "enabled": false
         },
+        // ... then we enable:
+        // - MSTest.* in the MSTestV2.Specs project which tests V2 and V3 (< V4) of MSTest framework
         {
-            "matchPackageNames": [
-                "MSTest.TestAdapter",
-                "MSTest.TestFramework"
-            ],
-            "matchFileNames": [
-                "**/MSTestV2.Specs/**"
-            ],
+            "matchPackageNames": ["MSTest.TestAdapter","MSTest.TestFramework"],
+            "matchFileNames": ["**/MSTestV2.Specs/**"],
             "allowedVersions": "< 4.0.0",
             "enabled": true
         },
+        // - MSTest.* in the MSTestV4.Specs project which tests V4 of MSTest framework
         {
-            "matchPackageNames": [
-                "MSTest.TestAdapter",
-                "MSTest.TestFramework"
-            ],
-            "matchFileNames": [
-                "**/MSTestV4.Specs/**"
-            ],
+            "matchPackageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
+            "matchFileNames": ["**/MSTestV4.Specs/**"],
             "allowedVersions": ">= 4.0.0",
             "enabled": true
         },
+        // - NUnit in the NUnit3.Specs project which tests V3 (<V4) of NUnit framework
         {
-            "matchPackageNames": [
-                "NUnit"
-            ],
-            "matchFileNames": [
-                "**/NUnit3.Specs/**"
-            ],
+            "matchPackageNames": ["NUnit"],
+            "matchFileNames": ["**/NUnit3.Specs/**"],
             "allowedVersions": "< 4.0.0",
             "enabled": true
         },
+        // - NUnit in the NUnit4.Specs project which tests V4 of NUnit framework
         {
-            "matchPackageNames": [
-                "NUnit"
-            ],
-            "matchFileNames": [
-                "**/NUnit4.Specs/**"
-            ],
+            "matchPackageNames": ["NUnit"],
+            "matchFileNames": ["**/NUnit4.Specs/**"],
             "allowedVersions": ">= 4.0.0",
             "enabled": true
         },
+
+        // Disable updates for pinned packages.
+        // https://github.com/renovatebot/renovate/blob/main/lib/modules/manager/nuget/readme.md#disabling-updates-for-pinned-versions
         {
-            "matchPackageNames": [
-                "*"
-            ],
-            "schedule": [
-                "after 4pm on monday"
-            ]
+            "matchManagers": ["nuget"],
+            "matchCurrentValue": "/^\\[[^,]+\\]$/",
+            "enabled": false
+        },
+
+        // We want to have package updates only once per week, on monday afternoon.
+        {
+            "matchPackageNames": ["*"],
+            "schedule": ["after 4pm on monday"]
         }
     ]
 }
