@@ -51,16 +51,16 @@ If you've verified the changes and decided they are valid, you can accept them  
 
 # FAQ
 
-**Q: Who are the maintainers?**
+**Q: Who are the maintainers?**<br>
 **A:** The current maintainers of AwesomeAssertions are @cbersch, @IT-VBFK, @jcfnomada, @jupjohn, @lg2de, and @ScarletKuro.
 
-**Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**
+**Q: Will the license change to a more permissive or restrictive license compared to Apache 2.0?**<br>
 **A:** The license will never change, not even to MIT. We will only maintain the original Apache 2.0 license.
 
-**Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**
+**Q: How is it possible that you released version 8 with almost identical changes if version 8 of FluentAssertions is under a commercial license?**<br>
 **A:** This was possible because the license change was made at the final stage of the version 8 release. Any commits made before the license change were free to use, as licenses cannot be applied retroactively. If commits were added to the branch while it was under the Apache 2.0 license, they remain under Apache 2.0. So, any commits before this change [fluentassertions/fluentassertions@df7e9bf](https://github.com/fluentassertions/fluentassertions/commit/df7e9bf8305ef5e26ae58fe4142f8d1b6c4fc4af) can be legally used under the Apache 2.0 terms.
 
-**Q: Where can I find the documentation?**
+**Q: Where can I find the documentation?**<br>
 **A:** You can find the documentation at https://awesomeassertions.org
 
 # Legal Disclaimer
