@@ -15,6 +15,7 @@
     <File Path="docs/_pages/releases.md" />
     <File Path="nuget.config" />
     <File Path="README.md" />
+    <File Path="renovate.json5" />
     <File Path="Tests/Default.testsettings" />
   </Folder>
   <Folder Name="/Specs/">

@@ -31,7 +31,7 @@
         {
             "matchPackageNames": [
                 "MSTest.TestAdapter", "MSTest.TestFramework",
-                "NUnit"
+                "NUnit", "NUnit3TestAdapter"
             ],
             "enabled": false
         },
@@ -62,6 +62,20 @@
             "matchPackageNames": ["NUnit"],
             "matchFileNames": ["**/NUnit4.Specs/**"],
             "allowedVersions": ">= 4.0.0",
+            "enabled": true
+        },
+        // - NUnit3TestAdapter in the NUnit3.Specs project limited to < V6 because of removals of net6 support
+        // TODO Remove these rules once net6 is removed.
+        {
+            "matchPackageNames": ["NUnit3TestAdapter"],
+            "matchFileNames": ["**/NUnit3.Specs/**"],
+            "allowedVersions": "< 6.0.0",
+            "enabled": true
+        },
+        // - NUnit3TestAdapter in the NUnit4.Specs project which tests V4 of NUnit framework
+        {
+            "matchPackageNames": ["NUnit3TestAdapter"],
+            "matchFileNames": ["**/NUnit4.Specs/**"],
             "enabled": true
         },
 
