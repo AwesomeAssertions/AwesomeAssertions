@@ -31,7 +31,7 @@
         {
             "matchPackageNames": [
                 "MSTest.TestAdapter", "MSTest.TestFramework",
-                "NUnit"
+                "NUnit", "NUnit3TestAdapter"
             ],
             "enabled": false
         },
@@ -40,29 +40,37 @@
         {
             "matchPackageNames": ["MSTest.TestAdapter","MSTest.TestFramework"],
             "matchFileNames": ["**/MSTestV2.Specs/**"],
-            "allowedVersions": "< 4.0.0",
-            "enabled": true
+            "allowedVersions": "< 4.0.0"
         },
         // - MSTest.* in the MSTestV4.Specs project which tests V4 of MSTest framework
         {
             "matchPackageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
             "matchFileNames": ["**/MSTestV4.Specs/**"],
-            "allowedVersions": ">= 4.0.0",
-            "enabled": true
+            "allowedVersions": ">= 4.0.0"
         },
         // - NUnit in the NUnit3.Specs project which tests V3 (<V4) of NUnit framework
         {
             "matchPackageNames": ["NUnit"],
             "matchFileNames": ["**/NUnit3.Specs/**"],
-            "allowedVersions": "< 4.0.0",
-            "enabled": true
+            "allowedVersions": "< 4.0.0"
         },
         // - NUnit in the NUnit4.Specs project which tests V4 of NUnit framework
         {
             "matchPackageNames": ["NUnit"],
             "matchFileNames": ["**/NUnit4.Specs/**"],
-            "allowedVersions": ">= 4.0.0",
-            "enabled": true
+            "allowedVersions": ">= 4.0.0"
+        },
+        // - NUnit3TestAdapter in the NUnit3.Specs project limited to < V6 because of removals of net6 support
+        // TODO Remove these rules once net6 is removed.
+        {
+            "matchPackageNames": ["NUnit3TestAdapter"],
+            "matchFileNames": ["**/NUnit3.Specs/**"],
+            "allowedVersions": "< 6.0.0"
+        },
+        // - NUnit3TestAdapter in the NUnit4.Specs project which tests V4 of NUnit framework
+        {
+            "matchPackageNames": ["NUnit3TestAdapter"],
+            "matchFileNames": ["**/NUnit4.Specs/**"]
         },
 
         // Disable updates for pinned packages.
