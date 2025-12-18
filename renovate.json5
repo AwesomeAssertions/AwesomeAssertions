@@ -7,21 +7,27 @@
     // TODO Why?
     "ignorePresets": [":ignoreModulesAndTests"],
 
-    // Use "dependencies" as label for all created pull requests.
+    // Use "dependencies" as a label for all created pull requests.
     "labels": ["dependencies"],
 
     // Do not update the build project.
-    // NUKE sometimes change API break without major version.
+    // NUKE sometimes change API break without a major version.
     // Let's update manually.
     "ignorePaths": ["Build/**"],
 
     "packageRules": [
-        // Do not update xunit runner.
-        // Versions 3.0.0 and above does not support net47(0) anymore.
-        // As long as we want to build for net47 we need to reference version below V3.
+        // Do not update xUnit runner.
+        // Versions 3.0.0 and above do not support net47(0) anymore.
+        // As long as we want to build for net47 we need to reference a version below V3.
         {
             "matchPackageNames": ["xunit.runner.visualstudio"],
             "allowedVersions": "< 3.0.0"
+        },
+
+        // Disable updates of .NET SDK. We want to update that manually only.
+        {
+            "matchSourceUrls": ["https://github.com/dotnet/sdk"],
+            "enabled": false
         },
 
         // We are supporting test frameworks in different major versions.
