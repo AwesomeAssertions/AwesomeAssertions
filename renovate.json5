@@ -26,7 +26,7 @@
 
         // Disable updates of .NET SDK. We want to update that manually only.
         {
-            "matchSourceUrls": ["https://github.com/dotnet/sdk"],
+            "matchDatasources": ["dotnet-version"],
             "enabled": false
         },
 
