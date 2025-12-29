@@ -8,6 +8,10 @@ sidebar:
 ---
 ## Unreleased
 
+### What's new
+ 
+* Added `EqualApproximately` for collections of `INumber<T>` - [#](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/)
+
 ### Fixes
 * Fix assembly loading for NUnit4 and `LifeCycle.InstancePerTestCase` with Microsoft.Testing.Platform - [#362](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/362)
 
@@ -15,7 +19,7 @@ sidebar:
 
 ### What's new
 * Added support for MSTest v4 - [#312](https://github.com/awesomeassertions/awesomeassertions/issues/312)
-* Add `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
+* Added `ExcludingMembersNamed` to `BeEquivalentTo`'s options which enables excluding members with specified name - [#317](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/317)
 
 ### Improvements
 * Hide irrelevant exception throwing details in stacktrace - [#327](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/327)
