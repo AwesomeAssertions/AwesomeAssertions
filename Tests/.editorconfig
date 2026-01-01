@@ -188,6 +188,9 @@ dotnet_diagnostic.RCS1241.severity = none
 # Use Array.Empty<T>(). We don't care.
 dotnet_diagnostic.MA0005.severity = none
 
+# Add comma to multi-line initializer. We don't care.
+dotnet_diagnostic.MA0007.severity = none
+
 # 'System.BadImageFormatException' is a reserved exception type. Don't care.
 dotnet_diagnostic.MA0012.severity = none
 
