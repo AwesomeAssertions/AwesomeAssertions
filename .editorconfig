@@ -395,6 +395,9 @@ dotnet_diagnostic.MA0004.severity = none
 #  Use string.Equals instead of Equals operator 
 dotnet_diagnostic.MA0006.severity = none
 
+# Add comma to multi-line initializer. We don't care.
+dotnet_diagnostic.MA0007.severity = none
+
 # Add regex evaluation timeout
 dotnet_diagnostic.MA0009.severity = none
 
