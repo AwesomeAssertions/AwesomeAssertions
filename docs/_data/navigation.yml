@@ -99,10 +99,6 @@ sidebar:
         url: /tips/#improved-assertions
       - title: Migrating from MSTest
         url: /tips/#mstest-migration
-      - title: Upgrading to 5.0
-        url: https://continuousimprover.com/2018/02/fluent-assertions-50-best-unit-test.html#upgrading-tips
-      - title: Upgrading to 6.0
-        url: /upgradingtov6
       - title: Upgrading to 8.0
         url: /upgradingtov8
       - title: Upgrading to 9.0
