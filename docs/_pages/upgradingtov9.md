@@ -20,3 +20,15 @@ There are no functional changes in this release on purpose to give users more ti
 When upgrading to v9 it should be sufficient in most cases to simply replace all occurrences of `FluentAssertions` with `AwesomeAssertions`.
 
 Unfortunately, `global using` cannot be used to map between the namespaces, because [no `using` alias can be used in the declaration of a `using` directive](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#the-using-alias).
+
+But, `global using` can be used to migrate step by step:
+1. Add global usings for FluentAssertions like this in your `csproj` file:
+   ```xml
+   <ItemGroup>
+     <Using Include="FluentAssertions"/>
+     <Using Include="FluentAssertions.Execution"/>
+     <Using Include="FluentAssertions.Extensions"/>
+   </ItemGroup>
+   ```
+2. Start removing explicit `using` statements for FluentAssertions in your tests.
+3. When you're done, simply update the package reference and the global usings in your project file.
