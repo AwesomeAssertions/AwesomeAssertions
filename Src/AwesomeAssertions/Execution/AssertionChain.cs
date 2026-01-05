@@ -29,23 +29,20 @@ public sealed class AssertionChain
     private string callerPostfix = string.Empty;
 
     private static readonly AsyncLocal<AssertionChain> Instance = new();
-
+    
     /// <summary>
-    /// Ensures that the next call to <see cref="GetOrCreate"/> will reuse the current instance.
-    /// </summary>
-    public void ReuseOnce()
-    {
-        Instance.Value = this;
-    }
-
-    /// <summary>
-    /// Indicates whether the previous assertion in the chain was successful.
+    /// The effective caller identifier including any prefixes and postfixes configured through
+    /// <see cref="WithCallerPostfix"/>.
     /// </summary>
     /// <remarks>
-    /// This property is used internally to determine if subsequent assertions
-    /// should be evaluated based on the result of the previous assertion.
+    /// Can be overridden with <see cref="OverrideCallerIdentifier"/>.
     /// </remarks>
-    internal bool PreviousAssertionSucceeded { get; private set; } = true;
+    public string CallerIdentifier => getCallerIdentifier() + callerPostfix;
+
+    /// <summary>
+    /// Exposes the options which will be used for formatting objects in case an assertion fails.
+    /// </summary>
+    internal FormattingOptions FormattingOptions => getCurrentScope().FormattingOptions;
 
     /// <summary>
     /// Indicates whether the caller identifier has been manually overridden.
@@ -57,9 +54,27 @@ public sealed class AssertionChain
     public bool HasOverriddenCallerIdentifier { get; private set; }
 
     /// <summary>
-    /// Exposes the options which will be used for formatting objects in case an assertion fails.
+    /// Indicates whether the previous assertion in the chain was successful.
     /// </summary>
-    internal FormattingOptions FormattingOptions => getCurrentScope().FormattingOptions;
+    /// <remarks>
+    /// This property is used internally to determine if subsequent assertions
+    /// should be evaluated based on the result of the previous assertion.
+    /// </remarks>
+    internal bool PreviousAssertionSucceeded { get; private set; } = true;
+
+    /// <summary>
+    /// Gets a value indicating whether all assertions in the <see cref="AssertionChain"/> have succeeded.
+    /// </summary>
+    public bool Succeeded => PreviousAssertionSucceeded && succeeded is null or true;
+
+    public AssertionChain UsingLineBreaks
+    {
+        get
+        {
+            getCurrentScope().FormattingOptions.UseLineBreaks = true;
+            return this;
+        }
+    }
 
     /// <summary>
     /// Either starts a new assertion chain, or, when <see cref="ReuseOnce"/> was called, for once, will return
@@ -76,6 +91,14 @@ public sealed class AssertionChain
 
         return new AssertionChain(() => AssertionScope.Current,
             () => AwesomeAssertions.CallerIdentifier.DetermineCallerIdentity());
+    }
+
+    /// <summary>
+    /// Ensures that the next call to <see cref="GetOrCreate"/> will reuse the current instance.
+    /// </summary>
+    public void ReuseOnce()
+    {
+        Instance.Value = this;
     }
 
     private AssertionChain(Func<AssertionScope> getCurrentScope, Func<string> getCallerIdentifier)
@@ -101,16 +124,7 @@ public sealed class AssertionChain
             }
         };
     }
-
-    /// <summary>
-    /// The effective caller identifier including any prefixes and postfixes configured through
-    /// <see cref="WithCallerPostfix"/>.
-    /// </summary>
-    /// <remarks>
-    /// Can be overridden with <see cref="OverrideCallerIdentifier"/>.
-    /// </remarks>
-    public string CallerIdentifier => getCallerIdentifier() + callerPostfix;
-
+    
     /// <summary>
     /// Adds an explanation of why the assertion is supposed to succeed to the scope.
     /// </summary>
@@ -358,19 +372,5 @@ public sealed class AssertionChain
     internal void AddPreFormattedFailure(string failure)
     {
         getCurrentScope().AddPreFormattedFailure(failure);
-    }
-
-    /// <summary>
-    /// Gets a value indicating whether all assertions in the <see cref="AssertionChain"/> have succeeded.
-    /// </summary>
-    public bool Succeeded => PreviousAssertionSucceeded && succeeded is null or true;
-
-    public AssertionChain UsingLineBreaks
-    {
-        get
-        {
-            getCurrentScope().FormattingOptions.UseLineBreaks = true;
-            return this;
-        }
     }
 }
