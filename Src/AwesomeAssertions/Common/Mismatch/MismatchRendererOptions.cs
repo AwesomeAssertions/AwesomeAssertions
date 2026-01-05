@@ -45,4 +45,9 @@ internal class MismatchRendererOptions
     /// Used to form part of the failure message.
     /// </remarks>
     public required string MismatchLocationDescription { get; init; }
+
+    /// <summary>
+    /// Sets the default number of characters shown when printing the difference of two strings.
+    /// </summary>
+    public required int StringPrintLength { get; init; }
 }

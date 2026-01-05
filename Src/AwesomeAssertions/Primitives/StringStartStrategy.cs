@@ -45,6 +45,7 @@ internal class StringStartStrategy : StringComparisonBaseStrategy, IStringCompar
             ExpectedIndexOfMismatch = indexOfMismatch,
             ExpectationDescription = ExpectationDescription,
             MismatchLocationDescription = $"at index {indexOfMismatch}",
+            StringPrintLength = assertionChain.FormattingOptions.StringPrintLength,
         });
 
         assertionChain.FailWith(failureMessage);

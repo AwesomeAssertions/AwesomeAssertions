@@ -40,6 +40,7 @@ internal class StringEqualityStrategy : StringComparisonBaseStrategy, IStringCom
             ExpectedIndexOfMismatch = indexOfMismatch,
             ExpectationDescription = ExpectationDescription,
             MismatchLocationDescription = $"at index {indexOfMismatch}",
+            StringPrintLength = assertionChain.FormattingOptions.StringPrintLength,
         });
 
         assertionChain.FailWith(failureMessage);

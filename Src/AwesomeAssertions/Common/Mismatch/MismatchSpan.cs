@@ -8,6 +8,8 @@ namespace AwesomeAssertions.Common.Mismatch;
 /// </summary>
 internal sealed class MismatchSpan
 {
+    private readonly int stringPrintLength;
+
     /// <summary>
     /// Gets a value indicating whether the start has been truncated compared to the original text.
     /// </summary>
@@ -33,10 +35,11 @@ internal sealed class MismatchSpan
     /// </summary>
     public string Text { get; private set; }
 
-    public MismatchSpan(string text, int mismatchIndex)
+    public MismatchSpan(string text, int mismatchIndex, int stringPrintLength)
     {
         Text = text;
         MismatchIndex = mismatchIndex;
+        this.stringPrintLength = stringPrintLength;
     }
 
     /// <summary>
@@ -126,7 +129,7 @@ internal sealed class MismatchSpan
     /// <returns>
     /// The range of text to retain.
     /// </returns>
-    private static Range GetTruncationRange(string text, int targetIndex)
+    private Range GetTruncationRange(string text, int targetIndex)
     {
         var start = GetStartIndexOfPhraseToShowBeforeTheTargetIndex(text, targetIndex);
         var length = GetLengthOfPhraseToShowOrDefaultLength(text[start..]);
@@ -170,13 +173,12 @@ internal sealed class MismatchSpan
     /// Calculates how many characters to keep in <paramref name="value"/>.
     /// </summary>
     /// <remarks>
-    /// If a word end is found between 45 and 60 characters, use this word end, otherwise keep 50 characters.
+    /// If a word end is found between the configured string print length +10 or -5, use this word end, otherwise keep the exact character count.
     /// </remarks>
-    private static int GetLengthOfPhraseToShowOrDefaultLength(string value)
+    private int GetLengthOfPhraseToShowOrDefaultLength(string value)
     {
-        var defaultLength = AssertionConfiguration.Current.Formatting.StringPrintLength;
-        int minLength = defaultLength - 5;
-        int maxLength = defaultLength + 10;
+        int minLength = stringPrintLength - 5;
+        int maxLength = stringPrintLength + 10;
         const int lengthOfWhitespace = 1;
 
         var indexOfWordBoundary = value
@@ -187,6 +189,6 @@ internal sealed class MismatchSpan
             return indexOfWordBoundary;
         }
 
-        return Math.Min(defaultLength, value.Length);
+        return Math.Min(stringPrintLength, value.Length);
     }
 }

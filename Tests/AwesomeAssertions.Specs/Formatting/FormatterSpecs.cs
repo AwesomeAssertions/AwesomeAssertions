@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AwesomeAssertions.Execution;
 using AwesomeAssertions.Extensions;
 using AwesomeAssertions.Formatting;
 using AwesomeAssertions.Specs.Common;
@@ -20,27 +21,19 @@ public sealed class FormatterSpecs : IDisposable
         // Arrange
         string subject = "this is a very long string with lots of words that most won't be displayed in the error message!";
         string expected = "this is another string that differs after a couple of words.";
-        Action action = () => subject.Should().Be(expected);
 
-        int previousStringPrintLength = AssertionConfiguration.Current.Formatting.StringPrintLength;
-        try
+        // Act
+        Action act = () =>
         {
-            // Act
-            AssertionConfiguration.Current.Formatting.StringPrintLength = 10;
+            using AssertionScope scope = new();
+            scope.FormattingOptions.StringPrintLength = 10;
 
-            // Assert
-            action.Should().Throw<Exception>().WithMessage("""
-                                                           *
-                                                                       ↓ (actual)
-                                                             "this is a very long…"
-                                                             "this is another…"
-                                                                       ↑ (expected).
-                                                           """);
-        }
-        finally
-        {
-            AssertionConfiguration.Current.Formatting.StringPrintLength = previousStringPrintLength;
-        }
+            subject.Should().Be(expected);
+        };
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage("""*"this is a very long…"*"this is another…"*""");
     }
 
     [Fact]

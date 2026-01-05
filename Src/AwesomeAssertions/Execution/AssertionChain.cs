@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading;
 using AwesomeAssertions.Common;
+using AwesomeAssertions.Formatting;
 
 namespace AwesomeAssertions.Execution;
 
@@ -54,6 +55,11 @@ public sealed class AssertionChain
     /// <see cref="OverrideCallerIdentifier"/> method or similar methods that modify the identifier.
     /// </remarks>
     public bool HasOverriddenCallerIdentifier { get; private set; }
+
+    /// <summary>
+    /// Exposes the options which will be used for formatting objects in case an assertion fails.
+    /// </summary>
+    internal FormattingOptions FormattingOptions => getCurrentScope().FormattingOptions;
 
     /// <summary>
     /// Either starts a new assertion chain, or, when <see cref="ReuseOnce"/> was called, for once, will return
