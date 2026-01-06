@@ -59,8 +59,8 @@ internal static class MismatchRenderer
     /// </summary>
     private static string GetMismatchSegment(MismatchRendererOptions rendererOptions)
     {
-        var subject = new MismatchSpan(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch);
-        var expected = new MismatchSpan(rendererOptions.Expected, rendererOptions.ExpectedIndexOfMismatch);
+        var subject = new MismatchSpan(rendererOptions.Subject, rendererOptions.SubjectIndexOfMismatch, rendererOptions.StringPrintLength);
+        var expected = new MismatchSpan(rendererOptions.Expected, rendererOptions.ExpectedIndexOfMismatch, rendererOptions.StringPrintLength);
         var alignment = rendererOptions.Alignment;
 
         FormatSpan(subject);
