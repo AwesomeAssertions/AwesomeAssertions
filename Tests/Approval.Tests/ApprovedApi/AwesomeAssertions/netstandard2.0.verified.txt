@@ -1096,8 +1096,10 @@ namespace AwesomeAssertions.Execution
         public AwesomeAssertions.Execution.AssertionChain ForCondition(bool condition) { }
         public AwesomeAssertions.Execution.AssertionChain ForConstraint(AwesomeAssertions.OccurrenceConstraint constraint, int actualOccurrences) { }
         public AwesomeAssertions.Execution.GivenSelector<T> Given<T>(System.Func<T> selector) { }
+        public AwesomeAssertions.Execution.AssertionChain NotSatisfy(System.Action failingAssertion) { }
         public void OverrideCallerIdentifier(System.Func<string> getCallerIdentifier) { }
         public void ReuseOnce() { }
+        public AwesomeAssertions.Execution.AssertionChain Satisfy(System.Action assertion) { }
         public AwesomeAssertions.Execution.AssertionChain WithCallerPostfix(string postfix) { }
         public AwesomeAssertions.Execution.AssertionChain WithDefaultIdentifier(string identifier) { }
         public AwesomeAssertions.Execution.Continuation WithExpectation(string message, System.Action<AwesomeAssertions.Execution.AssertionChain> chain) { }
@@ -1151,6 +1153,8 @@ namespace AwesomeAssertions.Execution
         public AwesomeAssertions.Execution.GivenSelector<T> ForCondition(System.Func<T, bool> predicate) { }
         public AwesomeAssertions.Execution.GivenSelector<T> ForConstraint(AwesomeAssertions.OccurrenceConstraint constraint, System.Func<T, int> func) { }
         public AwesomeAssertions.Execution.GivenSelector<TOut> Given<TOut>(System.Func<T, TOut> selector) { }
+        public AwesomeAssertions.Execution.GivenSelector<T> NotSatisfy(System.Action<T> failingAssertion) { }
+        public AwesomeAssertions.Execution.GivenSelector<T> Satisfy(System.Action<T> assertion) { }
     }
     public interface IAssertionStrategy
     {
