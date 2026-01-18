@@ -41,6 +41,7 @@ Start reading the section titles, go in deep if the title is not self-explanator
 * Remember to test the "because formatting" overloads.
   * ✅ Always use the pattern `"we want to test the {0} message", "failure"`
     resulting in generated string `"because we want to test the failure message"`.
+    At least the part `"because*failure message"` should be tested.
 * ❌ Don't use `Should().NotThrow` in the asserting for tests which are meant to pass.
 
 ### TODO - unsorted

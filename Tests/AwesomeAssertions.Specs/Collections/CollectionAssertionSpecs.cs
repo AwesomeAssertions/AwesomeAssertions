@@ -8,9 +8,6 @@ using Xunit.Sdk;
 
 namespace AwesomeAssertions.Specs.Collections;
 
-/// <summary>
-/// Collection assertion specs.
-/// </summary>
 public partial class CollectionAssertionSpecs
 {
     public class Chaining
@@ -18,24 +15,18 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void Chaining_something_should_do_something()
         {
-            // Arrange
             var languages = new[] { "C#" };
 
-            // Act
-            var act = () => languages.Should().ContainSingle()
-                .Which.Should().EndWith("script");
+            var act = () => languages.Should().ContainSingle().Which.Should().EndWith("script");
 
-            // Assert
             act.Should().Throw<XunitException>().WithMessage("Expected languages[0]*");
         }
 
         [Fact]
         public void Should_support_chaining_constraints_with_and()
         {
-            // Arrange
             int[] collection = [1, 2, 3];
 
-            // Act / Assert
             collection.Should()
                 .HaveCount(3)
                 .And
@@ -47,16 +38,8 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_ordered_according_to_the_subsequent_ascending_assertion_it_should_succeed()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (1, "a"),
-                (2, "b"),
-                (2, "c"),
-                (3, "a")
-            ];
+            (int, string)[] collection = [(1, "a"), (2, "b"), (2, "c"), (3, "a")];
 
-            // Act / Assert
             collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
@@ -66,40 +49,22 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_not_ordered_according_to_the_subsequent_ascending_assertion_it_should_fail()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (1, "a"),
-                (2, "b"),
-                (2, "c"),
-                (3, "a")
-            ];
+            (int, string)[] collection = [(1, "a"), (2, "b"), (2, "c"), (3, "a")];
 
-            // Act
             Action action = () => collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
                 .BeInAscendingOrder(x => x.Item2);
 
-            // Assert
-            action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*to be ordered \"by Item2\"*");
+            action.Should().Throw<XunitException>().WithMessage("Expected collection*to be ordered \"by Item2\"*");
         }
 
         [Fact]
         public void
             When_the_collection_is_ordered_according_to_the_subsequent_ascending_assertion_with_comparer_it_should_succeed()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (1, "a"),
-                (2, "B"),
-                (2, "b"),
-                (3, "a")
-            ];
+            (int, string)[] collection = [(1, "a"), (2, "B"), (2, "b"), (3, "a")];
 
-            // Act / Assert
             collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
@@ -109,16 +74,8 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_ordered_according_to_the_multiple_subsequent_ascending_assertions_it_should_succeed()
         {
-            // Arrange
-            (int, string, double)[] collection =
-            [
-                (1, "a", 1.1),
-                (2, "b", 1.2),
-                (2, "c", 1.3),
-                (3, "a", 1.1)
-            ];
+            (int, string, double)[] collection = [(1, "a", 1.1), (2, "b", 1.2), (2, "c", 1.3), (3, "a", 1.1)];
 
-            // Act / Assert
             collection.Should()
                 .BeInAscendingOrder(x => x.Item1)
                 .And
@@ -130,16 +87,8 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_ordered_according_to_the_subsequent_descending_assertion_it_should_succeed()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (3, "a"),
-                (2, "c"),
-                (2, "b"),
-                (1, "a")
-            ];
+            (int, string)[] collection = [(3, "a"), (2, "c"), (2, "b"), (1, "a")];
 
-            // Act / Assert
             collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
@@ -149,22 +98,13 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_not_ordered_according_to_the_subsequent_descending_assertion_it_should_fail()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (3, "a"),
-                (2, "c"),
-                (2, "b"),
-                (1, "a")
-            ];
+            (int, string)[] collection = [(3, "a"), (2, "c"), (2, "b"), (1, "a")];
 
-            // Act
             Action action = () => collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
                 .BeInDescendingOrder(x => x.Item2);
 
-            // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected collection*to be ordered \"by Item2\"*");
         }
@@ -173,16 +113,8 @@ public partial class CollectionAssertionSpecs
         public void
             When_the_collection_is_ordered_according_to_the_subsequent_descending_assertion_with_comparer_it_should_succeed()
         {
-            // Arrange
-            (int, string)[] collection =
-            [
-                (3, "a"),
-                (2, "b"),
-                (2, "B"),
-                (1, "a")
-            ];
+            (int, string)[] collection = [(3, "a"), (2, "b"), (2, "B"), (1, "a")];
 
-            // Act / Assert
             collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
@@ -192,16 +124,8 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_the_collection_is_ordered_according_to_the_multiple_subsequent_descending_assertions_it_should_succeed()
         {
-            // Arrange
-            (int, string, double)[] collection =
-            [
-                (3, "a", 1.1),
-                (2, "c", 1.3),
-                (2, "b", 1.2),
-                (1, "a", 1.1)
-            ];
+            (int, string, double)[] collection = [(3, "a", 1.1), (2, "c", 1.3), (2, "b", 1.2), (1, "a", 1.1)];
 
-            // Act / Assert
             collection.Should()
                 .BeInDescendingOrder(x => x.Item1)
                 .And
@@ -213,10 +137,8 @@ public partial class CollectionAssertionSpecs
         [Fact]
         public void When_asserting_ordering_by_property_of_a_null_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
         {
-            // Arrange
             const IEnumerable<SomeClass> collection = null;
 
-            // Act
             Action act = () =>
             {
                 using (new AssertionScope())
@@ -226,18 +148,14 @@ public partial class CollectionAssertionSpecs
                 }
             };
 
-            // AssertText but found <null>.
-            act.Should().Throw<XunitException>()
-               .WithMessage("*Text*found*<null>.");
+            act.Should().Throw<XunitException>().WithMessage("*Text*found*<null>.");
         }
 
         [Fact]
         public void When_asserting_ordering_with_given_comparer_of_a_null_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
         {
-            // Arrange
             const IEnumerable<SomeClass> collection = null;
 
-            // Act
             Action act = () =>
             {
                 using (new AssertionScope())
@@ -247,18 +165,14 @@ public partial class CollectionAssertionSpecs
                 }
             };
 
-            // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected*found*<null>.");
+            act.Should().Throw<XunitException>().WithMessage("Expected*found*<null>.");
         }
 
         [Fact]
         public void When_asserting_ordering_of_an_unordered_collection_failed_inside_a_scope_then_a_subsequent_assertion_is_not_evaluated()
         {
-            // Arrange
             int[] collection = [1, 27, 12];
 
-            // Act
             Action action = () =>
             {
                 using (new AssertionScope())
@@ -268,9 +182,7 @@ public partial class CollectionAssertionSpecs
                 }
             };
 
-            // Assert
-            action.Should().Throw<XunitException>()
-                .WithMessage("*item at index 1 is in wrong order.");
+            action.Should().Throw<XunitException>().WithMessage("*item at index 1 is in wrong order.");
         }
     }
 
@@ -427,11 +339,4 @@ internal class OneTimeEnumerable<T> : IEnumerable<T>
 
         return items.AsEnumerable().GetEnumerator();
     }
-}
-
-internal class SomeClass
-{
-    public string Text { get; set; }
-
-    public int Number { get; set; }
 }
