@@ -11,11 +11,9 @@ public partial class SelectionRulesSpecs
     [Fact]
     public void Public_methods_follow_fluent_syntax()
     {
-        // Arrange
         var subject = new Root();
         var expected = new RootDto();
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expected,
             options => options
                 .AllowingInfiniteRecursion()
