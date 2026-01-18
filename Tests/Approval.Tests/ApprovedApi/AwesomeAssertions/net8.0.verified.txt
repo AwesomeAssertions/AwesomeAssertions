@@ -431,7 +431,7 @@ namespace AwesomeAssertions.Collections
         public AwesomeAssertions.AndConstraint<TAssertions> ContainInOrder(params T[] expected) { }
         public AwesomeAssertions.AndConstraint<TAssertions> ContainInOrder(System.Collections.Generic.IEnumerable<T> expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> ContainItemsAssignableTo<TExpectation>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> ContainSingle(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> ContainSingle([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndWhichConstraint<TAssertions, T> ContainSingle(System.Linq.Expressions.Expression<System.Func<T, bool>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> EndWith(System.Collections.Generic.IEnumerable<T> expectation, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> EndWith(T element, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -451,20 +451,20 @@ namespace AwesomeAssertions.Collections
         public AwesomeAssertions.AndConstraint<TAssertions> HaveElementSucceeding(T predecessor, T expectation, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> HaveSameCount<TExpectation>(System.Collections.Generic.IEnumerable<TExpectation> otherCollection, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> IntersectWith(System.Collections.Generic.IEnumerable<T> otherCollection, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeEmpty(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeEmpty([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(System.Collections.Generic.IEnumerable<TExpectation> unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(System.Collections.Generic.IEnumerable<TExpectation> unexpected, System.Func<AwesomeAssertions.Equivalency.EquivalencyOptions<TExpectation>, AwesomeAssertions.Equivalency.EquivalencyOptions<TExpectation>> config, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder(System.Collections.Generic.IComparer<T> comparer, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder(System.Func<T, T, int> comparison, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder<TSelector>(System.Linq.Expressions.Expression<System.Func<T, TSelector>> propertyExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInAscendingOrder<TSelector>(System.Linq.Expressions.Expression<System.Func<T, TSelector>> propertyExpression, System.Collections.Generic.IComparer<TSelector> comparer, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder(System.Collections.Generic.IComparer<T> comparer, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder(System.Func<T, T, int> comparison, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder<TSelector>(System.Linq.Expressions.Expression<System.Func<T, TSelector>> propertyExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeInDescendingOrder<TSelector>(System.Linq.Expressions.Expression<System.Func<T, TSelector>> propertyExpression, System.Collections.Generic.IComparer<TSelector> comparer, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrEmpty(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrEmpty([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeSubsetOf(System.Collections.Generic.IEnumerable<T> unexpectedSuperset, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContain(System.Collections.Generic.IEnumerable<T> unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContain(System.Linq.Expressions.Expression<System.Func<T, bool>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -476,8 +476,8 @@ namespace AwesomeAssertions.Collections
         public AwesomeAssertions.AndConstraint<TAssertions> NotContainInOrder(params T[] unexpected) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContainInOrder(System.Collections.Generic.IEnumerable<T> unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContainItemsAssignableTo(System.Type type, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotContainItemsAssignableTo<TExpectation>(string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotContainNulls(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotContainItemsAssignableTo<TExpectation>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> NotContainNulls([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContainNulls<TKey>(System.Linq.Expressions.Expression<System.Func<T, TKey>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where TKey :  class { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotEqual(System.Collections.Generic.IEnumerable<T> unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -485,7 +485,7 @@ namespace AwesomeAssertions.Collections
         public AwesomeAssertions.AndConstraint<TAssertions> NotHaveSameCount<TExpectation>(System.Collections.Generic.IEnumerable<TExpectation> otherCollection, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotIntersectWith(System.Collections.Generic.IEnumerable<T> otherCollection, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> OnlyContain(System.Linq.Expressions.Expression<System.Func<T, bool>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> OnlyHaveUniqueItems(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TAssertions> OnlyHaveUniqueItems([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> OnlyHaveUniqueItems<TKey>(System.Linq.Expressions.Expression<System.Func<T, TKey>> predicate, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> Satisfy(params System.Linq.Expressions.Expression<System.Func<T, bool>>[] predicates) { }
         public AwesomeAssertions.AndConstraint<TAssertions> Satisfy(System.Collections.Generic.IEnumerable<System.Linq.Expressions.Expression<System.Func<T, bool>>> predicates, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2115,9 +2115,9 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(params string[] validValues) { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<string> validValues, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.IParsable<T> { }
-        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>(System.IFormatProvider formatProvider, string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, T> BeParsableInto<T>(System.IFormatProvider formatProvider, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.IParsable<T> { }
         public AwesomeAssertions.AndConstraint<TAssertions> BeUpperCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> Contain(string expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2148,9 +2148,9 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeLowerCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrEmpty([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeNullOrWhiteSpace([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.IParsable<T> { }
-        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>(System.IFormatProvider formatProvider, string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.AndConstraint<TAssertions> NotBeParsableInto<T>(System.IFormatProvider formatProvider, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.IParsable<T> { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeUpperCased([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.AndConstraint<TAssertions> NotContain(string unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2281,10 +2281,10 @@ namespace AwesomeAssertions.Specialized
         public TException Which { get; }
         public AwesomeAssertions.Specialized.ExceptionAssertions<TException> Where(System.Linq.Expressions.Expression<System.Func<TException, bool>> exceptionExpression, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public AwesomeAssertions.Specialized.ExceptionAssertions<System.Exception> WithInnerException(System.Type innerException, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public virtual AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException> WithInnerException<TInnerException>(string because = "", params object[] becauseArgs)
+        public virtual AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException> WithInnerException<TInnerException>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where TInnerException : System.Exception { }
         public AwesomeAssertions.Specialized.ExceptionAssertions<System.Exception> WithInnerExceptionExactly(System.Type innerException, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
-        public virtual AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException> WithInnerExceptionExactly<TInnerException>(string because = "", params object[] becauseArgs)
+        public virtual AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException> WithInnerExceptionExactly<TInnerException>([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where TInnerException : System.Exception { }
         public virtual AwesomeAssertions.Specialized.ExceptionAssertions<TException> WithMessage(string expectedWildcardPattern, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
     }
