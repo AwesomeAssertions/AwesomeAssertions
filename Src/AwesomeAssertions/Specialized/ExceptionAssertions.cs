@@ -75,7 +75,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// </item>
     /// </list>
     /// </remarks>
-    public virtual ExceptionAssertions<TException> WithMessage(string expectedWildcardPattern,
+    public virtual ExceptionAssertions<TException> WithMessage(
+        string expectedWildcardPattern,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -101,8 +102,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public virtual ExceptionAssertions<TInnerException> WithInnerException<TInnerException>(string because = "",
-        params object[] becauseArgs)
+    public virtual ExceptionAssertions<TInnerException> WithInnerException<TInnerException>(
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TInnerException : Exception
     {
         var expectedInnerExceptions = AssertInnerExceptions(typeof(TInnerException), because, becauseArgs);
@@ -120,7 +121,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public ExceptionAssertions<Exception> WithInnerException(Type innerException,
+    public ExceptionAssertions<Exception> WithInnerException(
+        Type innerException,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(innerException);
@@ -139,8 +141,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public virtual ExceptionAssertions<TInnerException> WithInnerExceptionExactly<TInnerException>(string because = "",
-        params object[] becauseArgs)
+    public virtual ExceptionAssertions<TInnerException> WithInnerExceptionExactly<TInnerException>(
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TInnerException : Exception
     {
         var exceptionExpression = AssertInnerExceptionExactly(typeof(TInnerException), because, becauseArgs);
@@ -158,12 +160,14 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public ExceptionAssertions<Exception> WithInnerExceptionExactly(Type innerException,
+    public ExceptionAssertions<Exception> WithInnerExceptionExactly(
+        Type innerException,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(innerException);
 
-        return new ExceptionAssertions<Exception>(AssertInnerExceptionExactly(innerException, because, becauseArgs), assertionChain);
+        return new ExceptionAssertions<Exception>(AssertInnerExceptionExactly(innerException, because, becauseArgs),
+            assertionChain);
     }
 
     /// <summary>
@@ -180,7 +184,8 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="exceptionExpression"/> is <see langword="null"/>.</exception>
-    public ExceptionAssertions<TException> Where(Expression<Func<TException, bool>> exceptionExpression,
+    public ExceptionAssertions<TException> Where(
+        Expression<Func<TException, bool>> exceptionExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(exceptionExpression);
@@ -191,14 +196,15 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
             .ForCondition(condition(SingleSubject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected exception where {0}{reason}, but the condition was not met by:"
-                        + Environment.NewLine + Environment.NewLine + "{1}.",
+                + Environment.NewLine + Environment.NewLine + "{1}.",
                 exceptionExpression, Subject);
 
         return this;
     }
 
-    private IEnumerable<Exception> AssertInnerExceptionExactly(Type innerException, string because = "",
-        params object[] becauseArgs)
+    private IEnumerable<Exception> AssertInnerExceptionExactly(
+        Type innerException,
+        string because = "", params object[] becauseArgs)
     {
         assertionChain
             .BecauseOf(because, becauseArgs)
@@ -217,8 +223,9 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
         return expectedExceptions;
     }
 
-    private IEnumerable<Exception> AssertInnerExceptions(Type innerException, string because = "",
-        params object[] becauseArgs)
+    private IEnumerable<Exception> AssertInnerExceptions(
+        Type innerException,
+        string because = "", params object[] becauseArgs)
     {
         assertionChain
             .BecauseOf(because, becauseArgs)
@@ -257,12 +264,13 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
     private static string BuildExceptionsString(IEnumerable<TException> exceptions)
     {
         return string.Join(Environment.NewLine,
-            exceptions.Select(
-                exception =>
-                    "\t" + Formatter.ToString(exception)));
+            exceptions.Select(exception =>
+                "\t" + Formatter.ToString(exception)));
     }
 
-    private void AssertExceptionMessage(IEnumerable<string> messages, string expectation, string because, params object[] becauseArgs)
+    private void AssertExceptionMessage(
+        IEnumerable<string> messages, string expectation,
+        string because, params object[] becauseArgs)
     {
         var results = new AssertionResultSet();
 

@@ -9,8 +9,8 @@ sidebar:
 ## Unreleased
 
 ### Fixes
+* Add missing `StringSyntaxAttribute` to the because parameter of several assertions - [#404](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/404)
 * Fix assembly loading for NUnit4 and `LifeCycle.InstancePerTestCase` with Microsoft.Testing.Platform - [#362](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/362)
-
 * Fix configuring displayed length of string assertions at `AssertionScope` - [#393](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/393)
 
 ## 9.3.0
