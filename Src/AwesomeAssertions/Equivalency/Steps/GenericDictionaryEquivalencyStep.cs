@@ -86,7 +86,7 @@ public class GenericDictionaryEquivalencyStep : IEquivalencyStep
         {
             assertionChain.FailWith(
                 "Expected {context:subject} to be a dictionary or collection of key-value pairs that is keyed to " +
-                "type {0}.", expectedDictionary.Key);
+                "type {0}{reason}.", expectedDictionary.Key);
         }
 
         return actualDictionary;

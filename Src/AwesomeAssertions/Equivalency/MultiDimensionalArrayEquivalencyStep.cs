@@ -65,10 +65,10 @@ internal class MultiDimensionalArrayEquivalencyStep : IEquivalencyStep
     {
         assertionChain
             .ForCondition(type is not null)
-            .FailWith("Cannot compare a multi-dimensional array to <null>.")
+            .FailWith("Cannot compare a multi-dimensional array to <null>{reason}.")
             .Then
             .ForCondition(type is Array)
-            .FailWith("Cannot compare a multi-dimensional array to something else.");
+            .FailWith("Cannot compare a multi-dimensional array to something else{reason}.");
 
         return assertionChain.Succeeded;
     }
@@ -84,7 +84,7 @@ internal class MultiDimensionalArrayEquivalencyStep : IEquivalencyStep
 
             assertionChain
                 .ForCondition(expectedLength == actualLength)
-                .FailWith("Expected dimension {0} to contain {1} item(s), but found {2}.", dimension, expectedLength,
+                .FailWith("Expected dimension {0} to contain {1} item(s){reason}, but found {2}.", dimension, expectedLength,
                     actualLength);
 
             sameDimensions &= assertionChain.Succeeded;
@@ -99,7 +99,7 @@ internal class MultiDimensionalArrayEquivalencyStep : IEquivalencyStep
 
         assertionChain
             .ForCondition(subjectAsArray.Rank == expectation.Rank)
-            .FailWith("Expected {context:array} to have {0} dimension(s), but it has {1}.", expectation.Rank,
+            .FailWith("Expected {context:array} to have {0} dimension(s){reason}, but it has {1}.", expectation.Rank,
                 subjectAsArray.Rank);
 
         return assertionChain.Succeeded;

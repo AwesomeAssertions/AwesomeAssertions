@@ -34,11 +34,11 @@ public class EqualityComparerEquivalencyStep<T> : IEquivalencyStep
             .For(context)
             .BecauseOf(context.Reason.FormattedMessage, context.Reason.Arguments)
             .ForCondition(comparands.Subject is T)
-            .FailWith("Expected {context:object} to be of type {0}{because}, but found {1}", typeof(T), comparands.Subject)
+            .FailWith("Expected {context:object} to be of type {0}{reason}, but found {1}", typeof(T), comparands.Subject)
             .Then
             .Given(() => comparer.Equals((T)comparands.Subject, (T)comparands.Expectation))
             .ForCondition(isEqual => isEqual)
-            .FailWith("Expected {context:object} to be equal to {1} according to {0}{because}, but {2} was not.",
+            .FailWith("Expected {context:object} to be equal to {1} according to {0}{reason}, but {2} was not.",
                 comparer.ToString(), comparands.Expectation, comparands.Subject);
 
         return EquivalencyResult.EquivalencyProven;

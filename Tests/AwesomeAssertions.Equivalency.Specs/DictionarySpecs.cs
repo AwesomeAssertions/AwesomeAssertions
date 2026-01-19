@@ -367,6 +367,21 @@ public class DictionarySpecs
     }
 
     [Fact]
+    public void When_a_non_dictionary_is_compared_to_a_generic_dictionary_it_should_fail()
+    {
+        // Arrange
+        object subject = new();
+        Dictionary<int, int> expectation = [];
+
+        // Act
+        Action act = () => subject.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage("Expected*to be a dictionary or collection of key-value pairs*failure message*");
+    }
+
+    [Fact]
     public void When_a_null_dictionary_is_compared_to_null_it_should_not_throw()
     {
         // Arrange
@@ -656,12 +671,13 @@ public class DictionarySpecs
         var expectation = new Dictionary<string, string> { ["greeting"] = "hello" };
 
         // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
+        Action act = () => actual.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected actual to be a dictionary or collection of key-value pairs that is keyed to type string*");
+                "Expected actual to be a dictionary or collection of key-value pairs" +
+                " that is keyed to type string*failure message*");
     }
 
     [Fact]
