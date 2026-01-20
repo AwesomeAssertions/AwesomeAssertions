@@ -64,7 +64,7 @@ public class DictionaryEquivalencyStep : EquivalencyStep<IDictionary>
     {
         assertionChain
             .ForCondition(subject is not null)
-            .FailWith("Expected {context:subject} to be a dictionary, but it is not.");
+            .FailWith("Expected {context:subject} to be a dictionary{reason}, but it is not.");
 
         return assertionChain.Succeeded;
     }

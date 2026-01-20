@@ -147,12 +147,12 @@ public class AssertionRuleSpecs
 
         // Act
         Action act = () => subject.Should().BeEquivalentTo(expectation,
-            opt => opt.Using(new DateTimeByYearComparer()));
+            opt => opt.Using(new DateTimeByYearComparer()), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should()
             .Throw<XunitException>()
-            .WithMessage("Expected*equal*2021*DateTimeByYearComparer*2020*");
+            .WithMessage("Expected*equal*2021*DateTimeByYearComparer*failure message*2020*");
     }
 
     [Fact]
@@ -165,12 +165,12 @@ public class AssertionRuleSpecs
 
         // Act
         Action act = () => subject.Should().BeEquivalentTo(expectation,
-            opt => opt.Using(new DateTimeByYearComparer()));
+            opt => opt.Using(new DateTimeByYearComparer()), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should()
             .Throw<XunitException>()
-            .WithMessage("Expected*Timestamp*1L*");
+            .WithMessage("Expected*Timestamp*to be of type *DateTime*failure message*1L*");
     }
 
     private class DateTimeByYearComparer : IEqualityComparer<DateTime>

@@ -61,7 +61,7 @@ internal class EnumerableEquivalencyValidator
     {
         assertionChain
             .ForCondition(expectation is not null)
-            .FailWith("Expected {context:subject} to be <null>, but found {0}.", [subject]);
+            .FailWith("Expected {context:subject} to be <null>{reason}, but found {0}.", [subject]);
 
         return assertionChain.Succeeded;
     }

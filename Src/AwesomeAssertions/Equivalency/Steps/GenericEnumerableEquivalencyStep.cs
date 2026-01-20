@@ -68,7 +68,7 @@ public class GenericEnumerableEquivalencyStep : IEquivalencyStep
     {
         assertionChain
             .ForCondition(subject is not null)
-            .FailWith("Expected {context:subject} not to be {0}.", new object[] { null });
+            .FailWith("Expected {context:subject} not to be {0}{reason}.", new object[] { null });
 
         if (assertionChain.Succeeded)
         {

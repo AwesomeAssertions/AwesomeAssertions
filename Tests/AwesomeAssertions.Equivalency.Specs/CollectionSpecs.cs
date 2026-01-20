@@ -1933,11 +1933,11 @@ public class CollectionSpecs
         };
 
         // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
+        Action act = () => actual.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Cannot compare a multi-dimensional array to <null>*");
+            .WithMessage("Cannot compare a multi-dimensional array to <null>*failure message*");
     }
 
     [Fact]
@@ -1953,11 +1953,30 @@ public class CollectionSpecs
         };
 
         // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
+        Action act = () => actual.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Cannot compare a multi-dimensional array to something else*");
+            .WithMessage("Cannot compare a multi-dimensional array to something else*failure message*");
+    }
+
+    [Fact]
+    public void When_a_multi_dimensional_array_is_compared_to_another_array_of_different_rank_it_should_throw()
+    {
+        // Arrange
+        int[,] expected =
+        {
+            { 1, 2 },
+            { 3, 4 },
+        };
+        Array actual = new[] { 1, 2 };
+
+        // Act
+        Action act = () => actual.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage("*to have 2 dimension(s)*failure message*but it has 1*");
     }
 
     [Fact]
@@ -1973,11 +1992,11 @@ public class CollectionSpecs
         int[,] expectation = { { 1, 2, 3 } };
 
         // Act
-        Action act = () => actual.Should().BeEquivalentTo(expectation);
+        Action act = () => actual.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected dimension 0 to contain 1 item(s), but found 2*");
+            .WithMessage("Expected dimension 0 to contain 1 item(s)*failure message*, but found 2*");
     }
 
     [Fact]

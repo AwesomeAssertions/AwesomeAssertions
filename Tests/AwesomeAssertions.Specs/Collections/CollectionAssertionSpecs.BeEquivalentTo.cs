@@ -110,28 +110,26 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = null;
 
             // Act
-            Action act = () => collection1.Should().BeEquivalentTo(collection2);
+            Action act = () => collection1.Should().BeEquivalentTo(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*<null>*but found {1, 2, 3}*");
+                "Expected*<null>*failure message*but found {1, 2, 3}*");
         }
 
         [Fact]
         public void When_asserting_collections_to_be_equivalent_but_subject_collection_is_null_it_should_throw()
         {
-            // Arrange
             int[] collection = null;
             int[] collection1 = [1, 2, 3];
 
             // Act
             Action act =
                 () => collection.Should()
-                    .BeEquivalentTo(collection1, "because we want to test the behaviour with a null subject");
+                    .BeEquivalentTo(collection1, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to be <null>*");
+            act.Should().Throw<XunitException>().WithMessage("Expected collection not to be <null> because*failure message*");
         }
 
         [Fact]
