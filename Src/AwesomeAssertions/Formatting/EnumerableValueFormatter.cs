@@ -31,7 +31,10 @@ public class EnumerableValueFormatter : IValueFormatter
     {
         IEnumerable<object> collection = ((IEnumerable)value).Cast<object>();
 
-        using var iterator = new Iterator<object>(collection, MaxItems);
+        // Combine the formatter implementation and the context configuration.
+        int actualMaxItems = context.MaxItems > 0 ? context.MaxItems : MaxItems;
+
+        using var iterator = new Iterator<object>(collection, actualMaxItems);
 
         var iteratorGraph = formattedGraph.KeepOnSingleLineAsLongAsPossible();
         FormattedObjectGraph.PossibleMultilineFragment separatingCommaGraph = null;
@@ -45,14 +48,14 @@ public class EnumerableValueFormatter : IValueFormatter
             else
             {
                 using IDisposable _ = formattedGraph.WithIndentation();
-                string moreItemsMessage = value is ICollection c ? $"…{c.Count - MaxItems} more…" : "…more…";
+                string moreItemsMessage = value is ICollection c ? $"…{c.Count - actualMaxItems} more…" : "…more…";
                 iteratorGraph.AddLineOrFragment(moreItemsMessage);
             }
 
             separatingCommaGraph?.InsertLineOrFragment(", ");
             separatingCommaGraph = formattedGraph.KeepOnSingleLineAsLongAsPossible();
 
-            // We cannot know whether or not the enumerable will take up more than one line of
+            // We cannot know whether the enumerable will take up more than one line of
             // output until we have formatted the first item. So we format the first item, then
             // go back and insert the enumerable's opening brace in the correct place depending
             // on whether that first item was all on one line or not.
