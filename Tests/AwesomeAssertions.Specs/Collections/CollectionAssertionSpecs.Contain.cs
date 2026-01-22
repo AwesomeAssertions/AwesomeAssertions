@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using AwesomeAssertions.Execution;
 using Xunit;
 using Xunit.Sdk;
@@ -283,7 +285,8 @@ public partial class CollectionAssertionSpecs
         }
 
         [Fact]
-        public void When_collection_does_contain_items_matching_a_predicate_a_given_number_of_times_it_should_allow_chaining_them()
+        public void
+            When_collection_does_contain_items_matching_a_predicate_a_given_number_of_times_it_should_allow_chaining_them()
         {
             // Arrange
             IEnumerable<int> collection = [1, 2, 1];
@@ -394,6 +397,31 @@ public partial class CollectionAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected strings to contain (x == \"xxx\") because we're checking how it reacts to a null subject, but found <null>.");
+        }
+
+        [Fact]
+        public void When_asserting_large_collections_output_is_limited()
+        {
+            var subject = Enumerable.Range(0, 40).Select(x => x.ToString(CultureInfo.InvariantCulture)).ToArray();
+
+            var action = () => subject.Should().Contain("foo");
+
+            // The default implementation of the collection formatter uses the default of 32 items.
+            action.Should().Throw<XunitException>().WithMessage("*{\"0\",*\"31\", …8 more…}*");
+        }
+
+        [Fact]
+        public void When_asserting_large_collections_output_is_limited_to_scope_configuration()
+        {
+            var subject = Enumerable.Range(0, 40).Select(x => x.ToString(CultureInfo.InvariantCulture)).ToArray();
+
+            var action = () =>
+            {
+                using var _ = new AssertionScope { FormattingOptions = { MaxItems = 10 } };
+                return subject.Should().Contain("foo");
+            };
+
+            action.Should().Throw<XunitException>().WithMessage("*{\"0\",*\"9\", …30 more…}*");
         }
     }
 

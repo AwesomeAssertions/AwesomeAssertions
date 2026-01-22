@@ -43,6 +43,15 @@ public class FormattingOptions
     public int MaxLines { get; set; } = 100;
 
     /// <summary>
+    ///     Gets or sets the maximum number of items to display when the <see cref="IValueFormatter"/> supports it.
+    /// </summary>
+    /// <remarks>
+    ///     The default value here is 0 (zero).
+    ///     In this case the default value of the <see cref="IValueFormatter"/> is used.
+    /// </remarks>
+    public int MaxItems { get; set; }
+
+    /// <summary>
     /// Sets the default number of characters shown when printing the difference of two strings.
     /// </summary>
     /// <remarks>
