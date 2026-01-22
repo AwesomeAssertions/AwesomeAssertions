@@ -9,4 +9,6 @@ public class FormattingContext
     /// Indicates whether the formatter should use line breaks when the <see cref="IValueFormatter"/> supports it.
     /// </summary>
     public bool UseLineBreaks { get; set; }
+
+    public int MaxItems { get; set; } = 0;
 }
