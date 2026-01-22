@@ -10,5 +10,8 @@ public class FormattingContext
     /// </summary>
     public bool UseLineBreaks { get; set; }
 
-    public int MaxItems { get; set; } = 0;
+    /// <summary>
+    ///     Gets or sets the maximum number of items to display when the <see cref="IValueFormatter"/> supports it.
+    /// </summary>
+    public int MaxItems { get; set; }
 }

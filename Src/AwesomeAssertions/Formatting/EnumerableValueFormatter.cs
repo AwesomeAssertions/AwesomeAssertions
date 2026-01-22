@@ -27,6 +27,7 @@ public class EnumerableValueFormatter : IValueFormatter
         return value is IEnumerable;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         IEnumerable<object> collection = ((IEnumerable)value).Cast<object>();
