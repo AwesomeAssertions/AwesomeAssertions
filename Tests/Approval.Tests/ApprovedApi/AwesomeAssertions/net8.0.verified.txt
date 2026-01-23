@@ -329,6 +329,13 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<double>> NotBeNaN(this AwesomeAssertions.Numeric.NumericAssertions<double> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<float>> NotBeNaN(this AwesomeAssertions.Numeric.NumericAssertions<float> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
     }
+    public static class NumericCollectionAssertionsExtensions
+    {
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Collections.GenericCollectionAssertions<T>> EqualApproximately<T>(this AwesomeAssertions.Collections.GenericCollectionAssertions<T> parent, System.Collections.Generic.IEnumerable<T> expectation, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T : System.Numerics.INumber<T> { }
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Collections.GenericCollectionAssertions<T>> NotEqualApproximately<T>(this AwesomeAssertions.Collections.GenericCollectionAssertions<T> parent, System.Collections.Generic.IEnumerable<T> unexpected, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T : System.Numerics.INumber<T> { }
+    }
     public static class ObjectAssertionsExtensions
     {
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Primitives.ObjectAssertions> BeDataContractSerializable(this AwesomeAssertions.Primitives.ObjectAssertions assertions, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
