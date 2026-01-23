@@ -28,7 +28,6 @@ public class ObjectReferenceSpecs
 
         // Arrange
         var obj = new object();
-
         var x = new ObjectReference(obj, xPath);
         var y = new ObjectReference(obj, yPath);
 

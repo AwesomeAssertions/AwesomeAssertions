@@ -156,11 +156,10 @@ public class DictionarySpecs
         IEnumerator<KeyValuePair<string, object>> IEnumerable<KeyValuePair<string, object>>.GetEnumerator()
         {
             return
-                ((ICollection<KeyValuePair<int, object>>)this).Select(
-                    item =>
-                        new KeyValuePair<string, object>(
-                            item.Key.ToString(CultureInfo.InvariantCulture),
-                            item.Value)).GetEnumerator();
+                ((ICollection<KeyValuePair<int, object>>)this).Select(item =>
+                    new KeyValuePair<string, object>(
+                        item.Key.ToString(CultureInfo.InvariantCulture),
+                        item.Value)).GetEnumerator();
         }
 
         public void Add(KeyValuePair<string, object> item)
@@ -177,9 +176,8 @@ public class DictionarySpecs
 
         public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
         {
-            ((ICollection<KeyValuePair<int, object>>)this).Select(
-                    item =>
-                        new KeyValuePair<string, object>(item.Key.ToString(CultureInfo.InvariantCulture), item.Value))
+            ((ICollection<KeyValuePair<int, object>>)this).Select(item =>
+                    new KeyValuePair<string, object>(item.Key.ToString(CultureInfo.InvariantCulture), item.Value))
                 .ToArray()
                 .CopyTo(array, arrayIndex);
         }
@@ -295,23 +293,18 @@ public class DictionarySpecs
     [Fact]
     public void When_a_dictionary_does_not_implement_the_dictionary_interface_it_should_still_be_treated_as_a_dictionary()
     {
-        // Arrange
         IDictionary<string, int> dictionary = new GenericDictionaryNotImplementingIDictionary<string, int>
         {
             ["hi"] = 1
         };
+        ICollection<KeyValuePair<string, int>> collection = new List<KeyValuePair<string, int>> { new("hi", 1) };
 
-        ICollection<KeyValuePair<string, int>> collection =
-            new List<KeyValuePair<string, int>> { new("hi", 1) };
-
-        // Act / Assert
         dictionary.Should().BeEquivalentTo(collection);
     }
 
     [Fact]
     public void When_a_read_only_dictionary_matches_the_expectation_it_should_succeed()
     {
-        // Arrange
         IReadOnlyDictionary<string, IEnumerable<string>> dictionary =
             new ReadOnlyDictionary<string, IEnumerable<string>>(
                 new Dictionary<string, IEnumerable<string>>
@@ -320,7 +313,6 @@ public class DictionarySpecs
                     ["Key1"] = ["Value1"]
                 });
 
-        // Act / Assert
         dictionary.Should().BeEquivalentTo(new Dictionary<string, IEnumerable<string>>
         {
             ["Key1"] = ["Value1"],
@@ -331,7 +323,6 @@ public class DictionarySpecs
     [Fact]
     public void When_a_read_only_dictionary_does_not_match_the_expectation_it_should_throw()
     {
-        // Arrange
         IReadOnlyDictionary<string, IEnumerable<string>> dictionary =
             new ReadOnlyDictionary<string, IEnumerable<string>>(
                 new Dictionary<string, IEnumerable<string>>
@@ -340,43 +331,35 @@ public class DictionarySpecs
                     ["Key1"] = ["Value1"]
                 });
 
-        // Act
         Action act = () => dictionary.Should().BeEquivalentTo(new Dictionary<string, IEnumerable<string>>
         {
             ["Key2"] = ["Value3"],
             ["Key1"] = ["Value1"]
         });
 
-        // Assert
         act.Should().Throw<XunitException>().WithMessage("Expected dictionary[Key2][0]*Value2*Value3*");
     }
 
     [Fact]
     public void When_a_dictionary_is_compared_to_null_it_should_not_throw_a_NullReferenceException()
     {
-        // Arrange
         Dictionary<int, int> subject = null;
         Dictionary<int, int> expectation = [];
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expectation, "because we do expect a valid dictionary");
+        Action act = () => subject.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
-        // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected*not to be*null*valid dictionary*");
+            .WithMessage("Expected*not to be*null*because we want to test the failure message*");
     }
 
     [Fact]
     public void When_a_non_dictionary_is_compared_to_a_generic_dictionary_it_should_fail()
     {
-        // Arrange
         object subject = new();
         Dictionary<int, int> expectation = [];
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
-        // Assert
         act.Should().Throw<XunitException>()
             .WithMessage("Expected*to be a dictionary or collection of key-value pairs*failure message*");
     }
@@ -384,44 +367,33 @@ public class DictionarySpecs
     [Fact]
     public void When_a_null_dictionary_is_compared_to_null_it_should_not_throw()
     {
-        // Arrange
         Dictionary<int, int> subject = null;
         Dictionary<int, int> expectation = null;
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expectation);
     }
 
     [Fact]
     public void When_a_dictionary_is_compared_to_a_dictionary_it_should_allow_chaining()
     {
-        // Arrange
         Dictionary<int, int> subject = new() { [42] = 1337 };
-
         Dictionary<int, int> expectation = new() { [42] = 1337 };
 
-        // Act / Assert
-        subject.Should().BeEquivalentTo(expectation)
-            .And.ContainKey(42);
+        subject.Should().BeEquivalentTo(expectation).And.ContainKey(42);
     }
 
     [Fact]
     public void When_a_dictionary_is_compared_to_a_dictionary_with_a_config_it_should_allow_chaining()
     {
-        // Arrange
         Dictionary<int, int> subject = new() { [42] = 1337 };
-
         Dictionary<int, int> expectation = new() { [42] = 1337 };
 
-        // Act / Assert
-        subject.Should().BeEquivalentTo(expectation, opt => opt)
-            .And.ContainKey(42);
+        subject.Should().BeEquivalentTo(expectation, opt => opt).And.ContainKey(42);
     }
 
     [Fact]
     public void When_a_dictionary_property_is_detected_it_should_ignore_the_order_of_the_pairs()
     {
-        // Arrange
         var expected = new
         {
             Customers = new Dictionary<string, string>
@@ -430,7 +402,6 @@ public class DictionarySpecs
                 ["Key1"] = "Value1"
             }
         };
-
         var subject = new
         {
             Customers = new Dictionary<string, string>
@@ -440,21 +411,15 @@ public class DictionarySpecs
             }
         };
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
     public void When_a_collection_of_key_value_pairs_is_equivalent_to_the_dictionary_it_should_succeed()
     {
-        // Arrange
         var collection = new List<KeyValuePair<string, int>> { new("hi", 1) };
 
-        // Act / Assert
-        Action act = () => collection.Should().BeEquivalentTo(new Dictionary<string, int>
-        {
-            { "hi", 2 }
-        });
+        Action act = () => collection.Should().BeEquivalentTo(new Dictionary<string, int> { { "hi", 2 } });
 
         act.Should().Throw<XunitException>().WithMessage("Expected collection[hi]*to be 2, but found 1.*");
     }
@@ -463,25 +428,20 @@ public class DictionarySpecs
     public void
         When_a_generic_dictionary_is_typed_as_object_and_runtime_typing_has_is_specified_it_should_use_the_runtime_type()
     {
-        // Arrange
         object object1 = new Dictionary<string, string> { ["greeting"] = "hello" };
         object object2 = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act
         Action act = () => object1.Should().BeEquivalentTo(object2, opts => opts.PreferringRuntimeMemberTypes());
 
-        // Assert
         act.Should().NotThrow("the runtime type is a dictionary and the dictionaries are equivalent");
     }
 
     [Fact]
     public void When_a_generic_dictionary_is_typed_as_object_it_should_respect_the_runtime_typed()
     {
-        // Arrange
         object object1 = new Dictionary<string, string> { ["greeting"] = "hello" };
         object object2 = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act / Assert
         object1.Should().BeEquivalentTo(object2);
     }
 
@@ -489,30 +449,23 @@ public class DictionarySpecs
     public void
         When_a_non_generic_dictionary_is_typed_as_object_and_runtime_typing_is_specified_the_runtime_type_should_be_respected()
     {
-        // Arrange
         object object1 = new NonGenericDictionary { ["greeting"] = "hello" };
         object object2 = new NonGenericDictionary { ["greeting"] = "hello" };
 
-        // Act
         Action act = () => object1.Should().BeEquivalentTo(object2, opts => opts.PreferringRuntimeMemberTypes());
 
-        // Assert
         act.Should().NotThrow("the runtime type is a dictionary and the dictionaries are equivalent");
     }
 
     [Fact]
-    public void
-        When_a_non_generic_dictionary_is_decided_to_be_equivalent_to_expected_trace_is_still_written()
+    public void When_a_non_generic_dictionary_is_decided_to_be_equivalent_to_expected_trace_is_still_written()
     {
-        // Arrange
         object object1 = new NonGenericDictionary { ["greeting"] = "hello" };
         object object2 = new NonGenericDictionary { ["greeting"] = "hello" };
         var traceWriter = new StringBuilderTraceWriter();
 
-        // Act
         object1.Should().BeEquivalentTo(object2, opts => opts.PreferringRuntimeMemberTypes().WithTracing(traceWriter));
 
-        // Assert
         string trace = traceWriter.ToString();
         trace.Should().Contain("Recursing into dictionary item greeting at object1");
     }
@@ -520,116 +473,86 @@ public class DictionarySpecs
     [Fact]
     public void When_a_non_generic_dictionary_is_typed_as_object_it_should_respect_the_runtime_type()
     {
-        // Arrange
         object object1 = new NonGenericDictionary();
         object object2 = new NonGenericDictionary();
 
-        // Act / Assert
         object1.Should().BeEquivalentTo(object2);
     }
 
     [Fact]
     public void When_an_object_implements_two_IDictionary_interfaces_it_should_fail_descriptively()
     {
-        // Arrange
         var object1 = (object)new ClassWithTwoDictionaryImplementations();
         var object2 = (object)new ClassWithTwoDictionaryImplementations();
 
-        // Act
         Action act = () => object1.Should().BeEquivalentTo(object2);
 
-        // Assert
-        act.Should().Throw<ArgumentException>()
-            .WithMessage("*expectation*implements multiple dictionary types*");
+        act.Should().Throw<ArgumentException>().WithMessage("*expectation*implements multiple dictionary types*");
     }
 
     [Fact]
     public void
         When_asserting_equivalence_of_dictionaries_and_configured_to_respect_runtime_type_it_should_respect_the_runtime_type()
     {
-        // Arrange
         IDictionary dictionary1 = new NonGenericDictionary { [2001] = new Car() };
         IDictionary dictionary2 = new NonGenericDictionary { [2001] = new Customer() };
 
-        // Act
-        Action act =
-            () =>
-                dictionary1.Should().BeEquivalentTo(dictionary2,
-                    opts => opts.PreferringRuntimeMemberTypes());
+        Action act = () => dictionary1.Should().BeEquivalentTo(dictionary2, opts => opts.PreferringRuntimeMemberTypes());
 
-        // Assert
         act.Should().Throw<XunitException>("the types have different properties");
     }
 
     [Fact]
     public void Can_compare_non_generic_dictionaries_without_recursing()
     {
-        // Arrange
         var expected = new NonGenericDictionary
         {
             ["Key2"] = "Value2",
             ["Key1"] = "Value1"
         };
-
         var subject = new NonGenericDictionary
         {
             ["Key1"] = "Value1",
             ["Key3"] = "Value2"
         };
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected, options => options.WithoutRecursing());
 
-        // Assert
         act.Should().Throw<XunitException>().WithMessage("Expected subject[\"Key2\"] to be \"Value2\", but found <null>*");
     }
 
     [Fact]
     public void When_asserting_equivalence_of_dictionaries_it_should_respect_the_declared_type()
     {
-        // Arrange
         var actual = new Dictionary<int, CustomerType> { [0] = new("123") };
         var expectation = new Dictionary<int, CustomerType> { [0] = new DerivedCustomerType("123") };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expectation);
 
-        // Assert
         act.Should().NotThrow("because it should ignore the properties of the derived type");
     }
 
     [Fact]
     public void When_injecting_a_null_config_it_should_throw()
     {
-        // Arrange
         var actual = new Dictionary<int, CustomerType>();
         var expectation = new Dictionary<int, CustomerType>();
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expectation, config: null);
 
-        // Assert
-        act.Should().ThrowExactly<ArgumentNullException>()
-            .WithParameterName("config");
+        act.Should().ThrowExactly<ArgumentNullException>().WithParameterName("config");
     }
 
     [Fact]
     public void
         When_asserting_equivalence_of_generic_dictionaries_and_configured_to_use_runtime_properties_it_should_respect_the_runtime_type()
     {
-        // Arrange
         var actual = new Dictionary<int, CustomerType> { [0] = new("123") };
         var expectation = new Dictionary<int, CustomerType> { [0] = new DerivedCustomerType("123") };
 
-        // Act
-        Action act =
-            () =>
-                actual.Should().BeEquivalentTo(expectation, opts => opts
-                    .PreferringRuntimeMemberTypes()
-                    .ComparingByMembers<CustomerType>()
-                );
+        Action act = () => actual.Should().BeEquivalentTo(expectation,
+            opts => opts.PreferringRuntimeMemberTypes().ComparingByMembers<CustomerType>());
 
-        // Assert
         act.Should().Throw<XunitException>("the runtime types have different properties");
     }
 
@@ -637,63 +560,48 @@ public class DictionarySpecs
     public void
         When_asserting_equivalence_of_generic_dictionaries_and_the_expectation_key_type_is_assignable_from_the_subjects_it_should_fail_if_incompatible()
     {
-        // Arrange
         var actual = new Dictionary<object, string> { [new object()] = "hello" };
         var expected = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("Expected actual*to contain key \"greeting\"*");
+        act.Should().Throw<XunitException>().WithMessage("Expected actual*to contain key \"greeting\"*");
     }
 
     [Fact]
     public void When_the_subjects_key_type_is_compatible_with_the_expected_key_type_it_should_match()
     {
-        // Arrange
         var dictionary1 = new Dictionary<object, string> { ["greeting"] = "hello" };
         var dictionary2 = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act
         Action act = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
         act.Should().NotThrow("the keys are still strings");
     }
 
     [Fact]
     public void When_the_subjects_key_type_is_not_compatible_with_the_expected_key_type_it_should_throw()
     {
-        // Arrange
         var actual = new Dictionary<int, string> { [1234] = "hello" };
         var expectation = new Dictionary<string, string> { ["greeting"] = "hello" };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected actual to be a dictionary or collection of key-value pairs" +
-                " that is keyed to type string*failure message*");
+        act.Should().Throw<XunitException>().WithMessage(
+            "Expected actual to be a dictionary or collection of key-value pairs"
+            + " that is keyed to type string*failure message*");
     }
 
     [Fact]
     public void
         When_asserting_equivalence_of_generic_dictionaries_the_type_information_should_be_preserved_for_other_equivalency_steps()
     {
-        // Arrange
         var userId = Guid.NewGuid();
-
         var dictionary1 = new Dictionary<Guid, IEnumerable<string>> { [userId] = new List<string> { "Admin", "Special" } };
         var dictionary2 = new Dictionary<Guid, IEnumerable<string>> { [userId] = new List<string> { "Admin", "Other" } };
 
-        // Act
         Action act = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
         act.Should().Throw<XunitException>();
     }
 
@@ -701,56 +609,34 @@ public class DictionarySpecs
     public void
         When_asserting_equivalence_of_non_generic_dictionaries_the_lack_of_type_information_should_be_preserved_for_other_equivalency_steps()
     {
-        // Arrange
         var userId = Guid.NewGuid();
-
         var dictionary1 = new NonGenericDictionary { [userId] = new List<string> { "Admin", "Special" } };
         var dictionary2 = new NonGenericDictionary { [userId] = new List<string> { "Admin", "Other" } };
 
-        // Act
         Action act = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("*Special*Other*");
+        act.Should().Throw<XunitException>().WithMessage("*Special*Other*");
     }
 
     [Fact]
     public void When_asserting_the_equivalence_of_generic_dictionaries_it_should_respect_the_declared_type()
     {
-        // Arrange
-        var actual = new Dictionary<int, CustomerType>
-        {
-            [0] = new DerivedCustomerType("123")
-        };
-
+        var actual = new Dictionary<int, CustomerType> { [0] = new DerivedCustomerType("123") };
         var expectation = new Dictionary<int, CustomerType> { [0] = new("123") };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expectation);
 
-        // Assert
         act.Should().NotThrow("the objects are equivalent according to the members on the declared type");
     }
 
     [Fact]
     public void When_the_both_properties_are_null_it_should_not_throw()
     {
-        // Arrange
-        var expected = new ClassWithMemberDictionary
-        {
-            Dictionary = null
-        };
+        var expected = new ClassWithMemberDictionary { Dictionary = null };
+        var subject = new ClassWithMemberDictionary { Dictionary = null };
 
-        var subject = new ClassWithMemberDictionary
-        {
-            Dictionary = null
-        };
-
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
         act.Should().NotThrow<XunitException>();
     }
 
@@ -758,27 +644,20 @@ public class DictionarySpecs
     public void
         When_the_dictionary_values_are_handled_by_the_enumerable_equivalency_step_the_type_information_should_be_preserved()
     {
-        // Arrange
         var userId = Guid.NewGuid();
-
         var actual = new UserRolesLookupElement();
         actual.Add(userId, "Admin", "Special");
-
         var expected = new UserRolesLookupElement();
         expected.Add(userId, "Admin", "Other");
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("Expected*Roles[*][1]*Special*Other*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*Roles[*][1]*Special*Other*");
     }
 
     [Fact]
     public void When_the_other_dictionary_does_not_contain_enough_items_it_should_throw()
     {
-        // Arrange
         var expected = new
         {
             Customers = new Dictionary<string, string>
@@ -787,7 +666,6 @@ public class DictionarySpecs
                 ["Key2"] = "Value2"
             }
         };
-
         var subject = new
         {
             Customers = new Dictionary<string, string>
@@ -796,23 +674,19 @@ public class DictionarySpecs
             }
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, "because we are expecting two keys");
+        Action act = () => subject.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
-        // Assert
-        act.Should().Throw<XunitException>().WithMessage(
-            "Expected*Customers*dictionary*2 item(s)*expecting two keys*but*misses*");
+        act.Should().Throw<XunitException>()
+            .WithMessage("Expected*Customers*dictionary*2 item(s)*because we want to test the failure message*but*misses*");
     }
 
     [Fact]
     public void When_the_other_property_is_not_a_dictionary_it_should_throw()
     {
-        // Arrange
         var subject = new
         {
             Customers = "I am a string"
         };
-
         var expected = new
         {
             Customers = new Dictionary<string, string>
@@ -822,19 +696,15 @@ public class DictionarySpecs
             }
         };
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected property subject.Customers to be a dictionary or collection of key-value pairs that is keyed to type string*");
+        act.Should().Throw<XunitException>().WithMessage(
+            "Expected property subject.Customers to be a dictionary or collection of key-value pairs that is keyed to type string*");
     }
 
     [Fact]
     public void When_the_other_property_is_null_it_should_throw()
     {
-        // Arrange
         var subject = new ClassWithMemberDictionary
         {
             Dictionary = new Dictionary<string, string>
@@ -843,39 +713,32 @@ public class DictionarySpecs
                 ["Key1"] = "Value1"
             }
         };
-
         var expected = new ClassWithMemberDictionary
         {
             Dictionary = null
         };
 
-        // Act
-        Action act = () => subject.Should().BeEquivalentTo(expected, "because we are not expecting anything");
+        Action act = () => subject.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
-        // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*property*Dictionary*to be <null> because we are not expecting anything, but found *{*}*");
+            .WithMessage("*property*Dictionary*to be <null> because we want to test the failure message, but found *{*}*");
     }
 
     [Fact]
     public void When_subject_dictionary_asserted_to_be_equivalent_have_less_elements_fails_describing_missing_keys()
     {
-        // Arrange
         var dictionary1 = new Dictionary<string, string>
         {
             ["greeting"] = "hello"
         };
-
         var dictionary2 = new Dictionary<string, string>
         {
             ["greeting"] = "hello",
             ["farewell"] = "goodbye"
         };
 
-        // Act
         Action action = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
         action.Should().Throw<XunitException>()
             .WithMessage("Expected dictionary1*to be a dictionary with 2 item(s), but it misses key(s) {\"farewell\"}*");
     }
@@ -884,22 +747,18 @@ public class DictionarySpecs
     public void
         When_subject_dictionary_with_class_keys_asserted_to_be_equivalent_have_less_elements_other_dictionary_derived_class_keys_fails_describing_missing_keys()
     {
-        // Arrange
         var dictionary1 = new Dictionary<SomeBaseKeyClass, string>
         {
             [new SomeDerivedKeyClass(1)] = "hello"
         };
-
         var dictionary2 = new Dictionary<SomeDerivedKeyClass, string>
         {
             [new SomeDerivedKeyClass(1)] = "hello",
             [new SomeDerivedKeyClass(2)] = "hello"
         };
 
-        // Act
         Action action = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
         action.Should().Throw<XunitException>()
             .WithMessage("Expected*to be a dictionary with 2 item(s), but*misses key(s) {BaseKey 2}*");
     }
@@ -907,106 +766,85 @@ public class DictionarySpecs
     [Fact]
     public void When_subject_dictionary_asserted_to_be_equivalent_have_more_elements_fails_describing_additional_keys()
     {
-        // Arrange
-        var expectation = new Dictionary<string, string>
-        {
-            ["greeting"] = "hello"
-        };
-
         var subject = new Dictionary<string, string>
         {
             ["greeting"] = "hello",
             ["farewell"] = "goodbye"
         };
+        var expectation = new Dictionary<string, string>
+        {
+            ["greeting"] = "hello"
+        };
 
-        // Act
-        Action action = () => subject.Should().BeEquivalentTo(expectation, "because we expect one pair");
+        Action action = () => subject.Should().BeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
-        // Assert
-        action.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected subject*to be a dictionary with 1 item(s) because we expect one pair, but*additional key(s) {\"farewell\"}*");
+        action.Should().Throw<XunitException>().WithMessage(
+            "Expected subject*to be a dictionary with 1 item(s) because*failure message, but*additional key(s) {\"farewell\"}*");
     }
 
     [Fact]
     public void
         When_subject_dictionary_with_class_keys_asserted_to_be_equivalent_and_other_dictionary_derived_class_keys_fails_because_of_types_incompatibility()
     {
-        // Arrange
         var dictionary1 = new Dictionary<SomeBaseKeyClass, string>
         {
             [new SomeDerivedKeyClass(1)] = "hello"
         };
-
         var dictionary2 = new Dictionary<SomeDerivedKeyClass, string>
         {
             [new SomeDerivedKeyClass(1)] = "hello",
             [new SomeDerivedKeyClass(2)] = "hello"
         };
 
-        // Act
         Action action = () => dictionary2.Should().BeEquivalentTo(dictionary1);
 
-        // Assert
-        action.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected dictionary2 to be a dictionary or collection of key-value pairs that is keyed to type AwesomeAssertions.Equivalency.Specs.DictionarySpecs+SomeBaseKeyClass.*");
+        action.Should().Throw<XunitException>().WithMessage(
+            "Expected dictionary2 to be a dictionary or collection of key-value pairs that is keyed to type AwesomeAssertions.Equivalency.Specs.DictionarySpecs+SomeBaseKeyClass.*");
     }
 
     [Fact]
     public void
         When_subject_dictionary_asserted_to_be_equivalent_have_less_elements_but_some_missing_and_some_additional_elements_fails_describing_missing_and_additional_keys()
     {
-        // Arrange
         var dictionary1 = new Dictionary<string, string>
         {
             ["GREETING"] = "hello"
         };
-
         var dictionary2 = new Dictionary<string, string>
         {
             ["greeting"] = "hello",
             ["farewell"] = "goodbye"
         };
 
-        // Act
         Action action = () => dictionary1.Should().BeEquivalentTo(dictionary2);
 
-        // Assert
-        action.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected*to be a dictionary with 2 item(s), but*misses key(s)*{\"greeting\", \"farewell\"}*additional key(s) {\"GREETING\"}*");
+        action.Should().Throw<XunitException>().WithMessage(
+            "Expected*to be a dictionary with 2 item(s), but*misses key(s)*{\"greeting\", \"farewell\"}*additional key(s) {\"GREETING\"}*");
     }
 
     [Fact]
     public void
         When_subject_dictionary_asserted_to_be_equivalent_have_more_elements_but_some_missing_and_some_additional_elements_fails_describing_missing_and_additional_keys()
     {
-        // Arrange
         var dictionary1 = new Dictionary<string, string>
         {
             ["GREETING"] = "hello"
         };
-
         var dictionary2 = new Dictionary<string, string>
         {
             ["greeting"] = "hello",
             ["farewell"] = "goodbye"
         };
 
-        // Act
         Action action = () => dictionary2.Should().BeEquivalentTo(dictionary1);
 
-        // Assert
-        action.Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected*to be a dictionary with 1 item(s), but*misses key(s) {\"GREETING\"}*additional key(s) {\"greeting\", \"farewell\"}*");
+        action.Should().Throw<XunitException>().WithMessage(
+            "Expected*to be a dictionary with 1 item(s), but*misses key(s) {\"GREETING\"}*additional key(s) {\"greeting\", \"farewell\"}*");
     }
 
     [Fact]
     public void When_two_equivalent_dictionaries_are_compared_directly_as_if_it_is_a_collection_it_should_succeed()
     {
-        // Arrange
         var result = new Dictionary<string, int?>
         {
             ["C"] = null,
@@ -1014,7 +852,6 @@ public class DictionarySpecs
             ["A"] = 0
         };
 
-        // Act / Assert
         result.Should().BeEquivalentTo(new Dictionary<string, int?>
         {
             ["A"] = 0,
@@ -1026,7 +863,6 @@ public class DictionarySpecs
     [Fact]
     public void When_two_equivalent_dictionaries_are_compared_directly_it_should_succeed()
     {
-        // Arrange
         var result = new Dictionary<string, int>
         {
             ["C"] = 0,
@@ -1034,7 +870,6 @@ public class DictionarySpecs
             ["A"] = 0
         };
 
-        // Act / Assert
         result.Should().BeEquivalentTo(new Dictionary<string, int>
         {
             ["A"] = 0,
@@ -1046,83 +881,57 @@ public class DictionarySpecs
     [Fact]
     public void When_two_nested_dictionaries_contain_null_values_it_should_not_crash()
     {
-        // Arrange
         var projection = new
         {
-            ReferencedEquipment = new Dictionary<int, string>
-            {
-                [1] = null
-            }
+            ReferencedEquipment = new Dictionary<int, string> { [1] = null }
         };
-
         var persistedProjection = new
         {
-            ReferencedEquipment = new Dictionary<int, string>
-            {
-                [1] = null
-            }
+            ReferencedEquipment = new Dictionary<int, string> { [1] = null }
         };
 
-        // Act / Assert
         persistedProjection.Should().BeEquivalentTo(projection);
     }
 
     [Fact]
     public void When_two_nested_dictionaries_do_not_match_it_should_throw()
     {
-        // Arrange
         var projection = new
         {
-            ReferencedEquipment = new Dictionary<int, string>
-            {
-                [1] = "Bla1"
-            }
+            ReferencedEquipment = new Dictionary<int, string> { [1] = "Bla1" }
         };
-
         var persistedProjection = new
         {
-            ReferencedEquipment = new Dictionary<int, string>
-            {
-                [1] = "Bla2"
-            }
+            ReferencedEquipment = new Dictionary<int, string> { [1] = "Bla2" }
         };
 
-        // Act
         Action act = () => persistedProjection.Should().BeEquivalentTo(projection);
 
-        // Assert
-        act.Should().Throw<XunitException>().WithMessage(
-            "Expected*ReferencedEquipment[1]*Bla2*Bla1*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*ReferencedEquipment[1]*Bla2*Bla1*");
     }
 
     [Fact]
     public void When_a_dictionary_is_missing_a_key_it_should_report_the_specific_key()
     {
-        // Arrange
         var actual = new Dictionary<string, string>
         {
             { "a", "x" },
-            { "b", "x" },
+            { "b", "x" }
         };
-
         var expected = new Dictionary<string, string>
         {
             { "a", "x" },
-            { "c", "x" }, // key mismatch
+            { "c", "x" } // key mismatch
         };
 
-        // Act
-        Action act = () => actual.Should().BeEquivalentTo(expected, "because we're expecting {0}", "c");
+        Action act = () => actual.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
-        // Assert
-        act.Should().Throw<XunitException>().WithMessage(
-            "Expected actual*key*c*because we're expecting c*");
+        act.Should().Throw<XunitException>().WithMessage("Expected actual*key*c*because we want to test the failure message*");
     }
 
     [Fact]
     public void When_a_nested_dictionary_value_doesnt_match_it_should_throw()
     {
-        // Arrange
         const string json =
             """
             {
@@ -1132,7 +941,6 @@ public class DictionarySpecs
                 }
             }
             """;
-
         var expectedResult = new Dictionary<string, object>
         {
             ["NestedDictionary"] = new Dictionary<string, object>
@@ -1142,19 +950,15 @@ public class DictionarySpecs
             }
         };
 
-        // Act
         var result = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
         Action act = () => result.Should().BeEquivalentTo(expectedResult);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("Expected*String*JValue*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*String*JValue*");
     }
 
     [Fact]
     public void When_a_custom_rule_is_applied_on_a_dictionary_it_should_apply_it_on_the_values()
     {
-        // Arrange
         var dictOne = new Dictionary<string, double>
         {
             { "a", 1.2345 },
@@ -1162,7 +966,6 @@ public class DictionarySpecs
             { "c", 5.6789 },
             { "s", 3.333 }
         };
-
         var dictTwo = new Dictionary<string, double>
         {
             { "a", 1.2348 },
@@ -1171,29 +974,20 @@ public class DictionarySpecs
             { "s", 3.333 }
         };
 
-        // Act / Assert
         dictOne.Should().BeEquivalentTo(dictTwo, options => options
             .Using<double>(ctx => ctx.Subject.Should().BeApproximately(ctx.Expectation, 0.1))
-            .WhenTypeIs<double>()
-        );
+            .WhenTypeIs<double>());
     }
 
     [Fact]
     public void Passing_the_reason_to_the_inner_equivalency_assertion_works()
     {
-        var subject = new Dictionary<string, object>
-        {
-            ["a"] = new List<int>()
-        };
+        var subject = new Dictionary<string, object> { ["a"] = new List<int>() };
+        var expected = new Dictionary<string, object> { ["a"] = new List<int> { 42 } };
 
-        var expected = new Dictionary<string, object>
-        {
-            ["a"] = new List<int> { 42 }
-        };
+        Action act = () => subject.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
-        Action act = () => subject.Should().BeEquivalentTo(expected, "FOO {0}", "BAR");
-
-        act.Should().Throw<XunitException>().WithMessage("*FOO BAR*");
+        act.Should().Throw<XunitException>().WithMessage("*because we want to test the failure message*");
     }
 
     [Fact]
@@ -1204,7 +998,6 @@ public class DictionarySpecs
             ["id"] = 22,
             ["CustomerId"] = 33
         };
-
         var expected = new Dictionary<object, object>
         {
             ["id"] = 22,
@@ -1218,7 +1011,6 @@ public class DictionarySpecs
     public void A_non_generic_subject_which_is_null_can_be_compared_with_a_generic_expectation()
     {
         var subject = (ListDictionary)null;
-
         var expected = new Dictionary<object, object>
         {
             ["id"] = 22,
@@ -1238,7 +1030,6 @@ public class DictionarySpecs
             ["id"] = 22,
             ["CustomerId"] = 33
         };
-
         var expected = new Dictionary<object, object>
         {
             ["id"] = 22,
@@ -1256,7 +1047,6 @@ public class DictionarySpecs
             ["id"] = 22,
             ["CustomerId"] = 33
         };
-
         var expected = new Specs.NonGenericDictionary
         {
             ["id"] = 22,
@@ -1274,7 +1064,6 @@ public class DictionarySpecs
             ["id"] = 22,
             ["CustomerId"] = 33
         };
-
         var expected = new NonGenericChildDictionary
         {
             ["id"] = 22,
@@ -1287,28 +1076,22 @@ public class DictionarySpecs
     [Fact]
     public void A_subject_string_key_with_curly_braces_is_formatted_correctly_in_failure_message()
     {
-        // Arrange
         var actual = new Dictionary<string, string> { ["{}"] = "" };
         var expected = new Dictionary<string, string> { ["{}"] = null };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expected);
 
-        // Assert
         act.Should().Throw<XunitException>().WithMessage("Expected actual[{}] to be *, but found *.");
     }
 
     [Fact]
     public void A_subject_key_with_braces_in_string_representation_is_formatted_correctly_in_failure_message()
     {
-        // Arrange
         var actual = new Dictionary<RecordStruct, string> { [new()] = "" };
         var expected = new Dictionary<RecordStruct, string> { [new()] = null };
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expected);
 
-        // Assert
         act.Should().Throw<XunitException>().WithMessage("Expected actual[RecordStruct { }] to be *, but found *.");
     }
 
