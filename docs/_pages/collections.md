@@ -90,6 +90,12 @@ singleEquivalent.Should().ContainSingle()
     .Which.Should().BeEquivalentTo(new { Size = 42 });
 ```
 
+When targeting NET8 or greater, collections of type `INumber<T>` can be compared to equal approximately:
+```csharp
+collection.Should().EqualApproximately(new[] { 1f, 2f, 3f, 4f }, 0.01f);
+collection.Should().NotEqualApproximately(new int[] { 1, 2, 3, 4 }, 1);
+```
+
 Asserting that a collection contains items in a certain order is as easy as using one of the several overloads of `BeInAscendingOrder` or `BeInDescendingOrder`. The default overload will use the default `Comparer` for the specified type, but overloads also exist that take an `IComparer<T>`, a property expression to sort by an object's property, or a lambda expression to avoid the need for `IComparer<T>` implementations.
 
 ```csharp
