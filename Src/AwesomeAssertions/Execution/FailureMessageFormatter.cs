@@ -20,21 +20,8 @@ internal class FailureMessageFormatter(FormattingOptions formattingOptions)
 
     public FailureMessageFormatter WithReason(string reason)
     {
-        this.reason = SanitizeReason(reason ?? string.Empty);
+        this.reason = reason ?? string.Empty;
         return this;
-    }
-
-    private static string SanitizeReason(string reason)
-    {
-        if (!string.IsNullOrEmpty(reason))
-        {
-            reason = EnsurePrefix("because", reason);
-            reason = reason.EscapePlaceholders();
-
-            return StartsWithBlank(reason) ? reason : " " + reason;
-        }
-
-        return string.Empty;
     }
 
     // SMELL: looks way too complex just to retain the leading whitespace
@@ -81,7 +68,7 @@ internal class FailureMessageFormatter(FormattingOptions formattingOptions)
 
     public string Format(string message, object[] messageArgs)
     {
-        message = message.Replace("{reason}", reason, StringComparison.Ordinal);
+        message = SubstituteReason(message);
 
         message = SubstituteIdentifier(message, identifier?.EscapePlaceholders(), fallbackIdentifier);
 
@@ -90,6 +77,65 @@ internal class FailureMessageFormatter(FormattingOptions formattingOptions)
         message = FormatArgumentPlaceholders(message, messageArgs);
 
         return message;
+    }
+
+    /// <summary>
+    /// Substitutes the {reason} placeholder in the message template.
+    /// </summary>
+    /// <param name="message">The message template to parse.</param>
+    /// <returns>The changed message template.</returns>
+    private string SubstituteReason(string message)
+    {
+        int indexOfReason = message.IndexOf("{reason}", StringComparison.Ordinal);
+        if (indexOfReason < 0)
+        {
+            return message;
+        }
+
+        bool isPreceededByNewLine = indexOfReason > 0 && (message[indexOfReason - 1] == '\n' || message[indexOfReason - 1] == '\r');
+
+        if (string.IsNullOrEmpty(reason) && isPreceededByNewLine)
+        {
+            return RemoveEmptyReasonAtLineStart(message, indexOfReason);
+        }
+
+        string sanitizedReason = SanitizeReason(addBlank: !isPreceededByNewLine);
+        return message.Replace("{reason}", sanitizedReason, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// For multiline messages, where we have a line break before the reason,
+    /// we want to remove a trailing comma and space if the reason is empty
+    /// </summary>
+    /// <param name="message">The original message with {reason} template.</param>
+    /// <param name="indexOfReason">Index of the {reason} placeholder within <paramref name="message"/>.</param>
+    /// <returns>The message without reason</returns>
+    private static string RemoveEmptyReasonAtLineStart(string message, int indexOfReason)
+    {
+        int placeholderLength = "{reason}".Length;
+        int indexOfComma = indexOfReason + placeholderLength;
+        int indexOfSpace = indexOfComma + 1;
+        int removeCount = placeholderLength;
+        if (message.Length > indexOfSpace &&
+            message[indexOfComma] == ',' && message[indexOfSpace] == ' ')
+        {
+            removeCount += 2; // remove the comma and the space
+        }
+
+        return message.Remove(indexOfReason, removeCount);
+    }
+
+    private string SanitizeReason(bool addBlank)
+    {
+        if (string.IsNullOrEmpty(reason))
+        {
+            return string.Empty;
+        }
+
+        string sanitizedReason = EnsurePrefix("because", reason);
+        sanitizedReason = sanitizedReason.EscapePlaceholders();
+
+        return (StartsWithBlank(sanitizedReason) || !addBlank) ? sanitizedReason : " " + sanitizedReason;
     }
 
     private static string SubstituteIdentifier(string message, string identifier, string fallbackIdentifier)
