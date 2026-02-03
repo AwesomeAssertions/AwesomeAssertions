@@ -187,16 +187,8 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         string unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            BeEquivalentTo(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(notEquivalent)
+            .NotSatisfy(() => BeEquivalentTo(unexpected))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:string} not to be equivalent to {0}{reason}, but they are.", unexpected);
 
@@ -226,16 +218,8 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
     {
         Guard.ThrowIfArgumentIsNull(config);
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().BeEquivalentTo(unexpected, config);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(notEquivalent)
+            .NotSatisfy(() => Subject.Should().BeEquivalentTo(unexpected, config))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected {context:string} not to be equivalent to {0}{reason}, but they are.", unexpected);
 
@@ -1057,18 +1041,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
     {
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare start of string with <null>.");
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().StartWith(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to start with {0}{reason}, but found {1}.", unexpected, Subject);
+            .WithExpectation("Expected {context:string} not to start with {0}{reason}, ", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith("but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().StartWith(unexpected))
+                .FailWith("but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1156,19 +1136,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
     {
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare start of string with <null>.");
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().StartWithEquivalentOf(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to start with equivalent of {0}{reason}, but found {1}.", unexpected,
-                Subject);
+            .WithExpectation("Expected {context:string} not to start with equivalent of {0}{reason}, ", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith("but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().StartWithEquivalentOf(unexpected))
+                .FailWith("but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1196,19 +1171,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare start of string with <null>.");
         Guard.ThrowIfArgumentIsNull(config);
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().StartWithEquivalentOf(unexpected, config);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to start with equivalent of {0}{reason}, but found {1}.", unexpected,
-                Subject);
+            .WithExpectation("Expected {context:string} not to start with equivalent of {0}{reason}, but found <null>.", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith(", but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().StartWithEquivalentOf(unexpected, config))
+                .FailWith(", but found {0}.", unexpected, Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1260,18 +1230,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
     {
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare end of string with <null>.");
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().EndWith(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to end with {0}{reason}, but found {1}.", unexpected, Subject);
+            .WithExpectation("Expected {context:string} not to end with {0}{reason}, ", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith("but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().EndWith(unexpected))
+                .FailWith("but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1359,18 +1325,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
     {
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare end of string with <null>.");
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().EndWithEquivalentOf(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to end with equivalent of {0}{reason}, but found {1}.", unexpected, Subject);
+            .WithExpectation("Expected {context:string} not to end with equivalent of {0}{reason}, ", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith("but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().EndWithEquivalentOf(unexpected))
+                .FailWith("but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1398,18 +1360,14 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         Guard.ThrowIfArgumentIsNull(unexpected, nameof(unexpected), "Cannot compare end of string with <null>.");
         Guard.ThrowIfArgumentIsNull(config);
 
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().EndWithEquivalentOf(unexpected, config);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
         assertionChain
-            .ForCondition(Subject != null && notEquivalent)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:string} not to end with equivalent of {0}{reason}, but found {1}.", unexpected, Subject);
+            .WithExpectation("Expected {context:string} not to end with equivalent of {0}{reason}, ", unexpected, chain => chain
+                .ForCondition(Subject is not null)
+                .FailWith("but found <null>.")
+                .Then
+                .NotSatisfy(() => Subject.Should().EndWithEquivalentOf(unexpected, config))
+                .FailWith("but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1831,24 +1789,13 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(!string.IsNullOrEmpty(unexpected) && Subject != null)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Did not expect {context:string} to contain the equivalent of {0}{reason}, but found {1}.", unexpected,
-                Subject);
-
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().ContainEquivalentOf(unexpected);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
-        assertionChain
-            .ForCondition(notEquivalent)
-            .BecauseOf(because, becauseArgs)
-            .FailWith("Did not expect {context:string} to contain the equivalent of {0}{reason} but found {1}.", unexpected,
-                Subject);
+            .WithExpectation("Did not expect {context:string} to contain the equivalent of {0}{reason}", unexpected, chain => chain
+                .ForCondition(!string.IsNullOrEmpty(unexpected) && Subject != null)
+                .FailWith(", but found {0}.", Subject)
+                .Then
+                .NotSatisfy(() => Subject.Should().ContainEquivalentOf(unexpected))
+                .FailWith(", but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -1875,24 +1822,13 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         Guard.ThrowIfArgumentIsNull(config);
 
         assertionChain
-            .ForCondition(!string.IsNullOrEmpty(unexpected) && Subject != null)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Did not expect {context:string} to contain the equivalent of {0}{reason}, but found {1}.", unexpected,
-                Subject);
-
-        bool notEquivalent;
-
-        using (var scope = new AssertionScope())
-        {
-            Subject.Should().ContainEquivalentOf(unexpected, config);
-            notEquivalent = scope.Discard().Length > 0;
-        }
-
-        assertionChain
-            .ForCondition(notEquivalent)
-            .BecauseOf(because, becauseArgs)
-            .FailWith("Did not expect {context:string} to contain the equivalent of {0}{reason}, but found {1}.", unexpected,
-                Subject);
+            .WithExpectation("Did not expect {context:string} to contain the equivalent of {0}{reason}", unexpected, chain => chain
+                .ForCondition(!string.IsNullOrEmpty(unexpected) && Subject != null)
+                .FailWith(", but found {0}.", Subject)
+                .Then
+                .NotSatisfy(() => Subject.Should().ContainEquivalentOf(unexpected, config))
+                .FailWith(", but found {0}.", Subject));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
