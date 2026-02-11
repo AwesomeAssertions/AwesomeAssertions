@@ -53,7 +53,7 @@ public class DirectoryInfoAssertions :
             .FailWith("You can't assert a file exist if you don't pass a proper name")
             .Then
             .Given(() => Subject.GetFiles())
-            .ForCondition(files => files.Any(fileInfo => fileInfo.Name.Equals(filename)))
+            .Satisfy(files => files.Should().Contain(filename))
             .FailWith("Expected {context:directory} to contain {0}{reason}, but found {1}.",
                 _ => filename, files => files.Select(file => file.Name));
 
@@ -69,7 +69,10 @@ This is quite an elaborate example which shows some of the more advanced extensi
 * The variable `chain` of type `AssertionChain` is the point of entrance into the internal fluent API.
 * The optional `because` parameter can contain `string.Format` style place holders which will be filled using the values provided to the `becauseArgs`. They can be used by the caller to provide a reason why the assertion should succeed. By passing those into the `BecauseOf` method, you can refer to the expanded result using the `{reason}` tag in the `FailWith` method.
 * The `Then` property is just there to chain multiple assertions together. You can have more than one. However, if the first assertion fails, then the successive assertions will not be evaluated anymore.
-* The `Given` method allows you to perform a lazily evaluated projection on whatever you want. In this case I use it to get a list of `FileInfo` objects from the current directory. Notice that the resulting expression is not evaluated until the final call to `FailWith`.
+* The `Given` method allows you to perform a lazily evaluated projection on whatever you want. In this case I use it to get a list of `FileInfo` objects from the current directory.
+* The `ForCondition` specifies the condition which is expected to return `true`.
+* When using `Satisfy`, the given assertion is expected to succeed.
+* When using `NotSatisfy`, the given assertion is expected to fail.
 * `FailWith` will evaluate the condition, and raise the appropriate exception specific for the detected test framework. It again can contain numbered placeholders as well as the special named placeholders `{context}` and `{reason}`. I'll explain the former in a minute, but suffice to say that it displays the text "directory" at that point. The remainder of the place holders will be filled by applying the appropriate type-specific value formatter for the provided arguments. If those arguments involve a non-primitive type such as a collection or complex type, the formatters will use recursion to always use the appropriate formatter.
 * Since we used the `Given` construct to create a projection, the parameters of `FailWith` are formed by a `params` array of `Func<T, object>` that give you access to the projection (such as the `FileInfo[]` in this particular case). But normally, it's just a `params array` of objects.
 
