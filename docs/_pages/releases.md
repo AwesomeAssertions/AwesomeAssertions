@@ -24,6 +24,7 @@ sidebar:
 ### Improvements
 * Hide irrelevant exception throwing details in stacktrace - [#327](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/327)
 * Improve tabulator handling in string difference visualization - [#313](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/313)
+* Improve failure messages for string matching on long or multiline strings - [#](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/)
 
 ### Fixes
 * Fix failure message when matching a `string null` subject - [#314](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/314)
