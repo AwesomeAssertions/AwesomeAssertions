@@ -39,8 +39,9 @@ Start reading the section titles, go in deep if the title is not self-explanator
   * ✅ Separate Arrange, Act and Assert with exactly one empty line.
   * ❌ Additional comments for these blocks are not required.
 * Remember to test the "because formatting" overloads.
-  * ✅ Always use the pattern `"we format {0} message", "the"`
-    resulting in generated string `"because we format the message""`.
+  * ✅ Always use the pattern `"we want to test the {0} message", "failure"`
+    resulting in generated string `"because we want to test the failure message"`.
+    At least the part `"because*failure message"` should be tested.
 * ❌ Don't use `Should().NotThrow` in the asserting for tests which are meant to pass.
 
 ### TODO - unsorted

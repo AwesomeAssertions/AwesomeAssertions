@@ -11,11 +11,9 @@ public partial class SelectionRulesSpecs
     [Fact]
     public void Public_methods_follow_fluent_syntax()
     {
-        // Arrange
         var subject = new Root();
         var expected = new RootDto();
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expected,
             options => options
                 .AllowingInfiniteRecursion()
@@ -46,7 +44,7 @@ public partial class SelectionRulesSpecs
                 .PreferringDeclaredMemberTypes()
                 .PreferringRuntimeMemberTypes()
                 .ThrowingOnMissingMembers()
-                .Using(new ExtensibilitySpecs.DoEquivalencyStep(() => { }))
+                .Using(new DoEquivalencyStep(() => { }))
                 .Using(new MustMatchByNameRule())
                 .Using(new AllFieldsSelectionRule())
                 .Using(new ByteArrayOrderingRule())
@@ -61,6 +59,23 @@ public partial class SelectionRulesSpecs
                 .WithStrictOrdering()
                 .WithStrictOrderingFor(r => r.Level)
                 .WithTracing()
-            );
+        );
+    }
+
+    internal class DoEquivalencyStep : IEquivalencyStep
+    {
+        private readonly Action doAction;
+
+        public DoEquivalencyStep(Action doAction)
+        {
+            this.doAction = doAction;
+        }
+
+        public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
+            IValidateChildNodeEquivalency valueChildNodes)
+        {
+            doAction();
+            return EquivalencyResult.EquivalencyProven;
+        }
     }
 }
