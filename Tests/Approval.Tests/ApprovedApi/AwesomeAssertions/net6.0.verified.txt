@@ -1435,12 +1435,14 @@ namespace AwesomeAssertions.Formatting
     public class FormattingContext
     {
         public FormattingContext() { }
+        public int MaxItems { get; set; }
         public bool UseLineBreaks { get; set; }
     }
     public class FormattingOptions
     {
         public FormattingOptions() { }
         public int MaxDepth { get; set; }
+        public int MaxItems { get; set; }
         public int MaxLines { get; set; }
         public int StringPrintLength { get; set; }
         public bool UseLineBreaks { get; set; }
