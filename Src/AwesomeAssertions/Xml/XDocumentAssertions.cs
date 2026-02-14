@@ -41,6 +41,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> Be(XDocument expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -64,6 +65,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotBe(XDocument unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -87,6 +89,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> BeEquivalentTo(XDocument expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -112,6 +115,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotBeEquivalentTo(XDocument unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -138,6 +142,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveRoot(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -160,6 +165,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveRoot(XName expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -199,6 +205,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveElement(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -226,6 +233,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, IEnumerable<XElement>> HaveElement(string expected,
         OccurrenceConstraint occurrenceConstraint,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -251,6 +259,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveElement(XName expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -304,6 +313,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, IEnumerable<XElement>> HaveElement(XName expected,
         OccurrenceConstraint occurrenceConstraint,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -350,6 +360,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotHaveElement(string unexpectedElement,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -371,6 +382,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotHaveElement(XName unexpectedElement,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -406,6 +418,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveElementWithValue(string expectedElement,
         string expectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -432,6 +445,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XDocumentAssertions, XElement> HaveElementWithValue(XName expectedElement,
         string expectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -481,6 +495,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotHaveElementWithValue(string unexpectedElement,
         string unexpectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -507,6 +522,7 @@ public class XDocumentAssertions : ReferenceTypeAssertions<XDocument, XDocumentA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XDocumentAssertions> NotHaveElementWithValue(XName unexpectedElement,
         string unexpectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

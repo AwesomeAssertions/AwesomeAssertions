@@ -36,6 +36,7 @@ public class ActionAssertions : DelegateAssertions<Action, ActionAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<ActionAssertions> NotThrow([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -76,6 +77,7 @@ public class ActionAssertions : DelegateAssertions<Action, ActionAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="waitTime"/> or <paramref name="pollInterval"/> are negative.</exception>
+    [return: NotNull]
     public AndConstraint<ActionAssertions> NotThrowAfter(TimeSpan waitTime, TimeSpan pollInterval,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

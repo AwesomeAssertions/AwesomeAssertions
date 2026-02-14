@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### Improvements
+* Add `[return: NotNull` to all `Should()` and assertion methods  - [#433](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/433)
+ 
 ### Fixes
 * Add missing `[NotNull]` attribute on the `Should()` methods for nullable value types - [#411](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/411)
 * Add missing reason to some equivalency assertions - [#405](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/405)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Numeric;
@@ -15,11 +16,13 @@ namespace AwesomeAssertions.Specs;
 
 public class AssertionExtensionsSpecs
 {
+    private static TypeSelector AllOurTypes => AllTypes.From(typeof(AwesomeAssertions.AssertionExtensions).Assembly);
+
     [Fact]
     public void Assertions_classes_override_equals()
     {
         // Arrange / Act
-        var equalsOverloads = AllTypes.From(typeof(AwesomeAssertions.AssertionExtensions).Assembly)
+        var equalsOverloads = AllOurTypes
             .ThatAreClasses()
             .Where(t => t.IsPublic && t.Name.TrimEnd('`', '1', '2', '3').EndsWith("Assertions", StringComparison.Ordinal))
             .Select(e => GetMostParentType(e))
@@ -37,6 +40,54 @@ public class AssertionExtensionsSpecs
             null, [typeof(object)], null);
 
         return equals is not null;
+    }
+
+    [Fact]
+    public void Assertions_classes_have_property_names_by_convention()
+    {
+        static bool IsAssertionsClass(Type type)
+        {
+            if (type.IsDefined(typeof(CompilerGeneratedAttribute)))
+            {
+                return false;
+            }
+
+            string name = type.Name;
+            int lastIndex = type.Name.LastIndexOf('`');
+            if (lastIndex >= 0)
+            {
+                name = name[..lastIndex];
+            }
+
+            return name.EndsWith("Assertions", StringComparison.Ordinal);
+        }
+
+        TypeSelector assertionsClasses = AllOurTypes
+            .ThatAreClasses()
+            .ThatAreNotAbstract()
+            .ThatAreNotStatic()
+            .ThatSatisfy(IsAssertionsClass);
+
+        assertionsClasses.AsEnumerable().Should().AllSatisfy(
+            type => type.Should().HaveProperty<AssertionChain>("CurrentAssertionChain"));
+    }
+
+    [Fact]
+    public void Assertion_methods_are_annotated_with_return_notnull_attribute()
+    {
+        GetAllAssertionMethods()
+            .Should().AllSatisfy(method =>
+                method.ReturnParameter.GetCustomAttribute<NotNullAttribute>()
+                    .Should().NotBeNull("because assertion {0} of type {1} must never return null", method, method.DeclaringType));
+    }
+
+    private static IEnumerable<MethodInfo> GetAllAssertionMethods()
+    {
+        return AllOurTypes
+            .ThatAreClasses()
+            .Methods()
+            .Where(method => method.IsPublic
+                && method.ReturnParameter.ParameterType.IsAssignableToOpenGeneric(typeof(AndConstraint<>)));
     }
 
     public static TheoryData<object> ClassesWithGuardEquals =>
@@ -95,12 +146,8 @@ public class AssertionExtensionsSpecs
     public void Fake_should_method_throws(Type type)
     {
         // Arrange
-        MethodInfo fakeOverload = AllTypes.From(typeof(AwesomeAssertions.AssertionExtensions).Assembly)
-            .ThatAreClasses()
-            .ThatAreStatic()
-            .Where(t => t.IsPublic)
-            .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public))
-            .Single(m => m.Name == "Should" && IsGuardOverload(m)
+        MethodInfo fakeOverload = GetAllShouldMethods()
+            .Single(m => IsGuardOverload(m)
                 && m.GetParameters().Single().ParameterType.Name == type.Name);
 
         if (type.IsConstructedGenericType)
@@ -122,12 +169,7 @@ public class AssertionExtensionsSpecs
     public void Should_methods_have_a_matching_overload_to_guard_against_chaining_and_constraints()
     {
         // Arrange / Act
-        List<MethodInfo> shouldOverloads = AllTypes.From(typeof(AwesomeAssertions.AssertionExtensions).Assembly)
-            .ThatAreClasses()
-            .ThatAreStatic()
-            .Where(t => t.IsPublic)
-            .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public))
-            .Where(m => m.Name == "Should")
+        List<MethodInfo> shouldOverloads = GetAllShouldMethods()
             .ToList();
 
         List<Type> realOverloads =
@@ -174,6 +216,16 @@ public class AssertionExtensionsSpecs
         notNullAttribute.Should().BeNull();
     }
 
+    [Fact]
+    public void Should_methods_are_annotated_with_return_notnull_attribute()
+    {
+        GetAllShouldMethods()
+            .Where(x => !IsGuardOverload(x))
+            .Should().AllSatisfy(method =>
+                method.ReturnParameter.GetCustomAttribute<NotNullAttribute>()
+                    .Should().NotBeNull("because {0} must never return null", method));
+    }
+
     public static TheoryData<MethodInfo> GetShouldMethods(bool referenceOrNullableTypes)
     {
         return new(AllTypes.From(typeof(AwesomeAssertions.AssertionExtensions).Assembly)
@@ -185,6 +237,16 @@ public class AssertionExtensionsSpecs
                 && !IsGuardOverload(m)
                 && m.GetParameters().Length == 1
                 && (referenceOrNullableTypes ? IsReferenceOrNullableTypeAssertion(m) : !IsReferenceOrNullableTypeAssertion(m))));
+    }
+
+    public static IEnumerable<MethodInfo> GetAllShouldMethods()
+    {
+        return AllOurTypes
+            .ThatAreClasses()
+            .ThatAreStatic()
+            .Where(t => t.IsPublic)
+            .SelectMany(t => t.GetMethods(BindingFlags.Static | BindingFlags.Public))
+            .Where(m => m.Name == "Should");
     }
 
     private static bool ReturnsReferenceTypeAssertions(MethodInfo m) =>

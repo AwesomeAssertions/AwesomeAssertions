@@ -54,6 +54,7 @@ public abstract class DelegateAssertionsBase<TDelegate, TAssertions>
         return new ExceptionAssertions<TException>(expectedExceptions, assertionChain);
     }
 
+    [return: NotNull]
     protected AndConstraint<TAssertions> NotThrowInternal(Exception exception, [StringSyntax("CompositeFormat")] string because,
         object[] becauseArgs)
     {
@@ -65,6 +66,7 @@ public abstract class DelegateAssertionsBase<TDelegate, TAssertions>
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
+    [return: NotNull]
     protected AndConstraint<TAssertions> NotThrowInternal<TException>(Exception exception,
         [StringSyntax("CompositeFormat")] string because, object[] becauseArgs)
         where TException : Exception

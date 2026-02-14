@@ -37,6 +37,7 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XmlElementAssertions> HaveInnerText(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -64,6 +65,7 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XmlElementAssertions> HaveAttribute(string expectedName, string expectedValue,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -85,6 +87,7 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XmlElementAssertions> HaveAttributeWithNamespace(
         string expectedName,
         string expectedNamespace,
@@ -130,6 +133,7 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XmlElementAssertions, XmlElement> HaveElement(
         string expectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -150,6 +154,7 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XmlElementAssertions, XmlElement> HaveElementWithNamespace(
         string expectedName,
         string expectedNamespace,

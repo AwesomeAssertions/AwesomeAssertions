@@ -55,6 +55,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Equal<T>(T expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : IEnumerable<KeyValuePair<TKey, TValue>>
@@ -119,6 +120,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotEqual<T>(T unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : IEnumerable<KeyValuePair<TKey, TValue>>
@@ -182,6 +184,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(TExpectation expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -214,6 +217,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(TExpectation expectation,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -255,6 +259,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public WhoseValueConstraint<TCollection, TKey, TValue, TAssertions> ContainKey(TKey expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -270,6 +275,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Key comparison will honor the equality comparer of the dictionary when applicable.
     /// </summary>
     /// <param name="expected">The expected keys</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainKeys(params TKey[] expected)
     {
         return ContainKeys(expected, string.Empty);
@@ -289,6 +295,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainKeys(IEnumerable<TKey> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -346,6 +353,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainKey(TKey unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -370,6 +378,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Key comparison will honor the equality comparer of the dictionary when applicable.
     /// </summary>
     /// <param name="unexpected">The unexpected keys</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainKeys(params TKey[] unexpected)
     {
         return NotContainKeys(unexpected, string.Empty);
@@ -389,6 +398,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="unexpected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainKeys(IEnumerable<TKey> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -447,6 +457,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, TValue> ContainValue(TValue expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -461,6 +472,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">The expected values</param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<TValue>> ContainValues(params TValue[] expected)
     {
         return ContainValues(expected, string.Empty);
@@ -480,6 +492,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<TValue>> ContainValues(IEnumerable<TValue> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -549,6 +562,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainValue(TValue unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -573,6 +587,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="unexpected">The unexpected values</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainValues(params TValue[] unexpected)
     {
         return NotContainValues(unexpected, string.Empty);
@@ -592,6 +607,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="unexpected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainValues(IEnumerable<TValue> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -645,6 +661,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Values are compared using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">The expected key/value pairs.</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Contain(params KeyValuePair<TKey, TValue>[] expected)
     {
         return Contain(expected, string.Empty);
@@ -666,6 +683,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Needs refactoring")]
+    [return: NotNull]
     public new AndConstraint<TAssertions> Contain(IEnumerable<KeyValuePair<TKey, TValue>> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -750,6 +768,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public new AndConstraint<TAssertions> Contain(KeyValuePair<TKey, TValue> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -771,6 +790,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Contain(TKey key, TValue value,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -815,6 +835,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// Values are compared using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="items">The unexpected key/value pairs</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContain(params KeyValuePair<TKey, TValue>[] items)
     {
         return NotContain(items, string.Empty);
@@ -835,6 +856,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="items"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="items"/> is empty.</exception>
+    [return: NotNull]
     public new AndConstraint<TAssertions> NotContain(IEnumerable<KeyValuePair<TKey, TValue>> items,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -903,6 +925,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public new AndConstraint<TAssertions> NotContain(KeyValuePair<TKey, TValue> item,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -924,6 +947,7 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContain(TKey key, TValue value,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

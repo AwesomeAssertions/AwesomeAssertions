@@ -34,6 +34,7 @@ public class XAttributeAssertions : ReferenceTypeAssertions<XAttribute, XAttribu
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XAttributeAssertions> Be(XAttribute expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -57,6 +58,7 @@ public class XAttributeAssertions : ReferenceTypeAssertions<XAttribute, XAttribu
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XAttributeAssertions> NotBe(XAttribute unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -79,6 +81,7 @@ public class XAttributeAssertions : ReferenceTypeAssertions<XAttribute, XAttribu
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XAttributeAssertions> HaveValue(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

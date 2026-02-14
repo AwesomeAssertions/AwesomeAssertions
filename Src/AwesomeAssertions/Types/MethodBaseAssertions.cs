@@ -39,6 +39,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="accessModifier"/>
     /// is not a <see cref="CSharpAccessModifier"/> value.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveAccessModifier(
         CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -82,6 +83,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="accessModifier"/>
     /// is not a <see cref="CSharpAccessModifier"/> value.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveAccessModifier(CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

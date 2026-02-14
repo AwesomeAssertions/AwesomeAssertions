@@ -53,6 +53,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> BeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         MethodInfo[] nonVirtualMethods = GetAllNonVirtualMethodsFromSelection();
@@ -79,6 +80,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> NotBeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         MethodInfo[] virtualMethods = GetAllVirtualMethodsFromSelection();
@@ -115,6 +117,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> BeAsync([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         MethodInfo[] nonAsyncMethods = SubjectMethods.Where(method => !method.IsAsync()).ToArray();
@@ -141,6 +144,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> NotBeAsync([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         MethodInfo[] asyncMethods = SubjectMethods.Where(method => method.IsAsync()).ToArray();
@@ -167,6 +171,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> BeDecoratedWith<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -189,6 +194,7 @@ public class MethodInfoSelectorAssertions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> BeDecoratedWith<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -220,6 +226,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> NotBeDecoratedWith<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -242,6 +249,7 @@ public class MethodInfoSelectorAssertions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> NotBeDecoratedWith<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -274,6 +282,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> Be(CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -302,6 +311,7 @@ public class MethodInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoSelectorAssertions> NotBe(CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

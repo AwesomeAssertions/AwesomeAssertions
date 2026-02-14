@@ -53,6 +53,7 @@ public class BooleanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeFalse([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -73,6 +74,7 @@ public class BooleanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeTrue([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -94,6 +96,7 @@ public class BooleanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(bool expected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -116,6 +119,7 @@ public class BooleanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(bool unexpected, [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -138,6 +142,7 @@ public class BooleanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Imply(bool consequent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)

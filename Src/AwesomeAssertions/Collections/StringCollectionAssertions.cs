@@ -53,6 +53,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// the element order, use <see cref="BeEquivalentTo(string[])"/> instead.
     /// </summary>
     /// <param name="expected">An <see cref="IEnumerable{T}"/> with the expected elements.</param>
+    [return: NotNull]
     public new AndConstraint<TAssertions> Equal(params string[] expected)
     {
         return base.Equal(expected.AsEnumerable());
@@ -64,6 +65,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// the element order, use <see cref="BeEquivalentTo(IEnumerable{string}, string, object[])"/> instead.
     /// </summary>
     /// <param name="expected">An <see cref="IEnumerable{T}"/> with the expected elements.</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Equal(IEnumerable<string> expected)
     {
         return base.Equal(expected);
@@ -76,6 +78,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// The two collections are equivalent when they both contain the same strings in any order. To assert that the elements
     /// are in the same order, use <see cref="Equal(string[])"/> instead.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo(params string[] expectation)
     {
         return BeEquivalentTo(expectation, config => config);
@@ -96,6 +99,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo(IEnumerable<string> expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -124,6 +128,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo(IEnumerable<string> expectation,
         Func<EquivalencyOptions<string>, EquivalencyOptions<string>> config,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -163,6 +168,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBe(string expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -187,6 +193,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBe(string expectation,
         Func<EquivalencyOptions<string>, EquivalencyOptions<string>> config,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -242,6 +249,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="wildcardPattern"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="wildcardPattern"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, string> ContainMatch(string wildcardPattern,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -330,6 +338,7 @@ public class StringCollectionAssertions<TCollection, TAssertions> : GenericColle
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="wildcardPattern"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="wildcardPattern"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainMatch(string wildcardPattern,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

@@ -36,6 +36,7 @@ public class ObjectAssertions : ObjectAssertions<object, ObjectAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<ObjectAssertions> Be<TExpectation>(TExpectation expected, IEqualityComparer<TExpectation> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -66,6 +67,7 @@ public class ObjectAssertions : ObjectAssertions<object, ObjectAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<ObjectAssertions> NotBe<TExpectation>(TExpectation unexpected, IEqualityComparer<TExpectation> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -98,6 +100,7 @@ public class ObjectAssertions : ObjectAssertions<object, ObjectAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="validValues"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<ObjectAssertions> BeOneOf<TExpectation>(IEnumerable<TExpectation> validValues,
         IEqualityComparer<TExpectation> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -141,6 +144,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(TSubject expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -168,6 +172,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(TSubject expected, IEqualityComparer<TSubject> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -194,6 +199,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(TSubject unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -221,6 +227,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(TSubject unexpected, IEqualityComparer<TSubject> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -253,6 +260,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(TExpectation expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -283,6 +291,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(TExpectation expectation,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -328,6 +337,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(
         TExpectation unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -359,6 +369,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(
         TExpectation unexpected,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -389,6 +400,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="validValues">
     /// The values that are valid.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeOneOf(params TSubject[] validValues)
     {
         return BeOneOf(validValues, string.Empty);
@@ -407,6 +419,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<TSubject> validValues,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -436,6 +449,7 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="validValues"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<TSubject> validValues,
         IEqualityComparer<TSubject> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
