@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using AwesomeAssertions.Execution;
 
@@ -41,8 +42,9 @@ public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedSt
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveBufferSize(int expected,
-        [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
             .BecauseOf(because, becauseArgs)
@@ -73,8 +75,9 @@ public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedSt
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveBufferSize(int unexpected,
-        [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
             .BecauseOf(because, becauseArgs)

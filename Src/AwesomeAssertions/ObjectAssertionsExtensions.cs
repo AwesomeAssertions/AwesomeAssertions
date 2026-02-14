@@ -23,6 +23,7 @@ public static class ObjectAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<ObjectAssertions> BeDataContractSerializable(this ObjectAssertions assertions,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -48,6 +49,7 @@ public static class ObjectAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="options"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public static AndConstraint<ObjectAssertions> BeDataContractSerializable<T>(this ObjectAssertions assertions,
         Func<EquivalencyOptions<T>, EquivalencyOptions<T>> options,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -97,6 +99,7 @@ public static class ObjectAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<ObjectAssertions> BeXmlSerializable(this ObjectAssertions assertions,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

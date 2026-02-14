@@ -15,7 +15,7 @@ namespace Approval.Tests;
 
 public class ApiApproval
 {
-    static ApiApproval() => VerifyDiffPlex.Initialize(OutputType.Minimal);
+    static ApiApproval() => VerifyDiffPlex.Initialize(OutputType.Compact);
 
     [Theory]
     [ClassData(typeof(TargetFrameworksTheoryData))]

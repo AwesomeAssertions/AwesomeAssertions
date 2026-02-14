@@ -42,6 +42,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> Be(XElement expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -66,6 +67,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotBe(XElement unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -90,6 +92,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> BeEquivalentTo(XElement expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -116,6 +119,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotBeEquivalentTo(XElement unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -140,6 +144,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> HaveValue(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -174,6 +179,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expectedName"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> HaveAttribute(string expectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -194,6 +200,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> HaveAttribute(XName expectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -232,6 +239,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpectedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="unexpectedName"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveAttribute(string unexpectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -252,6 +260,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpectedName"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveAttribute(XName unexpectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -293,6 +302,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expectedName"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> HaveAttributeWithValue(string expectedName, string expectedValue,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -315,6 +325,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> HaveAttributeWithValue(XName expectedName, string expectedValue,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -364,6 +375,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpectedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="unexpectedName"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveAttributeWithValue(string unexpectedName, string unexpectedValue,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -387,6 +399,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpectedName"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveAttributeWithValue(XName unexpectedName, string unexpectedValue,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -429,6 +442,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, XElement> HaveElement(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -450,6 +464,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, XElement> HaveElement(XName expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -497,6 +512,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, IEnumerable<XElement>> HaveElement(XName expected,
         OccurrenceConstraint occurrenceConstraint,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -548,6 +564,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, IEnumerable<XElement>> HaveElement(string expected,
         OccurrenceConstraint occurrenceConstraint,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -571,6 +588,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveElement(string unexpectedElement,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -592,6 +610,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveElement(XName unexpectedElement,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -633,6 +652,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, XElement> HaveElementWithValue(string expectedElement,
         string expectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -659,6 +679,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<XElementAssertions, XElement> HaveElementWithValue(XName expectedElement,
         string expectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -710,6 +731,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveElementWithValue(string unexpectedElement,
         string unexpectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -736,6 +758,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<XElementAssertions> NotHaveElementWithValue(XName unexpectedElement,
         string unexpectedValue, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

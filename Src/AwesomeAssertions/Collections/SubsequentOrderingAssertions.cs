@@ -39,6 +39,7 @@ public class SubsequentOrderingAssertions<T>
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> ThenBeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -67,6 +68,7 @@ public class SubsequentOrderingAssertions<T>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> ThenBeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -94,6 +96,7 @@ public class SubsequentOrderingAssertions<T>
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> ThenBeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -122,6 +125,7 @@ public class SubsequentOrderingAssertions<T>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> ThenBeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -132,6 +136,7 @@ public class SubsequentOrderingAssertions<T>
         return ThenBeOrderedBy(propertyExpression, comparer, SortOrder.Descending, because, becauseArgs);
     }
 
+    [return: NotNull]
     private AndConstraint<SubsequentOrderingAssertions<T>> ThenBeOrderedBy<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         IComparer<TSelector> comparer,

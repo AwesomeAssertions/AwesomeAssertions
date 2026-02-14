@@ -66,6 +66,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<TExpectation>> AllBeAssignableTo<TExpectation>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -106,6 +107,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBeAssignableTo(
         Type expectedType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -147,6 +149,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBeEquivalentTo<TExpectation>(
         TExpectation expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -180,6 +183,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBeEquivalentTo<TExpectation>(
         TExpectation expectation,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -212,6 +216,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<TExpectation>> AllBeOfType<TExpectation>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -252,6 +257,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllBeOfType(
         Type expectedType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -284,6 +290,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEmpty(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -321,6 +328,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(
         IEnumerable<TExpectation> expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -354,6 +362,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo<TExpectation>(
         IEnumerable<TExpectation> expectation,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -402,6 +411,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -427,6 +437,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInAscendingOrder(
         IComparer<T> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -458,6 +469,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -482,6 +494,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInAscendingOrder(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -505,6 +518,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInAscendingOrder(
         Func<T, T, int> comparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -529,6 +543,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -554,6 +569,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInDescendingOrder(
         IComparer<T> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -585,6 +601,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -609,6 +626,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInDescendingOrder(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -632,6 +650,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<SubsequentOrderingAssertions<T>> BeInDescendingOrder(
         Func<T, T, int> comparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -649,6 +668,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeNullOrEmpty(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -676,6 +696,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedSuperset"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeSubsetOf(IEnumerable<T> expectedSuperset,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -707,6 +728,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> Contain(
         T expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -747,6 +769,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<T>> Contain(
         T expected, OccurrenceConstraint occurrenceConstraint,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -785,6 +808,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> Contain(
         Expression<Func<T, bool>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -841,6 +865,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, IEnumerable<T>> Contain(
         Expression<Func<T, bool>> predicate,
         OccurrenceConstraint occurrenceConstraint,
@@ -884,6 +909,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Contain(
         IEnumerable<T> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -946,6 +972,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> ContainEquivalentOf<TExpectation>(
         TExpectation expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -982,6 +1009,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> ContainEquivalentOf<TExpectation>(
         TExpectation expectation,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -1042,6 +1070,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">An <see cref="IEnumerable{T}"/> with the expected elements.</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainInOrder(params T[] expected)
     {
         return ContainInOrder(expected, string.Empty);
@@ -1062,6 +1091,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainInOrder(
         IEnumerable<T> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1105,6 +1135,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
     /// <param name="expected">An <see cref="IEnumerable{T}"/> with the expected elements.</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainInConsecutiveOrder(params T[] expected)
     {
         return ContainInConsecutiveOrder(expected, string.Empty);
@@ -1125,6 +1156,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainInConsecutiveOrder(
         IEnumerable<T> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1189,6 +1221,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> ContainItemsAssignableTo<TExpectation>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1216,6 +1249,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions>
         NotContainItemsAssignableTo<TExpectation>(
             [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) =>
@@ -1234,6 +1268,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainItemsAssignableTo(
         Type type,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1264,6 +1299,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> ContainSingle(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1313,6 +1349,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> ContainSingle(
         Expression<Func<T, bool>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1378,6 +1415,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> EndWith(
         IEnumerable<T> expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1403,6 +1441,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectation"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> EndWith<TExpectation>(
         IEnumerable<TExpectation> expectation, Func<T, TExpectation, bool> equalityComparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1427,6 +1466,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> EndWith(
         T element,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1439,6 +1479,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <paramref name="elements" />. Elements are compared using their <see cref="object.Equals(object)" /> method.
     /// </summary>
     /// <param name="elements">A params array with the expected elements.</param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Equal(params T[] elements)
     {
         AssertSubjectEquality(elements, ObjectExtensions.GetComparer<T>(), string.Empty);
@@ -1463,6 +1504,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Equal<TExpectation>(
         IEnumerable<TExpectation> expectation, Func<T, TExpectation, bool> equalityComparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1484,6 +1526,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Equal(
         IEnumerable<T> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1504,6 +1547,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCount(
         int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1540,6 +1584,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="countPredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCount(
         Expression<Func<int, bool>> countPredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1581,6 +1626,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCountGreaterThanOrEqualTo(
         int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1610,6 +1656,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCountGreaterThan(
         int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1639,6 +1686,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCountLessThanOrEqualTo(
         int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1668,6 +1716,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveCountLessThan(
         int expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1699,6 +1748,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, T> HaveElementAt(
         int index, T element,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1744,6 +1794,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveElementPreceding(
         T successor, T expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1781,6 +1832,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveElementSucceeding(
         T predecessor, T expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1818,6 +1870,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="otherCollection"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveSameCount<TExpectation>(
         IEnumerable<TExpectation> otherCollection,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1850,6 +1903,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="otherCollection"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> IntersectWith(
         IEnumerable<T> otherCollection,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1887,6 +1941,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEmpty(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1916,6 +1971,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(
         IEnumerable<TExpectation> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1960,6 +2016,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEquivalentTo<TExpectation>(
         IEnumerable<TExpectation> unexpected,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -2009,6 +2066,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2034,6 +2092,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInAscendingOrder(
         IComparer<T> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2065,6 +2124,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInAscendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2089,6 +2149,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInAscendingOrder(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -2111,6 +2172,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInAscendingOrder(
         Func<T, T, int> comparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2135,6 +2197,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2160,6 +2223,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInDescendingOrder(
         IComparer<T> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2191,6 +2255,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
     /// <exception cref="ArgumentNullException"><paramref name="comparer"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInDescendingOrder<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression, IComparer<TSelector> comparer,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2215,6 +2280,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInDescendingOrder(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -2237,6 +2303,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <remarks>
     /// Empty and single element collections are considered to be ordered both in ascending and descending order at the same time.
     /// </remarks>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeInDescendingOrder(
         Func<T, T, int> comparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2254,6 +2321,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeNullOrEmpty(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -2272,6 +2340,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeSubsetOf(
         IEnumerable<T> unexpectedSuperset,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2318,6 +2387,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContain(
         T unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2354,6 +2424,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContain(
         Expression<Func<T, bool>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2394,6 +2465,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="unexpected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContain(
         IEnumerable<T> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2458,6 +2530,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainEquivalentOf<TExpectation>(
         TExpectation unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2495,6 +2568,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="config"/> is <see langword="null"/>.</exception>
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Needs refactoring")]
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainEquivalentOf<TExpectation>(
         TExpectation unexpected,
         Func<EquivalencyOptions<TExpectation>, EquivalencyOptions<TExpectation>> config,
@@ -2583,6 +2657,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </remarks>
     /// <param name="unexpected">A <see cref="Array"/> with the unexpected elements.</param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainInOrder(params T[] unexpected)
     {
         return NotContainInOrder(unexpected, string.Empty);
@@ -2603,6 +2678,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainInOrder(
         IEnumerable<T> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2655,6 +2731,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </remarks>
     /// <param name="unexpected">A <see cref="Array"/> with the unexpected elements.</param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainInConsecutiveOrder(params T[] unexpected)
     {
         return NotContainInConsecutiveOrder(unexpected, string.Empty);
@@ -2675,6 +2752,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainInConsecutiveOrder(
         IEnumerable<T> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2742,6 +2820,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainNulls<TKey>(
         Expression<Func<T, TKey>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2782,6 +2861,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotContainNulls(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -2834,6 +2914,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="unexpected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotEqual(
         IEnumerable<T> unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2869,6 +2950,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveCount(
         int unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2899,6 +2981,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="otherCollection"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveSameCount<TExpectation>(
         IEnumerable<TExpectation> otherCollection,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2939,6 +3022,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="otherCollection"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotIntersectWith(
         IEnumerable<T> otherCollection,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -2980,6 +3064,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> OnlyContain(
         Expression<Func<T, bool>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3015,6 +3100,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> OnlyHaveUniqueItems<TKey>(
         Expression<Func<T, TKey>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3071,6 +3157,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> OnlyHaveUniqueItems(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -3125,6 +3212,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> AllSatisfy(
         Action<T> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3177,6 +3265,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="elementInspectors"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="elementInspectors"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> SatisfyRespectively(params Action<T>[] elementInspectors)
     {
         return SatisfyRespectively(elementInspectors, string.Empty);
@@ -3199,6 +3288,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expected"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expected"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> SatisfyRespectively(
         IEnumerable<Action<T>> expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3264,6 +3354,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicates"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="predicates"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Satisfy(params Expression<Func<T, bool>>[] predicates)
     {
         return Satisfy(predicates, because: string.Empty);
@@ -3287,6 +3378,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="predicates"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="predicates"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Satisfy(
         IEnumerable<Expression<Func<T, bool>>> predicates,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3364,6 +3456,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectation"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> StartWith(
         IEnumerable<T> expectation,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3389,6 +3482,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectation"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> StartWith<TExpectation>(
         IEnumerable<TExpectation> expectation, Func<T, TExpectation, bool> equalityComparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3413,6 +3507,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> StartWith(
         T element,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3420,6 +3515,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         return StartWith([element], ObjectExtensions.GetComparer<T>(), because, becauseArgs);
     }
 
+    [return: NotNull]
     internal AndConstraint<SubsequentOrderingAssertions<T>> BeOrderedBy<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         IComparer<TSelector> comparer,
@@ -3649,6 +3745,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         return assertionChain.Succeeded;
     }
 
+    [return: NotNull]
     private AndConstraint<TAssertions> NotBeOrderedBy<TSelector>(
         Expression<Func<T, TSelector>> propertyExpression,
         IComparer<TSelector> comparer,
@@ -3680,6 +3777,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Expects the current collection to have all elements in the specified <paramref name="expectedOrder"/>.
     /// Elements are compared using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
+    [return: NotNull]
     private AndConstraint<SubsequentOrderingAssertions<T>> BeInOrder(
         IComparer<T> comparer, SortOrder expectedOrder,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3728,6 +3826,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// Asserts the current collection does not have all elements in ascending order. Elements are compared
     /// using their <see cref="object.Equals(object)" /> implementation.
     /// </summary>
+    [return: NotNull]
     private AndConstraint<TAssertions> NotBeInOrder(
         IComparer<T> comparer, SortOrder order,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)

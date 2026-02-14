@@ -30,6 +30,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<sbyte>> BeCloseTo(this NumericAssertions<sbyte> parent,
         sbyte nearbyValue, byte delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -73,6 +74,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<byte>> BeCloseTo(this NumericAssertions<byte> parent,
         byte nearbyValue, byte delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -116,6 +118,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<short>> BeCloseTo(this NumericAssertions<short> parent,
         short nearbyValue, ushort delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -160,6 +163,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<ushort>> BeCloseTo(this NumericAssertions<ushort> parent,
         ushort nearbyValue, ushort delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -204,6 +208,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<int>> BeCloseTo(this NumericAssertions<int> parent,
         int nearbyValue, uint delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -249,6 +254,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<uint>> BeCloseTo(this NumericAssertions<uint> parent,
         uint nearbyValue, uint delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -294,6 +300,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<long>> BeCloseTo(this NumericAssertions<long> parent,
         long nearbyValue, ulong delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -327,6 +334,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<ulong>> BeCloseTo(this NumericAssertions<ulong> parent,
         ulong nearbyValue, ulong delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -386,6 +394,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<sbyte>> NotBeCloseTo(this NumericAssertions<sbyte> parent,
         sbyte distantValue, byte delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -430,6 +439,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<byte>> NotBeCloseTo(this NumericAssertions<byte> parent,
         byte distantValue, byte delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -475,6 +485,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<short>> NotBeCloseTo(this NumericAssertions<short> parent,
         short distantValue, ushort delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -520,6 +531,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<ushort>> NotBeCloseTo(this NumericAssertions<ushort> parent,
         ushort distantValue, ushort delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -564,6 +576,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<int>> NotBeCloseTo(this NumericAssertions<int> parent,
         int distantValue, uint delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -609,6 +622,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<uint>> NotBeCloseTo(this NumericAssertions<uint> parent,
         uint distantValue, uint delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -653,6 +667,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<long>> NotBeCloseTo(this NumericAssertions<long> parent,
         long distantValue, ulong delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -686,6 +701,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<ulong>> NotBeCloseTo(this NumericAssertions<ulong> parent,
         ulong distantValue, ulong delta,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -750,6 +766,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> BeApproximately(this NullableNumericAssertions<float> parent,
         float expectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -792,6 +809,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> BeApproximately(this NullableNumericAssertions<float> parent,
         float? expectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -838,6 +856,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<float>> BeApproximately(this NumericAssertions<float> parent,
         float expectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -888,6 +907,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> BeApproximately(this NullableNumericAssertions<double> parent,
         double expectedValue, double precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -930,6 +950,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> BeApproximately(this NullableNumericAssertions<double> parent,
         double? expectedValue, double precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -976,6 +997,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<double>> BeApproximately(this NumericAssertions<double> parent,
         double expectedValue, double precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1026,6 +1048,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<decimal>> BeApproximately(
         this NullableNumericAssertions<decimal> parent,
         decimal expectedValue, decimal precision,
@@ -1069,6 +1092,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<decimal>> BeApproximately(
         this NullableNumericAssertions<decimal> parent,
         decimal? expectedValue, decimal precision,
@@ -1116,6 +1140,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<decimal>> BeApproximately(this NumericAssertions<decimal> parent,
         decimal expectedValue, decimal precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1167,6 +1192,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> NotBeApproximately(this NullableNumericAssertions<float> parent,
         float unexpectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1201,6 +1227,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> NotBeApproximately(this NullableNumericAssertions<float> parent,
         float? unexpectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1247,6 +1274,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<float>> NotBeApproximately(this NumericAssertions<float> parent,
         float unexpectedValue, float precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1297,6 +1325,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> NotBeApproximately(
         this NullableNumericAssertions<double> parent,
         double unexpectedValue, double precision,
@@ -1332,6 +1361,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> NotBeApproximately(
         this NullableNumericAssertions<double> parent,
         double? unexpectedValue, double precision,
@@ -1379,6 +1409,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<double>> NotBeApproximately(this NumericAssertions<double> parent,
         double unexpectedValue, double precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1429,6 +1460,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<decimal>> NotBeApproximately(
         this NullableNumericAssertions<decimal> parent,
         decimal unexpectedValue, decimal precision,
@@ -1464,6 +1496,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<decimal>> NotBeApproximately(
         this NullableNumericAssertions<decimal> parent,
         decimal? unexpectedValue, decimal precision,
@@ -1511,6 +1544,7 @@ public static class NumericAssertionsExtensions
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<decimal>> NotBeApproximately(this NumericAssertions<decimal> parent,
         decimal unexpectedValue, decimal precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1552,6 +1586,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<float>> BeNaN(this NumericAssertions<float> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1576,6 +1611,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<double>> BeNaN(this NumericAssertions<double> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1600,6 +1636,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> BeNaN(this NullableNumericAssertions<float> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1624,6 +1661,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> BeNaN(this NullableNumericAssertions<double> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1652,6 +1690,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<float>> NotBeNaN(this NumericAssertions<float> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1676,6 +1715,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NumericAssertions<double>> NotBeNaN(this NumericAssertions<double> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1700,6 +1740,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<float>> NotBeNaN(this NullableNumericAssertions<float> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
@@ -1725,6 +1766,7 @@ public static class NumericAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public static AndConstraint<NullableNumericAssertions<double>> NotBeNaN(this NullableNumericAssertions<double> parent,
         [StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)

@@ -32,6 +32,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoAssertions> BeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -61,6 +62,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoAssertions> NotBeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -90,6 +92,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoAssertions> BeAsync([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -119,6 +122,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodInfoAssertions> NotBeAsync([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -148,6 +152,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> ReturnVoid(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -180,6 +185,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="returnType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> Return(Type returnType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -213,6 +219,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> Return<TReturn>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -229,6 +236,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> NotReturnVoid(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -260,6 +268,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="returnType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> NotReturn(Type returnType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -294,6 +303,7 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<MethodBaseAssertions<MethodInfo, MethodInfoAssertions>> NotReturn<TReturn>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

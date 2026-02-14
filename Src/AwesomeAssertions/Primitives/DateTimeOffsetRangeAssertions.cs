@@ -70,6 +70,7 @@ public class DateTimeOffsetRangeAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Before(DateTimeOffset target,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -108,6 +109,7 @@ public class DateTimeOffsetRangeAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> After(DateTimeOffset target,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

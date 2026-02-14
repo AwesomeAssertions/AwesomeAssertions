@@ -51,6 +51,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> BeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         PropertyInfo[] nonVirtualProperties = GetAllNonVirtualPropertiesFromSelection();
@@ -75,6 +76,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> NotBeVirtual([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         PropertyInfo[] virtualProperties = GetAllVirtualPropertiesFromSelection();
@@ -99,6 +101,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> BeWritable([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         PropertyInfo[] readOnlyProperties = GetAllReadOnlyPropertiesFromSelection();
@@ -123,6 +126,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> NotBeWritable([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         PropertyInfo[] writableProperties = GetAllWritablePropertiesFromSelection();
@@ -167,6 +171,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> BeDecoratedWith<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -194,6 +199,7 @@ public class PropertyInfoSelectorAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<PropertyInfoSelectorAssertions> NotBeDecoratedWith<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute

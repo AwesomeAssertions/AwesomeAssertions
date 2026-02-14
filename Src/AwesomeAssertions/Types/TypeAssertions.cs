@@ -39,6 +39,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> Be<TExpected>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -56,6 +57,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> Be(Type expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -79,6 +81,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
+    [return: NotNull]
     public new AndConstraint<TypeAssertions> BeAssignableTo<T>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -98,6 +101,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public new AndConstraint<TypeAssertions> BeAssignableTo(Type type,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -128,6 +132,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
+    [return: NotNull]
     public new AndConstraint<TypeAssertions> NotBeAssignableTo<T>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -147,6 +152,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="type"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public new AndConstraint<TypeAssertions> NotBeAssignableTo(Type type,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -196,6 +202,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBe<TUnexpected>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -213,6 +220,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBe(Type unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -254,6 +262,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, TAttribute> BeDecoratedWith<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -284,6 +293,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, TAttribute> BeDecoratedWith<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -315,6 +325,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, TAttribute> BeDecoratedWithOrInherit<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -345,6 +356,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, TAttribute> BeDecoratedWithOrInherit<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -376,6 +388,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDecoratedWith<TAttribute>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
         where TAttribute : Attribute
@@ -404,6 +417,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDecoratedWith<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -432,6 +446,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDecoratedWithOrInherit<TAttribute>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where TAttribute : Attribute
@@ -461,6 +476,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="isMatchingAttributePredicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDecoratedWithOrInherit<TAttribute>(
         Expression<Func<TAttribute, bool>> isMatchingAttributePredicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -491,6 +507,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="interfaceType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> Implement(Type interfaceType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -529,6 +546,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> Implement<TInterface>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
         where TInterface : class
@@ -548,6 +566,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="interfaceType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotImplement(Type interfaceType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -578,6 +597,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotImplement<TInterface>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
         where TInterface : class
@@ -597,6 +617,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="baseType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> BeDerivedFrom(Type baseType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -629,6 +650,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> BeDerivedFrom<TBaseClass>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
         where TBaseClass : class
@@ -648,6 +670,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="baseType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDerivedFrom(Type baseType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -680,6 +703,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeDerivedFrom<TBaseClass>([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
         where TBaseClass : class
@@ -699,6 +723,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> BeSealed([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -732,6 +757,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeSealed([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -765,6 +791,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> BeAbstract([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -798,6 +825,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeAbstract([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -831,6 +859,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> BeStatic([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -864,6 +893,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="InvalidOperationException"><see cref="ReferenceTypeAssertions{Type, TypeAssertions}.Subject"/>
     /// is not a class.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotBeStatic([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -898,6 +928,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, PropertyInfo> HaveProperty(
         string name, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -947,6 +978,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="propertyType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, PropertyInfo> HaveProperty(
         Type propertyType, string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1003,6 +1035,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, PropertyInfo> HaveProperty<TProperty>(
         string name, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1022,6 +1055,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveProperty(string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1069,6 +1103,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="interfaceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> HaveExplicitProperty(
         Type interfaceType, string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1113,6 +1148,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> HaveExplicitProperty<TInterface>(
         string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1137,6 +1173,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="interfaceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitProperty(
         Type interfaceType, string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1181,6 +1218,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitProperty<TInterface>(
         string name,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1207,6 +1245,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> HaveExplicitMethod(
         Type interfaceType, string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1256,6 +1295,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> HaveExplicitMethod<TInterface>(
         string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1282,6 +1322,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitMethod(
         Type interfaceType, string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1331,6 +1372,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitMethod<TInterface>(
         string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1354,6 +1396,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="indexerType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, PropertyInfo> HaveIndexer(
         Type indexerType, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1405,6 +1448,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveIndexer(
         IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1449,6 +1493,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, MethodInfo> HaveMethod(
         string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1509,6 +1554,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="name"/> is empty.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveMethod(
         string name, IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1554,6 +1600,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, ConstructorInfo> HaveConstructor(
         IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1594,6 +1641,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, ConstructorInfo> HaveDefaultConstructor(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1612,6 +1660,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="parameterTypes"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, ConstructorInfo> NotHaveConstructor(
         IEnumerable<Type> parameterTypes,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1652,6 +1701,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, ConstructorInfo> NotHaveDefaultConstructor(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1676,6 +1726,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="accessModifier"/>
     /// is not a <see cref="CSharpAccessModifier"/> value.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> HaveAccessModifier(
         CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1715,6 +1766,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="accessModifier"/>
     /// is not a <see cref="CSharpAccessModifier"/> value.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveAccessModifier(
         CSharpAccessModifier accessModifier,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1754,6 +1806,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, MethodInfo> HaveImplicitConversionOperator<TSource, TTarget>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1775,6 +1828,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="sourceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="targetType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, MethodInfo> HaveImplicitConversionOperator(
         Type sourceType, Type targetType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1817,6 +1871,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveImplicitConversionOperator<TSource, TTarget>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1838,6 +1893,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="sourceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="targetType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveImplicitConversionOperator(
         Type sourceType, Type targetType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1878,6 +1934,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, MethodInfo> HaveExplicitConversionOperator<TSource, TTarget>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1899,6 +1956,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="sourceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="targetType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndWhichConstraint<TypeAssertions, MethodInfo> HaveExplicitConversionOperator(
         Type sourceType, Type targetType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -1941,6 +1999,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitConversionOperator<TSource, TTarget>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1962,6 +2021,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="sourceType"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentNullException"><paramref name="targetType"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TypeAssertions> NotHaveExplicitConversionOperator(
         Type sourceType, Type targetType,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)

@@ -59,6 +59,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(TEnum expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -82,6 +83,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(TEnum? expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -105,6 +107,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(TEnum unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -127,6 +130,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(TEnum? unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -148,6 +152,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeDefined([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -173,6 +178,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeDefined([StringSyntax("CompositeFormat")] string because = "",
         params object[] becauseArgs)
     {
@@ -199,6 +205,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveValue(decimal expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -222,6 +229,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveValue(decimal unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -245,6 +253,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveSameValueAs<T>(T expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
@@ -269,6 +278,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveSameValueAs<T>(T unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
@@ -293,6 +303,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveSameNameAs<T>(T expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
@@ -317,6 +328,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveSameNameAs<T>(T unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : struct, Enum
@@ -341,6 +353,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> HaveFlag(TEnum expectedFlag,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -363,6 +376,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveFlag(TEnum unexpectedFlag,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -388,6 +402,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// </param>
     /// <returns>An <see cref="AndConstraint{T}" /> which can be used to chain assertions.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="predicate"/> is <see langword="null"/>.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Match(Expression<Func<TEnum?, bool>> predicate,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -407,6 +422,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// <param name="validValues">
     /// The values that are valid.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeOneOf(params TEnum[] validValues)
     {
         return BeOneOf(validValues, string.Empty);
@@ -427,6 +443,7 @@ public class EnumAssertions<TEnum, TAssertions>
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="validValues"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="validValues"/> is empty.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeOneOf(IEnumerable<TEnum> validValues,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

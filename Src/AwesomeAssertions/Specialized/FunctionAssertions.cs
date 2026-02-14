@@ -43,6 +43,7 @@ public class FunctionAssertions<T> : DelegateAssertions<Func<T>, FunctionAsserti
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<FunctionAssertions<T>, T> NotThrow([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -94,6 +95,7 @@ public class FunctionAssertions<T> : DelegateAssertions<Func<T>, FunctionAsserti
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="waitTime"/> or <paramref name="pollInterval"/> are negative.</exception>
+    [return: NotNull]
     public AndWhichConstraint<FunctionAssertions<T>, T> NotThrowAfter(TimeSpan waitTime, TimeSpan pollInterval,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

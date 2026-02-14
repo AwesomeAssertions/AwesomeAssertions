@@ -18,6 +18,7 @@ public static class EnumAssertionsExtensions
     /// current <typeparamref name="TEnum"/>.
     /// </summary>
     [Pure]
+    [return: NotNull]
     public static EnumAssertions<TEnum> Should<TEnum>(this TEnum @enum)
         where TEnum : struct, Enum
     {
@@ -29,6 +30,7 @@ public static class EnumAssertionsExtensions
     /// current <typeparamref name="TEnum"/>.
     /// </summary>
     [Pure]
+    [return: NotNull]
     public static NullableEnumAssertions<TEnum> Should<TEnum>([NotNull] this TEnum? @enum)
         where TEnum : struct, Enum
     {

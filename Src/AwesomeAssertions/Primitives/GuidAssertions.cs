@@ -54,6 +54,7 @@ public class GuidAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEmpty([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -74,6 +75,7 @@ public class GuidAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEmpty([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -100,6 +102,7 @@ public class GuidAssertions<TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentException">The format of <paramref name="expected"/> is invalid.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(string expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -122,6 +125,7 @@ public class GuidAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(Guid expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -145,6 +149,7 @@ public class GuidAssertions<TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentException">The format of <paramref name="unexpected"/> is invalid.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(string unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -167,6 +172,7 @@ public class GuidAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(Guid unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

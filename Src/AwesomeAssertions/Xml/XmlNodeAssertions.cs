@@ -46,6 +46,7 @@ public class XmlNodeAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeEquivalentTo(XmlNode expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -71,6 +72,7 @@ public class XmlNodeAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeEquivalentTo(XmlNode unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

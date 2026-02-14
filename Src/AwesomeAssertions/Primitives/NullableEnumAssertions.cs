@@ -41,6 +41,7 @@ public class NullableEnumAssertions<TEnum, TAssertions> : EnumAssertions<TEnum, 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, TEnum> HaveValue([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -61,6 +62,7 @@ public class NullableEnumAssertions<TEnum, TAssertions> : EnumAssertions<TEnum, 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndWhichConstraint<TAssertions, TEnum> NotBeNull([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         return HaveValue(because, becauseArgs);
@@ -76,6 +78,7 @@ public class NullableEnumAssertions<TEnum, TAssertions> : EnumAssertions<TEnum, 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotHaveValue([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
@@ -96,6 +99,7 @@ public class NullableEnumAssertions<TEnum, TAssertions> : EnumAssertions<TEnum, 
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeNull([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         return NotHaveValue(because, becauseArgs);

@@ -53,6 +53,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BePositive([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -73,6 +74,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeNegative([StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         CurrentAssertionChain
@@ -95,6 +97,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> Be(TimeSpan expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -118,6 +121,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBe(TimeSpan unexpected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -141,6 +145,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeLessThan(TimeSpan expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -164,6 +169,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeLessThanOrEqualTo(TimeSpan expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -187,6 +193,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeGreaterThan(TimeSpan expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -210,6 +217,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeGreaterThanOrEqualTo(TimeSpan expected,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -243,6 +251,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> BeCloseTo(TimeSpan nearbyTime, TimeSpan precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -283,6 +292,7 @@ public class SimpleTimeSpanAssertions<TAssertions>
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public AndConstraint<TAssertions> NotBeCloseTo(TimeSpan distantTime, TimeSpan precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {

@@ -75,6 +75,7 @@ public class ExecutionTimeAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<ExecutionTimeAssertions> BeLessThanOrEqualTo(TimeSpan maxDuration,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -106,6 +107,7 @@ public class ExecutionTimeAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<ExecutionTimeAssertions> BeLessThan(TimeSpan maxDuration,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -136,6 +138,7 @@ public class ExecutionTimeAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<ExecutionTimeAssertions> BeGreaterThanOrEqualTo(TimeSpan minDuration,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -167,6 +170,7 @@ public class ExecutionTimeAssertions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    [return: NotNull]
     public AndConstraint<ExecutionTimeAssertions> BeGreaterThan(TimeSpan minDuration,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -202,6 +206,7 @@ public class ExecutionTimeAssertions
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
     public AndConstraint<ExecutionTimeAssertions> BeCloseTo(TimeSpan expectedDuration, TimeSpan precision,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
