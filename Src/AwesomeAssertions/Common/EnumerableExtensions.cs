@@ -57,7 +57,7 @@ internal static class EnumerableExtensions
     }
 
     /// <summary>
-    /// Searches for the first different element in two sequences using specified <paramref name="equalityComparison" />
+    /// Searches for the first different element in two sequences using specified <paramref name="equalityComparison" />.
     /// </summary>
     /// <typeparam name="TFirst">The type of the elements of the <paramref name="first" /> sequence.</typeparam>
     /// <typeparam name="TSecond">The type of the elements of the <paramref name="second" /> sequence.</typeparam>
