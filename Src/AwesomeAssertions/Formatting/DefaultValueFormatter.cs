@@ -57,7 +57,10 @@ public class DefaultValueFormatter : IValueFormatter
     {
         Type type = value.GetType();
 
-        return HasDefaultToStringImplementation(value) || type.IsCompilerGenerated();
+        return HasDefaultToStringImplementation(value) ||
+            Common.TypeExtensions.IsRecord(type) ||
+            type.IsAnonymous() ||
+            type.IsTuple();
     }
 
     private static bool HasDefaultToStringImplementation(object value)
