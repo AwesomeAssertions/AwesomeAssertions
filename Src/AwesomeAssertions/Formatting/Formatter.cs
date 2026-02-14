@@ -104,7 +104,8 @@ public static class Formatter
 
             var context = new FormattingContext
             {
-                UseLineBreaks = options.UseLineBreaks
+                UseLineBreaks = options.UseLineBreaks,
+                MaxItems = options.MaxItems
             };
 
             FormattedObjectGraph output = new(options.MaxLines);
