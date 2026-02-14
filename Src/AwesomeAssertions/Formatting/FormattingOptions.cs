@@ -96,6 +96,7 @@ public class FormattingOptions
             UseLineBreaks = UseLineBreaks,
             MaxDepth = MaxDepth,
             MaxLines = MaxLines,
+            MaxItems = MaxItems,
             StringPrintLength = StringPrintLength,
             ScopedFormatters = [.. ScopedFormatters],
         };
