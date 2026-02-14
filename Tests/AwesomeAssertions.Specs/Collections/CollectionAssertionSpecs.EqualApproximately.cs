@@ -27,7 +27,7 @@ public sealed partial class CollectionAssertionSpecs
             float[] subject = [1, 2, 3];
             float[] expected = [1, 2];
 
-            Action act = () => subject.Should().EqualApproximately(expected, 0.1f, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().EqualApproximately(expected, 0.1f, "we want to test the {0} message", "failure");
 
             act.Should().Throw<XunitException>().WithMessage(
                 "*to approximate {1F, 2F} ±0.1F because *failure message, but {1F, 2F, 3F} contains 1 item(s) too many.");
