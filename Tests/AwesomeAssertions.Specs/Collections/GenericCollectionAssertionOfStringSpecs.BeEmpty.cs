@@ -39,11 +39,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should().BeEmpty("because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to be empty because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to be empty because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -53,13 +53,13 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().BeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => collection.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to be empty because we want to test the failure message, but found at least one item*one*");
+                    "Expected collection to be empty because*failure message, but found at least one item*one*");
         }
     }
 
@@ -72,11 +72,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should().NotBeEmpty("because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to be empty because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection not to be empty because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -109,11 +109,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = new string[0];
 
             // Act
-            Action act = () => collection.Should().NotBeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => collection.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection not to be empty because we want to test the failure message.");
+                .WithMessage("Expected collection not to be empty because*failure message.");
         }
     }
 }

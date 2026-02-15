@@ -68,11 +68,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act =
-                () => collection.Should().HaveCount(c => c < 3, "we want to test the behaviour with a null subject");
+                () => collection.Should().HaveCount(c => c < 3, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain (c < 3) items because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain (c < 3) items because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -82,11 +82,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should().HaveCount(1, "we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().HaveCount(1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain 1 item(s) because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain 1 item(s) because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -107,12 +107,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action action = () => collection.Should().HaveCount(4, "because we want to test the failure {0}", "message");
+            Action action = () => collection.Should().HaveCount(4, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain 4 item(s) because we want to test the failure message, but found 3: {\"one\", \"two\", \"three\"}.");
+                    "Expected collection to contain 4 item(s) because*failure message, but found 3: {\"one\", \"two\", \"three\"}.");
         }
 
         [Fact]
@@ -122,11 +122,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().HaveCount(c => c >= 4, "a minimum of 4 is required");
+            Action act = () => collection.Should().HaveCount(c => c >= 4, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to have a count (c >= 4) because a minimum of 4 is required, but count is 3: {\"one\", \"two\", \"three\"}.");
+                "Expected collection to have a count (c >= 4) because*failure message, but count is 3: {\"one\", \"two\", \"three\"}.");
         }
     }
 }

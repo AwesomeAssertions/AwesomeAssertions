@@ -16,11 +16,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should().NotContainNulls("because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().NotContainNulls("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to contain <null>s because we want to test the behaviour with a null subject, but collection is <null>.");
+                "Expected collection not to contain <null>s because*failure message, but collection is <null>.");
         }
 
         [Fact]
@@ -30,11 +30,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["", null, "", null];
 
             // Act
-            Action act = () => collection.Should().NotContainNulls("because they are {0}", "evil");
+            Action act = () => collection.Should().NotContainNulls("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to contain <null>s*because they are evil*{1, 3}*");
+                "Expected collection not to contain <null>s*because*failure message*{1, 3}*");
         }
 
         [Fact]
@@ -44,11 +44,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["", null];
 
             // Act
-            Action act = () => collection.Should().NotContainNulls("because they are {0}", "evil");
+            Action act = () => collection.Should().NotContainNulls("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to contain <null>s because they are evil, but found one at index 1.");
+                "Expected collection not to contain <null>s because*failure message, but found one at index 1.");
         }
 
         [Fact]
