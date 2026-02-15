@@ -37,7 +37,7 @@ Start reading the section titles, go in deep if the title is not self-explanator
   * ❌ Avoid the use of `When` and `Should` in test names and use concise names like `Exclusion_of_missing_members_works_with_mapping`.
 * Every test method shall follow the AAA rule: Arrange, Act, Assert.
   * ✅ Separate Arrange, Act and Assert with exactly one empty line.
-  * ❌ Additional comments for these blocks are not required.
+  * ❌ Omit AAA comments unless you think they are meaningful.
 * Remember to test the "because formatting" overloads.
   * ✅ Always use the pattern `"we format {0} message", "the"`
     resulting in generated string `"because we format the message""`.
