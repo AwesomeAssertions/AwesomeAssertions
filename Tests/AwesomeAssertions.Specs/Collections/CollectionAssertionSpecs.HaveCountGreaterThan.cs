@@ -44,12 +44,12 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action action = () =>
-                collection.Should().HaveCountGreaterThan(3, "because we want to test the failure {0}", "message");
+                collection.Should().HaveCountGreaterThan(3, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain more than 3 item(s) because we want to test the failure message, but found 3: {1, 2, 3}.");
+                    "Expected collection to contain more than 3 item(s) because*failure message, but found 3: {1, 2, 3}.");
         }
 
         [Fact]
@@ -62,12 +62,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().HaveCountGreaterThan(1, "we want to test the behaviour with a null subject");
+                collection.Should().HaveCountGreaterThan(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*more than*1*we want to test the behaviour with a null subject*found <null>*");
+                .WithMessage("*more than*1*because*failure message, but found <null>*");
         }
     }
 }

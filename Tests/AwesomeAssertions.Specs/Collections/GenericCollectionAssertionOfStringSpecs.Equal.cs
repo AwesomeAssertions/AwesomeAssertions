@@ -98,9 +98,9 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection1 = null;
 
             // Act
-            Action act = () =>
-                collection.Should().Equal(collection1, "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().Equal(collection1, "we want to test the {0} message", "failure");
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("Cannot compare collection with <null>.*")
@@ -116,11 +116,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act = () =>
-                collection.Should().Equal(collection1, "because we want to test the behaviour with a null subject");
+                collection.Should().Equal(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to be equal to {\"one\", \"two\", \"three\"} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to be equal to {\"one\", \"two\", \"three\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -141,11 +141,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection2 = ["one", "two", "five"];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {\"one\", \"two\", \"five\"} because we want to test the failure message, but {\"one\", \"two\", \"three\"} differs at index 2.");
+                "Expected collection1 to be equal to {\"one\", \"two\", \"five\"} because*failure message, but {\"one\", \"two\", \"three\"} differs at index 2.");
         }
 
         [Fact]
@@ -157,11 +157,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection2 = ["one", "two", "three", "four"];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {\"one\", \"two\", \"three\", \"four\"} because we want to test the failure message, but {\"one\", \"two\", \"three\"} contains 1 item(s) less.");
+                "Expected collection1 to be equal to {\"one\", \"two\", \"three\", \"four\"} because*failure message, but {\"one\", \"two\", \"three\"} contains 1 item(s) less.");
         }
 
         [Fact]
@@ -173,11 +173,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection2 = ["one", "two"];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {\"one\", \"two\"} because we want to test the failure message, but {\"one\", \"two\", \"three\"} contains 1 item(s) too many.");
+                "Expected collection1 to be equal to {\"one\", \"two\"} because*failure message, but {\"one\", \"two\", \"three\"} contains 1 item(s) too many.");
         }
 
         [Fact]
@@ -213,12 +213,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection2 = collection1;
 
             // Act
-            Action act = () =>
-                collection1.Should().NotEqual(collection2, "because we want to test the behaviour with same objects");
+            Action act = () => collection1.Should().NotEqual(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collections not to be equal because we want to test the behaviour with same objects, but they both reference the same object.");
+                "Expected collections not to be equal because*failure Message, but they both reference the same object.");
         }
 
         [Fact]
@@ -230,8 +229,9 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act =
-                () => collection.Should().NotEqual(collection1, "because we want to test the behaviour with a null subject");
+                () => collection.Should().NotEqual(collection1, "we want to test the {0} message", "failure");
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("Cannot compare collection with <null>.*")
@@ -247,11 +247,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act =
-                () => collection.Should().NotEqual(collection1, "because we want to test the behaviour with a null subject");
+                () => collection.Should().NotEqual(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collections not to be equal because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collections not to be equal because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -262,11 +262,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection2 = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection1.Should().NotEqual(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().NotEqual(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect collections {\"one\", \"two\", \"three\"} and {\"one\", \"two\", \"three\"} to be equal because we want to test the failure message.");
+                "Did not expect collections {\"one\", \"two\", \"three\"} and {\"one\", \"two\", \"three\"} to be equal because*failure message.");
         }
 
         [Fact]

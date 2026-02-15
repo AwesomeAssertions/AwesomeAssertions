@@ -20,11 +20,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["john", "jane", "mike"];
 
             // Act
-            Action act = () => collection.Should().StartWith("ryan", "of some reason");
+            Action act = () => collection.Should().StartWith("ryan", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*start*ryan*because of some reason*but*john*");
+                "Expected*start*ryan*because*failure message*but*john*");
         }
 
         [Fact]
@@ -62,11 +62,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["john", "bill", "jane", "mike"];
 
             // Act
-            Action act = () => collection.Should().StartWith(["john", "ryan", "jane"], "of some reason");
+            Action act = () => collection.Should().StartWith(["john", "ryan", "jane"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*start*ryan*because of some reason*but*differs at index 1*");
+                "Expected*start*ryan*because*failure message*but*differs at index 1*");
         }
 
         [Fact]
@@ -78,11 +78,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () => collection.Should().StartWith(["john", "ryan", "jane"],
-                (s1, s2) => string.Equals(s1, s2, StringComparison.Ordinal), "of some reason");
+                (s1, s2) => string.Equals(s1, s2, StringComparison.Ordinal), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*start*ryan*because of some reason*but*differs at index 1*");
+                "Expected*start*ryan*because*failure message*but*differs at index 1*");
         }
 
         [Fact]

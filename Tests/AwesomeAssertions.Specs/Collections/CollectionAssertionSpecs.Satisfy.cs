@@ -123,12 +123,11 @@ public partial class CollectionAssertionSpecs
                     element => element.Text == "four" && element.Number == 4,
                     element => element.Text == "two" && element.Number == 2,
                 },
-                because: "we want to test formatting ({0})",
-                becauseArgs: "args");
+                "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("""
-                Expected collection to satisfy all predicates because we want to test formatting (args), but:
+                Expected collection to satisfy all predicates because*failure message, but:
                 *The following predicates did not have matching elements:
                 *(element.Text == "two") AndAlso (element.Number == 2)
                 *The following elements did not match any predicate:
@@ -183,13 +182,12 @@ public partial class CollectionAssertionSpecs
                         element => element == 1,
                         element => element == 2,
                     },
-                    because: "we want to test the failure message ({0})",
-                    becauseArgs: "args");
+                    "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to satisfy all predicates because we want to test the failure message (args), but collection is <null>.");
+                "Expected collection to satisfy all predicates because*failure message, but collection is <null>.");
         }
 
         [Fact]
@@ -205,12 +203,11 @@ public partial class CollectionAssertionSpecs
                     element => element == 1,
                     element => element == 2,
                 },
-                because: "we want to test the failure message ({0})",
-                becauseArgs: "args");
+                "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to satisfy all predicates because we want to test the failure message (args), but collection is empty.");
+                "Expected collection to satisfy all predicates because*failure message, but collection is empty.");
         }
 
         [Fact]

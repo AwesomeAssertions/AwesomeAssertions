@@ -47,12 +47,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().AllBeAssignableTo(typeof(object), "we want to test the failure {0}", "message");
+                collection.Should().AllBeAssignableTo(typeof(object), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object because*failure message, but found collection is <null>.");
         }
 
         [Fact]
@@ -113,11 +113,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { 1, "2", 3 };
 
             // Act
-            Action act = () => collection.Should().AllBeAssignableTo(typeof(int), "because they are of different type");
+            Action act = () => collection.Should().AllBeAssignableTo(typeof(int), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found {int, string, int}.");
+                "Expected type to be int because*failure message, but found {int, string, int}.");
         }
 
         [Fact]
@@ -127,11 +127,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { 1, "2", 3 };
 
             // Act
-            Action act = () => collection.Should().AllBeAssignableTo<int>("because they are of different type");
+            Action act = () => collection.Should().AllBeAssignableTo<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found {int, string, int}.");
+                "Expected type to be int because*failure message, but found {int, string, int}.");
         }
 
         [Fact]
@@ -141,11 +141,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { 1, null, 3 };
 
             // Act
-            Action act = () => collection.Should().AllBeAssignableTo<int>("because they are of different type");
+            Action act = () => collection.Should().AllBeAssignableTo<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found a null element.");
+                "Expected type to be int because*failure message, but found a null element.");
         }
 
         [Fact]
@@ -165,11 +165,11 @@ public partial class CollectionAssertionSpecs
             Type[] collection = [typeof(int), typeof(string), typeof(int)];
 
             // Act
-            Action act = () => collection.Should().AllBeAssignableTo<int>("because they are of different type");
+            Action act = () => collection.Should().AllBeAssignableTo<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found {int, string, int}.");
+                "Expected type to be int because*failure message, but found {int, string, int}.");
         }
 
         [Fact]
@@ -202,12 +202,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().AllBeAssignableTo<object>("we want to test the failure {0}", "message");
+                collection.Should().AllBeAssignableTo<object>("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object because*failure message, but found collection is <null>.");
         }
     }
 }
