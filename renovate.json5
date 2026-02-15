@@ -30,6 +30,13 @@
             "enabled": false
         },
 
+        // Disable major updates of System.Threading.Tasks.Extensions because it is part of the public API.
+        {
+            "matchPackageNames": ["System.Threading.Tasks.Extensions"],
+            "matchFileNames": ["**/AwesomeAssertions/**"],
+            "allowedVersions": "< 4.6.0"
+        },
+
         // We are supporting test frameworks in different major versions.
         // They have different test projects in the solution.
         // We need to limit the updates for individual projects.
