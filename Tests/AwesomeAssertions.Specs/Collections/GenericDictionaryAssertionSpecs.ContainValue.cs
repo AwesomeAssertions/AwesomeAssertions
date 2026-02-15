@@ -51,12 +51,12 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                dictionary.Should().ContainValue("One", "because {0}", "we do");
+                dictionary.Should().ContainValue("One", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected dictionary to contain values {\"One\"} because we do, but found <null>.");
+                .WithMessage("Expected dictionary to contain values {\"One\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -104,11 +104,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary.Should().ContainValue("Three", "because {0}", "we do");
+            Action act = () => dictionary.Should().ContainValue("Three", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} to contain value \"Three\" because we do.");
+                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} to contain value \"Three\" because*failure message.");
         }
     }
 
@@ -142,11 +142,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary.Should().NotContainValue("One", "because we {0} like it", "don't");
+            Action act = () => dictionary.Should().NotContainValue("One", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} not to contain value \"One\" because we don't like it, but found it anyhow.");
+                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} not to contain value \"One\" because*failure message, but found it anyhow.");
         }
 
         [Fact]
@@ -159,12 +159,12 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                dictionary.Should().NotContainValue("One", "because we want to test the behaviour with a null subject");
+                dictionary.Should().NotContainValue("One", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary not to contain value \"One\" because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary not to contain value \"One\" because*failure message, but found <null>.");
         }
     }
 }

@@ -67,11 +67,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary1.Should().Equal(dictionary2, "because we want to test the failure {0}", "message");
+            Action act = () => dictionary1.Should().Equal(dictionary2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary1 to be equal to {[1] = \"One\", [22] = \"Two\"} because we want to test the failure message, but could not find keys {22}.");
+                "Expected dictionary1 to be equal to {[1] = \"One\", [22] = \"Two\"} because*failure message, but could not find keys {22}.");
         }
 
         [Fact]
@@ -92,11 +92,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary1.Should().Equal(dictionary2, "because we want to test the failure {0}", "message");
+            Action act = () => dictionary1.Should().Equal(dictionary2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Two\"} because we want to test the failure message, but found additional keys {3}.");
+                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Two\"} because*failure message, but found additional keys {3}.");
         }
 
         [Fact]
@@ -116,11 +116,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary1.Should().Equal(dictionary2, "because we want to test the failure {0}", "message");
+            Action act = () => dictionary1.Should().Equal(dictionary2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Three\"} because we want to test the failure message, but {[1] = \"One\", [2] = \"Two\"} differs at key 2.");
+                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Three\"} because*failure message, but {[1] = \"One\", [2] = \"Two\"} differs at key 2.");
         }
 
         [Fact]
@@ -139,12 +139,12 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                dictionary1.Should().Equal(dictionary2, "because we want to test the behaviour with a null subject");
+                dictionary1.Should().Equal(dictionary2, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Two\"} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary1 to be equal to {[1] = \"One\", [2] = \"Two\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -160,9 +160,9 @@ public partial class GenericDictionaryAssertionSpecs
             Dictionary<int, string> dictionary2 = null;
 
             // Act
-            Action act = () =>
-                dictionary1.Should().Equal(dictionary2, "because we want to test the behaviour with a null subject");
+            Action act = () => dictionary1.Should().Equal(dictionary2, "we want to test the {0} message", "failure");
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("Cannot compare dictionary with <null>.*")
@@ -273,11 +273,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary1.Should().NotEqual(dictionary2, "because we want to test the failure {0}", "message");
+            Action act = () => dictionary1.Should().NotEqual(dictionary2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect dictionaries {[1] = \"One\", [2] = \"Two\"} and {[1] = \"One\", [2] = \"Two\"} to be equal because we want to test the failure message.");
+                "Did not expect dictionaries {[1] = \"One\", [2] = \"Two\"} and {[1] = \"One\", [2] = \"Two\"} to be equal because*failure message.");
         }
 
         [Fact]
@@ -296,12 +296,12 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                dictionary1.Should().NotEqual(dictionary2, "because we want to test the behaviour with a null subject");
+                dictionary1.Should().NotEqual(dictionary2, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionaries not to be equal because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionaries not to be equal because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -318,8 +318,9 @@ public partial class GenericDictionaryAssertionSpecs
 
             // Act
             Action act =
-                () => dictionary1.Should().NotEqual(dictionary2, "because we want to test the behaviour with a null subject");
+                () => dictionary1.Should().NotEqual(dictionary2, "we want to test the {0} message", "failure");
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("Cannot compare dictionary with <null>.*")
@@ -341,11 +342,11 @@ public partial class GenericDictionaryAssertionSpecs
 
             // Act
             Action act =
-                () => dictionary1.Should().NotEqual(dictionary2, "because we want to test the behaviour with same objects");
+                () => dictionary1.Should().NotEqual(dictionary2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionaries not to be equal because we want to test the behaviour with same objects, but they both reference the same object.");
+                "Expected dictionaries not to be equal because*failure message, but they both reference the same object.");
         }
     }
 }
