@@ -46,7 +46,9 @@ public partial class GenericCollectionAssertionOfStringSpecs
             var actual = new List<string> { "hello", "world" };
 
             // Act / Assert
-            actual.Should().Contain(expected);
+            // TODO The be because arguments cannot be checked in successful test. But, it seems to affect the coverage.
+            // A new test is required!?
+            actual.Should().Contain(expected, "we want to test the {0} message", "failure");
         }
 
         [Fact]
