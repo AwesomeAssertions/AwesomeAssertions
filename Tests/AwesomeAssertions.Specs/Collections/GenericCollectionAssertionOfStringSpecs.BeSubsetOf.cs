@@ -44,11 +44,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act =
-                () => collection.Should().BeSubsetOf(collection1, "because we want to test the behaviour with a null subject");
+                () => collection.Should().BeSubsetOf(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to be a subset of {\"one\", \"two\", \"three\"} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to be a subset of {\"one\", \"two\", \"three\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -59,11 +59,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> superset = ["one", "two", "four", "five"];
 
             // Act
-            Action act = () => subset.Should().BeSubsetOf(superset, "because we want to test the failure {0}", "message");
+            Action act = () => subset.Should().BeSubsetOf(superset, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subset to be a subset of {\"one\", \"two\", \"four\", \"five\"} because we want to test the failure message, " +
+                "Expected subset to be a subset of {\"one\", \"two\", \"four\", \"five\"} because*failure message, " +
                 "but items {\"three\", \"six\"} are not part of the superset.");
         }
 
@@ -89,11 +89,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherSet = ["one", "two", "three"];
 
             // Act
-            Action act = () => subject.Should().NotBeSubsetOf(otherSet, "because I'm {0}", "mistaken");
+            Action act = () => subject.Should().NotBeSubsetOf(otherSet, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect subject {\"one\", \"two\"} to be a subset of {\"one\", \"two\", \"three\"} because I'm mistaken.");
+                "Did not expect subject {\"one\", \"two\"} to be a subset of {\"one\", \"two\", \"three\"} because*failure message.");
         }
 
         [Fact]
@@ -130,12 +130,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherCollection = collection;
 
             // Act
-            Action act = () => collection.Should().NotBeSubsetOf(otherCollection,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotBeSubsetOf(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect*to be a subset of*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "Did not expect*to be a subset of*because*failure message, but they both reference the same object.");
         }
     }
 }

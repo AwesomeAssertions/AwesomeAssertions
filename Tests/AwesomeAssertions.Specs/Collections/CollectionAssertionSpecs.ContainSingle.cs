@@ -187,12 +187,12 @@ public partial class CollectionAssertionSpecs
         IEnumerable<int> collection = [];
 
         // Act
-        Action act = () => collection.Should().ContainSingle("more is not allowed");
+        Action act = () => collection.Should().ContainSingle("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected collection to contain a single item because more is not allowed, but the collection is empty.");
+                "Expected collection to contain a single item because*failure message, but the collection is empty.");
     }
 
     [Fact]
@@ -205,12 +205,12 @@ public partial class CollectionAssertionSpecs
         Action act = () =>
         {
             using var _ = new AssertionScope();
-            collection.Should().ContainSingle("more is not allowed");
+            collection.Should().ContainSingle("we want to test the {0} message", "failure");
         };
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected collection to contain a single item because more is not allowed, but found <null>.");
+            .WithMessage("Expected collection to contain a single item because*failure message, but found <null>.");
     }
 
     [Fact]

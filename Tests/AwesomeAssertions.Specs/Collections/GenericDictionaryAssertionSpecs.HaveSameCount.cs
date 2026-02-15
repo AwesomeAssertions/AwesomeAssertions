@@ -61,11 +61,11 @@ public partial class GenericDictionaryAssertionSpecs
             int[] collection = [4, 6];
 
             // Act
-            Action act = () => dictionary.Should().HaveSameCount(collection, "we want to test the {0}", "reason");
+            Action act = () => dictionary.Should().HaveSameCount(collection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary to have 2 item(s) because we want to test the reason, but found 3.");
+                "Expected dictionary to have 2 item(s) because*failure message, but found 3.");
         }
 
         [Fact]
@@ -76,12 +76,11 @@ public partial class GenericDictionaryAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => dictionary.Should().HaveSameCount(collection,
-                "because we want to test the behaviour with a null subject");
+            Action act = () => dictionary.Should().HaveSameCount(collection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary to have the same count as {1, 2, 3} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary to have the same count as {1, 2, 3} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -160,11 +159,11 @@ public partial class GenericDictionaryAssertionSpecs
             int[] collection = [4, 5, 6];
 
             // Act
-            Action act = () => dictionary.Should().NotHaveSameCount(collection, "we want to test the {0}", "reason");
+            Action act = () => dictionary.Should().NotHaveSameCount(collection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary to not have 3 item(s) because we want to test the reason, but found 3.");
+                "Expected dictionary to not have 3 item(s) because*failure message, but found 3.");
         }
 
         [Fact]
@@ -175,12 +174,11 @@ public partial class GenericDictionaryAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => dictionary.Should().NotHaveSameCount(collection,
-                "because we want to test the behaviour with a null subject");
+            Action act = () => dictionary.Should().NotHaveSameCount(collection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary to not have the same count as {1, 2, 3} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary to not have the same count as {1, 2, 3} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -219,12 +217,11 @@ public partial class GenericDictionaryAssertionSpecs
             var collection = dictionary;
 
             // Act
-            Action act = () => dictionary.Should().NotHaveSameCount(collection,
-                "because we want to test the behaviour with same objects");
+            Action act = () => dictionary.Should().NotHaveSameCount(collection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*not have the same count*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "*not have the same count*because*failure message, but they both reference the same object.");
         }
     }
 }

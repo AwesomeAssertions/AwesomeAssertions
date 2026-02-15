@@ -66,12 +66,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["build succeded", "test failed"];
 
             // Act
-            Action action = () => collection.Should().ContainMatch("* stopped", "because {0}", "we do");
+            Action action = () => collection.Should().ContainMatch("* stopped", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection {\"build succeded\", \"test failed\"} to contain a match of \"* stopped\" because we do.");
+                    "Expected collection {\"build succeded\", \"test failed\"} to contain a match of \"* stopped\" because*failure message.");
         }
 
         [Fact]
@@ -112,12 +112,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             Action action = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().ContainMatch("* failed", "because {0}", "we do");
+                collection.Should().ContainMatch("* failed", "we want to test the {0} message", "failure");
             };
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to contain a match of \"* failed\" because we do, but found <null>.");
+                .WithMessage("Expected collection to contain a match of \"* failed\" because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -182,12 +182,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["build succeded", "test failed"];
 
             // Act
-            Action action = () => collection.Should().NotContainMatch("* failed", "because {0}", "it shouldn't");
+            Action action = () => collection.Should().NotContainMatch("* failed", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Did not expect collection {\"build succeded\", \"test failed\"} to contain a match of \"* failed\" because it shouldn't.");
+                    "Did not expect collection {\"build succeded\", \"test failed\"} to contain a match of \"* failed\" because*failure message.");
         }
 
         [Fact]
@@ -197,12 +197,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["build failed", "test failed"];
 
             // Act
-            Action action = () => collection.Should().NotContainMatch("* failed", "because {0}", "it shouldn't");
+            Action action = () => collection.Should().NotContainMatch("* failed", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Did not expect collection {\"build failed\", \"test failed\"} to contain a match of \"* failed\" because it shouldn't.");
+                    "Did not expect collection {\"build failed\", \"test failed\"} to contain a match of \"* failed\" because*failure message.");
         }
 
         [Fact]
@@ -260,12 +260,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             Action action = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContainMatch("* Failed", "we want to test the failure {0}", "message");
+                collection.Should().NotContainMatch("* Failed", "we want to test the {0} message", "failure");
             };
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to contain a match of \"* failed\" *failure message*, but found <null>.");
+                .WithMessage("Did not expect collection to contain a match of \"* failed\" because*failure message, but found <null>.");
         }
     }
 }
