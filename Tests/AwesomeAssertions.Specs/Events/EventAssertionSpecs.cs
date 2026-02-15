@@ -59,12 +59,12 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
 
             // Act
-            Action act = () => monitor.Should().Raise("PropertyChanged", "{0} should cause the event to get raised", "Foo()");
+            Action act = () => monitor.Should().Raise("PropertyChanged", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected object " + Formatter.ToString(subject) +
-                " to raise event \"PropertyChanged\" because Foo() should cause the event to get raised, but it did not.");
+                " to raise event \"PropertyChanged\" because*failure message, but it did not.");
         }
 
         [Fact]
@@ -89,12 +89,12 @@ public class EventAssertionSpecs
 
             // Act
             Action act = () =>
-                monitor.Should().NotRaise("PropertyChanged", "{0} should cause the event to get raised", "Foo()");
+                monitor.Should().NotRaise("PropertyChanged", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected object " + Formatter.ToString(subject) +
-                    " to not raise event \"PropertyChanged\" because Foo() should cause the event to get raised, but it did.");
+                    " to not raise event \"PropertyChanged\" because*failure message, but it did.");
         }
 
         [Fact]
@@ -470,12 +470,12 @@ public class EventAssertionSpecs
             using var monitor = subject.Monitor();
 
             // Act
-            Action act = () => monitor.Should().RaisePropertyChangeFor(x => x.SomeProperty, "the property was changed");
+            Action act = () => monitor.Should().RaisePropertyChangeFor(x => x.SomeProperty, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected object " + Formatter.ToString(subject) +
-                " to raise event \"PropertyChanged\" for property \"SomeProperty\" because the property was changed, but it did not*");
+                " to raise event \"PropertyChanged\" for property \"SomeProperty\" because*failure message, but it did not*");
         }
 
         [Fact]
@@ -591,12 +591,12 @@ public class EventAssertionSpecs
             subject.RaiseEventWithSenderAndPropertyName("SomeProperty");
 
             // Act
-            Action act = () => monitor.Should().NotRaisePropertyChangeFor(x => x.SomeProperty, "nothing happened");
+            Action act = () => monitor.Should().NotRaisePropertyChangeFor(x => x.SomeProperty, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Did not expect object " + Formatter.ToString(subject) +
-                " to raise the \"PropertyChanged\" event for property \"SomeProperty\" because nothing happened, but it did.");
+                " to raise the \"PropertyChanged\" event for property \"SomeProperty\" because*failure message, but it did.");
         }
 
         [Fact]
