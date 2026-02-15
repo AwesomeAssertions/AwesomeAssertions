@@ -48,7 +48,23 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Act / Assert
             // TODO The be because arguments cannot be checked in successful test. But, it seems to affect the coverage.
             // A new test is required!?
-            actual.Should().Contain(expected, "we want to test the {0} message", "failure");
+            actual.Should().Contain(expected);
+        }
+
+        [Fact]
+        public void
+            When_asserting_a_string_collection_contains_an_element_it_should_allow_specifying_the_reason_via_named_parameter2()
+        {
+            // Arrange
+            var expected = new List<string> { "hello", "world" };
+            var actual = new List<string> { "hello" };
+
+            // Act / Assert
+            // TODO The be because arguments cannot be checked in successful test. But, it seems to affect the coverage.
+            // A new test is required!?
+            Action act = () => actual.Should().Contain(expected, "we want to test the {0} message", "failure");
+
+            act.Should().Throw<XunitException>().WithMessage("*because*failure message*");
         }
 
         [Fact]
