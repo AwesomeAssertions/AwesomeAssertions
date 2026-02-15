@@ -33,11 +33,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["cris", "mick", "john"];
 
             // Act
-            Action act = () => collection.Should().HaveElementPreceding("john", "cris", "because of some reason");
+            Action act = () => collection.Should().HaveElementPreceding("john", "cris", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected*cris*precede*john*because*reason*found*mick*");
+                .WithMessage("Expected*cris*precede*john*because*failure message*found*mick*");
         }
 
         [Fact]
@@ -129,13 +129,13 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().HaveElementPreceding("mick", "cris", "we want to test the failure {0}", "message");
+                collection.Should().HaveElementPreceding("mick", "cris", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to have \"cris\" precede \"mick\" *failure message*, but the collection is <null>.");
+                    "Expected collection to have \"cris\" precede \"mick\" because*failure message*, but the collection is <null>.");
         }
     }
 }

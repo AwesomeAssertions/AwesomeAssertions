@@ -43,11 +43,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().HaveElementAt(1, 3, "we put it {0}", "there");
+            Action act = () => collection.Should().HaveElementAt(1, 3, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected 3 at index 1 because we put it there, but found 2.");
+                "Expected 3 at index 1 because*failure message, but found 2.");
         }
 
         [Fact]
@@ -57,11 +57,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().HaveElementAt(4, 3, "we put it {0}", "there");
+            Action act = () => collection.Should().HaveElementAt(4, 3, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected 3 at index 4 because we put it there, but found no element.");
+                "Expected 3 at index 4 because*failure message, but found no element.");
         }
 
         [Fact]
@@ -74,12 +74,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().HaveElementAt(1, 1, "because we want to test the behaviour with a null subject");
+                collection.Should().HaveElementAt(1, 1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to have element at index 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to have element at index 1 because*failure message, but found <null>.");
         }
 
         [Fact]

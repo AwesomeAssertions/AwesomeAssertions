@@ -33,11 +33,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["cris", "mick", "john"];
 
             // Act
-            Action act = () => collection.Should().HaveElementSucceeding("mick", "cris", "because of some reason");
+            Action act = () => collection.Should().HaveElementSucceeding("mick", "cris", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected*cris*succeed*mick*because*reason*found*john*");
+                .WithMessage("Expected*cris*succeed*mick*because*failure message*found*john*");
         }
 
         [Fact]
@@ -127,13 +127,13 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().HaveElementSucceeding("mick", "cris", "we want to test the failure {0}", "message");
+                collection.Should().HaveElementSucceeding("mick", "cris", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to have \"cris\" succeed \"mick\" *failure message*, but the collection is <null>.");
+                    "Expected collection to have \"cris\" succeed \"mick\" because*failure message*, but the collection is <null>.");
         }
     }
 }
