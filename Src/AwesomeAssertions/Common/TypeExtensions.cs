@@ -4,13 +4,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
 using AwesomeAssertions.Equivalency;
 using Reflectify;
 
 namespace AwesomeAssertions.Common;
 
+/// <summary>
+/// Various extensions for <see cref="Type"/> and other reflection types.
+/// </summary>
+/// <remarks>
+/// Here we also have extensions which only forward to Reflectify to avoid ambiguities. 
+/// We also must take care because Reflectify provides extensions which have identical signatures
+/// as our extensions, but behave differently: 
+/// e.g. Reflectify's GetMatchingAttributes method always includes inherited attributes,
+/// whereas our extensions does not. For inheritance we have GetMatchingOrInheritedAttributes.
+/// Our IsRecord extension does caching, which greatly improves performance, but Reflectify doesn't.
+/// </remarks>
 internal static class TypeExtensions
 {
     private const BindingFlags PublicInstanceMembersFlag =
@@ -160,14 +169,8 @@ internal static class TypeExtensions
                 .ToArray();
     }
 
-    public static bool OverridesEquals(this Type type)
-    {
-        MethodInfo method = type
-            .GetMethod("Equals", [typeof(object)]);
-
-        return method is not null
-            && method.GetBaseDefinition().DeclaringType != method.DeclaringType;
-    }
+    public static bool OverridesEquals(this Type type) =>
+        TypeMetaDataExtensions.OverridesEquals(type);
 
     /// <summary>
     /// Finds the property by a case-sensitive name and with a certain visibility.
@@ -273,10 +276,8 @@ internal static class TypeExtensions
                 p.IsIndexer() && p.GetIndexParameters().Select(i => i.ParameterType).SequenceEqual(parameterTypes));
     }
 
-    public static bool IsIndexer(this PropertyInfo member)
-    {
-        return member.GetIndexParameters().Length != 0;
-    }
+    public static bool IsIndexer(this PropertyInfo member) =>
+        Reflectify.PropertyInfoExtensions.IsIndexer(member);
 
     public static ConstructorInfo GetConstructor(this Type type, IEnumerable<Type> parameterTypes)
     {
@@ -286,21 +287,6 @@ internal static class TypeExtensions
         return type
             .GetConstructors(allInstanceMembersFlag)
             .SingleOrDefault(m => m.GetParameters().Select(p => p.ParameterType).SequenceEqual(parameterTypes));
-    }
-
-    private static IEnumerable<MethodInfo> GetConversionOperators(this Type type, Type sourceType, Type targetType,
-        Func<string, bool> predicate)
-    {
-        return type
-            .GetMethods()
-            .Where(m =>
-                m.IsPublic
-                && m.IsStatic
-                && m.IsSpecialName
-                && m.ReturnType == targetType
-                && predicate(m.Name)
-                && m.GetParameters() is { Length: 1 } parameters
-                && parameters[0].ParameterType == sourceType);
     }
 
     public static bool IsAssignableToOpenGeneric(this Type type, Type definition)
@@ -330,27 +316,8 @@ internal static class TypeExtensions
             .Any(i => i.IsGenericType && i.GetGenericTypeDefinition() == definition);
     }
 
-    public static bool IsDerivedFromOpenGeneric(this Type type, Type definition)
-    {
-        if (type == definition)
-        {
-            // do not consider a type to be derived from itself
-            return false;
-        }
-
-        // check subject and its base types against definition
-        for (Type baseType = type;
-             baseType is not null;
-             baseType = baseType.BaseType)
-        {
-            if (baseType.IsGenericType && baseType.GetGenericTypeDefinition() == definition)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
+    public static bool IsDerivedFromOpenGeneric(this Type type, Type definition) =>
+        Reflectify.TypeMetaDataExtensions.IsDerivedFromOpenGeneric(type, definition);
 
     public static bool IsUnderNamespace(this Type type, string @namespace)
     {
@@ -370,19 +337,11 @@ internal static class TypeExtensions
             expectedType.IsAssignableFrom(actualType);
     }
 
-    public static MethodInfo GetExplicitConversionOperator(this Type type, Type sourceType, Type targetType)
-    {
-        return type
-            .GetConversionOperators(sourceType, targetType, name => name is "op_Explicit")
-            .SingleOrDefault();
-    }
+    public static MethodInfo GetExplicitConversionOperator(this Type type, Type sourceType, Type targetType) =>
+        type.FindExplicitConversionOperator(sourceType, targetType);
 
-    public static MethodInfo GetImplicitConversionOperator(this Type type, Type sourceType, Type targetType)
-    {
-        return type
-            .GetConversionOperators(sourceType, targetType, name => name is "op_Implicit")
-            .SingleOrDefault();
-    }
+    public static MethodInfo GetImplicitConversionOperator(this Type type, Type sourceType, Type targetType) =>
+        type.FindImplicitConversionOperator(sourceType, targetType);
 
     public static bool HasValueSemantics(this Type type)
     {
@@ -390,83 +349,12 @@ internal static class TypeExtensions
             t.OverridesEquals() &&
             !t.IsAnonymous() &&
             !t.IsTuple() &&
-            !IsKeyValuePair(t));
-    }
-
-    private static bool IsTuple(this Type type)
-    {
-        if (!type.IsGenericType)
-        {
-            return false;
-        }
-
-#if !(NET47 || NETSTANDARD2_0)
-        return typeof(ITuple).IsAssignableFrom(type);
-#else
-        Type openType = type.GetGenericTypeDefinition();
-
-        return openType == typeof(ValueTuple<>)
-            || openType == typeof(ValueTuple<,>)
-            || openType == typeof(ValueTuple<,,>)
-            || openType == typeof(ValueTuple<,,,>)
-            || openType == typeof(ValueTuple<,,,,>)
-            || openType == typeof(ValueTuple<,,,,,>)
-            || openType == typeof(ValueTuple<,,,,,,>)
-            || (openType == typeof(ValueTuple<,,,,,,,>) && IsTuple(type.GetGenericArguments()[7]))
-            || openType == typeof(Tuple<>)
-            || openType == typeof(Tuple<,>)
-            || openType == typeof(Tuple<,,>)
-            || openType == typeof(Tuple<,,,>)
-            || openType == typeof(Tuple<,,,,>)
-            || openType == typeof(Tuple<,,,,,>)
-            || openType == typeof(Tuple<,,,,,,>)
-            || (openType == typeof(Tuple<,,,,,,,>) && IsTuple(type.GetGenericArguments()[7]));
-#endif
-    }
-
-    private static bool IsAnonymous(this Type type)
-    {
-        bool nameContainsAnonymousType = type.FullName.Contains("AnonymousType", StringComparison.Ordinal);
-
-        if (!nameContainsAnonymousType)
-        {
-            return false;
-        }
-
-        bool hasCompilerGeneratedAttribute =
-            type.IsDecoratedWith<CompilerGeneratedAttribute>();
-
-        return hasCompilerGeneratedAttribute;
+            !t.IsKeyValuePair());
     }
 
     public static bool IsRecord(this Type type)
     {
         return TypeIsRecordCache.GetOrAdd(type, static t => t.IsRecordClass() || t.IsRecordStruct());
-    }
-
-    private static bool IsRecordClass(this Type type)
-    {
-        return type.GetMethod("<Clone>$", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly) is { } &&
-            type.GetProperty("EqualityContract", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly)?
-                .GetMethod?.IsDecoratedWith<CompilerGeneratedAttribute>() == true;
-    }
-
-    private static bool IsRecordStruct(this Type type)
-    {
-        // As noted here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-10.0/record-structs#open-questions
-        // recognizing record structs from metadata is an open point. The following check is based on common sense
-        // and heuristic testing, apparently giving good results but not supported by official documentation.
-        return type.BaseType == typeof(ValueType) &&
-            type.GetMethod("PrintMembers", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly, null,
-                [typeof(StringBuilder)], null) is { } &&
-            type.GetMethod("op_Equality", BindingFlags.Static | BindingFlags.Public | BindingFlags.DeclaredOnly, null,
-                    [type, type], null)?
-                .IsDecoratedWith<CompilerGeneratedAttribute>() == true;
-    }
-
-    private static bool IsKeyValuePair(Type type)
-    {
-        return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(KeyValuePair<,>);
     }
 
     /// <summary>
