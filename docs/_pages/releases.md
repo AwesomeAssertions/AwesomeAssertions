@@ -10,9 +10,10 @@ sidebar:
 
 ### What's new
 * Add an option to specify the maximum number of items to be displayed in collection assertions - [#412](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/412)
+* Add `EqualApproximately` for collections of `INumber<T>` - [#413](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/413)
 
 ### Improvements
-* Add `[return: NotNull` to all `Should()` and assertion methods  - [#433](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/433)
+* Add `[return: NotNull` to all `Should()` and assertion methods - [#433](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/433)
 
 ### Fixes
 * Add missing `[NotNull]` attribute on the `Should()` methods for nullable value types - [#411](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/411)
