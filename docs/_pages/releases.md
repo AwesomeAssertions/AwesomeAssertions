@@ -6,7 +6,7 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
-## Unreleased
+## 9.4.0
 
 ### What's new
 * Add an option to specify the maximum number of items to be displayed in collection assertions - [#412](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/412)
