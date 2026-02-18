@@ -452,8 +452,10 @@ namespace AwesomeAssertions
     }
     public static class NumericCollectionAssertionsExtensions
     {
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Collections.GenericCollectionAssertions<T>> EqualApproximately<T>(this AwesomeAssertions.Collections.GenericCollectionAssertions<T> parent, System.Collections.Generic.IEnumerable<T> expectation, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.Numerics.INumber<T> { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Collections.GenericCollectionAssertions<T>> NotEqualApproximately<T>(this AwesomeAssertions.Collections.GenericCollectionAssertions<T> parent, System.Collections.Generic.IEnumerable<T> unexpected, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
             where T : System.Numerics.INumber<T> { }
     }

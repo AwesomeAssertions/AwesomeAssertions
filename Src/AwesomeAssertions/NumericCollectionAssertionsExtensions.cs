@@ -35,6 +35,7 @@ public static class NumericCollectionAssertionsExtensions
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
     /// <typeparam name="T">Numerical type</typeparam>
+    [return: NotNull]
     public static AndConstraint<GenericCollectionAssertions<T>> EqualApproximately<T>(this GenericCollectionAssertions<T> parent,
         IEnumerable<T> expectation, T precision, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : INumber<T>
@@ -67,6 +68,7 @@ public static class NumericCollectionAssertionsExtensions
     /// </param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
     /// <typeparam name="T">Numerical type</typeparam>
+    [return: NotNull]
     public static AndConstraint<GenericCollectionAssertions<T>> NotEqualApproximately<T>(this GenericCollectionAssertions<T> parent,
         IEnumerable<T> unexpected, T precision, [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
         where T : INumber<T>
