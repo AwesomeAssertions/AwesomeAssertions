@@ -191,7 +191,7 @@ public partial class StringAssertionSpecs
                 // Assert
                 act.Should().Throw<XunitException>()
                     .WithMessage(
-                        "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" exactly 3 times, but found it 2 times.");
+                        "Expected *\"abCDEBcDF\"*to contain the equivalent of*\"Bcd\"*exactly 3 times, but found it 2 times.");
             }
 
             [Fact]
@@ -255,7 +255,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at least 3 times, but found it 2 times.");
+                .WithMessage("Expected *\"abCDEBcDF\"*to contain the equivalent of*\"Bcd\"*at least 3 times, but found it 2 times.");
         }
 
         [Fact]
@@ -319,7 +319,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" more than 2 times, but found it 2 times.");
+                    "Expected *\"abCDEBcDF\"*to contain the equivalent of*\"Bcd\"*more than 2 times, but found it 2 times.");
         }
 
         [Fact]
@@ -382,7 +382,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at most 1 time, but found it 2 times.");
+                .WithMessage("Expected *\"abCDEBcDF\"*to contain the equivalent of*\"Bcd\"*at most 1 time, but found it 2 times.");
         }
 
         [Fact]
@@ -438,7 +438,7 @@ public partial class StringAssertionSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" less than 2 times, but found it 2 times.");
+                    "Expected *\"abCDEBcDF\"*to contain the equivalent of*\"Bcd\"*less than 2 times, but found it 2 times.");
         }
 
         [Fact]
