@@ -11,6 +11,7 @@
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="DESIGN-GUIDE.md" />
     <File Path="Directory.Build.props" />
     <File Path="docs/_pages/releases.md" />
     <File Path="nuget.config" />
