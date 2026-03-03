@@ -6,6 +6,11 @@ classes: wide
 sidebar:
   nav: "sidebar"
 ---
+## Unreleased
+
+### What's new
+* Add `[Not]BeDecoratedWith` for `ParameterInfo`- [#449](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/449)
+
 ## 9.4.0
 
 ### What's new
