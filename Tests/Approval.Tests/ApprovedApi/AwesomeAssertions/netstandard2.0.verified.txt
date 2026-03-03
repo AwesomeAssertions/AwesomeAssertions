@@ -112,6 +112,8 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.MethodInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.MethodInfo methodInfo) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.Types.ParameterInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.ParameterInfo parameterInfo) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.PropertyInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.PropertyInfo propertyInfo) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.SimpleTimeSpanAssertions Should(this System.TimeSpan actualValue) { }
@@ -2887,6 +2889,23 @@ namespace AwesomeAssertions.Types
             where TAttribute : System.Attribute { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<AwesomeAssertions.Types.MethodInfoSelectorAssertions> NotBeVirtual(string because = "", params object[] becauseArgs) { }
+    }
+    public sealed class ParameterInfoAssertions : AwesomeAssertions.Primitives.ReferenceTypeAssertions<System.Reflection.ParameterInfo, AwesomeAssertions.Types.ParameterInfoAssertions>
+    {
+        public ParameterInfoAssertions(System.Reflection.ParameterInfo subject, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
+        protected override string Identifier { get; }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public AwesomeAssertions.AndWhichConstraint<AwesomeAssertions.Types.ParameterInfoAssertions, TAttribute> BeDecoratedWith<TAttribute>(string because = "", params object[] becauseArgs)
+            where TAttribute : System.Attribute { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public AwesomeAssertions.AndWhichConstraint<AwesomeAssertions.Types.ParameterInfoAssertions, TAttribute> BeDecoratedWith<TAttribute>(System.Linq.Expressions.Expression<System.Func<TAttribute, bool>> isMatchingAttributePredicate, string because = "", params object[] becauseArgs)
+            where TAttribute : System.Attribute { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public AwesomeAssertions.AndConstraint<AwesomeAssertions.Types.ParameterInfoAssertions> NotBeDecoratedWith<TAttribute>(string because = "", params object[] becauseArgs)
+            where TAttribute : System.Attribute { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public AwesomeAssertions.AndConstraint<AwesomeAssertions.Types.ParameterInfoAssertions> NotBeDecoratedWith<TAttribute>(System.Linq.Expressions.Expression<System.Func<TAttribute, bool>> isMatchingAttributePredicate, string because = "", params object[] becauseArgs)
+            where TAttribute : System.Attribute { }
     }
     public class PropertyInfoAssertions : AwesomeAssertions.Types.MemberInfoAssertions<System.Reflection.PropertyInfo, AwesomeAssertions.Types.PropertyInfoAssertions>
     {

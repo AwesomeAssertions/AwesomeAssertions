@@ -813,7 +813,7 @@ public static class AssertionExtensions
 
     /// <summary>
     /// Returns a <see cref="AwesomeAssertions.Types.MethodBaseAssertions{TSubject, TAssertions}"/> object
-    /// that can be used to assert the current <see cref="MethodInfo"/>.
+    /// that can be used to assert the current <see cref="ConstructorInfo"/>.
     /// </summary>
     /// <seealso cref="TypeAssertions"/>
     [Pure]
@@ -851,7 +851,7 @@ public static class AssertionExtensions
 
     /// <summary>
     /// Returns a <see cref="PropertyInfoAssertions"/> object that can be used to assert the
-    /// current <see cref="PropertyInfoSelector"/>.
+    /// current <see cref="PropertyInfo"/>.
     /// </summary>
     /// <seealso cref="TypeAssertions"/>
     [Pure]
@@ -874,6 +874,17 @@ public static class AssertionExtensions
         Guard.ThrowIfArgumentIsNull(propertyInfoSelector);
 
         return new PropertyInfoSelectorAssertions(AssertionChain.GetOrCreate(), propertyInfoSelector.ToArray());
+    }
+
+    /// <summary>
+    /// Returns a <see cref="ParameterInfoAssertions"/> object that can be used to assert the
+    /// current <see cref="ParameterInfo"/>.
+    /// </summary>
+    [Pure]
+    [return: NotNull]
+    public static ParameterInfoAssertions Should([NotNull] this ParameterInfo parameterInfo)
+    {
+        return new ParameterInfoAssertions(parameterInfo, AssertionChain.GetOrCreate());
     }
 
     /// <summary>
