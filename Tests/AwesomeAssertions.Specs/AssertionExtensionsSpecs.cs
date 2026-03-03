@@ -77,8 +77,8 @@ public class AssertionExtensionsSpecs
     {
         GetAllAssertionMethods()
             .Should().AllSatisfy(method =>
-                method.ReturnParameter.GetCustomAttribute<NotNullAttribute>()
-                    .Should().NotBeNull("because assertion {0} of type {1} must never return null", method, method.DeclaringType));
+                method.ReturnParameter.Should().BeDecoratedWith<NotNullAttribute>(
+                    "because assertion {0} of type {1} must never return null", method, method.DeclaringType));
     }
 
     private static IEnumerable<MethodInfo> GetAllAssertionMethods()
@@ -204,16 +204,16 @@ public class AssertionExtensionsSpecs
     [MemberData(nameof(GetShouldMethods), true)]
     public void Should_methods_returning_reference_or_nullable_type_assertions_are_annotated_with_not_null_attribute(MethodInfo method)
     {
-        var notNullAttribute = method.GetParameters().Single().GetCustomAttribute<NotNullAttribute>();
-        notNullAttribute.Should().NotBeNull();
+        method.GetParameters().Should().ContainSingle()
+            .Which.Should().BeDecoratedWith<NotNullAttribute>();
     }
 
     [Theory]
     [MemberData(nameof(GetShouldMethods), false)]
     public void Should_methods_not_returning_reference_or_nullable_type_assertions_are_not_annotated_with_not_null_attribute(MethodInfo method)
     {
-        var notNullAttribute = method.GetParameters().Single().GetCustomAttribute<NotNullAttribute>();
-        notNullAttribute.Should().BeNull();
+        method.GetParameters().Should().ContainSingle()
+            .Which.Should().NotBeDecoratedWith<NotNullAttribute>();
     }
 
     [Fact]
@@ -222,8 +222,8 @@ public class AssertionExtensionsSpecs
         GetAllShouldMethods()
             .Where(x => !IsGuardOverload(x))
             .Should().AllSatisfy(method =>
-                method.ReturnParameter.GetCustomAttribute<NotNullAttribute>()
-                    .Should().NotBeNull("because {0} must never return null", method));
+                method.ReturnParameter.Should().BeDecoratedWith<NotNullAttribute>(
+                    "because {0} must never return null", method));
     }
 
     public static TheoryData<MethodInfo> GetShouldMethods(bool referenceOrNullableTypes)
