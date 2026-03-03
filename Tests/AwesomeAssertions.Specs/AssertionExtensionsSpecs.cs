@@ -27,19 +27,11 @@ public class AssertionExtensionsSpecs
             .Where(t => t.IsPublic && t.Name.TrimEnd('`', '1', '2', '3').EndsWith("Assertions", StringComparison.Ordinal))
             .Select(e => GetMostParentType(e))
             .Distinct()
-            .Select(t => (type: t, overridesEquals: OverridesEquals(t)))
+            .Select(t => (type: t, overridesEquals: t.OverridesEquals()))
             .ToList();
 
         // Assert
         equalsOverloads.Should().OnlyContain(e => e.overridesEquals);
-    }
-
-    private static bool OverridesEquals(Type t)
-    {
-        MethodInfo equals = t.GetMethod("Equals", BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public,
-            null, [typeof(object)], null);
-
-        return equals is not null;
     }
 
     [Fact]
