@@ -950,9 +950,10 @@ public static class AssertionExtensions
     /// <param name="eventSource">The object for which to monitor the events.</param>
     /// <exception cref="ArgumentNullException"><paramref name="eventSource"/> is <see langword="null"/>.</exception>
     [return: NotNull]
-    public static IMonitor<T> Monitor<T>(this T eventSource)
+    [RequiresDynamicCode("Event monitoring requires runtime-generated delegates.")]
+    public static IMonitor<T> Monitor<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)] T>(this T eventSource)
     {
-        return new EventMonitor<T>(eventSource, new EventMonitorOptions());
+        return EventMonitor<T>.Create(eventSource, new EventMonitorOptions());
     }
 
     /// <summary>
@@ -964,14 +965,53 @@ public static class AssertionExtensions
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="eventSource"/> is <see langword="null"/>.</exception>
     [return: NotNull]
-    public static IMonitor<T> Monitor<T>(this T eventSource, Action<EventMonitorOptions> configureOptions)
+    [RequiresDynamicCode("Event monitoring requires runtime-generated delegates.")]
+    public static IMonitor<T> Monitor<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)] T>(this T eventSource, Action<EventMonitorOptions> configureOptions)
     {
         Guard.ThrowIfArgumentIsNull(configureOptions, nameof(configureOptions));
 
         var options = new EventMonitorOptions();
         configureOptions(options);
-        return new EventMonitor<T>(eventSource, options);
+        return EventMonitor<T>.Create(eventSource, options);
     }
+
+#if NET6_0_OR_GREATER
+    /// <summary>
+    /// Starts monitoring <paramref name="eventSource"/> for its events using a safe handler strategy.
+    /// </summary>
+    /// <param name="eventSource">The object for which to monitor the events.</param>
+    /// <exception cref="ArgumentNullException"><paramref name="eventSource"/> is <see langword="null"/>.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// The monitored type exposes custom event delegate signatures that are not supported by safe monitoring.
+    /// </exception>
+    [return: NotNull]
+    public static IMonitor<T> MonitorSafe<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)] T>(this T eventSource)
+    {
+        return EventMonitor<T>.CreateSafe(eventSource, new EventMonitorOptions());
+    }
+
+    /// <summary>
+    /// Starts monitoring <paramref name="eventSource"/> for its events using a safe handler strategy.
+    /// </summary>
+    /// <param name="eventSource">The object for which to monitor the events.</param>
+    /// <param name="configureOptions">
+    /// Options to configure the EventMonitor.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="eventSource"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="configureOptions"/> is <see langword="null"/>.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// The monitored type exposes custom event delegate signatures that are not supported by safe monitoring.
+    /// </exception>
+    [return: NotNull]
+    public static IMonitor<T> MonitorSafe<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicEvents)] T>(this T eventSource, Action<EventMonitorOptions> configureOptions)
+    {
+        Guard.ThrowIfArgumentIsNull(configureOptions, nameof(configureOptions));
+
+        var options = new EventMonitorOptions();
+        configureOptions(options);
+        return EventMonitor<T>.CreateSafe(eventSource, options);
+    }
+#endif
 
 #endif
 
