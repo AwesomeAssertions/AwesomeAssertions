@@ -53,11 +53,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary.Should().ContainKey(3, "because {0}", "we do");
+            Action act = () => dictionary.Should().ContainKey(3, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} to contain key 3 because we do.");
+                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} to contain key 3 because*failure message.");
         }
 
         [Fact]
@@ -124,11 +124,11 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary.Should().NotContainKey(1, "because we {0} like it", "don't");
+            Action act = () => dictionary.Should().NotContainKey(1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} not to contain key 1 because we don't like it, but found it anyhow.");
+                "Expected dictionary {[1] = \"One\", [2] = \"Two\"} not to contain key 1 because*failure message, but found it anyhow.");
         }
 
         [Fact]
@@ -141,12 +141,12 @@ public partial class GenericDictionaryAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                dictionary.Should().NotContainKey(1, "because we want to test the behaviour with a null subject");
+                dictionary.Should().NotContainKey(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary not to contain key 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary not to contain key 1 because*failure message, but found <null>.");
         }
     }
 }

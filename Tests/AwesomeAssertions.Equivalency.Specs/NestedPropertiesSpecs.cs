@@ -10,44 +10,35 @@ public class NestedPropertiesSpecs
     [Fact]
     public void When_all_the_properties_of_the_nested_objects_are_equal_it_should_succeed()
     {
-        // Arrange
         var subject = new Root
         {
             Text = "Root",
             Level = new Level1 { Text = "Level1", Level = new Level2 { Text = "Level2" } }
         };
-
         var expected = new RootDto
         {
             Text = "Root",
             Level = new Level1Dto { Text = "Level1", Level = new Level2Dto { Text = "Level2" } }
         };
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expected);
     }
 
     [Fact]
     public void When_the_expectation_contains_a_nested_null_it_should_properly_report_the_difference()
     {
-        // Arrange
         var subject = new Root { Text = "Root", Level = new Level1 { Text = "Level1", Level = new Level2() } };
-
         var expected = new RootDto { Text = "Root", Level = new Level1Dto { Text = "Level1", Level = null } };
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
         act.Should().Throw<XunitException>()
             .WithMessage("*Expected*Level.Level*to be <null>, but found*Level2*Without automatic conversion*");
     }
 
     [Fact]
-    public void
-        When_not_all_the_properties_of_the_nested_objects_are_equal_but_nested_objects_are_excluded_it_should_succeed()
+    public void When_not_all_the_properties_of_the_nested_objects_are_equal_but_nested_objects_are_excluded_it_should_succeed()
     {
-        // Arrange
         var subject = new
         {
             Property = new ClassWithValueSemanticsOnSingleProperty
@@ -56,7 +47,6 @@ public class NestedPropertiesSpecs
                 NestedProperty = "Should be ignored"
             }
         };
-
         var expected = new
         {
             Property = new ClassWithValueSemanticsOnSingleProperty
@@ -66,23 +56,17 @@ public class NestedPropertiesSpecs
             }
         };
 
-        // Act / Assert
-        subject.Should().BeEquivalentTo(expected,
-            options => options.WithoutRecursing());
+        subject.Should().BeEquivalentTo(expected, options => options.WithoutRecursing());
     }
 
     [Fact]
     public void When_nested_objects_should_be_excluded_it_should_do_a_simple_equality_check_instead()
     {
-        // Arrange
         var item = new Item { Child = new Item() };
 
-        // Act
         Action act = () => item.Should().BeEquivalentTo(new Item(), options => options.WithoutRecursing());
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("Expected*Item*null*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*Item*null*");
     }
 
     public class Item
@@ -93,58 +77,47 @@ public class NestedPropertiesSpecs
     [Fact]
     public void When_not_all_the_properties_of_the_nested_objects_are_equal_it_should_throw()
     {
-        // Arrange
         var subject = new Root { Text = "Root", Level = new Level1 { Text = "Level1" } };
-
         var expected = new RootDto { Text = "Root", Level = new Level1Dto { Text = "Level2" } };
 
-        // Act
         Action act = () =>
             subject.Should().BeEquivalentTo(expected);
 
-        // Assert
+        // Checking exception message exactly is against general guidelines,
+        // but in that case it was done on purpose, so that we have at least a single
+        // test confirming that whole mechanism of gathering description from
+        // equivalency steps works.
         act.Should().Throw<XunitException>().Which.Message
-
-            // Checking exception message exactly is against general guidelines
-            // but in that case it was done on purpose, so that we have at least have a single
-            // test confirming that whole mechanism of gathering description from
-            // equivalency steps works.
             .Should().Be("""
-                Expected property subject.Level.Text to be the same string, but they differ at index 5:
-                        ↓ (actual)
-                  "Level1"
-                  "Level2"
-                        ↑ (expected).
+                         Expected property subject.Level.Text to be the same string, but they differ at index 5:
+                                 ↓ (actual)
+                           "Level1"
+                           "Level2"
+                                 ↑ (expected).
 
-                With configuration:
-                - Prefer the declared type of the members
-                - Compare enums by value
-                - Compare tuples by their properties
-                - Compare anonymous types by their properties
-                - Compare records by their members
-                - Include non-browsable members
-                - Match member by name (or throw)
-                - Be strict about the order of items in byte arrays
-                - Without automatic conversion.
+                         With configuration:
+                         - Prefer the declared type of the members
+                         - Compare enums by value
+                         - Compare tuples by their properties
+                         - Compare anonymous types by their properties
+                         - Compare records by their members
+                         - Include non-browsable members
+                         - Match member by name (or throw)
+                         - Be strict about the order of items in byte arrays
+                         - Without automatic conversion.
 
-                """);
+                         """);
     }
 
     [Fact]
     public void When_the_actual_nested_object_is_null_it_should_throw()
     {
-        // Arrange
         var subject = new Root { Text = "Root", Level = new Level1 { Text = "Level2" } };
-
         var expected = new RootDto { Text = "Root", Level = null };
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act
-            .Should().Throw<XunitException>()
-            .WithMessage("Expected*Level*to be <null>*, but found*Level1*Level2*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*Level*to be <null>*, but found*Level1*Level2*");
     }
 
     public class StringSubContainer
@@ -175,13 +148,11 @@ public class NestedPropertiesSpecs
     [Fact]
     public void When_deeply_nested_strings_dont_match_it_should_properly_report_the_mismatches()
     {
-        // Arrange
         MyClass2[] expected =
         [
             new MyClass2 { One = new StringContainer("EXPECTED", "EXPECTED"), Two = new StringContainer("CORRECT") },
             new MyClass2()
         ];
-
         MyClass2[] actual =
         [
             new MyClass2
@@ -191,123 +162,89 @@ public class NestedPropertiesSpecs
             new MyClass2()
         ];
 
-        // Act
         Action act = () => actual.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("*EXPECTED*INCORRECT*EXPECTED*INCORRECT*");
+        act.Should().Throw<XunitException>().WithMessage("*EXPECTED*INCORRECT*EXPECTED*INCORRECT*");
     }
 
     [Fact]
     public void When_the_nested_object_property_is_null_it_should_throw()
     {
-        // Arrange
         var subject = new Root { Text = "Root", Level = null };
-
         var expected = new RootDto { Text = "Root", Level = new Level1Dto { Text = "Level2" } };
 
-        // Act
-        Action act = () =>
-            subject.Should().BeEquivalentTo(expected);
+        Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act
-            .Should().Throw<XunitException>()
+        act.Should().Throw<XunitException>()
             .WithMessage("Expected property subject.Level*to be*Level1Dto*Level2*, but found <null>*");
     }
 
     [Fact]
     public void When_not_all_the_properties_of_the_nested_object_exist_on_the_expected_object_it_should_throw()
     {
-        // Arrange
         var subject = new { Level = new { Text = "Level1", } };
-
         var expected = new { Level = new { Text = "Level1", OtherProperty = "OtherProperty" } };
 
-        // Act
         Action act = () => subject.Should().BeEquivalentTo(expected);
 
-        // Assert
-        act
-            .Should().Throw<XunitException>()
+        act.Should().Throw<XunitException>()
             .WithMessage("Expectation has property Level.OtherProperty that the other object does not have*");
     }
 
     [Fact]
     public void When_all_the_shared_properties_of_the_nested_objects_are_equal_it_should_succeed()
     {
-        // Arrange
         var subject = new { Level = new { Text = "Level1", Property = "Property" } };
-
         var expected = new { Level = new { Text = "Level1", OtherProperty = "OtherProperty" } };
 
-        // Act / Assert
         subject.Should().BeEquivalentTo(expected, options => options.ExcludingMissingMembers());
     }
 
     [Fact]
     public void When_deeply_nested_properties_do_not_have_all_equal_values_it_should_throw()
     {
-        // Arrange
         var root = new Root
         {
             Text = "Root",
             Level = new Level1 { Text = "Level1", Level = new Level2 { Text = "Level2" } }
         };
-
         var rootDto = new RootDto
         {
             Text = "Root",
             Level = new Level1Dto { Text = "Level1", Level = new Level2Dto { Text = "A wrong text value" } }
         };
 
-        // Act
         Action act = () => root.Should().BeEquivalentTo(rootDto);
 
-        // Assert
-        act
-            .Should().Throw<XunitException>()
-            .WithMessage(
-                "Expected*Level.Level.Text*to be *\"Level2\"*A wrong text value*");
+        act.Should().Throw<XunitException>().WithMessage("Expected*Level.Level.Text*to be *\"Level2\"*A wrong text value*");
     }
 
     [Fact]
     public void When_two_objects_have_the_same_nested_objects_it_should_not_throw()
     {
-        // Arrange
         var c1 = new ClassOne();
         var c2 = new ClassOne();
 
-        // Act / Assert
         c1.Should().BeEquivalentTo(c2);
     }
 
     [Fact]
     public void When_a_property_of_a_nested_object_doesnt_match_it_should_clearly_indicate_the_path()
     {
-        // Arrange
         var c1 = new ClassOne();
-        var c2 = new ClassOne();
-        c2.RefOne.ValTwo = 2;
+        var c2 = new ClassOne { RefOne = { ValTwo = 2 } };
 
-        // Act
         Action act = () => c1.Should().BeEquivalentTo(c2);
 
-        // Assert
-        act.Should().Throw<XunitException>()
-            .WithMessage("Expected property c1.RefOne.ValTwo to be 2, but found 3*");
+        act.Should().Throw<XunitException>().WithMessage("Expected property c1.RefOne.ValTwo to be 2, but found 3*");
     }
 
     [Fact]
     public void Should_support_nested_collections_containing_empty_objects()
     {
-        // Arrange
         OuterWithObject[] orig = [new OuterWithObject { MyProperty = [new Inner()] }];
-
         OuterWithObject[] expectation = [new OuterWithObject { MyProperty = [new Inner()] }];
 
-        // Act / Assert
         orig.Should().BeEquivalentTo(expectation);
     }
 

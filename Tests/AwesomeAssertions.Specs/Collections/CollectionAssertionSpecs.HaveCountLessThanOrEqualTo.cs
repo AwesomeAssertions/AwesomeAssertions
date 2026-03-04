@@ -44,12 +44,12 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action action = () =>
-                collection.Should().HaveCountLessThanOrEqualTo(2, "because we want to test the failure {0}", "message");
+                collection.Should().HaveCountLessThanOrEqualTo(2, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain at most 2 item(s) because we want to test the failure message, but found 3: {1, 2, 3}.");
+                    "Expected collection to contain at most 2 item(s) because*failure message, but found 3: {1, 2, 3}.");
         }
 
         [Fact]
@@ -62,12 +62,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().HaveCountLessThanOrEqualTo(1, "we want to test the behaviour with a null subject");
+                collection.Should().HaveCountLessThanOrEqualTo(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*at most*1*we want to test the behaviour with a null subject*found <null>*");
+                .WithMessage("*at most*1*because*failure message, but found <null>*");
         }
 
         [Fact]

@@ -133,22 +133,22 @@ public partial class CollectionAssertionSpecs
         public void When_two_collections_contain_the_same_items_but_in_different_order_it_should_throw_with_a_clear_explanation()
         {
             // Act
-            Action act = () => new[] { 1, 2, 3 }.Should().ContainInConsecutiveOrder([3, 1], "because we said so");
+            Action act = () => new[] { 1, 2, 3 }.Should().ContainInConsecutiveOrder([3, 1], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to contain items {3, 1} in order because we said so, but 1 (index 1) did not appear (in the right consecutive order).");
+                "Expected collection {1, 2, 3} to contain items {3, 1} in order because*failure message, but 1 (index 1) did not appear (in the right consecutive order).");
         }
 
         [Fact]
         public void When_a_collection_does_not_contain_an_ordered_item_it_should_throw_with_a_clear_explanation()
         {
             // Act
-            Action act = () => new[] { 1, 2, 3 }.Should().ContainInConsecutiveOrder([4, 1], "we failed");
+            Action act = () => new[] { 1, 2, 3 }.Should().ContainInConsecutiveOrder([4, 1], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to contain items {4, 1} in order because we failed, " +
+                "Expected collection {1, 2, 3} to contain items {4, 1} in order because*failure message, " +
                 "but 4 (index 0) did not appear (in the right consecutive order).");
         }
 
@@ -174,13 +174,12 @@ public partial class CollectionAssertionSpecs
             {
                 using var _ = new AssertionScope();
 
-                collection.Should()
-                    .ContainInConsecutiveOrder([4], "because we're checking how it reacts to a null subject");
+                collection.Should().ContainInConsecutiveOrder([4], "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain {4} in order because we're checking how it reacts to a null subject, but found <null>.");
+                "Expected collection to contain {4} in order because*failure message, but found <null>.");
         }
     }
 
@@ -280,9 +279,10 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContainInConsecutiveOrder([1, 2, 3], "we want to test the failure {0}", "message");
+                collection.Should().NotContainInConsecutiveOrder([1, 2, 3], "we want to test the {0} message", "failure");
             };
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Cannot verify absence of ordered containment in a <null> collection.");

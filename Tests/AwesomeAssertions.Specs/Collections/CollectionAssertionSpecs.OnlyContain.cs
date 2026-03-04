@@ -48,11 +48,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<int> collection = [2, 12, 3, 11, 2];
 
             // Act
-            Action act = () => collection.Should().OnlyContain(i => i <= 10, "10 is the maximum");
+            Action act = () => collection.Should().OnlyContain(i => i <= 10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain only items matching (i <= 10) because 10 is the maximum, but {12, 11} do(es) not match.");
+                "Expected collection to contain only items matching (i <= 10) because*failure message, but {12, 11} do(es) not match.");
         }
 
         [Fact]
@@ -85,13 +85,13 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().OnlyContain(i => i <= 10, "we want to test the failure {0}", "message");
+                collection.Should().OnlyContain(i => i <= 10, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain only items matching (i <= 10) *failure message*," +
+                    "Expected collection to contain only items matching (i <= 10) because*failure message*," +
                     " but the collection is <null>.");
         }
     }

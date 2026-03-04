@@ -38,14 +38,14 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().AllSatisfy(x => x.Should().Be(1), "because we want to test the failure {0}", "message");
+                collection.Should().AllSatisfy(x => x.Should().Be(1), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain only items satisfying the inspector because we want to test the failure message, but collection is <null>.");
+                    "Expected collection to contain only items satisfying the inspector because*failure message, but collection is <null>.");
         }
 
         [Fact]
@@ -88,14 +88,13 @@ public partial class CollectionAssertionSpecs
                         customer.Items.Should()
                             .AllSatisfy(item => item.Should().Be(3));
                     },
-                    "because we want to test {0}",
-                    "nested assertions");
+                    "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage("""
-                    Expected customers to contain only items satisfying the inspector because we want to test nested assertions:
+                    Expected customers to contain only items satisfying the inspector because*failure message:
                     *At index 0:
                     *Expected customer.Age to be less than 21, but found 21
                     *Expected customer.Items to contain only items satisfying the inspector:
