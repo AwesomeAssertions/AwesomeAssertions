@@ -13,7 +13,7 @@
   <ItemGroup>
     <PackageReference Include="TUnit" Version="1.18.9" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="2.1.0" />
-    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.5.1" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.5.2" />
   </ItemGroup>
 
 </Project>
