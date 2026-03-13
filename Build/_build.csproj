@@ -17,6 +17,6 @@
     <PackageReference Include="Nuke.Common" Version="$(NukeVersion)" />
     <PackageReference Include="Nuke.Components" Version="$(NukeVersion)" />
     <PackageReference Include="SharpCompress" Version="0.38.0" />
-    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.0.2" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.3.3" />
   </ItemGroup>
 </Project>
