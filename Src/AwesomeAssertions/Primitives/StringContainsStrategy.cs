@@ -21,8 +21,27 @@ internal class StringContainsStrategy : IStringComparisonStrategy
 
         assertionChain
             .ForConstraint(occurrenceConstraint, actual)
-            .FailWith(
-                $"Expected {{context:string}} {{0}} to contain the equivalent of {{1}} {{expectedOccurrence}}{{reason}}, but found it {actual.Times()}.",
-                subject, expected);
+            .FailWith(() => GetFailureDescription(subject, expected, actual));
+    }
+
+    private static FailReason GetFailureDescription(string subject, string expected, int actualOccurrences)
+    {
+        if (subject.IsLongOrMultiline() || expected.IsLongOrMultiline())
+        {
+            return new($$"""
+                Expected {context:string}
+
+                  {0}
+
+                to contain the equivalent of
+
+                  {1}
+
+                {expectedOccurrence}{reason}, but found it {{actualOccurrences.Times()}}.
+                """, subject, expected);
+        }
+
+        return new($"Expected {{context:string}} {{0}} to contain the equivalent of {{1}} {{expectedOccurrence}}{{reason}}, but found it {actualOccurrences.Times()}.",
+            subject, expected);
     }
 }

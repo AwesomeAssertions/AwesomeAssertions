@@ -117,15 +117,32 @@ public partial class StringAssertionSpecs
             string someString = null;
 
             // Act
-            Action act = () =>
-            {
-                using var _ = new AssertionScope();
-                someString.Should().EndWith("ABC");
-            };
+            Action act = () => someString.Should().EndWith("ABC");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
                 "Expected someString to end with \"ABC\", but found <null>.");
+        }
+
+        [Fact]
+        public void When_string_ending_is_compared_to_long_string_and_actual_value_is_null_then_it_should_throw()
+        {
+            // Arrange
+            string someString = null;
+
+            // Act
+            Action act = () => someString.Should().EndWith("ABCDEFGHIJ", "failure {0}", "message");
+
+            // Assert
+            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
+                Expected someString to end with
+
+                  "ABCDEFGHIJ"
+
+                because failure message, but found
+
+                  <null>.
+                """);
         }
 
         [Fact]
