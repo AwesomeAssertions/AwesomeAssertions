@@ -27,11 +27,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
         public void When_a_collection_does_not_contain_an_ordered_item_it_should_throw_with_a_clear_explanation()
         {
             // Act
-            Action act = () => new[] { "one", "two", "three" }.Should().ContainInOrder(["four", "one"], "we failed");
+            Action act = () => new[] { "one", "two", "three" }.Should().ContainInOrder(["four", "one"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to contain items {\"four\", \"one\"} in order because we failed, " +
+                "Expected collection {\"one\", \"two\", \"three\"} to contain items {\"four\", \"one\"} in order because*failure message, " +
                 "but \"four\" (index 0) did not appear (in the right order).");
         }
 
@@ -44,11 +44,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             // Act
             Action act =
                 () => strings.Should()
-                    .ContainInOrder(["string4"], "because we're checking how it reacts to a null subject");
+                    .ContainInOrder(["string4"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected strings to contain {\"string4\"} in order because we're checking how it reacts to a null subject, but found <null>.");
+                "Expected strings to contain {\"string4\"} in order because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -97,11 +97,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
         {
             // Act
             Action act = () =>
-                new[] { "one", "two", "three" }.Should().ContainInOrder(["three", "one"], "because we said so");
+                new[] { "one", "two", "three" }.Should().ContainInOrder(["three", "one"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to contain items {\"three\", \"one\"} in order because we said so, but \"one\" (index 1) did not appear (in the right order).");
+                "Expected collection {\"one\", \"two\", \"three\"} to contain items {\"three\", \"one\"} in order because*failure message, but \"one\" (index 1) did not appear (in the right order).");
         }
 
         [Fact]
@@ -178,12 +178,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().NotContainInOrder(["one", "two", "three"], "that's what we expect");
+            Action act = () => collection.Should().NotContainInOrder(["one", "two", "three"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected collection {\"one\", \"two\", \"two\", \"three\"} to not contain items {\"one\", \"two\", \"three\"} " +
-                "in order because that's what we expect, but items appeared in order ending at index 3.");
+                "in order because*failure message, but items appeared in order ending at index 3.");
         }
 
         [Fact]

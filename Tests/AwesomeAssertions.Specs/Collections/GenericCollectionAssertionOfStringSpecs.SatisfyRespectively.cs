@@ -32,11 +32,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             {
                 value => value.Should().Be("John"),
                 value => value.Should().Be("Jane")
-            }, "because we want to test the failure {0}", "message");
+            }, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("""
-                Expected collection to satisfy all inspectors because we want to test the failure message, but some inspectors are not satisfied
+                Expected collection to satisfy all inspectors because*failure message, but some inspectors are not satisfied
                 *Jack*John
                 *Jessica*Jane*
                 """);

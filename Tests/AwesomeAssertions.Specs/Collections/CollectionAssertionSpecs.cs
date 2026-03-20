@@ -263,14 +263,14 @@ public partial class CollectionAssertionSpecs
             {
                 using (new AssertionScope())
                 {
-                    collection.Should().BeInAscendingOrder("because numbers are ordered")
+                    collection.Should().BeInAscendingOrder("we want to test the {0} message", "failure")
                         .And.BeEmpty("this won't be asserted");
                 }
             };
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("*item at index 1 is in wrong order.");
+                .WithMessage("*because*failure message*item at index 1 is in wrong order.");
         }
     }
 

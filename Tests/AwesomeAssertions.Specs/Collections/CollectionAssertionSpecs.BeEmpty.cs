@@ -31,11 +31,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().BeEmpty("that's what we expect");
+            Action act = () => collection.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*to be empty because that's what we expect, but found at least one item*1*");
+                .WithMessage("*to be empty because*failure message, but found at least one item*1*");
         }
 
         [Fact]
@@ -81,11 +81,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [];
 
             // Act
-            Action act = () => collection.Should().NotBeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => collection.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection not to be empty because we want to test the failure message.");
+                .WithMessage("Expected collection not to be empty because*failure message.");
         }
 
         [Fact]
@@ -98,12 +98,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().BeEmpty("we want to test the failure {0}", "message");
+                collection.Should().BeEmpty("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to be empty *failure message*, but found <null>.");
+                .WithMessage("Expected collection to be empty because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -144,12 +144,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotBeEmpty("we want to test the failure {0}", "message");
+                collection.Should().NotBeEmpty("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection not to be empty *failure message*, but found <null>.");
+                .WithMessage("Expected collection not to be empty because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -175,11 +175,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = null;
 
             // Act
-            Action act = () => collection.Should().NotBeEmpty("because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection not to be empty because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection not to be empty because*failure message, but found <null>.");
         }
 
         [Fact]

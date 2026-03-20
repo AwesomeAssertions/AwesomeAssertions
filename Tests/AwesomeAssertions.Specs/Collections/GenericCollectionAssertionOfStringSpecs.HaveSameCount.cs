@@ -32,12 +32,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection1 = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().HaveSameCount(collection1,
-                "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().HaveSameCount(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to have the same count as {\"one\", \"two\", \"three\"} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to have the same count as {\"one\", \"two\", \"three\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -74,11 +73,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> secondCollection = ["four", "six"];
 
             // Act
-            Action act = () => firstCollection.Should().HaveSameCount(secondCollection, "we want to test the {0}", "reason");
+            Action act = () => firstCollection.Should().HaveSameCount(secondCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected firstCollection to have 2 item(s) because we want to test the reason, but found 3.");
+                "Expected firstCollection to have 2 item(s) because*failure message, but found 3.");
         }
     }
 
@@ -107,12 +106,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection1 = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().NotHaveSameCount(collection1,
-                "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().NotHaveSameCount(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to not have the same count as {\"one\", \"two\", \"three\"} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to not have the same count as {\"one\", \"two\", \"three\"} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -124,12 +122,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherCollection = collection;
 
             // Act
-            Action act = () => collection.Should().NotHaveSameCount(otherCollection,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotHaveSameCount(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*not have the same count*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "*not have the same count*because*failure message, but they both reference the same object.");
         }
 
         [Fact]
@@ -166,11 +163,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> secondCollection = ["four", "five", "six"];
 
             // Act
-            Action act = () => firstCollection.Should().NotHaveSameCount(secondCollection, "we want to test the {0}", "reason");
+            Action act = () => firstCollection.Should().NotHaveSameCount(secondCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected firstCollection to not have 3 item(s) because we want to test the reason, but found 3.");
+                "Expected firstCollection to not have 3 item(s) because*failure message, but found 3.");
         }
     }
 }
