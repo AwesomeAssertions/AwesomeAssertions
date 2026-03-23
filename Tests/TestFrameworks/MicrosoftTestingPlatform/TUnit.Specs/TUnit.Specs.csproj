@@ -11,7 +11,7 @@
     <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="TUnit" Version="1.19.57" />
+    <PackageReference Include="TUnit" Version="1.21.6" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="2.1.0" />
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.5.2" />
   </ItemGroup>
