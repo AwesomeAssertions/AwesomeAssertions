@@ -47,12 +47,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().ContainItemsAssignableTo<string>("because we want to test the behaviour with a null subject");
+                collection.Should().ContainItemsAssignableTo<string>("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain at least one element assignable to type string because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain at least one element assignable to type string because*failure message, but found <null>.");
         }
 
         [Fact]

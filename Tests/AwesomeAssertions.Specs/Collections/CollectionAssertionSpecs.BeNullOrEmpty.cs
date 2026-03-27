@@ -41,12 +41,12 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().BeNullOrEmpty("because we want to test the failure {0}", "message");
+            Action act = () => collection.Should().BeNullOrEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to be null or empty because we want to test the failure message, but found at least one item {1}.");
+                    "Expected collection to be null or empty because*failure message, but found at least one item {1}.");
         }
 
         [Fact]

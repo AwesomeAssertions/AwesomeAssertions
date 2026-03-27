@@ -63,11 +63,11 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = [1, 2, 5];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {1, 2, 5} because we want to test the failure message, but {1, 2, 3} differs at index 2.");
+                "Expected collection1 to be equal to {1, 2, 5} because*failure message, but {1, 2, 3} differs at index 2.");
         }
 
         [Fact]
@@ -79,11 +79,11 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = [1, 2];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {1, 2} because we want to test the failure message, but {1, 2, 3} contains 1 item(s) too many.");
+                "Expected collection1 to be equal to {1, 2} because*failure message, but {1, 2, 3} contains 1 item(s) too many.");
         }
 
         [Fact]
@@ -95,11 +95,11 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = [1, 2, 3, 4];
 
             // Act
-            Action act = () => collection1.Should().Equal(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().Equal(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection1 to be equal to {1, 2, 3, 4} because we want to test the failure message, but {1, 2, 3} contains 1 item(s) less.");
+                "Expected collection1 to be equal to {1, 2, 3, 4} because*failure message, but {1, 2, 3} contains 1 item(s) less.");
         }
 
         [Fact]
@@ -125,12 +125,11 @@ public partial class CollectionAssertionSpecs
             int[] collection1 = [1, 2, 3];
 
             // Act
-            Action act = () =>
-                collection.Should().Equal(collection1, "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().Equal(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to be equal to {1, 2, 3} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to be equal to {1, 2, 3} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -142,8 +141,9 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().Equal(collection1, "because we want to test the behaviour with a null subject");
+                collection.Should().Equal(collection1, "we want to test the {0} message", "failure");
 
+            // TODO should the message contain the because text?
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("Cannot compare collection with <null>.*")
@@ -353,11 +353,11 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = [1, 2, 3];
 
             // Act
-            Action act = () => collection1.Should().NotEqual(collection2, "because we want to test the failure {0}", "message");
+            Action act = () => collection1.Should().NotEqual(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect collections {1, 2, 3} and {1, 2, 3} to be equal because we want to test the failure message.");
+                "Did not expect collections {1, 2, 3} and {1, 2, 3} to be equal because*failure message.");
         }
 
         [Fact]
@@ -371,12 +371,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotEqual(collection1, "because we want to test the behaviour with a null subject");
+                collection.Should().NotEqual(collection1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collections not to be equal because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collections not to be equal because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -388,7 +388,7 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act =
-                () => collection.Should().NotEqual(collection1, "because we want to test the behaviour with a null subject");
+                () => collection.Should().NotEqual(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<ArgumentNullException>()
@@ -404,11 +404,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection1.Should().NotEqual(collection2, "because we want to test the behaviour with same objects");
+                collection1.Should().NotEqual(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collections not to be equal because we want to test the behaviour with same objects, but they both reference the same object.");
+                "Expected collections not to be equal because*failure message, but they both reference the same object.");
         }
 
         [Fact]
