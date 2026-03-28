@@ -61,9 +61,13 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<TResult> Invoking<T, TResult>(this T subject, System.Func<T, TResult> action) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public static AwesomeAssertions.Events.IMonitor<T> Monitor<T>(this T eventSource) { }
+        public static AwesomeAssertions.Events.IMonitor<T> Monitor<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicEvents)]  T>(this T eventSource) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public static AwesomeAssertions.Events.IMonitor<T> Monitor<T>(this T eventSource, System.Action<AwesomeAssertions.Events.EventMonitorOptions> configureOptions) { }
+        public static AwesomeAssertions.Events.IMonitor<T> Monitor<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicEvents)]  T>(this T eventSource, System.Action<AwesomeAssertions.Events.EventMonitorOptions> configureOptions) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.Events.IMonitor<T> MonitorSafe<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicEvents)]  T>(this T eventSource) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.Events.IMonitor<T> MonitorSafe<[System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembers(System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.PublicEvents)]  T>(this T eventSource, System.Action<AwesomeAssertions.Events.EventMonitorOptions> configureOptions) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.ExecutionTimeAssertions Should(this AwesomeAssertions.Specialized.ExecutionTime executionTime) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
@@ -1381,6 +1385,8 @@ namespace AwesomeAssertions.Events
         public EventMonitorOptions() { }
         public AwesomeAssertions.Events.EventMonitorOptions IgnoringEventAccessorExceptions() { }
         public AwesomeAssertions.Events.EventMonitorOptions RecordingEventsWithBrokenAccessor() { }
+        public AwesomeAssertions.Events.EventMonitorOptions UsingSafeEventHandlerAdapter<TDelegate>(System.Func<System.Action<object[]>, TDelegate> factory)
+            where TDelegate : System.Delegate { }
     }
     public interface IEventRecording : System.Collections.Generic.IEnumerable<AwesomeAssertions.Events.OccurredEvent>, System.Collections.IEnumerable
     {
