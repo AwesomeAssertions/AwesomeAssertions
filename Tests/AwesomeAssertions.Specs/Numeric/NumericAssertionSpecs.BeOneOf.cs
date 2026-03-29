@@ -30,12 +30,12 @@ public partial class NumericAssertionSpecs
             int value = 3;
 
             // Act
-            Action act = () => value.Should().BeOneOf([4, 5], "because those are the valid values");
+            Action act = () => value.Should().BeOneOf([4, 5], "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected value to be one of {4, 5} because those are the valid values, but found 3.");
+                .WithMessage("Expected value to be one of {4, 5} because*failure message, but found 3.");
         }
 
         [Fact]

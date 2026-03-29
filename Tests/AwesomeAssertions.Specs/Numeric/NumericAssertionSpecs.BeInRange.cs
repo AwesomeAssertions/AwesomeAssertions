@@ -15,13 +15,13 @@ public partial class NumericAssertionSpecs
             float value = 3.99F;
 
             // Act
-            Action act = () => value.Should().BeInRange(4, 5, "because that's the valid range");
+            Action act = () => value.Should().BeInRange(4, 5, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be between*4* and*5* because that\'s the valid range, but found*3.99*");
+                    "Expected value to be between*4* and*5* because*failure message, but found*3.99*");
         }
 
         [Fact]
@@ -127,13 +127,13 @@ public partial class NumericAssertionSpecs
             float value = 4.99F;
 
             // Act
-            Action act = () => value.Should().NotBeInRange(4, 5, "because that's the invalid range");
+            Action act = () => value.Should().NotBeInRange(4, 5, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to not be between*4* and*5* because that\'s the invalid range, but found*4.99*");
+                    "Expected value to not be between*4* and*5* because*failure message, but found*4.99*");
         }
 
         [Fact]

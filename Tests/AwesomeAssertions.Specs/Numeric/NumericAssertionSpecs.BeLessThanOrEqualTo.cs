@@ -53,7 +53,7 @@ public partial class NumericAssertionSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThanOrEqualTo(smallerValue, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThanOrEqualTo(smallerValue, "we want to test the {0} message", "failure");
 
             // Assert
             act

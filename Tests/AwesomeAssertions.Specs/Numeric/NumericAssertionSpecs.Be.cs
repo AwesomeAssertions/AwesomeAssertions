@@ -27,7 +27,7 @@ public partial class NumericAssertionSpecs
             int differentValue = 2;
 
             // Act
-            Action act = () => value.Should().Be(differentValue, "because we want to test the failure {0}", "message");
+            Action act = () => value.Should().Be(differentValue, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -120,13 +120,13 @@ public partial class NumericAssertionSpecs
             float value = 3.5F;
 
             // Act
-            Action act = () => value.Should().Be(3.4F, "we want to test the error message");
+            Action act = () => value.Should().Be(3.4F, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be *3.4* because we want to test the error message, but found *3.5*");
+                    "Expected value to be *3.4* because we want to test the failure message, but found *3.5*");
         }
 
         [Fact]
@@ -161,13 +161,13 @@ public partial class NumericAssertionSpecs
             double value = 3.5;
 
             // Act
-            Action act = () => value.Should().Be(3.4, "we want to test the error message");
+            Action act = () => value.Should().Be(3.4, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be 3.4 because we want to test the error message, but found 3.5*.");
+                    "Expected value to be 3.4 because we want to test the failure message, but found 3.5*.");
         }
 
         [Fact]
@@ -202,12 +202,12 @@ public partial class NumericAssertionSpecs
             decimal value = 3.5m;
 
             // Act
-            Action act = () => value.Should().Be(3.4m, "we want to test the error message");
+            Action act = () => value.Should().Be(3.4m, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be*3.4* because we want to test the error message, but found*3.5*");
+                    "Expected value to be*3.4* because we want to test the failure message, but found*3.5*");
         }
 
         [Fact]
@@ -307,7 +307,7 @@ public partial class NumericAssertionSpecs
             int sameValue = 1;
 
             // Act
-            Action act = () => value.Should().NotBe(sameValue, "because we want to test the failure {0}", "message");
+            Action act = () => value.Should().NotBe(sameValue, "we want to test the {0} message", "failure");
 
             // Assert
             act

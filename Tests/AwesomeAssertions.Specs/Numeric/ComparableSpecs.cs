@@ -43,13 +43,13 @@ public class ComparableSpecs
             var other = new EquatableOfInt(2);
 
             // Act
-            Action act = () => subject.Should().Be(other, "they have the same property values");
+            Action act = () => subject.Should().Be(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected*2*because they have the same property values, but found*1*.");
+                    "Expected*2*because*failure message, but found*1*.");
         }
     }
 
@@ -78,13 +78,13 @@ public class ComparableSpecs
             var other = new EquatableOfInt(1);
 
             // Act
-            Action act = () => subject.Should().NotBe(other, "they represent different things");
+            Action act = () => subject.Should().NotBe(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "*Did not expect subject to be equal to*1*because they represent different things.*");
+                    "*Did not expect subject to be equal to*1*because*failure message.*");
         }
 
         [Fact]
@@ -109,12 +109,12 @@ public class ComparableSpecs
 
             // Act
             Action act = () => value.Should().BeOneOf(new[] { new EquatableOfInt(4), new EquatableOfInt(5) },
-                "because those are the valid {0}", "values");
+                "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected value to be one of {4, 5} because those are the valid values, but found 3.");
+                .WithMessage("Expected value to be one of {4, 5} because*failure message, but found 3.");
         }
 
         [Fact]
@@ -224,13 +224,13 @@ public class ComparableSpecs
             };
 
             // Act
-            Action act = () => subject.Should().BeEquivalentTo(expected, "they have the same property values");
+            Action act = () => subject.Should().BeEquivalentTo(expected);
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expectation has property SomeOtherProperty*that the other object does not have*");
+                    "Expectation has property SomeOtherProperty that the other object does not have.*");
         }
     }
 
@@ -391,13 +391,13 @@ public class ComparableSpecs
             var other = new ComparableOfString("Forty two");
 
             // Act
-            Action act = () => subject.Should().BeRankedEquallyTo(other, "they represent the same number");
+            Action act = () => subject.Should().BeRankedEquallyTo(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected subject*42*to be ranked as equal to*Forty two*because they represent the same number.");
+                    "Expected subject*42*to be ranked as equal to*Forty two*because*failure message.");
         }
     }
 
@@ -422,13 +422,13 @@ public class ComparableSpecs
             var other = new ComparableOfString("Lead");
 
             // Act
-            Action act = () => subject.Should().NotBeRankedEquallyTo(other, "they represent different concepts");
+            Action act = () => subject.Should().NotBeRankedEquallyTo(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected subject*Lead*not to be ranked as equal to*Lead*because they represent different concepts.");
+                    "Expected subject*Lead*not to be ranked as equal to*Lead*because*failure message.");
         }
     }
 
@@ -453,12 +453,12 @@ public class ComparableSpecs
             var other = new ComparableOfString("City");
 
             // Act
-            Action act = () => subject.Should().BeLessThan(other, "a city is smaller than the world");
+            Action act = () => subject.Should().BeLessThan(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected subject*World*to be less than*City*because a city is smaller than the world.");
+                .WithMessage("Expected subject*World*to be less than*City*because*failure message.");
         }
 
         [Fact]
@@ -486,12 +486,12 @@ public class ComparableSpecs
             var other = new ComparableOfString("City");
 
             // Act
-            Action act = () => subject.Should().BeLessThanOrEqualTo(other, "we want to order them");
+            Action act = () => subject.Should().BeLessThanOrEqualTo(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected subject*World*to be less than or equal to*City*because we want to order them.");
+                .WithMessage("Expected subject*World*to be less than or equal to*City*because*failure message.");
         }
 
         [Fact]
@@ -563,12 +563,12 @@ public class ComparableSpecs
             var other = new ComparableOfString("def");
 
             // Act
-            Action act = () => subject.Should().BeGreaterThan(other, "'a' is smaller then 'e'");
+            Action act = () => subject.Should().BeGreaterThan(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected subject*abc*to be greater than*def*because 'a' is smaller then 'e'.");
+                .WithMessage("Expected subject*abc*to be greater than*def*because*failure message.");
         }
     }
 
@@ -582,12 +582,12 @@ public class ComparableSpecs
             var other = new ComparableOfString("def");
 
             // Act
-            Action act = () => subject.Should().BeGreaterThanOrEqualTo(other, "'d' is bigger then 'a'");
+            Action act = () => subject.Should().BeGreaterThanOrEqualTo(other, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Expected subject*abc*to be greater than or equal to*def*because 'd' is bigger then 'a'.");
+                .WithMessage("Expected subject*abc*to be greater than or equal to*def*because*failure message.");
         }
 
         [Fact]
