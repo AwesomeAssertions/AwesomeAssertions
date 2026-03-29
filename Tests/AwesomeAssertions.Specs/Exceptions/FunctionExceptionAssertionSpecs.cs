@@ -21,7 +21,7 @@ public class FunctionExceptionAssertionSpecs
         Action testAction = () =>
         {
             using var _ = new AssertionScope();
-            action.Should().NotThrow("because we want to test the failure {0}", "message");
+            action.Should().NotThrow("we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -144,7 +144,7 @@ public class FunctionExceptionAssertionSpecs
         Action action = () =>
         {
             using var _ = new AssertionScope();
-            act.Should().Throw<ArgumentNullException>("because we want to test the failure {0}", "message");
+            act.Should().Throw<ArgumentNullException>("we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -243,11 +243,11 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => 12;
 
         // Act
-        Action action = () => f.Should().Throw<InvalidCastException>("that's what I {0}", "said");
+        Action action = () => f.Should().Throw<InvalidCastException>("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected*InvalidCastException*that's what I said*but*no exception*");
+            .WithMessage("Expected*InvalidCastException*because*failure message*but*no exception*");
     }
 
     #endregion
@@ -264,7 +264,7 @@ public class FunctionExceptionAssertionSpecs
         Action action = () =>
         {
             using var _ = new AssertionScope();
-            act.Should().ThrowExactly<ArgumentNullException>("because we want to test the failure {0}", "message");
+            act.Should().ThrowExactly<ArgumentNullException>("we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -332,11 +332,11 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => 12;
 
         // Act
-        Action action = () => f.Should().ThrowExactly<InvalidCastException>("that's what I {0}", "said");
+        Action action = () => f.Should().ThrowExactly<InvalidCastException>("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Expected*InvalidCastException*that's what I said*but*no exception*");
+            .WithMessage("Expected*InvalidCastException*because*failure message*but*no exception*");
     }
 
     #endregion
@@ -350,7 +350,7 @@ public class FunctionExceptionAssertionSpecs
         Func<int> act = null;
 
         // Act
-        Action action = () => act.Should().NotThrow("because we want to test the failure {0}", "message");
+        Action action = () => act.Should().NotThrow("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -367,7 +367,7 @@ public class FunctionExceptionAssertionSpecs
         Action action = () =>
         {
             using var _ = new AssertionScope();
-            act.Should().NotThrow<ArgumentNullException>("because we want to test the failure {0}", "message");
+            act.Should().NotThrow<ArgumentNullException>("we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -393,11 +393,11 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => throw new ArgumentNullException();
 
         // Act
-        Action action = () => f.Should().NotThrow("that's what he {0}", "told me");
+        Action action = () => f.Should().NotThrow("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("*no*exception*that's what he told me*but*ArgumentNullException*");
+            .WithMessage("*no*exception*because*failure message*but*ArgumentNullException*");
     }
 
     [Fact]
@@ -407,11 +407,11 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => throw new AggregateException(new ArgumentNullException());
 
         // Act
-        Action action = () => f.Should().NotThrow("that's what he {0}", "told me");
+        Action action = () => f.Should().NotThrow("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("*no*exception*that's what he told me*but*ArgumentNullException*");
+            .WithMessage("*no*exception*because*failure message*but*ArgumentNullException*");
     }
 
     [Fact]
@@ -422,11 +422,11 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => throw new AggregateException(new AggregateException(new ArgumentNullException()));
 
         // Act
-        Action action = () => f.Should().NotThrow("that's what he {0}", "told me");
+        Action action = () => f.Should().NotThrow("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("*no*exception*that's what he told me*but*ArgumentNullException*");
+            .WithMessage("*no*exception*because*failure message*but*ArgumentNullException*");
     }
 
     #endregion
@@ -445,7 +445,7 @@ public class FunctionExceptionAssertionSpecs
         Action testAction = () =>
         {
             using var _ = new AssertionScope();
-            action.Should().NotThrowAfter(waitTime, pollInterval, "because we want to test the failure {0}", "message");
+            action.Should().NotThrowAfter(waitTime, pollInterval, "we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -511,11 +511,11 @@ public class FunctionExceptionAssertionSpecs
 
         // Act
         Action action = () =>
-            throwLongerThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval, "we passed valid arguments");
+            throwLongerThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Did not expect any exceptions after 100ms because we passed valid arguments*");
+            .WithMessage("Did not expect any exceptions after 100ms because*failure message*");
     }
 
     [Fact]
@@ -612,12 +612,12 @@ public class FunctionExceptionAssertionSpecs
         Func<int> f = () => throw new InvalidOperationException("custom message");
 
         // Act
-        Action action = () => f.Should().NotThrow<InvalidOperationException>("it was so {0}", "fast");
+        Action action = () => f.Should().NotThrow<InvalidOperationException>("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
             .WithMessage(
-                "*Did not expect System.InvalidOperationException because it was so fast, but found System.InvalidOperationException: custom message*");
+                "*Did not expect System.InvalidOperationException because*failure message, but found System.InvalidOperationException: custom message*");
     }
 
     [Fact]

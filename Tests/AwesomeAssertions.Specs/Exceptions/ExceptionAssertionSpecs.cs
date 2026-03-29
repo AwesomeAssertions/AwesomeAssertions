@@ -105,7 +105,7 @@ public class ExceptionAssertionSpecs
         try
         {
             // Act
-            act.Should().ThrowExactly<ArgumentException>("because {0} should do that", "Does.Do");
+            act.Should().ThrowExactly<ArgumentException>("we want to test the failure {0}", "message");
 
             throw new XunitException("This point should not be reached.");
         }
@@ -114,7 +114,7 @@ public class ExceptionAssertionSpecs
             // Assert
             ex.Message.Should()
                 .Match(
-                    "Expected type to be System.ArgumentException because Does.Do should do that, but found System.ArgumentNullException.");
+                    "Expected type to be System.ArgumentException because*failure message, but found System.ArgumentNullException.");
         }
     }
 
@@ -127,7 +127,7 @@ public class ExceptionAssertionSpecs
         try
         {
             // Act
-            act.Should().ThrowExactly<ArgumentException>("because {0} should do that", "Does.Do");
+            act.Should().ThrowExactly<ArgumentException>("we want to test the failure {0}", "message");
 
             throw new XunitException("This point should not be reached.");
         }
@@ -136,7 +136,7 @@ public class ExceptionAssertionSpecs
             // Assert
             ex.Message.Should()
                 .Match(
-                    "Expected type to be System.ArgumentException because Does.Do should do that, but found System.AggregateException.");
+                    "Expected type to be System.ArgumentException because*failure message, but found System.AggregateException.");
         }
     }
 
