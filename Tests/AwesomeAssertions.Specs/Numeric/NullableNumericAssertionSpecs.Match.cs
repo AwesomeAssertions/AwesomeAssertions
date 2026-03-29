@@ -26,7 +26,7 @@ public partial class NullableNumericAssertionSpecs
 
             // Act
             Action act = () =>
-                nullableInteger.Should().Match(o => !o.HasValue, "because we want to test the failure {0}", "message");
+                nullableInteger.Should().Match(o => !o.HasValue, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
