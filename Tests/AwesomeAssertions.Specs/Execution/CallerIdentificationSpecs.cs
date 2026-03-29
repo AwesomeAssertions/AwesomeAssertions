@@ -70,13 +70,13 @@ namespace AwesomeAssertions.Specs.Execution
             var timer = new FakeClock();
 
             // Act
-            Func<Task> action = () => bob.Should(timer).NotCompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () => bob.Should(timer).NotCompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
             bob.SetResult(true);
             timer.Complete();
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect bob to complete within 1s because test testArg.");
+                .WithMessage("Did not expect bob to complete within 1s because we want to test the failure message.");
         }
 
         [Fact]
