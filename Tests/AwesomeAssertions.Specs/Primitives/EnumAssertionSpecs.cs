@@ -53,7 +53,7 @@ public class EnumAssertionSpecs
             TestEnum someObject = TestEnum.One | TestEnum.Two;
 
             // Act
-            Action act = () => someObject.Should().HaveFlag(TestEnum.Three, "we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().HaveFlag(TestEnum.Three, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -81,7 +81,7 @@ public class EnumAssertionSpecs
             TestEnum someObject = TestEnum.One | TestEnum.Two;
 
             // Act
-            Action act = () => someObject.Should().NotHaveFlag(TestEnum.Two, "we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().NotHaveFlag(TestEnum.Two, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -161,7 +161,7 @@ public class EnumAssertionSpecs
             MyEnum expected = MyEnum.Two;
 
             // Act
-            Action act = () => subject.Should().Be(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -175,7 +175,7 @@ public class EnumAssertionSpecs
         public void When_nullable_enums_are_equal_it_should_throw(MyEnum? subject, MyEnum? expected)
         {
             // Act
-            Action act = () => subject.Should().Be(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -225,7 +225,7 @@ public class EnumAssertionSpecs
             MyEnum expected = MyEnum.One;
 
             // Act
-            Action act = () => subject.Should().NotBe(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotBe(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -238,7 +238,7 @@ public class EnumAssertionSpecs
         public void When_nullable_enums_are_unequal_it_should_throw(MyEnum? subject, MyEnum? expected)
         {
             // Act
-            Action act = () => subject.Should().NotBe(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotBe(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -284,7 +284,7 @@ public class EnumAssertionSpecs
             TestEnum someObject = TestEnum.One;
 
             // Act
-            Action act = () => someObject.Should().HaveValue(3, "we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().HaveValue(3, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -309,7 +309,7 @@ public class EnumAssertionSpecs
             MyEnum? subject = null;
 
             // Act
-            Action act = () => subject.Should().HaveValue("we want to test the failure {0}", "message");
+            Action act = () => subject.Should().HaveValue("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -336,7 +336,7 @@ public class EnumAssertionSpecs
             TestEnum someObject = TestEnum.One;
 
             // Act
-            Action act = () => someObject.Should().NotHaveValue(1, "we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().NotHaveValue(1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -370,7 +370,7 @@ public class EnumAssertionSpecs
             MyEnum? subject = MyEnum.One;
 
             // Act
-            Action act = () => subject.Should().NotHaveValue("we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotHaveValue("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -410,7 +410,7 @@ public class EnumAssertionSpecs
             MyEnumOtherName expected = MyEnumOtherName.OtherTwo;
 
             // Act
-            Action act = () => subject.Should().HaveSameValueAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().HaveSameValueAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -423,7 +423,7 @@ public class EnumAssertionSpecs
         public void When_nullable_enums_have_equal_values_it_should_throw(MyEnum? subject, MyEnumOtherName expected)
         {
             // Act
-            Action act = () => subject.Should().HaveSameValueAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().HaveSameValueAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -461,7 +461,7 @@ public class EnumAssertionSpecs
             MyEnumOtherName expected = MyEnumOtherName.OtherOne;
 
             // Act
-            Action act = () => subject.Should().NotHaveSameValueAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotHaveSameValueAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -476,7 +476,7 @@ public class EnumAssertionSpecs
             MyEnumOtherName expected = MyEnumOtherName.OtherOne;
 
             // Act
-            Action act = () => subject.Should().NotHaveSameValueAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotHaveSameValueAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -522,7 +522,7 @@ public class EnumAssertionSpecs
             MyEnumOtherValue expected = MyEnumOtherValue.Two;
 
             // Act
-            Action act = () => subject.Should().HaveSameNameAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().HaveSameNameAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -535,7 +535,7 @@ public class EnumAssertionSpecs
         public void When_nullable_enums_have_equal_names_it_should_throw(MyEnum? subject, MyEnumOtherValue expected)
         {
             // Act
-            Action act = () => subject.Should().HaveSameNameAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().HaveSameNameAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -573,7 +573,7 @@ public class EnumAssertionSpecs
             MyEnumOtherValue expected = MyEnumOtherValue.One;
 
             // Act
-            Action act = () => subject.Should().NotHaveSameNameAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotHaveSameNameAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -588,7 +588,7 @@ public class EnumAssertionSpecs
             MyEnumOtherValue expected = MyEnumOtherValue.One;
 
             // Act
-            Action act = () => subject.Should().NotHaveSameNameAs(expected, "we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotHaveSameNameAs(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -621,7 +621,7 @@ public class EnumAssertionSpecs
             MyEnum? subject = MyEnum.One;
 
             // Act
-            Action act = () => subject.Should().BeNull("we want to test the failure {0}", "message");
+            Action act = () => subject.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -649,7 +649,7 @@ public class EnumAssertionSpecs
             MyEnum? subject = null;
 
             // Act
-            Action act = () => subject.Should().NotBeNull("we want to test the failure {0}", "message");
+            Action act = () => subject.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -676,10 +676,10 @@ public class EnumAssertionSpecs
             BindingFlags flags = BindingFlags.Public;
 
             // Act
-            Action act = () => flags.Should().Match(x => x == BindingFlags.Static, "that's what we need");
+            Action act = () => flags.Should().Match(x => x == BindingFlags.Static, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Expected*Static*because that's what we need*found*Public*");
+            act.Should().Throw<XunitException>().WithMessage("Expected*Static*because*failure message*found*Public*");
         }
 
         [Fact]
@@ -713,11 +713,11 @@ public class EnumAssertionSpecs
 
             // Act / Assert
             Action act = () =>
-                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "that's what we need");
+                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "we want to test the {0} message", "failure");
 
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*Public*ExactBinding*because that's what we need*found*DeclaredOnly*");
+                .WithMessage("Expected*Public*ExactBinding*because*failure message*found*DeclaredOnly*");
         }
 
         [Fact]
@@ -728,11 +728,11 @@ public class EnumAssertionSpecs
 
             // Act / Assert
             Action act = () =>
-                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "failure {0}", "message");
+                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "we want to test the {0} message", "failure");
 
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*Public*ExactBinding*because failure message*found*<null>*");
+                .WithMessage("Expected*Public*ExactBinding*because*failure message*found*<null>*");
         }
 
         [Fact]
@@ -745,12 +745,12 @@ public class EnumAssertionSpecs
             Action act = () =>
             {
                 using AssertionScope _ = new();
-                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "failure {0}", "message");
+                flags.Should().BeOneOf([BindingFlags.Public, BindingFlags.ExactBinding], "we want to test the {0} message", "failure");
             };
 
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*Public*ExactBinding*because failure message*found*<null>*");
+                .WithMessage("Expected*Public*ExactBinding*because*failure message*found*<null>*");
         }
 
         [Fact]
@@ -801,7 +801,7 @@ public class EnumAssertionSpecs
             var dayOfWeek = (DayOfWeek)999;
 
             // Act
-            Action act = () => dayOfWeek.Should().BeDefined("we want to test the failure {0}", "message");
+            Action act = () => dayOfWeek.Should().BeDefined("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

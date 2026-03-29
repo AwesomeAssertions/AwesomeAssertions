@@ -38,12 +38,12 @@ public partial class ObjectAssertionSpecs
             };
 
             // Act
-            Action act = () => subject.Should().BeXmlSerializable("we need to store it on {0}", "disk");
+            Action act = () => subject.Should().BeXmlSerializable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "*to be serializable because we need to store it on disk, but serialization failed with:*NonPublicClass*");
+                    "*to be serializable because*failure message, but serialization failed with:*NonPublicClass*");
         }
 
         [Fact]

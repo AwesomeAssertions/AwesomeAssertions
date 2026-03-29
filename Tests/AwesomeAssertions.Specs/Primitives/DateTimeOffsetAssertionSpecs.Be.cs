@@ -62,7 +62,7 @@ public partial class DateTimeOffsetAssertionSpecs
             var otherDateTime = 11.March(2012).WithOffset(1.Hours());
 
             // Act
-            Action act = () => dateTime.Should().Be(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().Be(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -77,7 +77,7 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset? otherDateTime = 11.March(2012).WithOffset(1.Hours());
 
             // Act
-            Action act = () => dateTime.Should().Be(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().Be(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -130,7 +130,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableDateTime.Should().Be(expectation, "because we want to test the failure {0}", "message");
+                nullableDateTime.Should().Be(expectation, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -147,7 +147,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableDateTime.Should().Be(expectation, "because we want to test the failure {0}", "message");
+                nullableDateTime.Should().Be(expectation, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -204,7 +204,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBe(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBe(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -220,7 +220,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBe(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBe(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
