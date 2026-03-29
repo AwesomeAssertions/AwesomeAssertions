@@ -77,11 +77,11 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset value = 31.December(2016).WithOffset(1.Hours());
 
             // Act
-            Action action = () => value.Should().BeOneOf(new[] { value + 1.Days(), value + 2.Days() }, "because it's true");
+            Action action = () => value.Should().BeOneOf(new[] { value + 1.Days(), value + 2.Days() }, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>().WithMessage(
-                "Expected value to be one of {<2017-01-01 +1h>, <2017-01-02 +1h>} because it's true, but it was <2016-12-31 +1h>.");
+                "Expected value to be one of {<2017-01-01 +1h>, <2017-01-02 +1h>} because*failure message, but it was <2016-12-31 +1h>.");
         }
 
         [Fact]

@@ -36,7 +36,7 @@ public partial class ReferenceTypeAssertionsSpecs
         };
 
         // Act
-        Action act = () => subject.Should().BeSameAs(otherObject, "they are {0} {1}", "the", "same");
+        Action act = () => subject.Should().BeSameAs(otherObject, "we want to test the {0} message", "failure");
 
         // Assert
         act
@@ -46,7 +46,7 @@ public partial class ReferenceTypeAssertionsSpecs
             Expected subject to refer to
             {
                 UserName = "JohnDoe"
-            } because they are the same, but found
+            } because*failure message, but found
             {
                 Name = "John Doe"
             }.
@@ -90,11 +90,11 @@ public partial class ReferenceTypeAssertionsSpecs
         ClassWithCustomEqualMethod sameObject = someObject;
 
         // Act
-        Action act = () => someObject.Should().NotBeSameAs(sameObject, "they are {0} {1}", "the", "same");
+        Action act = () => someObject.Should().NotBeSameAs(sameObject, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Did not expect someObject to refer to*ClassWithCustomEqualMethod(1) because they are the same.");
+            .WithMessage("Did not expect someObject to refer to*ClassWithCustomEqualMethod(1) because*failure message.");
     }
 
     [Fact]
@@ -314,11 +314,11 @@ public partial class ReferenceTypeAssertionsSpecs
         var someObject = new object();
 
         // Act
-        Action act = () => someObject.Should().Match(o => o == null, "it is not initialized yet");
+        Action act = () => someObject.Should().Match(o => o == null, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("Expected someObject to match (o == null) because it is not initialized yet*");
+            .WithMessage("Expected someObject to match (o == null) because*failure message*");
     }
 
     [Fact]
@@ -333,11 +333,11 @@ public partial class ReferenceTypeAssertionsSpecs
         };
 
         // Act
-        Action act = () => someObject.Should().Match((SomeDto d) => d.Name.Length == 0, "it is not initialized yet");
+        Action act = () => someObject.Should().Match((SomeDto d) => d.Name.Length == 0, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            "Expected someObject to match (d.Name.Length == 0) because it is not initialized yet*");
+            "Expected someObject to match (d.Name.Length == 0) because*failure message*");
     }
 
     [Fact]

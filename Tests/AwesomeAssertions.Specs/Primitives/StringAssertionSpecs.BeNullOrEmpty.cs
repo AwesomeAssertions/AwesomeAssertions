@@ -38,11 +38,11 @@ public partial class StringAssertionSpecs
             string str = "hello";
 
             // Act
-            Action act = () => str.Should().BeNullOrEmpty("it was not initialized {0}", "yet");
+            Action act = () => str.Should().BeNullOrEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected str to be <null> or empty because it was not initialized yet, but found \"hello\".");
+                "Expected str to be <null> or empty because we want to test the failure message, but found \"hello\".");
         }
     }
 
@@ -65,11 +65,11 @@ public partial class StringAssertionSpecs
             string str = "";
 
             // Act
-            Action act = () => str.Should().NotBeNullOrEmpty("a valid string is expected for {0}", "str");
+            Action act = () => str.Should().NotBeNullOrEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected str not to be <null> or empty because a valid string is expected for str, but found \"\".");
+                "Expected str not to be <null> or empty because we want to test the failure message, but found \"\".");
         }
 
         [Fact]
@@ -79,11 +79,11 @@ public partial class StringAssertionSpecs
             string str = null;
 
             // Act
-            Action act = () => str.Should().NotBeNullOrEmpty("a valid string is expected for {0}", "str");
+            Action act = () => str.Should().NotBeNullOrEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected str not to be <null> or empty because a valid string is expected for str, but found <null>.");
+                "Expected str not to be <null> or empty because we want to test the failure message, but found <null>.");
         }
     }
 }

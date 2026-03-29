@@ -29,11 +29,11 @@ public partial class StringAssertionSpecs
         public void When_string_does_not_contain_an_expected_string_it_should_throw()
         {
             // Act
-            Action act = () => "ABCDEF".Should().Contain("XYZ", "that is {0}", "required");
+            Action act = () => "ABCDEF".Should().Contain("XYZ", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string \"ABCDEF\" to contain \"XYZ\" because that is required.");
+                "Expected string \"ABCDEF\" to contain \"XYZ\" because we want to test the failure message.");
         }
 
         [Fact]
@@ -67,11 +67,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             string someString = null;
-            Action act = () => someString.Should().Contain("XYZ", "that is {0}", "required");
+            Action act = () => someString.Should().Contain("XYZ", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someString <null> to contain \"XYZ\" because that is required.");
+                "Expected someString <null> to contain \"XYZ\" because we want to test the failure message.");
         }
 
         public class ContainExactly
@@ -85,12 +85,12 @@ public partial class StringAssertionSpecs
                 string expectedSubstring = "XYS";
 
                 // Act
-                Action act = () => actual.Should().Contain(expectedSubstring, Exactly.Once(), "that is {0}", "required");
+                Action act = () =>
+                    actual.Should().Contain(expectedSubstring, Exactly.Once(), "we want to test the {0} message", "failure");
 
                 // Assert
-                act.Should().Throw<XunitException>()
-                    .WithMessage(
-                        "Expected * \"ABCDEF\" to contain \"XYS\" exactly 1 time because that is required, but found it 0 times.");
+                act.Should().Throw<XunitException>().WithMessage(
+                    "Expected * \"ABCDEF\" to contain \"XYS\" exactly 1 time because we want to test the failure message, but found it 0 times.");
             }
 
             [Fact]
@@ -415,11 +415,11 @@ public partial class StringAssertionSpecs
         public void When_string_contains_unexpected_fragment_it_should_throw()
         {
             // Act
-            Action act = () => "abcd".Should().NotContain("bc", "it was not expected {0}", "today");
+            Action act = () => "abcd".Should().NotContain("bc", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect string \"abcd\" to contain \"bc\" because it was not expected today.");
+                .WithMessage("Did not expect string \"abcd\" to contain \"bc\" because we want to test the failure message.");
         }
 
         [Fact]

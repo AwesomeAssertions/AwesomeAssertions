@@ -41,7 +41,7 @@ public partial class StringAssertionSpecs
             string actual = "ABC";
 
             // Act
-            Action act = () => actual.Should().BeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => actual.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -55,11 +55,11 @@ public partial class StringAssertionSpecs
             string nullString = null;
 
             // Act
-            Action act = () => nullString.Should().BeEmpty("because strings should never be {0}", "null");
+            Action act = () => nullString.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected nullString to be empty because strings should never be null, but found <null>.");
+                "Expected nullString to be empty because we want to test the failure message, but found <null>.");
         }
     }
 
@@ -105,7 +105,7 @@ public partial class StringAssertionSpecs
             string actual = "";
 
             // Act
-            Action act = () => actual.Should().NotBeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => actual.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(

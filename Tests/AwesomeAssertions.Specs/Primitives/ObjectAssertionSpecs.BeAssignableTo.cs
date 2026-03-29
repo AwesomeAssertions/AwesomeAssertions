@@ -59,7 +59,7 @@ public partial class ObjectAssertionSpecs
         {
             // Arrange
             var someObject = new DummyImplementingClass();
-            Action act = () => someObject.Should().BeAssignableTo<DateTime>("because we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().BeAssignableTo<DateTime>("we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -89,7 +89,7 @@ public partial class ObjectAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                someObject.Should().BeAssignableTo<DateTime>("because we want to test the failure {0}", "message");
+                someObject.Should().BeAssignableTo<DateTime>("we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -147,7 +147,7 @@ public partial class ObjectAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                someObject.Should().BeAssignableTo(typeof(DateTime), "because we want to test the failure {0}", "message");
+                someObject.Should().BeAssignableTo(typeof(DateTime), "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -162,7 +162,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().BeAssignableTo(typeof(DateTime), "because we want to test the failure {0}", "message");
+                someObject.Should().BeAssignableTo(typeof(DateTime), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -176,7 +176,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().BeAssignableTo(typeof(IList<>), "because we want to test the failure {0}", "message");
+                someObject.Should().BeAssignableTo(typeof(IList<>), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -227,7 +227,7 @@ public partial class ObjectAssertionSpecs
 
             Action act = () =>
                 someObject.Should()
-                    .NotBeAssignableTo<DummyImplementingClass>("because we want to test the failure {0}", "message");
+                    .NotBeAssignableTo<DummyImplementingClass>("we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -242,7 +242,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().NotBeAssignableTo<DummyBaseClass>("because we want to test the failure {0}", "message");
+                someObject.Should().NotBeAssignableTo<DummyBaseClass>("we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -257,7 +257,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().NotBeAssignableTo<IDisposable>("because we want to test the failure {0}", "message");
+                someObject.Should().NotBeAssignableTo<IDisposable>("we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -297,8 +297,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().NotBeAssignableTo(typeof(DummyImplementingClass), "because we want to test the failure {0}",
-                    "message");
+                someObject.Should().NotBeAssignableTo(typeof(DummyImplementingClass), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -314,7 +313,7 @@ public partial class ObjectAssertionSpecs
 
             Action act = () =>
                 someObject.Should()
-                    .NotBeAssignableTo(typeof(DummyBaseClass), "because we want to test the failure {0}", "message");
+                    .NotBeAssignableTo(typeof(DummyBaseClass), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -330,7 +329,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             Action act = () =>
-                someObject.Should().NotBeAssignableTo(typeof(IDisposable), "because we want to test the failure {0}", "message");
+                someObject.Should().NotBeAssignableTo(typeof(IDisposable), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -345,7 +344,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new List<string>();
 
             Action act = () =>
-                someObject.Should().NotBeAssignableTo(typeof(IList<>), "because we want to test the failure {0}", "message");
+                someObject.Should().NotBeAssignableTo(typeof(IList<>), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
@@ -362,7 +361,7 @@ public partial class ObjectAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                someObject.Should().NotBeAssignableTo(typeof(DateTime), "because we want to test the failure {0}", "message");
+                someObject.Should().NotBeAssignableTo(typeof(DateTime), "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -377,7 +376,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             // Act / Assert
-            someObject.Should().NotBeAssignableTo(typeof(DateTime), "because we want to test the failure {0}", "message");
+            someObject.Should().NotBeAssignableTo(typeof(DateTime), "we want to test the {0} message", "failure");
         }
 
         [Fact]
@@ -387,7 +386,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new DummyImplementingClass();
 
             // Act / Assert
-            someObject.Should().NotBeAssignableTo(typeof(IList<>), "because we want to test the failure {0}", "message");
+            someObject.Should().NotBeAssignableTo(typeof(IList<>), "we want to test the {0} message", "failure");
         }
     }
 }

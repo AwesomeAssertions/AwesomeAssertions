@@ -37,12 +37,12 @@ public partial class StringAssertionSpecs
         public void When_string_does_not_start_with_expected_phrase_it_should_throw()
         {
             // Act
-            Action act = () => "ABC".Should().StartWith("ABB", "it should {0}", "start");
+            Action act = () => "ABC".Should().StartWith("ABB", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                Expected string to start with the same string because it should start, but they differ at index 2:
+                Expected string to start with the same string because*failure message, but they differ at index 2:
                      ↓ (actual)
                   "ABC"
                   "ABB"
@@ -56,12 +56,12 @@ public partial class StringAssertionSpecs
             When_string_does_not_start_with_expected_phrase_and_one_of_them_is_long_it_should_display_both_strings_on_separate_line()
         {
             // Act
-            Action act = () => "ABCDEFGHI".Should().StartWith("ABCDDFGHI", "it should {0}", "start");
+            Action act = () => "ABCDEFGHI".Should().StartWith("ABCDDFGHI", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                Expected string to start with the same string because it should start, but they differ at index 4:
+                Expected string to start with the same string because*failure message, but they differ at index 4:
                        ↓ (actual)
                   "ABCDEFGHI"
                   "ABCDDFGHI"
@@ -192,11 +192,11 @@ public partial class StringAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().NotStartWith("AB", "because of some reason");
+                value.Should().NotStartWith("AB", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>().WithMessage(
-                "Expected value not to start with \"AB\" because of some reason, but found \"ABC\".");
+                "Expected value not to start with \"AB\" because*failure message, but found \"ABC\".");
         }
 
         [Fact]

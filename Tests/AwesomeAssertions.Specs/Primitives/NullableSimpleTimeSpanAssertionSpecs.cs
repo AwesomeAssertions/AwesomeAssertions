@@ -47,7 +47,7 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpan = null;
 
         // Act
-        Action act = () => nullableTimeSpan.Should().HaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableTimeSpan.Should().HaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -61,7 +61,7 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpan = null;
 
         // Act
-        Action act = () => nullableTimeSpan.Should().NotBeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableTimeSpan.Should().NotBeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -121,7 +121,7 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpan = 1.Seconds();
 
         // Act
-        Action act = () => nullableTimeSpan.Should().NotHaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableTimeSpan.Should().NotHaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -135,7 +135,7 @@ public class NullableSimpleTimeSpanAssertionSpecs
         TimeSpan? nullableTimeSpan = 1.Seconds();
 
         // Act
-        Action act = () => nullableTimeSpan.Should().BeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableTimeSpan.Should().BeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -169,7 +169,7 @@ public class NullableSimpleTimeSpanAssertionSpecs
         Action action =
             () =>
                 nullableTimeSpanA.Should()
-                    .Be(nullableTimeSpanB, "because we want to test the failure {0}", "message");
+                    .Be(nullableTimeSpanB, "we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()

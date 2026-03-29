@@ -38,7 +38,7 @@ public partial class ObjectAssertionSpecs
             var someObject = new object();
 
             // Act
-            Action act = () => someObject.Should().BeNull("because we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -81,7 +81,7 @@ public partial class ObjectAssertionSpecs
             object someObject = null;
 
             // Act
-            Action act = () => someObject.Should().NotBeNull("because we want to test the failure {0}", "message");
+            Action act = () => someObject.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(

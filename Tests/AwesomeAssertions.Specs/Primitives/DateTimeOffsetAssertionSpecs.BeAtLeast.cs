@@ -17,11 +17,11 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset subject = target - 23.Hours();
 
             // Act
-            Action act = () => subject.Should().BeAtLeast(TimeSpan.FromDays(1)).Before(target, "we like {0}", "that");
+            Action act = () => subject.Should().BeAtLeast(TimeSpan.FromDays(1)).Before(target, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject <2009-10-01 01:00:00 +0h> to be at least 1d before <2009-10-02 +0h> because we like that, but it is behind by 23h.");
+                "Expected subject <2009-10-01 01:00:00 +0h> to be at least 1d before <2009-10-02 +0h> because*failure message, but it is behind by 23h.");
         }
 
         [Fact]

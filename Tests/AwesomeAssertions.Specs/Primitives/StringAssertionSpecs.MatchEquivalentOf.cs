@@ -62,12 +62,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().MatchEquivalentOf("h*earth!", "that's the universal greeting");
+            Action act = () => subject.Should().MatchEquivalentOf("h*earth!", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected subject to match the equivalent of*\"h*earth!\" " +
-                "because that's the universal greeting, but*\"hello world!\" does not.");
+                "because*failure message, but*\"hello world!\" does not.");
         }
 
         [Fact]
@@ -211,12 +211,12 @@ public partial class StringAssertionSpecs
             string subject = "hello WORLD";
 
             // Act
-            Action act = () => subject.Should().NotMatchEquivalentOf("*world*", "because that's illegal");
+            Action act = () => subject.Should().NotMatchEquivalentOf("*world*", "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("Did not expect subject to match the equivalent of*\"*world*\" because that's illegal, " +
+                .WithMessage("Did not expect subject to match the equivalent of*\"*world*\" because*failure message, " +
                     "but*\"hello WORLD\" matches.");
         }
 
@@ -284,12 +284,13 @@ public partial class StringAssertionSpecs
             string subject = null;
 
             // Act
-            Action act = () => subject.Should().NotMatchEquivalentOf("*", "failure {0}", "message");
+            Action act = () => subject.Should().NotMatchEquivalentOf("*", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .Which.Message.Should().Be(// use `Be` because we cannot match a literal * in `WithMessage`
-                    "Did not expect subject to match the equivalent of \"*\" because failure message, but found <null>.");
+                    "Did not expect subject to match the equivalent of \"*\" because we want to test the failure message,"
+                    + " but found <null>.");
         }
     }
 }

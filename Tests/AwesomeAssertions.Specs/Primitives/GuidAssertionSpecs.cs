@@ -25,7 +25,7 @@ public class GuidAssertionSpecs
             var guid = new Guid("12345678-1234-1234-1234-123456789012");
 
             // Act
-            Action act = () => guid.Should().BeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => guid.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -49,7 +49,7 @@ public class GuidAssertionSpecs
         public void Should_fail_when_asserting_empty_guid_is_not_empty()
         {
             // Act
-            Action act = () => Guid.Empty.Should().NotBeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => Guid.Empty.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -88,7 +88,7 @@ public class GuidAssertionSpecs
             var differentGuid = new Guid("55555555-ffff-eeee-dddd-444444444444");
 
             // Act
-            Action act = () => guid.Should().Be(differentGuid, "because we want to test the failure {0}", "message");
+            Action act = () => guid.Should().Be(differentGuid, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -102,7 +102,7 @@ public class GuidAssertionSpecs
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
             // Act
-            Action act = () => guid.Should().Be(string.Empty, "we want to test the failure {0}", "message");
+            Action act = () => guid.Should().Be(string.Empty, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<ArgumentException>()
@@ -131,7 +131,7 @@ public class GuidAssertionSpecs
             var sameGuid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
             // Act
-            Action act = () => guid.Should().NotBe(sameGuid, "because we want to test the failure {0}", "message");
+            Action act = () => guid.Should().NotBe(sameGuid, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -145,7 +145,7 @@ public class GuidAssertionSpecs
             var guid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
             // Act
-            Action act = () => guid.Should().NotBe(string.Empty, "we want to test the failure {0}", "message");
+            Action act = () => guid.Should().NotBe(string.Empty, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<ArgumentException>()
@@ -170,7 +170,7 @@ public class GuidAssertionSpecs
 
             // Act
             Action act = () =>
-                guid.Should().NotBe("11111111-aaaa-bbbb-cccc-999999999999", "we want to test the failure {0}", "message");
+                guid.Should().NotBe("11111111-aaaa-bbbb-cccc-999999999999", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

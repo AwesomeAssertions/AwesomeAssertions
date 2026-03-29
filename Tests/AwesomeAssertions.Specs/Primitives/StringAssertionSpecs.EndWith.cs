@@ -42,13 +42,13 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var a = new AssertionScope();
-                "ABC".Should().EndWith("AB", "it should");
+                "ABC".Should().EndWith("AB", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                Expected string to end with the same string because it should, but they differ before index 3:
+                Expected string to end with the same string because*failure message, but they differ before index 3:
                      ↓ (actual)
                   "ABC"
                    "AB"
@@ -216,8 +216,10 @@ public partial class StringAssertionSpecs
         public void When_expected_becomes_longer_than_actual_after_truncation_strings_are_right_aligned()
         {
             // Arrange
-            const string subject = "from cancel this waver was coming from this is a long text pat thaT differs in between two words";
-            const string expected = "such and when to this the other they should and sad rhino whicH differs in between two words";
+            const string subject =
+                "from cancel this waver was coming from this is a long text pat thaT differs in between two words";
+            const string expected =
+                "such and when to this the other they should and sad rhino whicH differs in between two words";
 
             // Act
             Action act = () => subject.Should().EndWith(expected);
@@ -262,9 +264,11 @@ public partial class StringAssertionSpecs
         public void When_both_strings_are_truncated_from_both_ends_arrows_are_aligned()
         {
             // Arrange
-            var subject = "this is a very long text. it is very long text that12345 differs in between two words. it is very lengthy.";
+            var subject =
+                "this is a very long text. it is very long text that12345 differs in between two words. it is very lengthy.";
 
-            var expected = "this is a very long text. it is very long text that1264 differs in between two words. it is very lengthy.";
+            var expected =
+                "this is a very long text. it is very long text that1264 differs in between two words. it is very lengthy.";
 
             // Act
             Action act = () => subject.Should().EndWith(expected);
@@ -445,11 +449,11 @@ public partial class StringAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().NotEndWith("BC", "because of some {0}", "reason");
+                value.Should().NotEndWith("BC", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>().WithMessage(
-                "Expected value not to end with \"BC\" because of some reason, but found \"ABC\".");
+                "Expected value not to end with \"BC\" because*failure message, but found \"ABC\".");
         }
 
         [Fact]
@@ -492,12 +496,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                someString.Should().NotEndWith("ABC", "some {0}", "reason");
+                someString.Should().NotEndWith("ABC", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someString not to end with \"ABC\"*some reason*, but found <null>.");
+                "Expected someString not to end with \"ABC\" because*failure message*, but found <null>.");
         }
     }
 }

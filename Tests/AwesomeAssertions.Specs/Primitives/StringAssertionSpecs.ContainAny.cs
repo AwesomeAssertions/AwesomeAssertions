@@ -115,12 +115,11 @@ public partial class StringAssertionSpecs
             var testString = $"{red} {green}";
 
             // Act
-            Action act = () => testString.Should().ContainAny([blue, purple], "some {0} reason", "special");
+            Action act = () => testString.Should().ContainAny([blue, purple], "we want to test the {0} message", "failure");
 
             // Assert
-            act
-                .Should().Throw<XunitException>()
-                .WithMessage($"*{testString}*contain at least one of*{blue}*{purple}*because some special reason*");
+            act.Should().Throw<XunitException>().WithMessage(
+                $"*{testString}*contain at least one of*{blue}*{purple}*because we want to test the failure message*");
         }
     }
 
@@ -198,12 +197,12 @@ public partial class StringAssertionSpecs
             var testString = $"{red} {green} {yellow}";
 
             // Act
-            Action act = () => testString.Should().NotContainAny([red], "some {0} reason", "special");
+            Action act = () => testString.Should().NotContainAny([red], "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage($"*not*{testString}*contain any*{red}*because*some special reason*");
+                .WithMessage($"*not*{testString}*contain any*{red}*because*we want to test the failure message*");
         }
 
         [Fact]

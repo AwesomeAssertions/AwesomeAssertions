@@ -33,12 +33,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().MatchRegex("h.*\\sworld?$", "that's the universal greeting");
+            Action act = () => subject.Should().MatchRegex("h.*\\sworld?$", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected subject to match regex*\"h.*\\sworld?$\" because that's the universal greeting, but*\"hello world!\" does not match.");
+                    "Expected subject to match regex*\"h.*\\sworld?$\" because*failure message, but*\"hello world!\" does not match.");
         }
 
         [Fact]
@@ -48,11 +48,11 @@ public partial class StringAssertionSpecs
             string subject = null;
 
             // Act
-            Action act = () => subject.Should().MatchRegex(".*", "because it should be a string");
+            Action act = () => subject.Should().MatchRegex(".*", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to match regex*\".*\" because it should be a string, but it was <null>.");
+                .WithMessage("Expected subject to match regex*\".*\" because*failure message, but it was <null>.");
         }
 
         [Fact]
@@ -139,12 +139,13 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().MatchRegex(new Regex("h.*\\sworld?$"), "that's the universal greeting");
+            Action act = () =>
+                subject.Should().MatchRegex(new Regex("h.*\\sworld?$"), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected subject to match regex*\"h.*\\sworld?$\" because that's the universal greeting, but*\"hello world!\" does not match.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected subject to match regex*\"h.*\\sworld?$\" because*failure message,"
+                + " but*\"hello world!\" does not match.");
         }
 
         [Fact]
@@ -157,12 +158,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                subject.Should().MatchRegex(new Regex(".*"), "because it should be a string");
+                subject.Should().MatchRegex(new Regex(".*"), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to match regex*\".*\" because it should be a string, but it was <null>.");
+                .WithMessage("Expected subject to match regex*\".*\" because*failure message, but it was <null>.");
         }
 
         [Fact]
@@ -255,12 +256,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                subject.Should().MatchRegex(".*", Exactly.Times(0), "because it should be a string");
+                subject.Should().MatchRegex(".*", Exactly.Times(0), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().ThrowExactly<XunitException>()
-                .WithMessage("Expected subject to match regex*\".*\" because it should be a string, but it was <null>.");
+                .WithMessage("Expected subject to match regex*\".*\" because*failure message, but it was <null>.");
         }
 
         [Fact]
@@ -358,12 +359,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().NotMatchRegex(".*world.*", "because that's illegal");
+            Action act = () => subject.Should().NotMatchRegex(".*world.*", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Did not expect subject to match regex*\".*world.*\" because that's illegal, but*\"hello world!\" matches.");
+                    "Did not expect subject to match regex*\".*world.*\" because*failure message, but*\"hello world!\" matches.");
         }
 
         [Fact]
@@ -373,11 +374,11 @@ public partial class StringAssertionSpecs
             string subject = null;
 
             // Act
-            Action act = () => subject.Should().NotMatchRegex(".*", "because it should not be a string");
+            Action act = () => subject.Should().NotMatchRegex(".*", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to not match regex*\".*\" because it should not be a string, but it was <null>.");
+                .WithMessage("Expected subject to not match regex*\".*\" because*failure message, but it was <null>.");
         }
 
         [Fact]
@@ -440,8 +441,7 @@ public partial class StringAssertionSpecs
             Action act = () => subject.Should().NotMatchRegex(string.Empty);
 
             // Assert
-            act.Should().ThrowExactly<ArgumentException>()
-                .WithMessage(
+            act.Should().ThrowExactly<ArgumentException>().WithMessage(
                     "Cannot match string against an empty regex pattern. Provide a regex pattern or use the NotBeEmpty method.*")
                 .WithParameterName("regularExpression");
         }
@@ -463,12 +463,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().NotMatchRegex(new Regex(".*world.*"), "because that's illegal");
+            Action act = () =>
+                subject.Should().NotMatchRegex(new Regex(".*world.*"), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect subject to match regex*\".*world.*\" because that's illegal, but*\"hello world!\" matches.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect subject to match regex*\".*world.*\" because*failure message, but*\"hello world!\" matches.");
         }
 
         [Fact]
@@ -481,12 +481,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                subject.Should().NotMatchRegex(new Regex(".*"), "because it should not be a string");
+                subject.Should().NotMatchRegex(new Regex(".*"), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to not match regex*\".*\" because it should not be a string, but it was <null>.");
+                .WithMessage("Expected subject to not match regex*\".*\" because*failure message, but it was <null>.");
         }
 
         [Fact]
@@ -514,8 +514,7 @@ public partial class StringAssertionSpecs
             Action act = () => subject.Should().NotMatchRegex(new Regex(string.Empty));
 
             // Assert
-            act.Should().ThrowExactly<ArgumentException>()
-                .WithMessage(
+            act.Should().ThrowExactly<ArgumentException>().WithMessage(
                     "Cannot match string against an empty regex pattern. Provide a regex pattern or use the NotBeEmpty method.*")
                 .WithParameterName("regularExpression");
         }
