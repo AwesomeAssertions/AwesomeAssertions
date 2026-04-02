@@ -413,5 +413,31 @@ public partial class AssertionChainSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected because reasons");
         }
+
+        [Fact]
+        public void Message_should_contain_because_if_omitted_in_reason_format()
+        {
+            // Act
+            Action act = () => AssertionChain.GetOrCreate()
+                .BecauseOf("reasons")
+                .FailWith("Expected{reason}");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected because reasons");
+        }
+
+        [Fact]
+        public void Message_should_contain_because_if_omitted_in_reason_format_with_arguments()
+        {
+            // Act
+            Action act = () => AssertionChain.GetOrCreate()
+                .BecauseOf("reasons {0} arguments", "with")
+                .FailWith("Expected{reason}");
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected because reasons with arguments");
+        }
     }
 }

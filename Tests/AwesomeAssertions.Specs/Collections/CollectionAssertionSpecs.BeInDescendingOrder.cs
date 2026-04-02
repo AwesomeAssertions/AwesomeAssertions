@@ -29,11 +29,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["z", "x", "y"];
 
             // Act
-            Action action = () => collection.Should().BeInDescendingOrder("because letters are ordered");
+            Action action = () => collection.Should().BeInDescendingOrder("we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to be in descending order because letters are ordered," +
+                .WithMessage("Expected collection to be in descending order because*failure message," +
                     " but found {\"z\", \"x\", \"y\"} where item at index 1 is in wrong order.");
         }
 
@@ -89,11 +89,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action action = () =>
-                collection.Should().BeInDescendingOrder(Comparer<object>.Default, "because letters are ordered");
+                collection.Should().BeInDescendingOrder(Comparer<object>.Default, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to be in descending order because letters are ordered," +
+                .WithMessage("Expected collection to be in descending order because*failure message," +
                     " but found {\"z\", \"x\", \"y\"} where item at index 1 is in wrong order.");
         }
 
@@ -121,11 +121,11 @@ public partial class CollectionAssertionSpecs
             };
 
             // Act
-            Action act = () => collection.Should().BeInDescendingOrder(o => o.Text, "it should be sorted");
+            Action act = () => collection.Should().BeInDescendingOrder(o => o.Text, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*b*c*a*ordered*Text*should be sorted*c*b*a*");
+                .WithMessage("Expected collection*b*c*a*ordered*Text*because*failure message*c*b*a*");
         }
 
         [Fact]
@@ -142,11 +142,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().BeInDescendingOrder(o => o.Text, StringComparer.OrdinalIgnoreCase, "it should be sorted");
+                collection.Should().BeInDescendingOrder(o => o.Text, StringComparer.OrdinalIgnoreCase, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*b*c*a*ordered*Text*should be sorted*c*b*a*");
+                .WithMessage("Expected collection*b*c*a*ordered*Text*because*failure message*c*b*a*");
         }
 
         [Fact]
@@ -198,12 +198,12 @@ public partial class CollectionAssertionSpecs
             string[] strings = ["theta", "alpha", "beta"];
 
             // Act
-            Action act = () => strings.Should().BeInDescendingOrder("of {0}", "reasons");
+            Action act = () => strings.Should().BeInDescendingOrder("we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*descending*of reasons*index 1*");
+                .WithMessage("Expected*descending*because*failure message*index 1*");
         }
 
         [Fact]
@@ -223,12 +223,12 @@ public partial class CollectionAssertionSpecs
             string[] strings = ["dennis", "roy", "barbara"];
 
             // Act
-            Action act = () => strings.Should().BeInDescendingOrder(new ByLastCharacterComparer(), "of {0}", "reasons");
+            Action act = () => strings.Should().BeInDescendingOrder(new ByLastCharacterComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*descending*of reasons*index 0*");
+                .WithMessage("Expected*descending*because*failure message*index 0*");
         }
 
         [Fact]
@@ -249,12 +249,12 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                strings.Should().BeInDescendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]), "of {0}", "reasons");
+                strings.Should().BeInDescendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Expected*descending*of reasons*index 0*");
+                .WithMessage("Expected*descending*because*failure message*index 0*");
         }
     }
 
@@ -288,11 +288,11 @@ public partial class CollectionAssertionSpecs
             string[] collection = ["c", "b", "a"];
 
             // Act
-            Action action = () => collection.Should().NotBeInDescendingOrder("because numbers are not ordered");
+            Action action = () => collection.Should().NotBeInDescendingOrder("we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to be in descending order because numbers are not ordered," +
+                .WithMessage("Did not expect collection to be in descending order because*failure message," +
                     " but found {\"c\", \"b\", \"a\"}.");
         }
 
@@ -305,11 +305,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action action = () =>
-                collection.Should().NotBeInDescendingOrder(Comparer<object>.Default, "because numbers are not ordered");
+                collection.Should().NotBeInDescendingOrder(Comparer<object>.Default, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to be in descending order because numbers are not ordered," +
+                .WithMessage("Did not expect collection to be in descending order because*failure message," +
                     " but found {\"c\", \"b\", \"a\"}.");
         }
 
@@ -334,11 +334,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [];
 
             // Act
-            Action act = () => collection.Should().NotBeInDescendingOrder("because I say {0}", "so");
+            Action act = () => collection.Should().NotBeInDescendingOrder("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to be in descending order because I say so, but found {empty}.");
+                .WithMessage("Did not expect collection to be in descending order because*failure message, but found {empty}.");
         }
 
         [Fact]
@@ -380,11 +380,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [3, 2, 1];
 
             // Act
-            Action act = () => collection.Should().NotBeInDescendingOrder(Comparer<int>.Default, "it should not be sorted");
+            Action act = () => collection.Should().NotBeInDescendingOrder(Comparer<int>.Default, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to be in descending order*should not be sorted*3*2*1*");
+                .WithMessage("Did not expect collection to be in descending order*because*failure message*3*2*1*");
         }
 
         [Fact]
@@ -411,11 +411,11 @@ public partial class CollectionAssertionSpecs
             };
 
             // Act
-            Action act = () => collection.Should().NotBeInDescendingOrder(o => o.Text, "it should not be sorted");
+            Action act = () => collection.Should().NotBeInDescendingOrder(o => o.Text, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*b*c*a*not be ordered*Text*should not be sorted*c*b*a*");
+                .WithMessage("Expected collection*b*c*a*not be ordered*Text*because*failure message*c*b*a*");
         }
 
         [Fact]
@@ -433,11 +433,11 @@ public partial class CollectionAssertionSpecs
             // Act
             Action act = () =>
                 collection.Should()
-                    .NotBeInDescendingOrder(o => o.Text, StringComparer.OrdinalIgnoreCase, "it should not be sorted");
+                    .NotBeInDescendingOrder(o => o.Text, StringComparer.OrdinalIgnoreCase, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*C*b*A*not be ordered*Text*should not be sorted*C*b*A*");
+                .WithMessage("Expected collection*C*b*A*not be ordered*Text*because*failure message*C*b*A*");
         }
 
         [Fact]
@@ -489,12 +489,12 @@ public partial class CollectionAssertionSpecs
             string[] strings = ["theta", "beta", "alpha"];
 
             // Act
-            Action act = () => strings.Should().NotBeInDescendingOrder("of {0}", "reasons");
+            Action act = () => strings.Should().NotBeInDescendingOrder("we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Did not expect*descending*of reasons*but found*");
+                .WithMessage("Did not expect*descending*because*failure message*but found*");
         }
 
         [Fact]
@@ -514,12 +514,12 @@ public partial class CollectionAssertionSpecs
             string[] strings = ["roy", "dennis", "barbara"];
 
             // Act
-            Action act = () => strings.Should().NotBeInDescendingOrder(new ByLastCharacterComparer(), "of {0}", "reasons");
+            Action act = () => strings.Should().NotBeInDescendingOrder(new ByLastCharacterComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Did not expect*descending*of reasons*but found*");
+                .WithMessage("Did not expect*descending*because*failure message*but found*");
         }
 
         [Fact]
@@ -540,12 +540,12 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                strings.Should().NotBeInDescendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]), "of {0}", "reasons");
+                strings.Should().NotBeInDescendingOrder((sut, exp) => sut[^1].CompareTo(exp[^1]), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
-                .WithMessage("Did not expect*descending*of reasons*but found*");
+                .WithMessage("Did not expect*descending*because*failure message*but found*");
         }
     }
 }

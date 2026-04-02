@@ -31,11 +31,11 @@ public partial class CollectionAssertionSpecs
             int[] superset = [1, 2, 4, 5];
 
             // Act
-            Action act = () => subset.Should().BeSubsetOf(superset, "because we want to test the failure {0}", "message");
+            Action act = () => subset.Should().BeSubsetOf(superset, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subset to be a subset of {1, 2, 4, 5} because we want to test the failure message, " +
+                "Expected subset to be a subset of {1, 2, 4, 5} because*failure message, " +
                 "but items {3, 6} are not part of the superset.");
         }
 
@@ -102,11 +102,11 @@ public partial class CollectionAssertionSpecs
             int[] otherSet = [1, 2, 3];
 
             // Act
-            Action act = () => subject.Should().NotBeSubsetOf(otherSet, "because I'm {0}", "mistaken");
+            Action act = () => subject.Should().NotBeSubsetOf(otherSet, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect subject {1, 2} to be a subset of {1, 2, 3} because I'm mistaken.");
+                "Did not expect subject {1, 2} to be a subset of {1, 2, 3} because*failure message.");
         }
 
         [Fact]
@@ -120,12 +120,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().BeSubsetOf(collection1, "because we want to test the behaviour with a null subject");
+                collection.Should().BeSubsetOf(collection1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to be a subset of {1, 2, 3} because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to be a subset of {1, 2, 3} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -136,12 +136,11 @@ public partial class CollectionAssertionSpecs
             var collection1 = collection;
 
             // Act
-            Action act = () => collection.Should().NotBeSubsetOf(collection1,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotBeSubsetOf(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect*to be a subset of*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "Did not expect*to be a subset of*because*failure message, but they both reference the same object.");
         }
 
         [Fact]
@@ -154,12 +153,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotBeSubsetOf([1, 2, 3], "we want to test the failure {0}", "message");
+                collection.Should().NotBeSubsetOf([1, 2, 3], "we want to test the {0} message", "failure");
             };
 
+            // TODO should the message contain the because text?
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "Cannot assert a <null> collection against a subset.");
+            act.Should().Throw<XunitException>().WithMessage("Cannot assert a <null> collection against a subset.");
         }
     }
 }

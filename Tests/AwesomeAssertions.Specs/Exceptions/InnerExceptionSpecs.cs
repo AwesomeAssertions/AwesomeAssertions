@@ -93,7 +93,7 @@ public class InnerExceptionSpecs
         {
             // Act
             act.Should().Throw<BadImageFormatException>()
-                .WithInnerExceptionExactly<ArgumentException>("because {0} should do just that", "the action");
+                .WithInnerExceptionExactly<ArgumentException>("we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached.");
         }
@@ -101,7 +101,7 @@ public class InnerExceptionSpecs
         {
             // Assert
             ex.Message.Should()
-                .Match("Expected*ArgumentException*the action should do just that*ArgumentNullException*InnerExceptionMessage*");
+                .Match("Expected*ArgumentException*because*failure message*ArgumentNullException*InnerExceptionMessage*");
         }
     }
 
@@ -114,7 +114,7 @@ public class InnerExceptionSpecs
 
         // Act / Assert
         act.Should().Throw<BadImageFormatException>()
-            .WithInnerExceptionExactly(typeof(ArgumentNullException), "because {0} should do just that", "the action");
+            .WithInnerExceptionExactly(typeof(ArgumentNullException), "the parameter is {0} relevant for this test", "parameter");
     }
 
     [Fact]
@@ -142,7 +142,7 @@ public class InnerExceptionSpecs
         {
             // Act
             act.Should().Throw<BadImageFormatException>()
-                .WithInnerExceptionExactly(typeof(ArgumentException), "because {0} should do just that", "the action");
+                .WithInnerExceptionExactly(typeof(ArgumentException), "we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached.");
         }
@@ -150,7 +150,7 @@ public class InnerExceptionSpecs
         {
             // Assert
             ex.Message.Should()
-                .Match("Expected*ArgumentException*the action should do just that*ArgumentNullException*InnerExceptionMessage*");
+                .Match("Expected*ArgumentException*because*failure message*ArgumentNullException*InnerExceptionMessage*");
         }
     }
 
@@ -162,7 +162,7 @@ public class InnerExceptionSpecs
 
         // Act / Assert
         act.Should().Throw<BadImageFormatException>()
-            .WithInnerExceptionExactly<ArgumentNullException>("because {0} should do just that", "the action");
+            .WithInnerExceptionExactly<ArgumentNullException>("the parameter is {0} relevant for this test", "parameter");
     }
 
     [Fact]
@@ -173,11 +173,11 @@ public class InnerExceptionSpecs
 
         // Act
         Action act = () => subject.Should().Throw<BadImageFormatException>()
-            .WithInnerExceptionExactly<ArgumentNullException>("some {0}", "message");
+            .WithInnerExceptionExactly<ArgumentNullException>("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*some message*no inner exception*");
+            .WithMessage("*we want to test the failure message*no inner exception*");
     }
 
     [Fact]
@@ -194,7 +194,7 @@ public class InnerExceptionSpecs
             testSubject
                 .Invoking(x => x.Do())
                 .Should().Throw<Exception>()
-                .WithInnerException<ArgumentException>("because {0} should do just that", "Does.Do");
+                .WithInnerException<ArgumentException>("we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached");
         }
@@ -202,7 +202,7 @@ public class InnerExceptionSpecs
         {
             // Assert
             exc.Message.Should().Match(
-                "Expected*ArgumentException*Does.Do should do just that*NullReferenceException*InnerExceptionMessage*");
+                "Expected*ArgumentException*because*failure message*NullReferenceException*InnerExceptionMessage*");
         }
     }
 
@@ -214,14 +214,15 @@ public class InnerExceptionSpecs
             Does testSubject = Does.Throw<Exception>();
 
             testSubject.Invoking(x => x.Do()).Should().Throw<Exception>()
-                .WithInnerException<InvalidOperationException>("because {0} should do that", "Does.Do");
+                .WithInnerException<InvalidOperationException>("we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached");
         }
         catch (XunitException ex)
         {
             ex.Message.Should().Be(
-                "Expected inner System.InvalidOperationException because Does.Do should do that, but the thrown exception has no inner exception.");
+                "Expected inner System.InvalidOperationException because we want to test the failure message,"
+                + " but the thrown exception has no inner exception.");
         }
     }
 

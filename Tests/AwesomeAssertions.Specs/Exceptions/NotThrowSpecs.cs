@@ -21,7 +21,7 @@ public class NotThrowSpecs
         Action action = () =>
         {
             using var _ = new AssertionScope();
-            act.Should().NotThrow("because we want to test the failure {0}", "message");
+            act.Should().NotThrow("we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -38,12 +38,12 @@ public class NotThrowSpecs
 
         // Act
         Action action =
-            () => foo.Invoking(f => f.Do()).Should().NotThrow<ArgumentException>("we passed valid arguments");
+            () => foo.Invoking(f => f.Do()).Should().NotThrow<ArgumentException>("we want to test the {0} message", "failure");
 
         // Assert
         action
             .Should().Throw<XunitException>().WithMessage(
-                "Did not expect System.ArgumentException because we passed valid arguments, " +
+                "Did not expect System.ArgumentException because*failure message, " +
                 "but found System.ArgumentException: An exception was forced*");
     }
 
@@ -64,12 +64,12 @@ public class NotThrowSpecs
         Does foo = Does.Throw(new ArgumentException("An exception was forced"));
 
         // Act
-        Action action = () => foo.Invoking(f => f.Do()).Should().NotThrow("we passed valid arguments");
+        Action action = () => foo.Invoking(f => f.Do()).Should().NotThrow("we want to test the {0} message", "failure");
 
         // Assert
         action
             .Should().Throw<XunitException>().WithMessage(
-                "Did not expect any exception because we passed valid arguments, " +
+                "Did not expect any exception because*failure message, " +
                 "but found System.ArgumentException: An exception was forced*");
     }
 
@@ -94,8 +94,7 @@ public class NotThrowSpecs
         {
             using var _ = new AssertionScope();
 
-            act.Should().NotThrowAfter(0.Milliseconds(), 0.Milliseconds(),
-                "because we want to test the failure {0}", "message");
+            act.Should().NotThrowAfter(0.Milliseconds(), 0.Milliseconds(), "we want to test the {0} message", "failure");
         };
 
         // Assert
@@ -177,11 +176,11 @@ public class NotThrowSpecs
 
         // Act
         Action action = () =>
-            throwLongerThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval, "we passed valid arguments");
+            throwLongerThanWaitTime.Should(clock).NotThrowAfter(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
-            .WithMessage("Did not expect any exceptions after 100ms because we passed valid arguments*");
+            .WithMessage("Did not expect any exceptions after 100ms because*failure message*");
     }
 
     [Fact]

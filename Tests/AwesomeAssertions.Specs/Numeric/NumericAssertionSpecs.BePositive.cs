@@ -77,7 +77,7 @@ public partial class NumericAssertionSpecs
             int value = -1;
 
             // Act
-            Action act = () => value.Should().BePositive("because we want to test the failure {0}", "message");
+            Action act = () => value.Should().BePositive("we want to test the {0} message", "failure");
 
             // Assert
             act

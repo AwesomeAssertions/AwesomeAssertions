@@ -120,7 +120,7 @@ public class OuterExceptionSpecs
             subjectThatThrows
                 .Invoking(x => x.Do())
                 .Should().Throw<InvalidOperationException>()
-                .WithMessage("message2", "because we want to test the failure {0}", "message");
+                .WithMessage("message2", "we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached");
         }
@@ -190,15 +190,15 @@ public class OuterExceptionSpecs
             Does testSubject = Does.NotThrow();
 
             // Act
-            testSubject.Invoking(x => x.Do()).Should().Throw<Exception>("because {0} should do that", "Does.Do");
+            testSubject.Invoking(x => x.Do()).Should().Throw<Exception>("we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached");
         }
         catch (XunitException ex)
         {
             // Assert
-            ex.Message.Should().Be(
-                "Expected a <System.Exception> to be thrown because Does.Do should do that, but no exception was thrown.");
+            ex.Message.Should().Match(
+                "Expected a <System.Exception> to be thrown because*failure message, but no exception was thrown.");
         }
     }
 
@@ -215,15 +215,15 @@ public class OuterExceptionSpecs
             // Act
             testSubject
                 .Invoking(x => x.Do())
-                .Should().Throw<InvalidOperationException>("because {0} should throw that one", "Does.Do");
+                .Should().Throw<InvalidOperationException>("we want to test the {0} message", "failure");
 
             throw new XunitException("This point should not be reached");
         }
         catch (XunitException ex)
         {
             // Assert
-            ex.Message.Should().StartWith(
-                "Expected a <System.InvalidOperationException> to be thrown because Does.Do should throw that one, but found <System.ArgumentException>:");
+            ex.Message.Should().Match(
+                "Expected a <System.InvalidOperationException> to be thrown because*failure message, but found <System.ArgumentException>:*");
 
             ex.Message.Should().Contain(actualException.Message);
         }

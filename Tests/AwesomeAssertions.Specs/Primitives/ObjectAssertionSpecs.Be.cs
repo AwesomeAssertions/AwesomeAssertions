@@ -68,12 +68,12 @@ public partial class ObjectAssertionSpecs
             var nonEqualObject = new ClassWithCustomEqualMethod(2);
 
             // Act
-            Action act = () => someObject.Should().Be(nonEqualObject, "because it should use the {0}", "reason");
+            Action act = () => someObject.Should().Be(nonEqualObject, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected someObject to be ClassWithCustomEqualMethod(2) because it should use the reason, but found ClassWithCustomEqualMethod(1).");
+                    "Expected someObject to be ClassWithCustomEqualMethod(2) because*failure message, but found ClassWithCustomEqualMethod(1).");
         }
 
         [Fact]
@@ -117,10 +117,10 @@ public partial class ObjectAssertionSpecs
             object value = new SomeClass(3);
 
             // Act
-            Action act = () => value.Should().Be(new SomeClass(4), new SomeClassEqualityComparer(), "I said so");
+            Action act = () => value.Should().Be(new SomeClass(4), new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Expected value to be SomeClass(4)*I said so*found SomeClass(3).");
+            act.Should().Throw<XunitException>().WithMessage("Expected value to be SomeClass(4)*because*failure message*found SomeClass(3).");
         }
 
         [Fact]
@@ -130,10 +130,10 @@ public partial class ObjectAssertionSpecs
             var value = new SomeClass(3);
 
             // Act
-            Action act = () => value.Should().Be(new SomeClass(4), new SomeClassEqualityComparer(), "I said so");
+            Action act = () => value.Should().Be(new SomeClass(4), new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Expected value to be SomeClass(4)*I said so*found SomeClass(3).");
+            act.Should().Throw<XunitException>().WithMessage("Expected value to be SomeClass(4)*because*failure message*found SomeClass(3).");
         }
 
         [Fact]
@@ -143,11 +143,11 @@ public partial class ObjectAssertionSpecs
             var value = new ClassWithCustomEqualMethod(3);
 
             // Act
-            Action act = () => value.Should().Be(new SomeClass(3), new SomeClassEqualityComparer(), "I said so");
+            Action act = () => value.Should().Be(new SomeClass(3), new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected value to be SomeClass(3)*I said so*found ClassWithCustomEqualMethod(3).");
+                .WithMessage("Expected value to be SomeClass(3)*because*failure message*found ClassWithCustomEqualMethod(3).");
         }
 
         [Fact]
@@ -235,7 +235,7 @@ public partial class ObjectAssertionSpecs
 
             // Act
             Action act = () =>
-                someObject.Should().NotBe(equalObject, "because we want to test the failure {0}", "message");
+                someObject.Should().NotBe(equalObject, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -270,10 +270,10 @@ public partial class ObjectAssertionSpecs
             object value = new SomeClass(3);
 
             // Act
-            Action act = () => value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer(), "I said so");
+            Action act = () => value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Did not expect value to be equal to SomeClass(3)*I said so*");
+            act.Should().Throw<XunitException>().WithMessage("Did not expect value to be equal to SomeClass(3)*because*failure message*");
         }
 
         [Fact]
@@ -283,10 +283,10 @@ public partial class ObjectAssertionSpecs
             var value = new SomeClass(3);
 
             // Act
-            Action act = () => value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer(), "I said so");
+            Action act = () => value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Did not expect value to be equal to SomeClass(3)*I said so*");
+            act.Should().Throw<XunitException>().WithMessage("Did not expect value to be equal to SomeClass(3)*because*failure message*");
         }
 
         [Fact]
@@ -296,7 +296,7 @@ public partial class ObjectAssertionSpecs
             var value = new ClassWithCustomEqualMethod(3);
 
             // Act / Assert
-            value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer(), "I said so");
+            value.Should().NotBe(new SomeClass(3), new SomeClassEqualityComparer());
         }
 
         [Fact]

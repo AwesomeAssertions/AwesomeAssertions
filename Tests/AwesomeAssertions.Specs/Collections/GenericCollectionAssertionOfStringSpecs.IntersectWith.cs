@@ -28,11 +28,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherCollection = ["four", "five"];
 
             // Act
-            Action action = () => collection.Should().IntersectWith(otherCollection, "they should share items");
+            Action action = () => collection.Should().IntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to intersect with {\"four\", \"five\"} because they should share items," +
+                .WithMessage("Expected collection to intersect with {\"four\", \"five\"} because*failure message," +
                     " but {\"one\", \"two\", \"three\"} does not contain any shared items.");
         }
     }
@@ -47,12 +47,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherCollection = collection;
 
             // Act
-            Action act = () => collection.Should().NotIntersectWith(otherCollection,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotIntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*to intersect with*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "*to intersect with*because*failure message, but they both reference the same object.");
         }
 
         [Fact]
@@ -63,12 +62,12 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> otherCollection = ["two", "three", "four"];
 
             // Act
-            Action action = () => collection.Should().NotIntersectWith(otherCollection, "they should not share items");
+            Action action = () => collection.Should().NotIntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Did not expect collection to intersect with {\"two\", \"three\", \"four\"} because they should not share items," +
+                    "Did not expect collection to intersect with {\"two\", \"three\", \"four\"} because*failure message," +
                     " but found the following shared items {\"two\", \"three\"}.");
         }
 

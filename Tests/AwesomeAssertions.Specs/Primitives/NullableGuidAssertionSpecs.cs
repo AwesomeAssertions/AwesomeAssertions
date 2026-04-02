@@ -59,7 +59,7 @@ public class NullableGuidAssertionSpecs
         Guid? nullableGuid = null;
 
         // Act
-        Action act = () => nullableGuid.Should().HaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableGuid.Should().HaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -73,7 +73,7 @@ public class NullableGuidAssertionSpecs
         Guid? nullableGuid = null;
 
         // Act
-        Action act = () => nullableGuid.Should().NotBeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableGuid.Should().NotBeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -135,7 +135,7 @@ public class NullableGuidAssertionSpecs
 
         // Act
         Action act = () =>
-            guid.Should().Be(someGuid, "because we want to test the failure {0}", "message");
+            guid.Should().Be(someGuid, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -160,7 +160,7 @@ public class NullableGuidAssertionSpecs
         Guid? nullableGuid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
         // Act
-        Action act = () => nullableGuid.Should().NotHaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableGuid.Should().NotHaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -175,7 +175,7 @@ public class NullableGuidAssertionSpecs
         Guid? nullableGuid = new Guid("11111111-aaaa-bbbb-cccc-999999999999");
 
         // Act
-        Action act = () => nullableGuid.Should().BeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableGuid.Should().BeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -192,7 +192,7 @@ public class NullableGuidAssertionSpecs
 
         // Act
         Action act = () =>
-            nullableGuid.Should().Be(someGuid, "because we want to test the failure {0}", "message");
+            nullableGuid.Should().Be(someGuid, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(

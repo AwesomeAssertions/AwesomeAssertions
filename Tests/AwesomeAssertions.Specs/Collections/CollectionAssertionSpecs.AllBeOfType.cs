@@ -57,12 +57,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().AllBeOfType(typeof(object), "we want to test the failure {0}", "message");
+                collection.Should().AllBeOfType(typeof(object), "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object because*failure message, but found collection is <null>.");
         }
 
         [Fact]
@@ -103,11 +103,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { new Exception(), new ArgumentException("foo") };
 
             // Act
-            Action act = () => collection.Should().AllBeOfType(typeof(Exception), "because they are of different type");
+            Action act = () => collection.Should().AllBeOfType(typeof(Exception), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be System.Exception because they are of different type, but found {System.Exception, System.ArgumentException}.");
+                "Expected type to be System.Exception because*failure message, but found {System.Exception, System.ArgumentException}.");
         }
 
         [Fact]
@@ -117,11 +117,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { new Exception(), new ArgumentException("foo") };
 
             // Act
-            Action act = () => collection.Should().AllBeOfType<Exception>("because they are of different type");
+            Action act = () => collection.Should().AllBeOfType<Exception>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be System.Exception because they are of different type, but found {System.Exception, System.ArgumentException}.");
+                "Expected type to be System.Exception because*failure message, but found {System.Exception, System.ArgumentException}.");
         }
 
         [Fact]
@@ -131,11 +131,11 @@ public partial class CollectionAssertionSpecs
             var collection = new object[] { 1, null, 3 };
 
             // Act
-            Action act = () => collection.Should().AllBeOfType<int>("because they are of different type");
+            Action act = () => collection.Should().AllBeOfType<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found a null element.");
+                "Expected type to be int because*failure message, but found a null element.");
         }
 
         [Fact]
@@ -182,12 +182,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().AllBeOfType<object>("we want to test the failure {0}", "message");
+                collection.Should().AllBeOfType<object>("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be object *failure message*, but found collection is <null>.");
+                .WithMessage("Expected type to be object because*failure message, but found collection is <null>.");
         }
     }
 }

@@ -27,16 +27,14 @@ public partial class CollectionAssertionSpecs
             // Act
             var act = () => collection
                 .Should()
-                .NotContainItemsAssignableTo<int>(
-                    "because we want test that collection does not contain object of {0} type", typeof(int));
+                .NotContainItemsAssignableTo<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage(
                     "Expected collection to not contain any elements assignable to type int " +
-                    "because we want test that collection does not contain object of System.Int32 type, " +
-                    "but found {int, string, string}.");
+                    "because*failure message, but found {int, string, string}.");
         }
 
         [Fact]

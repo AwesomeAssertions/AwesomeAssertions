@@ -26,11 +26,11 @@ public partial class GenericDictionaryAssertionSpecs
             var someDictionary = new Dictionary<int, string>();
 
             // Act
-            Action act = () => someDictionary.Should().BeNull("because {0} is valid", "null");
+            Action act = () => someDictionary.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someDictionary to be <null> because null is valid, but found {empty}.");
+                "Expected someDictionary to be <null> because*failure message, but found {empty}.");
         }
     }
 
@@ -63,11 +63,11 @@ public partial class GenericDictionaryAssertionSpecs
             IDictionary<int, string> someDictionary = null;
 
             // Act
-            Action act = () => someDictionary.Should().NotBeNull("because {0} should not", "someDictionary");
+            Action act = () => someDictionary.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someDictionary not to be <null> because someDictionary should not.");
+                "Expected someDictionary not to be <null> because*failure message.");
         }
     }
 }

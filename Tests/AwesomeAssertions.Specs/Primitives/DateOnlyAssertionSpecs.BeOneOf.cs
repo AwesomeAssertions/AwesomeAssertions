@@ -31,12 +31,12 @@ public partial class DateOnlyAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().BeOneOf(new[] { value.AddDays(1), value.AddDays(2) }, "because it's true");
+                value.Should().BeOneOf(new[] { value.AddDays(1), value.AddDays(2) }, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be one of {<2016-12-21>, <2016-12-22>} because it's true, but found <2016-12-20>.");
+                    "Expected value to be one of {<2016-12-21>, <2016-12-22>} because*failure message, but found <2016-12-20>.");
         }
 
         [Fact]

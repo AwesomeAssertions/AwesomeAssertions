@@ -18,12 +18,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
 
             // Act
             Action act =
-                () => collection.Should()
-                    .BeEquivalentTo(collection1, "because we want to test the behaviour with a null subject");
+                () => collection.Should().BeEquivalentTo(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*not to be <null>*");
+                .WithMessage("Expected collection*not to be <null> because*failure message*");
         }
 
         [Fact]
@@ -126,12 +125,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> expectation = ["one", "two", "three"];
 
             // Act
-            Action act = () => actual.Should().NotBeEquivalentTo(expectation,
-                "because we want to test the behaviour with a null subject");
+            Action act = () => actual.Should().NotBeEquivalentTo(expectation, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected actual not to be equivalent because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected actual not to be equivalent because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -183,12 +181,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection1 = collection;
 
             // Act
-            Action act = () => collection.Should().NotBeEquivalentTo(collection1,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotBeEquivalentTo(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*not to be equivalent*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "*not to be equivalent*because*failure message*but they both reference the same object.");
         }
     }
 }

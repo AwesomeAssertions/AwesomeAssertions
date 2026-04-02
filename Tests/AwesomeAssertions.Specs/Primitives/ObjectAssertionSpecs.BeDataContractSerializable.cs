@@ -32,12 +32,12 @@ public partial class ObjectAssertionSpecs
             var subject = new NonDataContractSerializableClass();
 
             // Act
-            Action act = () => subject.Should().BeDataContractSerializable("we need to store it on {0}", "disk");
+            Action act = () => subject.Should().BeDataContractSerializable("we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage("*we need to store it on disk*EnumMemberAttribute*");
+                .WithMessage("*we want to test the failure message*EnumMemberAttribute*");
         }
 
         [Fact]
