@@ -1,3 +1,4 @@
+using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Primitives;
@@ -29,8 +30,26 @@ internal abstract class StringComparisonBaseStrategy
 
         assertionChain
             .ForCondition(subject is not null && expected is not null)
-            .FailWith($"{ExpectationDescription}{{0}}{{reason}}, but found {{1}}.", expected, subject);
+            .FailWith(() => GetFailureDescription(subject, expected));
 
         return assertionChain.Succeeded;
+    }
+
+    private FailReason GetFailureDescription(string subject, string expected)
+    {
+        if (subject.IsLongOrMultiline() || expected.IsLongOrMultiline())
+        {
+            return new FailReason($$"""
+                {{ExpectationDescription}}
+
+                  {0}
+
+                {reason}, but found
+
+                  {1}.
+                """, expected, subject);
+        }
+
+        return new FailReason($"{ExpectationDescription} {{0}}{{reason}}, but found {{1}}.", expected, subject);
     }
 }
