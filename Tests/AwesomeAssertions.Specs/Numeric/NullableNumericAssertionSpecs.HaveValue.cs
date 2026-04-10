@@ -39,7 +39,7 @@ public partial class NullableNumericAssertionSpecs
             int? nullableInteger = null;
 
             // Act
-            Action act = () => nullableInteger.Should().HaveValue("because we want to test the failure {0}", "message");
+            Action act = () => nullableInteger.Should().HaveValue("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -79,12 +79,12 @@ public partial class NullableNumericAssertionSpecs
             int? nullableInteger = 1;
 
             // Act
-            Action action = () => nullableInteger.Should().NotHaveValue("it was {0} expected", "not");
+            Action action = () => nullableInteger.Should().NotHaveValue("we want to test the {0} message", "failure");
 
             // Assert
             action
                 .Should().Throw<XunitException>()
-                .WithMessage("Did not expect a value because it was not expected, but found 1.");
+                .WithMessage("Did not expect a value because*failure message, but found 1.");
         }
     }
 }

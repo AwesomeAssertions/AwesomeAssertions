@@ -30,13 +30,13 @@ public partial class NumericAssertionSpecs
             float value = 3.1415927F;
 
             // Act
-            Action act = () => value.Should().BeApproximately(3.14F, 0.001F, "rockets will crash otherwise");
+            Action act = () => value.Should().BeApproximately(3.14F, 0.001F, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to approximate *3.14* +/- *0.001* because rockets will crash otherwise, but *3.1415927* differed by *0.001592*");
+                    "Expected value to approximate *3.14* +/- *0.001* because*failure message, but *3.1415927* differed by *0.001592*");
         }
 
         [Fact]
@@ -192,13 +192,13 @@ public partial class NumericAssertionSpecs
             double value = 3.1415927;
 
             // Act
-            Action act = () => value.Should().BeApproximately(3.14, 0.001, "rockets will crash otherwise");
+            Action act = () => value.Should().BeApproximately(3.14, 0.001, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to approximate 3.14 +/- 0.001 because rockets will crash otherwise, but 3.1415927 differed by 0.001592*");
+                    "Expected value to approximate 3.14 +/- 0.001 because*failure message, but 3.1415927 differed by 0.001592*");
         }
 
         [Fact]
@@ -339,11 +339,11 @@ public partial class NumericAssertionSpecs
             decimal value = 3.5011m;
 
             // Act
-            Action act = () => value.Should().BeApproximately(3.5m, 0.001m, "rockets will crash otherwise");
+            Action act = () => value.Should().BeApproximately(3.5m, 0.001m, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected value to approximate*3.5* +/-*0.001* because rockets will crash otherwise, but *3.5011* differed by*0.0011*");
+                "Expected value to approximate*3.5* +/-*0.001* because*failure message, but *3.5011* differed by*0.0011*");
         }
 
         [Fact]
@@ -427,13 +427,13 @@ public partial class NumericAssertionSpecs
             float value = 3.1415927F;
 
             // Act
-            Action act = () => value.Should().NotBeApproximately(3.14F, 0.1F, "rockets will crash otherwise");
+            Action act = () => value.Should().NotBeApproximately(3.14F, 0.1F, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to not approximate *3.14* +/- *0.1* because rockets will crash otherwise, but *3.1415927* only differed by *0.001592*");
+                    "Expected value to not approximate *3.14* +/- *0.1* because*failure message, but *3.1415927* only differed by *0.001592*");
         }
 
         [Fact]
@@ -586,13 +586,13 @@ public partial class NumericAssertionSpecs
             double value = 3.1415927;
 
             // Act
-            Action act = () => value.Should().NotBeApproximately(3.14, 0.1, "rockets will crash otherwise");
+            Action act = () => value.Should().NotBeApproximately(3.14, 0.1, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to not approximate *3.14* +/- *0.1* because rockets will crash otherwise, but *3.1415927* only differed by *0.001592*");
+                    "Expected value to not approximate *3.14* +/- *0.1* because*failure message, but *3.1415927* only differed by *0.001592*");
         }
 
         [Fact]
@@ -745,13 +745,13 @@ public partial class NumericAssertionSpecs
             decimal value = 3.5011m;
 
             // Act
-            Action act = () => value.Should().NotBeApproximately(3.5m, 0.1m, "rockets will crash otherwise");
+            Action act = () => value.Should().NotBeApproximately(3.5m, 0.1m, "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to not approximate *3.5* +/- *0.1* because rockets will crash otherwise, but *3.5011* only differed by *0.0011*");
+                    "Expected value to not approximate *3.5* +/- *0.1* because*failure message, but *3.5011* only differed by *0.0011*");
         }
 
         [Fact]

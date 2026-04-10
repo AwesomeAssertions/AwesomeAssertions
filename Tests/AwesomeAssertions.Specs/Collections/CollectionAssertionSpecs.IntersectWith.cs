@@ -32,11 +32,11 @@ public partial class CollectionAssertionSpecs
             int[] otherCollection = [4, 5];
 
             // Act
-            Action action = () => collection.Should().IntersectWith(otherCollection, "they should share items");
+            Action action = () => collection.Should().IntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to intersect with {4, 5} because they should share items," +
+                .WithMessage("Expected collection to intersect with {4, 5} because*failure message," +
                     " but {1, 2, 3} does not contain any shared items.");
         }
 
@@ -50,12 +50,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().IntersectWith([4, 5], "we want to test the failure {0}", "message");
+                collection.Should().IntersectWith([4, 5], "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to intersect with {4, 5} *failure message*, but found <null>.");
+                .WithMessage("Expected collection to intersect with {4, 5} because*failure message*, but found <null>.");
         }
     }
 
@@ -80,11 +80,11 @@ public partial class CollectionAssertionSpecs
             int[] otherCollection = [2, 3, 4];
 
             // Act
-            Action action = () => collection.Should().NotIntersectWith(otherCollection, "they should not share items");
+            Action action = () => collection.Should().NotIntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to intersect with {2, 3, 4} because they should not share items," +
+                .WithMessage("Did not expect collection to intersect with {2, 3, 4} because*failure message," +
                     " but found the following shared items {2, 3}.");
         }
 
@@ -96,12 +96,11 @@ public partial class CollectionAssertionSpecs
             var otherCollection = collection;
 
             // Act
-            Action act = () => collection.Should().NotIntersectWith(otherCollection,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotIntersectWith(otherCollection, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect*to intersect with*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "Did not expect*to intersect with*because*failure message*but they both reference the same object.");
         }
 
         [Fact]
@@ -114,12 +113,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotIntersectWith([4, 5], "we want to test the failure {0}", "message");
+                collection.Should().NotIntersectWith([4, 5], "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect collection to intersect with {4, 5} *failure message*, but found <null>.");
+                .WithMessage("Did not expect collection to intersect with {4, 5} because*failure message, but found <null>.");
         }
     }
 }

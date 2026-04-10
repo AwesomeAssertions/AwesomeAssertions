@@ -137,7 +137,7 @@ public partial class NullableNumericAssertionSpecs
         public void To_test_the_null_path_for_difference_on_short()
         {
             // Arrange
-            var value = (short?)11;
+            var value = 11;
 
             // Act
             Action act = () => value.Should().BeGreaterThan(11);

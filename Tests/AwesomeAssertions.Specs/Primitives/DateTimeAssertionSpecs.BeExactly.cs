@@ -18,11 +18,11 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action act =
-                () => subject.Should().BeExactly(TimeSpan.FromMinutes(20)).Before(target, "{0} minutes is enough", 20);
+                () => subject.Should().BeExactly(TimeSpan.FromMinutes(20)).Before(target, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject <12:36:00> to be exactly 20m before <12:55:00> because 20 minutes is enough, but it is behind by 19m.");
+                "Expected subject <12:36:00> to be exactly 20m before <12:55:00> because*failure message, but it is behind by 19m.");
         }
 
         [Fact]

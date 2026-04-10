@@ -18,11 +18,11 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action act =
-                () => subject.Should().BeLessThan(TimeSpan.FromSeconds(30)).After(target, "{0}s is the max", 30);
+                () => subject.Should().BeLessThan(TimeSpan.FromSeconds(30)).After(target, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject <12:01:00> to be less than 30s after <12:00:30> because 30s is the max, but it is ahead by 30s.");
+                "Expected subject <12:01:00> to be less than 30s after <12:00:30> because*failure message, but it is ahead by 30s.");
         }
 
         [Fact]

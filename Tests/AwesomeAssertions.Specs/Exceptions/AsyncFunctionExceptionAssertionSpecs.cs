@@ -37,12 +37,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         Func<Task> testAction = async () =>
         {
             using var _ = new AssertionScope();
-            await action.Should().ThrowAsync<ArgumentException>("because we want to test the failure {0}", "message");
+            await action.Should().ThrowAsync<ArgumentException>("we want to test the {0} message", "failure");
         };
 
         // Assert
         await testAction.Should().ThrowAsync<XunitException>()
-            .WithMessage("*because we want to test the failure message*found <null>*")
+            .WithMessage("*because*failure message, but found <null>*")
             .Where(e => !e.Message.Contains("NullReferenceException"));
     }
 
@@ -56,12 +56,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         Func<Task> testAction = async () =>
         {
             using var _ = new AssertionScope();
-            await action.Should().NotThrowAsync<ArgumentException>("because we want to test the failure {0}", "message");
+            await action.Should().NotThrowAsync<ArgumentException>("we want to test the {0} message", "failure");
         };
 
         // Assert
         await testAction.Should().ThrowAsync<XunitException>()
-            .WithMessage("*because we want to test the failure message*found <null>*")
+            .WithMessage("*because*failure message, but found <null>*")
             .Where(e => !e.Message.Contains("NullReferenceException"));
     }
 
@@ -75,12 +75,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         Func<Task> testAction = async () =>
         {
             using var _ = new AssertionScope();
-            await action.Should().NotThrowAsync("because we want to test the failure {0}", "message");
+            await action.Should().NotThrowAsync("we want to test the {0} message", "failure");
         };
 
         // Assert
         await testAction.Should().ThrowAsync<XunitException>()
-            .WithMessage("*because we want to test the failure message*found <null>*")
+            .WithMessage("*because*failure message, but found <null>*")
             .Where(e => !e.Message.Contains("NullReferenceException"));
     }
 
@@ -280,12 +280,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAsync<ArgumentNullException>())
-            .Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowExactlyAsync<ArgumentException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected type to be System.ArgumentException because IFoo.Do should do that, but found System.ArgumentNullException.");
+                "Expected type to be System.ArgumentException because*failure message, but found System.ArgumentNullException.");
     }
 
     [Fact]
@@ -297,12 +297,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAsyncValueTask<ArgumentNullException>())
-            .Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowExactlyAsync<ArgumentException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected type to be System.ArgumentException because IFoo.Do should do that, but found System.ArgumentNullException.");
+                "Expected type to be System.ArgumentException because*failure message, but found System.ArgumentNullException.");
     }
 
     [Fact]
@@ -314,12 +314,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAggregateExceptionAsync<ArgumentException>())
-            .Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowExactlyAsync<ArgumentException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected type to be System.ArgumentException because IFoo.Do should do that, but found System.AggregateException.");
+                "Expected type to be System.ArgumentException because*failure message, but found System.AggregateException.");
     }
 
     [Fact]
@@ -331,12 +331,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAggregateExceptionAsyncValueTask<ArgumentException>())
-            .Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowExactlyAsync<ArgumentException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected type to be System.ArgumentException because IFoo.Do should do that, but found System.AggregateException.");
+                "Expected type to be System.ArgumentException because*failure message, but found System.AggregateException.");
     }
 
     [Fact]
@@ -429,12 +429,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.SucceedAsync())
-            .Should().ThrowAsync<InvalidOperationException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected a <System.InvalidOperationException> to be thrown because IFoo.Do should do that, but no exception was thrown.");
+                "Expected a <System.InvalidOperationException> to be thrown because*failure message, but no exception was thrown.");
     }
 
     [Fact]
@@ -446,12 +446,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.SucceedAsyncValueTask())
-            .Should().ThrowAsync<InvalidOperationException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected a <System.InvalidOperationException> to be thrown because IFoo.Do should do that, but no exception was thrown.");
+                "Expected a <System.InvalidOperationException> to be thrown because*failure message, but no exception was thrown.");
     }
 
     [Fact]
@@ -463,12 +463,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAsync<ArgumentException>())
-            .Should().ThrowAsync<InvalidOperationException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected a <System.InvalidOperationException> to be thrown because IFoo.Do should do that, but found <System.ArgumentException>*");
+                "Expected a <System.InvalidOperationException> to be thrown because*failure message, but found <System.ArgumentException>*");
     }
 
     [Fact]
@@ -480,12 +480,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject
             .Awaiting(x => x.ThrowAsyncValueTask<ArgumentException>())
-            .Should().ThrowAsync<InvalidOperationException>("because {0} should do that", "IFoo.Do");
+            .Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
             .WithMessage(
-                "Expected a <System.InvalidOperationException> to be thrown because IFoo.Do should do that, but found <System.ArgumentException>*");
+                "Expected a <System.InvalidOperationException> to be thrown because*failure message, but found <System.ArgumentException>*");
     }
 
     [Fact]
@@ -556,6 +556,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject.ThrowAsync<ArgumentNullException>();
 
+        // TODO The because arguments are not relevant here!?
         // Assert
         await action.Should().ThrowAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
     }
@@ -592,12 +593,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         Func<Task> testAction = async () =>
         {
             using var _ = new AssertionScope();
-            await action.Should().ThrowExactlyAsync<ArgumentException>("because we want to test the failure {0}", "message");
+            await action.Should().ThrowExactlyAsync<ArgumentException>("we want to test the {0} message", "failure");
         };
 
         // Assert
         await testAction.Should().ThrowAsync<XunitException>()
-            .WithMessage("*because we want to test the failure message*found <null>*")
+            .WithMessage("*because*failure message, but found <null>*")
             .Where(e => !e.Message.Contains("NullReferenceException"));
     }
 
@@ -640,6 +641,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => asyncObject.ThrowAsync<ArgumentException>();
 
+        // TODO The because arguments are not relevant here!?
         // Assert
         await action.Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
     }
@@ -655,6 +657,7 @@ public class AsyncFunctionExceptionAssertionSpecs
             // Act
             Func<Task> action = () => asyncObject.ThrowAsync<ArgumentException>();
 
+            // TODO The because arguments are not relevant here!?
             // Assert
             await action.Should().ThrowExactlyAsync<ArgumentException>("because {0} should do that", "IFoo.Do");
         }
@@ -1106,11 +1109,11 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> act = () =>
             task.Should().ThrowAsync<ArgumentException>()
-                .WithParameterName("someParameter", "we want to test the failure {0}", "message");
+                .WithParameterName("someParameter", "we want to test the {0} message", "failure");
 
         // Assert
         await act.Should().ThrowAsync<XunitException>()
-            .WithMessage("*with parameter name \"someParameter\"*we want to test the failure message*\"someOtherParameter\"*");
+            .WithMessage("*with parameter name \"someParameter\" because*failure message*\"someOtherParameter\"*");
     }
 
     #region NotThrowAfterAsync
@@ -1163,14 +1166,12 @@ public class AsyncFunctionExceptionAssertionSpecs
         Func<Task> testAction = async () =>
         {
             using var _ = new AssertionScope();
-
-            await action.Should().NotThrowAfterAsync(waitTime, pollInterval,
-                "because we want to test the failure {0}", "message");
+            await action.Should().NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
         };
 
         // Assert
         await testAction.Should().ThrowAsync<XunitException>()
-            .WithMessage("*because we want to test the failure message*found <null>*")
+            .WithMessage("*because*failure message, but found <null>*")
             .Where(e => !e.Message.Contains("NullReferenceException"));
     }
 
@@ -1223,11 +1224,11 @@ public class AsyncFunctionExceptionAssertionSpecs
 
         // Act
         Func<Task> action = () => func.Should()
-            .NotThrowAfterAsync(waitTime, pollInterval, "we passed valid arguments");
+            .NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
-            .WithMessage("*but found <null>*");
+            .WithMessage("*because*failure message, but found <null>*");
     }
 
     [Fact]
@@ -1253,11 +1254,11 @@ public class AsyncFunctionExceptionAssertionSpecs
 
         // Act
         Func<Task> action = () => throwLongerThanWaitTime.Should(clock)
-            .NotThrowAfterAsync(waitTime, pollInterval, "we passed valid arguments");
+            .NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
         // Assert
         await action.Should().ThrowAsync<XunitException>()
-            .WithMessage("Did not expect any exceptions after 2s because we passed valid arguments*");
+            .WithMessage("Did not expect any exceptions after 2s because*failure message*");
     }
 
     public partial class UIFacts
@@ -1286,11 +1287,11 @@ public class AsyncFunctionExceptionAssertionSpecs
 
             // Act
             Func<Task> action = () => throwLongerThanWaitTime.Should(clock)
-                .NotThrowAfterAsync(waitTime, pollInterval, "we passed valid arguments");
+                .NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect any exceptions after 2s because we passed valid arguments*");
+                .WithMessage("Did not expect any exceptions after 2s because*failure message*");
         }
     }
 

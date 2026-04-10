@@ -32,12 +32,12 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().BeOneOf(new[] { value + 1.Days(), value + 1.Milliseconds() }, "because it's true");
+                value.Should().BeOneOf(new[] { value + 1.Days(), value + 1.Milliseconds() }, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be one of {<2016-12-31 23:58:57>, <2016-12-30 23:58:57.001>} because it's true, but found <2016-12-30 23:58:57>.");
+                    "Expected value to be one of {<2016-12-31 23:58:57>, <2016-12-30 23:58:57.001>} because*failure message, but found <2016-12-30 23:58:57>.");
         }
 
         [Fact]

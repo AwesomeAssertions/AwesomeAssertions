@@ -16,12 +16,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should().HaveElementAt(1, "one",
-                "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().HaveElementAt(1, "one", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to have element at index 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to have element at index 1 because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -31,11 +30,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().HaveElementAt(4, "three", "we put it {0}", "there");
+            Action act = () => collection.Should().HaveElementAt(4, "three", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected \"three\" at index 4 because we put it there, but found no element.");
+                "Expected \"three\" at index 4 because*failure message, but found no element.");
         }
 
         [Fact]
@@ -45,11 +44,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().HaveElementAt(1, "three", "we put it {0}", "there");
+            Action act = () => collection.Should().HaveElementAt(1, "three", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected \"three\" at index 1 because we put it there, but found \"two\".");
+                "Expected \"three\" at index 1 because*failure message, but found \"two\".");
         }
 
         [Fact]

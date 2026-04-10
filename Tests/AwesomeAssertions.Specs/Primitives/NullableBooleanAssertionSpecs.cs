@@ -60,7 +60,7 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = null;
 
         // Act
-        Action act = () => nullableBoolean.Should().HaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableBoolean.Should().HaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -74,7 +74,7 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = null;
 
         // Act
-        Action act = () => nullableBoolean.Should().NotBeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableBoolean.Should().NotBeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -135,7 +135,7 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = true;
 
         // Act
-        Action act = () => nullableBoolean.Should().NotHaveValue("because we want to test the failure {0}", "message");
+        Action act = () => nullableBoolean.Should().NotHaveValue("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -149,7 +149,7 @@ public class NullableBooleanAssertionSpecs
         bool? nullableBoolean = true;
 
         // Act
-        Action act = () => nullableBoolean.Should().BeNull("because we want to test the failure {0}", "message");
+        Action act = () => nullableBoolean.Should().BeNull("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -164,7 +164,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            nullableBoolean.Should().BeFalse("we want to test the failure {0}", "message");
+            nullableBoolean.Should().BeFalse("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -179,7 +179,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            nullableBoolean.Should().BeTrue("we want to test the failure {0}", "message");
+            nullableBoolean.Should().BeTrue("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -195,7 +195,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            nullableBoolean.Should().Be(differentNullableBoolean, "we want to test the failure {0}", "message");
+            nullableBoolean.Should().Be(differentNullableBoolean, "we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -211,7 +211,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            nullableBoolean.Should().NotBe(differentNullableBoolean, "we want to test the failure {0}", "message");
+            nullableBoolean.Should().NotBe(differentNullableBoolean, "we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -269,7 +269,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            falseBoolean.Should().NotBeFalse("we want to test the failure message");
+            falseBoolean.Should().NotBeFalse("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()
@@ -304,7 +304,7 @@ public class NullableBooleanAssertionSpecs
 
         // Act
         Action action = () =>
-            falseBoolean.Should().NotBeTrue("we want to test the failure message");
+            falseBoolean.Should().NotBeTrue("we want to test the {0} message", "failure");
 
         // Assert
         action.Should().Throw<XunitException>()

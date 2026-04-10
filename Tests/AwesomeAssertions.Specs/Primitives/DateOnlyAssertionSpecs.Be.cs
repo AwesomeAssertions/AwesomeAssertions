@@ -61,7 +61,7 @@ public partial class DateOnlyAssertionSpecs
             var otherDateOnly = new DateOnly(2012, 03, 11);
 
             // Act
-            Action act = () => dateOnly.Should().Be(otherDateOnly, "because we want to test the failure {0}", "message");
+            Action act = () => dateOnly.Should().Be(otherDateOnly, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -113,8 +113,7 @@ public partial class DateOnlyAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableDateOnly.Should().Be(new DateOnly(2016, 06, 04), "because we want to test the failure {0}",
-                    "message");
+                nullableDateOnly.Should().Be(new DateOnly(2016, 06, 04), "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -167,7 +166,7 @@ public partial class DateOnlyAssertionSpecs
 
             // Act
             Action act =
-                () => date.Should().NotBe(sameDate, "because we want to test the failure {0}", "message");
+                () => date.Should().NotBe(sameDate, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -184,7 +183,7 @@ public partial class DateOnlyAssertionSpecs
 
             // Act
             Action act =
-                () => date.Should().NotBe(sameDate, "because we want to test the failure {0}", "message");
+                () => date.Should().NotBe(sameDate, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

@@ -17,11 +17,11 @@ public partial class DateTimeAssertionSpecs
             DateTime subject = target - 1.Days();
 
             // Act
-            Action act = () => subject.Should().BeMoreThan(TimeSpan.FromDays(1)).Before(target, "we like {0}", "that");
+            Action act = () => subject.Should().BeMoreThan(TimeSpan.FromDays(1)).Before(target, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject <2009-10-01> to be more than 1d before <2009-10-02> because we like that, but it is behind by 1d.");
+                "Expected subject <2009-10-01> to be more than 1d before <2009-10-02> because*failure message, but it is behind by 1d.");
         }
 
         [Fact]

@@ -15,7 +15,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -32,7 +32,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -48,7 +48,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -65,7 +65,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -82,7 +82,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(nullableValue, "because we want to test the failure {0}", "message");
+                value.Should().Be(nullableValue, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -100,7 +100,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -118,7 +118,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -134,7 +134,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -150,7 +150,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -166,7 +166,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -183,7 +183,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -199,7 +199,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -216,7 +216,7 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -234,7 +234,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -251,7 +251,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -269,7 +269,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -286,7 +286,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -304,7 +304,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -321,7 +321,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -339,7 +339,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -357,7 +357,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -375,7 +375,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -393,7 +393,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -411,7 +411,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -429,7 +429,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -447,7 +447,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -465,7 +465,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -483,7 +483,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().Be(expected, "because we want to test the failure {0}", "message");
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -504,7 +504,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -521,7 +521,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -538,7 +538,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -559,7 +559,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -577,7 +577,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeLessThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeLessThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -598,7 +598,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -615,7 +615,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -632,7 +632,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -650,7 +650,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -667,7 +667,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -684,7 +684,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -702,7 +702,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -720,7 +720,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -737,7 +737,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -758,7 +758,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -776,7 +776,7 @@ public class NumericDifferenceAssertionsSpecs
 
             // Act
             Action act = () =>
-                value.Should().BeGreaterThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+                value.Should().BeGreaterThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
             act

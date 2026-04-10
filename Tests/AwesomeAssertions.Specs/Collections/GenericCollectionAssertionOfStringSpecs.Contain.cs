@@ -16,11 +16,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().Contain(["three", "four", "five"], "because {0}", "we do");
+            Action act = () => collection.Should().Contain(["three", "four", "five"], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to contain {\"three\", \"four\", \"five\"} because we do, but could not find {\"four\", \"five\"}.");
+                "Expected collection {\"one\", \"two\", \"three\"} to contain {\"three\", \"four\", \"five\"} because*failure message, but could not find {\"four\", \"five\"}.");
         }
 
         [Fact]
@@ -30,11 +30,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().Contain("four", "because {0}", "we do");
+            Action act = () => collection.Should().Contain("four", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to contain \"four\" because we do.");
+                "Expected collection {\"one\", \"two\", \"three\"} to contain \"four\" because*failure message.");
         }
 
         [Fact]
@@ -46,7 +46,7 @@ public partial class GenericCollectionAssertionOfStringSpecs
             var actual = new List<string> { "hello", "world" };
 
             // Act / Assert
-            actual.Should().Contain(expected, "they are in the collection");
+            actual.Should().Contain(expected);
         }
 
         [Fact]
@@ -109,12 +109,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = null;
 
             // Act
-            Action act = () => collection.Should()
-                .NotContain("one", "because we want to test the behaviour with a null subject");
+            Action act = () => collection.Should().NotContain("one", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to not contain \"one\" because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to not contain \"one\" because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -124,11 +123,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().NotContain("one", "because we {0} like it, but found it anyhow", "don't");
+            Action act = () => collection.Should().NotContain("one", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to not contain \"one\" because we don't like it, but found it anyhow.");
+                "Expected collection {\"one\", \"two\", \"three\"} to not contain \"one\" because*failure message.");
         }
 
         [Fact]
@@ -138,11 +137,11 @@ public partial class GenericCollectionAssertionOfStringSpecs
             IEnumerable<string> collection = ["one", "two", "three"];
 
             // Act
-            Action act = () => collection.Should().NotContain(item => item == "two", "because {0}s are evil", "two");
+            Action act = () => collection.Should().NotContain(item => item == "two", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {\"one\", \"two\", \"three\"} to not have any items matching (item == \"two\") because twos are evil,*{\"two\"}*");
+                "Expected collection {\"one\", \"two\", \"three\"} to not have any items matching (item == \"two\") because*failure message,*{\"two\"}*");
         }
 
         [Fact]
