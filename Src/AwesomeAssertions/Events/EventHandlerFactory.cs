@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Reflection.Emit;
 
@@ -13,6 +14,7 @@ internal static class EventHandlerFactory
     /// Generates an eventhandler for an event of type eventSignature that calls RegisterEvent on recorder
     /// when invoked.
     /// </summary>
+    [RequiresDynamicCode("Event handler generation uses DynamicMethod and IL emit.")]
     public static Delegate GenerateHandler(Type eventSignature, EventRecorder recorder)
     {
         Type returnType = GetDelegateReturnType(eventSignature);
@@ -75,6 +77,91 @@ internal static class EventHandlerFactory
         return eventHandler.CreateDelegate(eventSignature, recorder);
     }
 
+    public static bool TryGenerateSafeHandler(Type eventSignature, EventRecorder recorder, EventMonitorOptions options, out Delegate handler,
+        out string reason)
+    {
+        MethodInfo eventHandlerMethod = typeof(EventRecorder).GetMethod(nameof(EventRecorder.RecordEventHandlerEvent),
+            BindingFlags.Instance | BindingFlags.Public);
+
+        if (eventSignature == typeof(EventHandler))
+        {
+            handler = Delegate.CreateDelegate(eventSignature, recorder, eventHandlerMethod);
+            reason = null;
+            return true;
+        }
+
+        if (eventSignature.IsGenericType && eventSignature.GetGenericTypeDefinition() == typeof(EventHandler<>))
+        {
+            MethodInfo genericEventHandlerMethod = typeof(EventRecorder)
+                .GetMethod(nameof(EventRecorder.RecordGenericEventHandlerEvent), BindingFlags.Instance | BindingFlags.Public);
+
+            handler = Delegate.CreateDelegate(eventSignature, recorder, genericEventHandlerMethod, false);
+
+            if (handler is not null)
+            {
+                reason = null;
+                return true;
+            }
+        }
+
+        if (options.TryCreateSafeEventHandler(eventSignature, recorder, out handler, out reason))
+        {
+            return true;
+        }
+
+        reason ??= $"Event '{eventSignature.Name}' uses a custom delegate type. " +
+            "Register a safe adapter using EventMonitorOptions.UsingSafeEventHandlerAdapter<TDelegate>(...).";
+        return false;
+    }
+
+    /// <summary>
+    /// Returns an array of types appended with an EventRecorder reference at the beginning.
+    /// </summary>
+    private static Type[] AppendParameterListThisReference(Type[] parameters)
+    {
+        var newList = new Type[parameters.Length + 1];
+        newList[0] = typeof(EventRecorder);
+
+        for (var index = 0; index < parameters.Length; index++)
+        {
+            newList[index + 1] = parameters[index];
+        }
+
+        return newList;
+    }
+
+    /// <summary>
+    /// Returns T/F Dependent on a Type Being a Delegate.
+    /// </summary>
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "Delegate signature probing is a best-effort reflective helper.")]
+    private static bool TypeIsDelegate(Type d)
+    {
+        if (d.BaseType != typeof(MulticastDelegate))
+        {
+            return false;
+        }
+
+        MethodInfo invoke = d.GetMethod("Invoke");
+        return invoke is not null;
+    }
+
+    /// <summary>
+    /// Returns the MethodInfo for the Delegate's "Invoke" Method.
+    /// </summary>
+    [UnconditionalSuppressMessage("Trimming", "IL2070",
+        Justification = "Delegate signature probing is a best-effort reflective helper.")]
+    private static MethodInfo DelegateInvokeMethod(Type d)
+    {
+        if (!TypeIsDelegate(d))
+        {
+            throw new ArgumentException("Type is not a Delegate!", nameof(d));
+        }
+
+        MethodInfo invoke = d.GetMethod("Invoke");
+        return invoke;
+    }
+
     /// <summary>
     /// Finds the Return Type of a Delegate.
     /// </summary>
@@ -100,49 +187,5 @@ internal static class EventHandlerFactory
         }
 
         return parameters;
-    }
-
-    /// <summary>
-    /// Returns an array of types appended with an EventRecorder reference at the beginning.
-    /// </summary>
-    private static Type[] AppendParameterListThisReference(Type[] parameters)
-    {
-        var newList = new Type[parameters.Length + 1];
-        newList[0] = typeof(EventRecorder);
-
-        for (var index = 0; index < parameters.Length; index++)
-        {
-            newList[index + 1] = parameters[index];
-        }
-
-        return newList;
-    }
-
-    /// <summary>
-    /// Returns T/F Dependent on a Type Being a Delegate.
-    /// </summary>
-    private static bool TypeIsDelegate(Type d)
-    {
-        if (d.BaseType != typeof(MulticastDelegate))
-        {
-            return false;
-        }
-
-        MethodInfo invoke = d.GetMethod("Invoke");
-        return invoke is not null;
-    }
-
-    /// <summary>
-    /// Returns the MethodInfo for the Delegate's "Invoke" Method.
-    /// </summary>
-    private static MethodInfo DelegateInvokeMethod(Type d)
-    {
-        if (!TypeIsDelegate(d))
-        {
-            throw new ArgumentException("Type is not a Delegate!", nameof(d));
-        }
-
-        MethodInfo invoke = d.GetMethod("Invoke");
-        return invoke;
     }
 }
