@@ -18,5 +18,8 @@
     <PackageReference Include="Nuke.Components" Version="$(NukeVersion)" />
     <PackageReference Include="SharpCompress" Version="0.38.0" />
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="18.3.3" />
+    <!-- adding the following two explicit references to fix known vulnerabilities -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.15" />
+    <PackageReference Include="Nuget.Packaging" Version="7.3.1" />
   </ItemGroup>
 </Project>
