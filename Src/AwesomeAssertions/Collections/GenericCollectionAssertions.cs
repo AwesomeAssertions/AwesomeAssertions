@@ -1904,7 +1904,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="otherCollection"/> is <see langword="null"/>.</exception>
     [return: NotNull]
-    public AndConstraint<TAssertions> IntersectWith(
+    public AndWhichConstraint<TAssertions, IEnumerable<T>> IntersectWith(
         IEnumerable<T> otherCollection,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
@@ -1916,9 +1916,11 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
             .ForCondition(Subject is not null)
             .FailWith("Expected {context:collection} to intersect with {0}{reason}, but found <null>.", otherCollection);
 
+        IEnumerable<T> sharedItems = [];
+
         if (assertionChain.Succeeded)
         {
-            IEnumerable<T> sharedItems = Subject!.Intersect(otherCollection);
+            sharedItems = Subject!.Intersect(otherCollection);
 
             assertionChain
                 .BecauseOf(because, becauseArgs)
@@ -1928,7 +1930,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                     otherCollection, Subject);
         }
 
-        return new AndConstraint<TAssertions>((TAssertions)this);
+        return new AndWhichConstraint<TAssertions, IEnumerable<T>>((TAssertions)this, sharedItems);
     }
 
     /// <summary>
