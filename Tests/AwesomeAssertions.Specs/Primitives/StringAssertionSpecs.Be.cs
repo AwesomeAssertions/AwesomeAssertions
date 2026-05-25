@@ -1,4 +1,5 @@
 using System;
+using AwesomeAssertions.Common;
 using Xunit;
 using Xunit.Sdk;
 
@@ -365,39 +366,38 @@ public partial class StringAssertionSpecs
         [Fact]
         public void Mismatches_in_multiline_text_includes_the_line_number()
         {
-            var expectedIndex = 100 + (4 * Environment.NewLine.Length);
-
             var subject = """
-            @startuml
-            Alice -> Bob : Authentication Request
-            Bob --> Alice : Authentication Response
+                @startuml
+                Alice -> Bob : Authentication Request
+                Bob --> Alice : Authentication Response
 
-            Alice -> Bob : Another authentication Request
-            Alice <-- Bob : Another authentication Response
-            @enduml
-            """;
+                Alice -> Bob : Another authentication Request
+                Alice <-- Bob : Another authentication Response
+                @enduml
+                """.RemoveNewlineStyle();
 
             var expected = """
-            @startuml
-            Alice -> Bob : Authentication Request
-            Bob --> Alice : Authentication Response
+                @startuml
+                Alice -> Bob : Authentication Request
+                Bob --> Alice : Authentication Response
 
-            Alice -> Bob : Invalid authentication Request
-            Alice <-- Bob : Another authentication Response
-            @enduml
-            """;
+                Alice -> Bob : Invalid authentication Request
+                Alice <-- Bob : Another authentication Response
+                @enduml
+                """.RemoveNewlineStyle();
 
             // Act
             Action act = () => subject.Should().Be(expected);
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage($"""
-                Expected subject to be the same string, but they differ on line 5 and column 16 (index {expectedIndex}):
-                             ↓ (actual)
-                  "…-> Bob : Another authentication Request*\nAlice <-- Bob :…"
-                  "…-> Bob : Invalid authentication Request*\nAlice <-- Bob :…"
-                             ↑ (expected).
-                """);
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("""
+                    Expected subject to be the same string, but they differ on line 5 and column 16 (index 104):
+                                 ↓ (actual)
+                      "…-> Bob : Another authentication Request\nAlice <-- Bob :…"
+                      "…-> Bob : Invalid authentication Request\nAlice <-- Bob :…"
+                                 ↑ (expected).
+                    """);
         }
 
         [Fact]

@@ -139,7 +139,7 @@ internal static class StringExtensions
     public static bool IsLongOrMultiline(this string value)
     {
         const int humanReadableLength = 8;
-        return value.Length > humanReadableLength || value.Contains(Environment.NewLine, StringComparison.Ordinal);
+        return value is not null && (value.Length > humanReadableLength || value.Contains(Environment.NewLine, StringComparison.Ordinal));
     }
 
     public static bool IsNullOrEmpty([NotNullWhen(false)] this string value)

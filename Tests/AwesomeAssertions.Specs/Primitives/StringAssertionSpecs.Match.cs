@@ -22,8 +22,17 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected subject to match*\"h*earth!\" because failure message, but*\"hello world!\" does not.");
+                .Which.Message.Should().Be("""
+                    Expected subject to match
+
+                      "h*earth!",
+
+                    because failure message, but
+
+                      "hello world!"
+
+                    does not.
+                    """);
         }
 
         [Fact]
@@ -47,7 +56,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to match*\"What\\? Are you deaf\\?\", but*\"What! Are you deaf!\" does not.");
+                .WithMessage("Expected subject to match*\"What\\? Are you deaf\\?\",*but*\"What! Are you deaf!\"*does not.");
         }
 
         [Fact]
@@ -61,7 +70,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected subject to match*\"*World*\", but*\"hello world\" does not.");
+                .WithMessage("Expected subject to match*\"*World*\",*but*\"hello world\"*does not.");
         }
 
         [Fact]
@@ -132,9 +141,18 @@ public partial class StringAssertionSpecs
             Action act = () => subject.Should().NotMatch("*world*", "because that's illegal");
 
             // Assert
-            act
-                .Should().Throw<XunitException>().WithMessage(
-                    "Did not expect subject to match*\"*world*\" because that's illegal, but*\"hello world\" matches.");
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("""
+                    Did not expect subject to match
+
+                      "*world*",
+
+                    because that's illegal, but
+
+                      "hello world"
+
+                    matches.
+                    """);
         }
 
         [Fact]
