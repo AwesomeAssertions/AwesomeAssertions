@@ -10,6 +10,7 @@ sidebar:
 
 ### What's new
 * Add `[Not]BeDecoratedWith` for `ParameterInfo`- [#449](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/449)
+* Return `AndWhichConstraint` from `IntersectWith` [#495](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/495)
 
 ## 9.4.0
 
