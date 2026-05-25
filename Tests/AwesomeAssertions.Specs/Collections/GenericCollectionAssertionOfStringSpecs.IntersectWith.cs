@@ -35,6 +35,18 @@ public partial class GenericCollectionAssertionOfStringSpecs
                 .WithMessage("Expected collection to intersect with {\"four\", \"five\"} because they should share items," +
                     " but {\"one\", \"two\", \"three\"} does not contain any shared items.");
         }
+
+        [Fact]
+        public void When_asserting_the_items_in_two_intersecting_collections_intersect_it_return_the_shared_items()
+        {
+            // Arrange
+            IEnumerable<string> collection = ["one", "two", "three"];
+            IEnumerable<string> otherCollection = ["three", "four", "five"];
+
+            // Act / Assert
+            collection.Should().IntersectWith(otherCollection)
+                .Which.Should().Equal("three");
+        }
     }
 
     public class NotIntersectWith
