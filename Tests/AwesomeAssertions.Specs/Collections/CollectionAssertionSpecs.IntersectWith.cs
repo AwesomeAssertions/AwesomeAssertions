@@ -57,6 +57,18 @@ public partial class CollectionAssertionSpecs
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected collection to intersect with {4, 5} *failure message*, but found <null>.");
         }
+
+        [Fact]
+        public void When_asserting_the_items_in_two_intersecting_collections_intersect_it_return_the_shared_items()
+        {
+            // Arrange
+            int[] collection = [1, 2, 3, 4, 5];
+            int[] otherCollection = [4, 5, 6, 7];
+
+            // Act / Assert
+            collection.Should().IntersectWith(otherCollection)
+                .Which.Should().Equal(4, 5);
+        }
     }
 
     public class NotIntersectWith

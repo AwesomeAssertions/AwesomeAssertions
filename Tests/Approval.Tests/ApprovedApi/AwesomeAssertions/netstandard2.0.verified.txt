@@ -603,7 +603,7 @@ namespace AwesomeAssertions.Collections
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> HaveSameCount<TExpectation>(System.Collections.Generic.IEnumerable<TExpectation> otherCollection, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<TAssertions> IntersectWith(System.Collections.Generic.IEnumerable<T> otherCollection, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<TAssertions, System.Collections.Generic.IEnumerable<T>> IntersectWith(System.Collections.Generic.IEnumerable<T> otherCollection, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeEmpty(string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
