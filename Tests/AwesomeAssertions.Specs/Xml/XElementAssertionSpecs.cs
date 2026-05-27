@@ -1028,6 +1028,31 @@ public class XElementAssertionSpecs
         }
     }
 
+    public class HaveAttributeWhich
+    {
+        [Fact]
+        public void When_asserting_element_has_attribute_which_has_value_it_should_succeed()
+        {
+            // Arrange
+            var element = XElement.Parse(@"<user name=""martin"" />");
+
+            // Act / Assert
+            element.Should().HaveAttribute("name")
+                .Which.Value.Should().Contain("art");
+        }
+
+        [Fact]
+        public void When_asserting_element_has_attribute_with_ns_which_has_value_it_should_succeed()
+        {
+            // Arrange
+            var element = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
+
+            // Act / Assert
+            element.Should().HaveAttribute(XName.Get("name", "http://www.example.com/2012/test"))
+                .Which.Value.Should().Contain("art");
+        }
+    }
+
     public class HaveAttributeWithValue
     {
         [Fact]
