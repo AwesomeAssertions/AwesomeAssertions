@@ -180,7 +180,7 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
     /// <exception cref="ArgumentException"><paramref name="expectedName"/> is empty.</exception>
     [return: NotNull]
-    public AndConstraint<XElementAssertions> HaveAttribute(string expectedName,
+    public AndWhichConstraint<XElementAssertions, XAttribute> HaveAttribute(string expectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNullOrEmpty(expectedName);
@@ -201,12 +201,14 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
     /// </param>
     /// <exception cref="ArgumentNullException"><paramref name="expectedName"/> is <see langword="null"/>.</exception>
     [return: NotNull]
-    public AndConstraint<XElementAssertions> HaveAttribute(XName expectedName,
+    public AndWhichConstraint<XElementAssertions, XAttribute> HaveAttribute(XName expectedName,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNull(expectedName);
 
         string expectedText = expectedName.ToString();
+
+        XAttribute selectedAttribute = null;
 
         assertionChain
             .WithExpectation("Expected attribute {0} in element to exist {reason}, ", expectedText,
@@ -219,11 +221,16 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
             .WithExpectation("Expected {context:subject} to have attribute {0}{reason}, ", expectedText,
                 chain => chain
                     .BecauseOf(because, becauseArgs)
-                    .Given(() => Subject!.Attribute(expectedName))
+                    .Given(() =>
+                    {
+                        selectedAttribute = Subject!.Attribute(expectedName);
+
+                        return selectedAttribute;
+                    })
                     .ForCondition(attribute => attribute is not null)
                     .FailWith("but found no such attribute in {0}.", Subject));
 
-        return new AndConstraint<XElementAssertions>(this);
+        return new AndWhichConstraint<XElementAssertions, XAttribute>(this, selectedAttribute);
     }
 
     /// <summary>
