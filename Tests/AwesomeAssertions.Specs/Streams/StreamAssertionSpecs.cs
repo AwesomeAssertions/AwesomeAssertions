@@ -27,12 +27,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Writable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().BeWritable("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeWritable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be writable *failure message*, but it was not.");
+                .WithMessage("Expected stream to be writable because*failure message*, but it was not.");
         }
 
         [Fact]
@@ -45,12 +44,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().BeWritable("we want to test the failure {0}", "message");
+                stream.Should().BeWritable("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be writable *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream to be writable because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -74,11 +73,11 @@ public class StreamAssertionSpecs
 
             // Act
             Action act = () =>
-                stream.Should().NotBeWritable("we want to test the failure {0}", "message");
+                stream.Should().NotBeWritable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be writable *failure message*, but it was.");
+                .WithMessage("Expected stream not to be writable because*failure message*, but it was.");
         }
 
         [Fact]
@@ -91,12 +90,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotBeWritable("we want to test the failure {0}", "message");
+                stream.Should().NotBeWritable("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be writable *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream not to be writable because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -119,12 +118,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Seekable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().BeSeekable("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeSeekable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be seekable *failure message*, but it was not.");
+                .WithMessage("Expected stream to be seekable because*failure message*, but it was not.");
         }
 
         [Fact]
@@ -137,12 +135,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().BeSeekable("we want to test the failure {0}", "message");
+                stream.Should().BeSeekable("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be seekable *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream to be seekable because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -165,12 +163,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Seekable = true };
 
             // Act
-            Action act = () =>
-                stream.Should().NotBeSeekable("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotBeSeekable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be seekable *failure message*, but it was.");
+                .WithMessage("Expected stream not to be seekable because*failure message*, but it was.");
         }
 
         [Fact]
@@ -183,12 +180,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotBeSeekable("we want to test the failure {0}", "message");
+                stream.Should().NotBeSeekable("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be seekable *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream not to be seekable because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -211,12 +208,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().BeReadable("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeReadable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be readable *failure message*, but it was not.");
+                .WithMessage("Expected stream to be readable because*failure message*, but it was not.");
         }
 
         [Fact]
@@ -257,12 +253,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = true };
 
             // Act
-            Action act = () =>
-                stream.Should().NotBeReadable("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotBeReadable("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be readable *failure message*, but it was.");
+                .WithMessage("Expected stream not to be readable because*failure message*, but it was.");
         }
 
         [Fact]
@@ -275,12 +270,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotBeReadable("we want to test the failure {0}", "message");
+                stream.Should().NotBeReadable("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be readable *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream not to be readable because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -304,11 +299,11 @@ public class StreamAssertionSpecs
 
             // Act
             Action act = () =>
-                stream.Should().HavePosition(10, "we want to test the failure {0}", "message");
+                stream.Should().HavePosition(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream to be 10* *failure message*, but it was 1*.");
+                .WithMessage("Expected the position of stream to be 10L because*failure message*, but it was 1*.");
         }
 
         [Fact]
@@ -321,12 +316,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().HavePosition(10, "we want to test the failure {0}", "message");
+                stream.Should().HavePosition(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream to be 10* *failure message*, but found a <null> reference.");
+                .WithMessage("Expected the position of stream to be 10L because*failure message*, but found a <null> reference.");
         }
 
         [Theory]
@@ -337,12 +332,11 @@ public class StreamAssertionSpecs
             using var stream = new ExceptingStream(exception);
 
             // Act
-            Action act = () =>
-                stream.Should().HavePosition(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().HavePosition(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream to be 10* *failure message*, " +
+                .WithMessage("Expected the position of stream to be 10L because*failure message*, " +
                     "but it failed with*GetPositionExceptionMessage*");
         }
     }
@@ -367,11 +361,11 @@ public class StreamAssertionSpecs
 
             // Act
             Action act = () =>
-                stream.Should().NotHavePosition(10, "we want to test the failure {0}", "message");
+                stream.Should().NotHavePosition(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream not to be 10* *failure message*, but it was.");
+                .WithMessage("Expected the position of stream not to be 10L because*failure message*, but it was.");
         }
 
         [Fact]
@@ -384,12 +378,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotHavePosition(10, "we want to test the failure {0}", "message");
+                stream.Should().NotHavePosition(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream not to be 10* *failure message*, but found a <null> reference.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the position of stream not to be 10L because*failure message*, but found a <null> reference.");
         }
 
         [Theory]
@@ -401,11 +395,11 @@ public class StreamAssertionSpecs
 
             // Act
             Action act = () =>
-                stream.Should().NotHavePosition(10, "we want to test the failure {0}", "message");
+                stream.Should().NotHavePosition(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the position of stream not to be 10* *failure message*, " +
+                .WithMessage("Expected the position of stream not to be 10L because*failure message*, " +
                     "but it failed with*GetPositionExceptionMessage*");
         }
     }
@@ -437,12 +431,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Seekable = true, WithLength = 1 };
 
             // Act
-            Action act = () =>
-                stream.Should().HaveLength(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().HaveLength(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream to be 10* *failure message*, but it was 1*.");
+                .WithMessage("Expected the length of stream to be 10L because*failure message*, but it was 1*.");
         }
 
         [Fact]
@@ -455,12 +448,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().HaveLength(10, "we want to test the failure {0}", "message");
+                stream.Should().HaveLength(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream to be 10* *failure message*, but found a <null> reference.");
+                .WithMessage("Expected the length of stream to be 10L because*failure message*, but found a <null> reference.");
         }
 
         [Theory]
@@ -471,12 +464,11 @@ public class StreamAssertionSpecs
             using var stream = new ExceptingStream(exception);
 
             // Act
-            Action act = () =>
-                stream.Should().HaveLength(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().HaveLength(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream to be 10* *failure message*, " +
+                .WithMessage("Expected the length of stream to be 10L because*failure message*, " +
                     "but it failed with*GetLengthExceptionMessage*");
         }
     }
@@ -500,12 +492,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Seekable = true, WithLength = 10 };
 
             // Act
-            Action act = () =>
-                stream.Should().NotHaveLength(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotHaveLength(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream not to be 10* *failure message*, but it was.");
+                .WithMessage("Expected the length of stream not to be 10L because*failure message*, but it was.");
         }
 
         [Fact]
@@ -518,12 +509,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotHaveLength(10, "we want to test the failure {0}", "message");
+                stream.Should().NotHaveLength(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream not to be 10* *failure message*, but found a <null> reference.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the length of stream not to be 10L because*failure message*, but found a <null> reference.");
         }
 
         [Theory]
@@ -534,12 +525,11 @@ public class StreamAssertionSpecs
             using var stream = new ExceptingStream(exception);
 
             // Act
-            Action act = () =>
-                stream.Should().NotHaveLength(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotHaveLength(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the length of stream not to be 10* *failure message*, " +
+                .WithMessage("Expected the length of stream not to be 10L because*failure message*, " +
                     "but it failed with*GetLengthExceptionMessage*");
         }
     }
@@ -571,12 +561,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = true, Writable = true };
 
             // Act
-            Action act = () =>
-                stream.Should().BeReadOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeReadOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be read-only *failure message*, but it was writable or not readable.");
+                .WithMessage("Expected stream to be read-only because*failure message*, but it was writable or not readable.");
         }
 
         [Fact]
@@ -586,12 +575,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = false, Writable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().BeReadOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeReadOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be read-only *failure message*, but it was writable or not readable.");
+                .WithMessage("Expected stream to be read-only because*failure message*, but it was writable or not readable.");
         }
 
         [Fact]
@@ -604,12 +592,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().BeReadOnly("we want to test the failure {0}", "message");
+                stream.Should().BeReadOnly("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be read-only *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream to be read-only because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -642,12 +630,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = true, Writable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().NotBeReadOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotBeReadOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be read-only *failure message*, but it was.");
+                .WithMessage("Expected stream not to be read-only because*failure message*, but it was.");
         }
 
         [Fact]
@@ -660,12 +647,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotBeReadOnly("we want to test the failure {0}", "message");
+                stream.Should().NotBeReadOnly("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be read-only *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream not to be read-only because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -688,12 +675,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = true, Writable = true };
 
             // Act
-            Action act = () =>
-                stream.Should().BeWriteOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeWriteOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be write-only *failure message*, but it was readable or not writable.");
+                .WithMessage("Expected stream to be write-only because*failure message*, but it was readable or not writable.");
         }
 
         [Fact]
@@ -703,12 +689,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = false, Writable = false };
 
             // Act
-            Action act = () =>
-                stream.Should().BeWriteOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().BeWriteOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be write-only *failure message*, but it was readable or not writable.");
+                .WithMessage("Expected stream to be write-only because*failure message*, but it was readable or not writable.");
         }
 
         [Fact]
@@ -721,12 +706,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().BeWriteOnly("we want to test the failure {0}", "message");
+                stream.Should().BeWriteOnly("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream to be write-only *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream to be write-only because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -759,12 +744,11 @@ public class StreamAssertionSpecs
             using var stream = new TestStream { Readable = false, Writable = true };
 
             // Act
-            Action act = () =>
-                stream.Should().NotBeWriteOnly("we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotBeWriteOnly("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be write-only *failure message*, but it was.");
+                .WithMessage("Expected stream not to be write-only because*failure message*, but it was.");
         }
 
         [Fact]
@@ -777,12 +761,12 @@ public class StreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotBeWriteOnly("we want to test the failure {0}", "message");
+                stream.Should().NotBeWriteOnly("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected stream not to be write-only *failure message*, but found a <null> reference.");
+                .WithMessage("Expected stream not to be write-only because*failure message*, but found a <null> reference.");
         }
     }
 }
