@@ -69,8 +69,8 @@ public static class TaskAssertionSpecs
             Func<Task> action = null;
 
             // Act
-            Func<Task> testAction = () => action.Should().CompleteWithinAsync(
-                timeSpan, "because we want to test the failure {0}", "message");
+            Func<Task> testAction = () =>
+                action.Should().CompleteWithinAsync(timeSpan, "we want to test the {0} message", "failure");
 
             // Assert
             await testAction.Should().ThrowAsync<XunitException>()
@@ -188,8 +188,8 @@ public static class TaskAssertionSpecs
             Func<Task> action = null;
 
             // Act
-            Func<Task> testAction = () => action.Should().NotCompleteWithinAsync(
-                timeSpan, "because we want to test the failure {0}", "message");
+            Func<Task> testAction = () =>
+                action.Should().NotCompleteWithinAsync(timeSpan, "we want to test the {0} message", "failure");
 
             // Assert
             await testAction.Should().ThrowAsync<XunitException>()
@@ -306,8 +306,8 @@ public static class TaskAssertionSpecs
             Func<Task> action = null;
 
             // Act
-            Func<Task> testAction = () => action.Should().ThrowAsync<InvalidOperationException>(
-                "because we want to test the failure {0}", "message");
+            Func<Task> testAction = () =>
+                action.Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
 
             // Assert
             await testAction.Should().ThrowAsync<XunitException>()
@@ -325,8 +325,7 @@ public static class TaskAssertionSpecs
             {
                 using var _ = new AssertionScope();
 
-                await action.Should().ThrowAsync<InvalidOperationException>(
-                    "because we want to test the failure {0}", "message");
+                await action.Should().ThrowAsync<InvalidOperationException>("we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -393,7 +392,7 @@ public static class TaskAssertionSpecs
 
             // Act
             Func<Task> testAction = () => action.Should().ThrowWithinAsync<InvalidOperationException>(
-                100.Milliseconds(), "because we want to test the failure {0}", "message");
+                100.Milliseconds(), "we want to test the {0} message", "failure");
 
             // Assert
             await testAction.Should().ThrowAsync<XunitException>()
@@ -412,7 +411,7 @@ public static class TaskAssertionSpecs
                 using var _ = new AssertionScope();
 
                 await action.Should().ThrowWithinAsync<InvalidOperationException>(
-                    100.Milliseconds(), "because we want to test the failure {0}", "message");
+                    100.Milliseconds(), "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -501,7 +500,7 @@ public static class TaskAssertionSpecs
                 return taskFactory
                     .Awaiting(t => (Task)t.Task)
                     .Should(timer).ThrowWithinAsync<InvalidOperationException>(
-                        100.Ticks(), "because we want to test the failure {0}", "message");
+                        100.Ticks(), "we want to test the {0} message", "failure");
             };
 
             timer.Delay(101.Ticks());

@@ -35,12 +35,13 @@ public class TaskCompletionSourceAssertionSpecs
             var timer = new FakeClock();
 
             // Act
-            Func<Task> action = () => subject.Should(timer).CompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should(timer).CompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
             timer.Complete();
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Expected subject to complete within 1s because test testArg.");
+                .WithMessage("Expected subject to complete within 1s because we want to test the failure message.");
         }
 
         [Fact]
@@ -65,12 +66,14 @@ public class TaskCompletionSourceAssertionSpecs
             var timer = new FakeClock();
 
             // Act
-            Func<Task> action = () => subject.Should(timer).NotCompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should(timer).NotCompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
             subject.SetResult();
             timer.Complete();
 
             // Assert
-            await action.Should().ThrowAsync<XunitException>().WithMessage("*to not complete within*because test testArg*");
+            await action.Should().ThrowAsync<XunitException>()
+                .WithMessage("*to not complete within*because we want to test the failure message*");
         }
 
         [Fact]
@@ -127,11 +130,12 @@ public class TaskCompletionSourceAssertionSpecs
             TaskCompletionSource subject = null;
 
             // Act
-            Func<Task> action = () => subject.Should().NotCompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should().NotCompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Expected subject to not complete within 1s because test testArg, but found <null>.");
+                .WithMessage("Expected subject to not complete within 1s because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -308,12 +312,13 @@ public class TaskCompletionSourceAssertionSpecs
             var timer = new FakeClock();
 
             // Act
-            Func<Task> action = () => subject.Should(timer).CompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should(timer).CompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
             timer.Complete();
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Expected subject to complete within 1s because test testArg.");
+                .WithMessage("Expected subject to complete within 1s because we want to test the failure message.");
         }
 
         [Fact]
@@ -338,13 +343,14 @@ public class TaskCompletionSourceAssertionSpecs
             var timer = new FakeClock();
 
             // Act
-            Func<Task> action = () => subject.Should(timer).NotCompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should(timer).NotCompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
             subject.SetResult(true);
             timer.Complete();
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect*to complete within*because test testArg*");
+                .WithMessage("Did not expect*to complete within*because we want to test the failure message*");
         }
 
         [Fact]
@@ -401,11 +407,12 @@ public class TaskCompletionSourceAssertionSpecs
             TaskCompletionSource<bool> subject = null;
 
             // Act
-            Func<Task> action = () => subject.Should().NotCompleteWithinAsync(1.Seconds(), "test {0}", "testArg");
+            Func<Task> action = () =>
+                subject.Should().NotCompleteWithinAsync(1.Seconds(), "we want to test the {0} message", "failure");
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect subject to complete within 1s because test testArg, but found <null>.");
+                .WithMessage("Did not expect subject to complete within 1s because*failure message, but found <null>.");
         }
 
         [Fact]

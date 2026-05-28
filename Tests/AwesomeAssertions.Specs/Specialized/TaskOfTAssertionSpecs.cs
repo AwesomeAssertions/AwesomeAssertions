@@ -24,8 +24,8 @@ public static class TaskOfTAssertionSpecs
             Func<Task<int>> action = null;
 
             // Act
-            Func<Task> testAction = () => action.Should().CompleteWithinAsync(
-                timeSpan, "because we want to test the failure {0}", "message");
+            Func<Task> testAction = () =>
+                action.Should().CompleteWithinAsync(timeSpan, "we want to test the {0} message", "failure");
 
             // Assert
             await testAction.Should().ThrowAsync<XunitException>()
@@ -44,8 +44,7 @@ public static class TaskOfTAssertionSpecs
             {
                 using var _ = new AssertionScope();
 
-                await action.Should().CompleteWithinAsync(
-                    timeSpan, "because we want to test the failure {0}", "message");
+                await action.Should().CompleteWithinAsync(timeSpan, "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -294,7 +293,7 @@ public static class TaskOfTAssertionSpecs
             Func<Task> testAction = async () =>
             {
                 using var _ = new AssertionScope();
-                await action.Should().NotThrowAsync("because we want to test the failure {0}", "message");
+                await action.Should().NotThrowAsync("we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -428,8 +427,7 @@ public static class TaskOfTAssertionSpecs
             {
                 using var _ = new AssertionScope();
 
-                await action.Should().NotThrowAfterAsync(waitTime, pollInterval,
-                    "because we want to test the failure {0}", "message");
+                await action.Should().NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -500,11 +498,11 @@ public static class TaskOfTAssertionSpecs
 
             // Act
             Func<Task> action = () => throwLongerThanWaitTime.Should(clock)
-                .NotThrowAfterAsync(waitTime, pollInterval, "we passed valid arguments");
+                .NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect any exceptions after 2s because we passed valid arguments*");
+                .WithMessage("Did not expect any exceptions after 2s because we want to test the failure message*");
         }
 
         [Fact]
@@ -567,11 +565,11 @@ public static class TaskOfTAssertionSpecs
 
             // Act
             Func<Task> action = () => throwLongerThanWaitTime.Should(clock)
-                .NotThrowAfterAsync(waitTime, pollInterval, "we passed valid arguments");
+                .NotThrowAfterAsync(waitTime, pollInterval, "we want to test the {0} message", "failure");
 
             // Assert
             await action.Should().ThrowAsync<XunitException>()
-                .WithMessage("Did not expect any exceptions after 2s because we passed valid arguments*");
+                .WithMessage("Did not expect any exceptions after 2s because we want to test the failure message*");
         }
 
         [UIFact]
