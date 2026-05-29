@@ -39,11 +39,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithoutMembers);
 
             // Act
-            Action act = () => type.Should().BeStatic("we want to test the failure {0}", "message");
+            Action act = () => type.Should().BeStatic("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.ClassWithoutMembers to be static *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithoutMembers to be static because*failure message*.");
         }
 
         [Theory]
@@ -67,12 +67,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().BeStatic("we want to test the failure {0}", "message");
+            Action act = () => type.Should().BeStatic("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be static *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be static because*failure message*, but type is <null>.");
         }
     }
 
@@ -109,11 +108,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(Static);
 
             // Act
-            Action act = () => type.Should().NotBeStatic("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBeStatic("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.Static not to be static *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.Static not to be static because*failure message*.");
         }
 
         [Theory]
@@ -137,12 +136,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotBeStatic("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBeStatic("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be static *failure message*, but type is <null>.");
+                .WithMessage("Expected type not to be static because*failure message*, but type is <null>.");
         }
     }
 }

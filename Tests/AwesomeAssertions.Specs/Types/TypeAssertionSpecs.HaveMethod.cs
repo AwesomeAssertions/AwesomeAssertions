@@ -33,15 +33,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithNoMembers);
 
             // Act
-            Action act = () =>
-                type.Should().HaveMethod(
-                    "NonExistentMethod", [typeof(int), typeof(Type)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveMethod(
+                "NonExistentMethod", [typeof(int), typeof(Type)], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method *ClassWithNoMembers.NonExistentMethod(int, System.Type) to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method *ClassWithNoMembers.NonExistentMethod(int, System.Type) to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -51,15 +49,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should().HaveMethod(
-                    "VoidMethod", [typeof(int), typeof(Type)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveMethod(
+                "VoidMethod", [typeof(int), typeof(Type)], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method *.ClassWithMembers.VoidMethod(int, System.Type) to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method *.ClassWithMembers.VoidMethod(int, System.Type) to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -69,12 +65,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveMethod("Name", [typeof(string)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveMethod("Name", [typeof(string)], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method type.Name(string) to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected method type.Name(string) to exist because*failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -152,12 +147,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveMethod("VoidMethod", [], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveMethod("VoidMethod", [], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected method Void *.ClassWithMembers.VoidMethod() to not exist *failure message*, but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method Void *.ClassWithMembers.VoidMethod() to not exist because*failure message*, but it does.");
         }
 
         [Fact]
@@ -168,11 +162,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotHaveMethod("Name", [typeof(string)], "we want to test the failure {0}", "message");
+                type.Should().NotHaveMethod("Name", [typeof(string)], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method type.Name(string) to not exist *failure message*, but type is <null>.");
+                .WithMessage("Expected method type.Name(string) to not exist because*failure message*, but type is <null>.");
         }
 
         [Fact]

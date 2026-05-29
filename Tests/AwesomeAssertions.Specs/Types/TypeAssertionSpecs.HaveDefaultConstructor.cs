@@ -58,14 +58,12 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithCctorAndNonDefaultConstructor);
 
             // Act
-            Action act = () =>
-                type.Should().HaveDefaultConstructor("we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveDefaultConstructor("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected constructor *ClassWithCctorAndNonDefaultConstructor() to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected constructor *ClassWithCctorAndNonDefaultConstructor() to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -75,12 +73,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveDefaultConstructor("we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveDefaultConstructor("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor type() to exist *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected constructor type() to exist because*failure message*, but type is <null>.");
         }
     }
 
@@ -104,13 +101,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should()
-                    .NotHaveDefaultConstructor("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveDefaultConstructor("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor *.ClassWithMembers() not to exist *failure message*, but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected constructor *.ClassWithMembers() not to exist because*failure message*, but it does.");
         }
 
         [Fact]
@@ -120,12 +115,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithCctor);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveDefaultConstructor("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveDefaultConstructor("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor *ClassWithCctor*() not to exist *failure message*, but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected constructor *ClassWithCctor*() not to exist because*failure message*, but it does.");
         }
 
         [Fact]
@@ -145,12 +139,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveDefaultConstructor("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveDefaultConstructor("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected constructor type() not to exist *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected constructor type() not to exist because*failure message*, but type is <null>.");
         }
     }
 

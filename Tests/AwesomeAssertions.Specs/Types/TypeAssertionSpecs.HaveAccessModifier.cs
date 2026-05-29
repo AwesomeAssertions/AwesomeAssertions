@@ -33,11 +33,12 @@ public partial class TypeAssertionSpecs
             Action act = () =>
                 type
                     .Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the failure {0}", "message");
+                    .HaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.IPublicInterface to be Internal *failure message*, but it is Public.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.IPublicInterface to be Internal because*failure message*"
+                + ", but it is Public.");
         }
 
         [Fact]
@@ -89,11 +90,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.InternalClass to be ProtectedInternal because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -105,11 +107,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.Private, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.Private, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.GenericClass<int> to be Private *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.GenericClass<int> to be Private because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -121,12 +124,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type AwesomeAssertions.Specs.Types.IInternalInterface to be ProtectedInternal *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.IInternalInterface to be ProtectedInternal because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -138,11 +141,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.InternalStruct to be ProtectedInternal *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.InternalStruct to be ProtectedInternal because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -154,11 +158,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.InternalEnum to be ProtectedInternal *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.InternalEnum to be ProtectedInternal because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -179,12 +184,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the failure {0}",
-                    "message");
+                type.Should().HaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+PrivateClass to be Protected *failure message*, but it is Private.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+PrivateClass to be Protected because*failure message*"
+                + ", but it is Private.");
         }
 
         [Fact]
@@ -209,7 +214,8 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+ProtectedEnum to be Public, but it is Protected.");
+                .WithMessage(
+                    "Expected type AwesomeAssertions.Specs.Types.Nested+ProtectedEnum to be Public, but it is Protected.");
         }
 
         [Fact]
@@ -229,14 +235,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested.IPublicInterface);
 
             // Act
-            Action act = () =>
-                type
-                    .Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveAccessModifier(
+                CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+IPublicInterface to be Internal *failure message*, but it is Public.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+IPublicInterface to be Internal because*failure message*"
+                + ", but it is Public.");
         }
 
         [Fact]
@@ -256,13 +261,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested.InternalClass);
 
             // Act
-            Action act = () =>
-                type.Should().HaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveAccessModifier(
+                CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+InternalClass to be ProtectedInternal *failure message*, but it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+InternalClass to be ProtectedInternal because*failure message*"
+                + ", but it is Internal.");
         }
 
         [Fact]
@@ -283,12 +288,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Private, "we want to test the failure {0}", "message");
+                type.Should().HaveAccessModifier(CSharpAccessModifier.Private, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type AwesomeAssertions.Specs.Types.Nested+IProtectedInternalInterface to be Private *failure message*, but it is ProtectedInternal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+IProtectedInternalInterface to be Private because*failure message*"
+                + ", but it is ProtectedInternal.");
         }
 
         [Fact]
@@ -299,11 +304,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the failure {0}", "message");
+                type.Should().HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be Public *failure message*, but type is <null>.");
+                .WithMessage("Expected type to be Public because*failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -341,14 +346,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(IPublicInterface);
 
             // Act
-            Action act = () =>
-                type
-                    .Should()
-                    .NotHaveAccessModifier(CSharpAccessModifier.Public, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.IPublicInterface not to be Public *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.IPublicInterface not to be Public because*failure message*"
+                + ", but it is.");
         }
 
         [Fact]
@@ -368,13 +372,12 @@ public partial class TypeAssertionSpecs
             Type type = typeof(InternalClass);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the failure {0}",
-                    "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.InternalClass not to be Internal *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.InternalClass not to be Internal because*failure message*, but it is.");
         }
 
         [Fact]
@@ -394,13 +397,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested).GetNestedType("PrivateClass", BindingFlags.NonPublic | BindingFlags.Instance);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Private, "we want to test the failure {0}",
-                    "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Private, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+PrivateClass not to be Private *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+PrivateClass not to be Private because*failure message*"
+                + ", but it is.");
         }
 
         [Fact]
@@ -445,14 +448,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested.IPublicInterface);
 
             // Act
-            Action act = () =>
-                type
-                    .Should()
-                    .NotHaveAccessModifier(CSharpAccessModifier.Public, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+IPublicInterface not to be Public *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+IPublicInterface not to be Public because*failure message*"
+                + ", but it is.");
         }
 
         [Fact]
@@ -472,13 +474,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested.InternalClass);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the failure {0}",
-                    "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type AwesomeAssertions.Specs.Types.Nested+InternalClass not to be Internal *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+InternalClass not to be Internal because*failure message*"
+                + ", but it is.");
         }
 
         [Fact]
@@ -498,14 +500,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(Nested.IProtectedInternalInterface);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(
-                    CSharpAccessModifier.ProtectedInternal, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type AwesomeAssertions.Specs.Types.Nested+IProtectedInternalInterface not to be ProtectedInternal *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type AwesomeAssertions.Specs.Types.Nested+IProtectedInternalInterface not to be ProtectedInternal"
+                + " because*failure message*, but it is.");
         }
 
         [Fact]
@@ -515,13 +516,12 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveAccessModifier(CSharpAccessModifier.Public, "we want to test the failure {0}",
-                    "message");
+            Action act = () => type.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be Public *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type not to be Public because*failure message*, but type is <null>.");
         }
 
         [Fact]

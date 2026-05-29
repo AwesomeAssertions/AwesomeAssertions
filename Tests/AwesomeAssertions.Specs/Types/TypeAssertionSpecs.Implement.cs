@@ -28,14 +28,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassThatDoesNotImplementInterface);
 
             // Act
-            Action act = () =>
-                type.Should().Implement(typeof(IDummyInterface), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().Implement(typeof(IDummyInterface), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected type *.ClassThatDoesNotImplementInterface to implement interface *.IDummyInterface " +
-                    "*failure message*, but it does not.");
+                    "because*failure message*, but it does not.");
         }
 
         [Fact]
@@ -45,14 +44,12 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassThatDoesNotImplementInterface);
 
             // Act
-            Action act = () =>
-                type.Should().Implement(typeof(DateTime), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().Implement(typeof(DateTime), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassThatDoesNotImplementInterface to implement interface *.DateTime *failure message*" +
-                    ", but *.DateTime is not an interface.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassThatDoesNotImplementInterface to implement interface *.DateTime because*failure message*" +
+                ", but *.DateTime is not an interface.");
         }
 
         [Fact]
@@ -117,14 +114,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassThatImplementsInterface);
 
             // Act
-            Action act = () =>
-                type.Should().NotImplement(typeof(IDummyInterface), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotImplement(typeof(IDummyInterface), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected type *.ClassThatImplementsInterface to not implement interface *.IDummyInterface " +
-                    "*failure message*, but it does.");
+                    "because *failure message*, but it does.");
         }
 
         [Fact]
@@ -134,14 +130,12 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassThatDoesNotImplementInterface);
 
             // Act
-            Action act = () =>
-                type.Should().NotImplement(typeof(DateTime), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotImplement(typeof(DateTime), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassThatDoesNotImplementInterface to not implement interface *.DateTime *failure message*" +
-                    ", but *.DateTime is not an interface.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassThatDoesNotImplementInterface to not implement interface *.DateTime"
+                + " because*failure message*, but *.DateTime is not an interface.");
         }
 
         [Fact]

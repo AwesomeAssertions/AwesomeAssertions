@@ -30,12 +30,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().BeDerivedFrom(typeof(ClassWithMembers), "we want to test the failure {0}", "message");
+                type.Should().BeDerivedFrom(typeof(ClassWithMembers), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyBaseClass to be derived from *.ClassWithMembers *failure message*, but it is not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyBaseClass to be derived from *.ClassWithMembers because*failure message*" +
+                ", but it is not.");
         }
 
         [Fact]
@@ -46,13 +46,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().BeDerivedFrom(typeof(IDummyInterface), "we want to test the failure {0}", "message");
+                type.Should().BeDerivedFrom(typeof(IDummyInterface), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassThatImplementsInterface to be derived from *.IDummyInterface *failure message*" +
-                    ", but *.IDummyInterface is an interface.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassThatImplementsInterface to be derived from *.IDummyInterface because*failure message*" +
+                ", but *.IDummyInterface is an interface.");
         }
 
         [Fact]
@@ -83,12 +82,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().BeDerivedFrom(typeof(DummyBaseType<>), "we want to test the failure {0}", "message");
+                type.Should().BeDerivedFrom(typeof(DummyBaseType<>), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassWithMembers to be derived from *.DummyBaseType<T>* *failure message*, but it is not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithMembers to be derived from *.DummyBaseType<T> because*failure message*" +
+                ", but it is not.");
         }
 
         [Fact]
@@ -140,13 +139,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(DummyBaseClass), "we want to test the failure {0}", "message");
+                type.Should().NotBeDerivedFrom(typeof(DummyBaseClass), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass not to be derived from *.DummyBaseClass *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass not to be derived from *.DummyBaseClass because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
@@ -157,13 +155,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(IDummyInterface), "we want to test the failure {0}", "message");
+                type.Should().NotBeDerivedFrom(typeof(IDummyInterface), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassThatImplementsInterface not to be derived from *.IDummyInterface *failure message*" +
-                    ", but *.IDummyInterface is an interface.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassThatImplementsInterface not to be derived from *.IDummyInterface because*failure message*" +
+                ", but *.IDummyInterface is an interface.");
         }
 
         [Fact]
@@ -194,13 +191,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>), "we want to test the failure {0}", "message");
+                type.Should().NotBeDerivedFrom(typeof(DummyBaseType<>), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyBaseType<*.ClassWithGenericBaseType> not to be derived from *.DummyBaseType<T> " +
-                    "*failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyBaseType<*.ClassWithGenericBaseType> not to be derived from *.DummyBaseType<T> " +
+                "because*failure message*, but it is.");
         }
 
         [Fact]

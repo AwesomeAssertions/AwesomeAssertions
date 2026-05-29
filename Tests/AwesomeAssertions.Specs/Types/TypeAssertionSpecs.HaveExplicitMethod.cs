@@ -106,15 +106,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveExplicitMethod(
-                    typeof(IExplicitInterface), "ExplicitMethod", new Type[0], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveExplicitMethod(
+                typeof(IExplicitInterface), "ExplicitMethod", new Type[0], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to explicitly implement *.IExplicitInterface.ExplicitMethod() *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to explicitly implement *.IExplicitInterface.ExplicitMethod() because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -211,15 +209,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveExplicitMethod<IExplicitInterface>(
-                    "ExplicitMethod", new Type[0], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveExplicitMethod<IExplicitInterface>(
+                "ExplicitMethod", new Type[0], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to explicitly implement *.IExplicitInterface.ExplicitMethod() *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to explicitly implement *.IExplicitInterface.ExplicitMethod() because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -364,15 +360,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveExplicitMethod(
-                    typeof(IExplicitInterface), "ExplicitMethod", new Type[0], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveExplicitMethod(
+                typeof(IExplicitInterface), "ExplicitMethod", new Type[0], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to not explicitly implement *.IExplicitInterface.ExplicitMethod() *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to not explicitly implement *.IExplicitInterface.ExplicitMethod() because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -478,15 +472,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveExplicitMethod<IExplicitInterface>(
-                    "ExplicitMethod", new Type[0], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveExplicitMethod<IExplicitInterface>(
+                "ExplicitMethod", new Type[0], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to not explicitly implement *.IExplicitInterface.ExplicitMethod() *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to not explicitly implement *.IExplicitInterface.ExplicitMethod() because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]

@@ -32,12 +32,11 @@ public partial class TypeAssertionSpecs
             Type differentType = typeof(ClassWithoutAttribute);
 
             // Act
-            Action act = () =>
-                type.Should().Be(differentType, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().Be(differentType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be *.ClassWithoutAttribute *failure message*, but found *.ClassWithAttribute.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be *.ClassWithoutAttribute because*failure message*, but found *.ClassWithAttribute.");
         }
 
         [Fact]
@@ -60,11 +59,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                nullType.Should().Be(someType, "we want to test the failure {0}", "message");
+                nullType.Should().Be(someType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be *.ClassWithAttribute *failure message*, but found <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be *.ClassWithAttribute because*failure message*, but found <null>.");
         }
 
         [Fact]
@@ -76,11 +75,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                someType.Should().Be(nullType, "we want to test the failure {0}", "message");
+                someType.Should().Be(nullType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be <null> *failure message*, but found *.ClassWithAttribute.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be <null> because*failure message*, but found *.ClassWithAttribute.");
         }
 
         [Fact]
@@ -98,12 +97,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                typeFromThisAssembly.Should().Be(typeFromOtherAssembly, "we want to test the failure {0}", "message");
+                typeFromThisAssembly.Should().Be(typeFromOtherAssembly, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to be [AssemblyB.ClassC, AssemblyB*] *failure message*, but found [AssemblyB.ClassC, AwesomeAssertions.Specs*].");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be [AssemblyB.ClassC, AssemblyB*] because*failure message*, but found [AssemblyB.ClassC, AwesomeAssertions.Specs*].");
         }
 
         [Fact]
@@ -124,11 +122,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().Be<ClassWithoutAttribute>("we want to test the failure {0}", "message");
+                type.Should().Be<ClassWithoutAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be *.ClassWithoutAttribute *failure message*, but found *.ClassWithAttribute.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be *.ClassWithoutAttribute because*failure message*, but found *.ClassWithAttribute.");
         }
     }
 
@@ -153,12 +151,11 @@ public partial class TypeAssertionSpecs
             Type sameType = typeof(ClassWithAttribute);
 
             // Act
-            Action act = () =>
-                type.Should().NotBe(sameType, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBe(sameType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be [*.ClassWithAttribute*] *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type not to be [*.ClassWithAttribute*] because*failure message*, but it is.");
         }
 
         [Fact]
@@ -194,11 +191,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBe<ClassWithAttribute>("we want to test the failure {0}", "message");
+                type.Should().NotBe<ClassWithAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be [*.ClassWithAttribute*] *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type not to be [*.ClassWithAttribute*] because*failure message*, but it is.");
         }
     }
 }

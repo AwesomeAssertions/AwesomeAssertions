@@ -106,15 +106,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveExplicitProperty(
-                    typeof(IExplicitInterface), "ExplicitStringProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveExplicitProperty(
+                typeof(IExplicitInterface), "ExplicitStringProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to explicitly implement *.IExplicitInterface.ExplicitStringProperty *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to explicitly implement *.IExplicitInterface.ExplicitStringProperty because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -226,15 +224,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveExplicitProperty<IExplicitInterface>(
-                    "ExplicitStringProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveExplicitProperty<IExplicitInterface>(
+                "ExplicitStringProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to explicitly implement *.IExplicitInterface.ExplicitStringProperty *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to explicitly implement *.IExplicitInterface.ExplicitStringProperty because*failure message*" +
+                ", but type is <null>.");
         }
     }
 
@@ -334,15 +330,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveExplicitProperty(
-                    typeof(IExplicitInterface), "ExplicitStringProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveExplicitProperty(
+                typeof(IExplicitInterface), "ExplicitStringProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to not explicitly implement *IExplicitInterface.ExplicitStringProperty *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to not explicitly implement *IExplicitInterface.ExplicitStringProperty because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -435,13 +429,12 @@ public partial class TypeAssertionSpecs
             // Act
             Action act = () =>
                 type.Should().NotHaveExplicitProperty<IExplicitInterface>(
-                    "ExplicitStringProperty", "we want to test the failure {0}", "message");
+                    "ExplicitStringProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type to not explicitly implement *.IExplicitInterface.ExplicitStringProperty *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to not explicitly implement *.IExplicitInterface.ExplicitStringProperty because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]

@@ -40,13 +40,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                typeWithoutAttribute.Should().BeDecoratedWith<DummyClassAttribute>("we want to test the failure {0}", "message");
+                typeWithoutAttribute.Should().BeDecoratedWith<DummyClassAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassWithoutAttribute to be decorated with *.DummyClassAttribute *failure message*" +
-                    ", but the attribute was not found.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithoutAttribute to be decorated with *.DummyClassAttribute because*failure message*" +
+                ", but the attribute was not found.");
         }
 
         [Fact]
@@ -126,13 +125,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                typeWithAttribute.Should().NotBeDecoratedWith<DummyClassAttribute>("we want to test the failure {0}", "message");
+                typeWithAttribute.Should().NotBeDecoratedWith<DummyClassAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassWithAttribute to not be decorated with *.DummyClassAttribute* *failure message*" +
-                    ", but the attribute was found.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithAttribute to not be decorated with *.DummyClassAttribute because*failure message*" +
+                ", but the attribute was found.");
         }
 
         [Fact]

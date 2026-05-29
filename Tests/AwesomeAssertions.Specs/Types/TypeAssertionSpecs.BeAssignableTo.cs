@@ -38,13 +38,12 @@ public partial class TypeAssertionSpecs
         {
             // Arrange
             Type someType = typeof(DummyImplementingClass);
-            Action act = () => someType.Should().BeAssignableTo<DateTime>("we want to test the failure {0}", "message");
+            Action act = () => someType.Should().BeAssignableTo<DateTime>("we want to test the {0} message", "failure");
 
             // Act / Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected someType *.DummyImplementingClass to be assignable to *.DateTime *failure message*" +
-                    ", but it is not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected someType *.DummyImplementingClass to be assignable to *.DateTime because*failure message*" +
+                ", but it is not.");
         }
 
         [Fact]
@@ -76,11 +75,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                someType.Should().BeAssignableTo(typeof(DateTime), "we want to test the failure {0}", "message");
+                someType.Should().BeAssignableTo(typeof(DateTime), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*.DummyImplementingClass to be assignable to *.DateTime *failure message*");
+                .WithMessage("*.DummyImplementingClass to be assignable to *.DateTime because*failure message*");
         }
 
         [Fact]
@@ -112,13 +111,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                someType.Should().BeAssignableTo(typeof(IDummyInterface<>), "we want to test the failure {0}", "message");
+                someType.Should().BeAssignableTo(typeof(IDummyInterface<>), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected someType *.IDummyInterface to be assignable to *.IDummyInterface<T> *failure message*" +
-                    ", but it is not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected someType *.IDummyInterface to be assignable to *.IDummyInterface<T> because*failure message*" +
+                ", but it is not.");
         }
 
         [Fact]
@@ -128,11 +126,11 @@ public partial class TypeAssertionSpecs
             Type someType = typeof(ClassWithAttribute);
 
             Action act = () =>
-                someType.Should().BeAssignableTo(typeof(DummyBaseType<>), "we want to test the failure {0}", "message");
+                someType.Should().BeAssignableTo(typeof(DummyBaseType<>), "we want to test the {0} message", "failure");
 
             // Act / Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*.ClassWithAttribute to be assignable to *.DummyBaseType* *failure message*");
+                .WithMessage("*.ClassWithAttribute to be assignable to *.DummyBaseType* because*failure message*");
         }
 
         [Fact]
@@ -168,12 +166,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo<DummyImplementingClass>("we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo<DummyImplementingClass>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.DummyImplementingClass *failure message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.DummyImplementingClass because*failure message*");
         }
 
         [Fact]
@@ -184,13 +181,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo<DummyBaseClass>("we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo<DummyBaseClass>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.DummyBaseClass *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.DummyBaseClass because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
@@ -201,12 +197,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo<IDisposable>("we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo<IDisposable>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.IDisposable *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.IDisposable because*failure message*, but it is.");
         }
 
         [Fact]
@@ -224,13 +219,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo(typeof(DummyImplementingClass), "we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo(typeof(DummyImplementingClass), "we want to test the {0} message", "failure");
 
             // Act / Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.DummyImplementingClass *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.DummyImplementingClass because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
@@ -241,13 +235,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo(typeof(DummyBaseClass), "we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo(typeof(DummyBaseClass), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.DummyBaseClass *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.DummyBaseClass because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
@@ -258,12 +251,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo(typeof(IDisposable), "we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo(typeof(IDisposable), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.DummyImplementingClass to not be assignable to *.IDisposable *failure message*, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.DummyImplementingClass to not be assignable to *.IDisposable because*failure message*, but it is.");
         }
 
         [Fact]
@@ -295,13 +287,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo(typeof(IDummyInterface<>), "we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo(typeof(IDummyInterface<>), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
@@ -312,13 +303,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAssignableTo(typeof(IDummyInterface<>), "we want to test the failure {0}", "message");
+                type.Should().NotBeAssignableTo(typeof(IDummyInterface<>), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> *failure message*" +
-                    ", but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithGenericBaseType to not be assignable to *.IDummyInterface<T> because*failure message*" +
+                ", but it is.");
         }
 
         [Fact]
