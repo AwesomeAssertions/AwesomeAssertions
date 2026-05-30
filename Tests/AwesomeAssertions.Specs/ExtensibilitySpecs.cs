@@ -18,11 +18,11 @@ public class ExtensibilitySpecs
         };
 
         // Act
-        Action act = () => myClient.Should().BeActive("because we don't work with old clients");
+        Action act = () => myClient.Should().BeActive("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
-            "Expected myClient to be true because we don't work with old clients, but found False.");
+            "Expected myClient to be true because we want to test the failure message, but found False.");
     }
 
     [Fact]
