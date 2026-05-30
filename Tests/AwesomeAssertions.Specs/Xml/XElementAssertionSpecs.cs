@@ -1092,12 +1092,11 @@ public class XElementAssertionSpecs
             var theElement = XElement.Parse("""<user name="martin" />""");
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttribute("name")
-                    .Which.Value.Should().Be("dennis");
+            Action act = () => theElement.Should().HaveAttribute("name").Which.Value.Should().Be("dennis");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*differ at index 0*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theElement.Attribute(\"name\") to be the same string, but they differ at index 0:*martin*dennis*");
         }
 
         [Fact]
