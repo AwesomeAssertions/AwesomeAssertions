@@ -230,7 +230,9 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
                     .ForCondition(attribute => attribute is not null)
                     .FailWith("but found no such attribute in {0}.", Subject));
 
-        return new AndWhichConstraint<XElementAssertions, XAttribute>(this, selectedAttribute);
+        var postfix = $".Attribute(\"{expectedText}\")";
+        return new AndWhichConstraint<XElementAssertions, XAttribute>(this, selectedAttribute, assertionChain, postfix);
+);
     }
 
     /// <summary>
