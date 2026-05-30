@@ -1181,7 +1181,7 @@ public class XElementAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                theElement.Should().HaveAttributeWithValue("age", "36", "because we want to test the failure {0}", "message");
+                theElement.Should().HaveAttributeWithValue("age", "36", "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -1198,9 +1198,8 @@ public class XElementAssertionSpecs
             var theElement = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttributeWithValue(XName.Get("age", "http://www.example.com/2012/test"), "36",
-                    "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttributeWithValue(
+                XName.Get("age", "http://www.example.com/2012/test"), "36", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -1248,9 +1247,8 @@ public class XElementAssertionSpecs
             var theElement = XElement.Parse("""<user name="martin" />""");
 
             // Act
-            Action act = () =>
-                theElement.Should()
-                    .HaveAttributeWithValue("name", "dennis", "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttributeWithValue(
+                "name", "dennis", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -1266,9 +1264,8 @@ public class XElementAssertionSpecs
             var theElement = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttributeWithValue(XName.Get("name", "http://www.example.com/2012/test"), "dennis",
-                    "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttributeWithValue(
+                XName.Get("name", "http://www.example.com/2012/test"), "dennis", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -1283,12 +1280,12 @@ public class XElementAssertionSpecs
 
             // Act
             Action act = () =>
-                theElement.Should().HaveAttributeWithValue("name", "value", "we want to test the failure {0}", "message");
+                theElement.Should().HaveAttributeWithValue("name", "value", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected attribute \"name\" in element to have value \"value\" *failure message*" +
+                    "Expected attribute \"name\" in element to have value \"value\" because*failure message*" +
                     ", but theElement is <null>.");
         }
 
@@ -1299,12 +1296,12 @@ public class XElementAssertionSpecs
 
             // Act
             Action act = () =>
-                theElement.Should().HaveAttributeWithValue((XName)"name", "value", "we want to test the failure {0}", "message");
+                theElement.Should().HaveAttributeWithValue((XName)"name", "value", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected attribute \"name\" in element to have value \"value\" *failure message*" +
+                    "Expected attribute \"name\" in element to have value \"value\" because*failure message*" +
                     ", but theElement is <null>.");
         }
 
@@ -1423,14 +1420,12 @@ public class XElementAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-
-                theElement.Should()
-                    .NotHaveAttributeWithValue("name", "martin", "because we want to test the failure {0}", "message");
+                theElement.Should().NotHaveAttributeWithValue("name", "martin", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Did not expect theElement to have attribute \"name\" with value \"martin\" because we want to test the failure message,"
+                "Did not expect theElement to have attribute \"name\" with value \"martin\" because*failure message,"
                 + " but found such attribute in <user name=\"martin\" />*");
         }
 
@@ -1441,9 +1436,8 @@ public class XElementAssertionSpecs
             var theElement = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
 
             // Act
-            Action act = () =>
-                theElement.Should().NotHaveAttributeWithValue(XName.Get("name", "http://www.example.com/2012/test"), "martin",
-                    "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().NotHaveAttributeWithValue(
+                XName.Get("name", "http://www.example.com/2012/test"), "martin", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -1459,12 +1453,12 @@ public class XElementAssertionSpecs
 
             // Act
             Action act = () =>
-                theElement.Should().NotHaveAttributeWithValue("name", "value", "we want to test the failure {0}", "message");
+                theElement.Should().NotHaveAttributeWithValue("name", "value", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect attribute \"name\" in element to have value \"value\"*failure message*, but theElement is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect attribute \"name\" in element to have value \"value\" because*failure message*,"
+                + " but theElement is <null>.");
         }
 
         [Fact]
@@ -1473,14 +1467,13 @@ public class XElementAssertionSpecs
             XElement theElement = null;
 
             // Act
-            Action act = () =>
-                theElement.Should()
-                    .NotHaveAttributeWithValue((XName)"name", "value", "we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().NotHaveAttributeWithValue(
+                (XName)"name", "value", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect attribute \"name\" in element to have value \"value\"*failure message*, but theElement is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect attribute \"name\" in element to have value \"value\" because*failure message*,"
+                + " but theElement is <null>.");
         }
 
         [Fact]
@@ -1638,8 +1631,7 @@ public class XElementAssertionSpecs
                 """);
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveElement("unknown", "because we want to test the failure message");
+            Action act = () => theElement.Should().HaveElement("unknown", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -1659,9 +1651,8 @@ public class XElementAssertionSpecs
                 """);
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveElement(XName.Get("unknown", "http://www.example.com/2012/test"),
-                    "because we want to test the failure message");
+            Action act = () => theElement.Should().HaveElement(
+                XName.Get("unknown", "http://www.example.com/2012/test"), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -2377,9 +2368,8 @@ public class XElementAssertionSpecs
             XElement element = null;
 
             // Act
-            Action act = () =>
-                element.Should().NotHaveElementWithValue(XNamespace.None + "child", "b", "we want to test the {0} message",
-                    "failure");
+            Action act = () => element.Should().NotHaveElementWithValue(
+                XNamespace.None + "child", "b", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("*child*b*failure message*element itself is <null>*");

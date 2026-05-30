@@ -29,8 +29,7 @@ public class XAttributeAssertionSpecs
             var otherAttribute = new XAttribute("name2", "value");
 
             // Act
-            Action act = () =>
-                theAttribute.Should().Be(otherAttribute, "because we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().Be(otherAttribute, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -53,11 +52,11 @@ public class XAttributeAssertionSpecs
 
             // Act
             Action act = () =>
-                theAttribute.Should().Be(new XAttribute("name", "value"), "we want to test the failure {0}", "message");
+                theAttribute.Should().Be(new XAttribute("name", "value"), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected theAttribute to be name=\"value\" *failure message*, but found <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theAttribute to be name=\"value\" because*failure message*, but found <null>.");
         }
 
         [Fact]
@@ -66,11 +65,11 @@ public class XAttributeAssertionSpecs
             XAttribute theAttribute = new("name", "value");
 
             // Act
-            Action act = () => theAttribute.Should().Be(null, "we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().Be(null, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected theAttribute to be <null> *failure message*, but found name=\"value\".");
+                .WithMessage("Expected theAttribute to be <null> because*failure message*, but found name=\"value\".");
         }
     }
 
@@ -112,8 +111,7 @@ public class XAttributeAssertionSpecs
             var sameAttribute = theAttribute;
 
             // Act
-            Action act = () =>
-                theAttribute.Should().NotBe(sameAttribute, "because we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().NotBe(sameAttribute, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -147,11 +145,11 @@ public class XAttributeAssertionSpecs
             XAttribute theAttribute = null;
 
             // Act
-            Action act = () => theAttribute.Should().NotBe(null, "we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().NotBe(null, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect theAttribute to be <null> *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect theAttribute to be <null> because*failure message*.");
         }
     }
 
@@ -189,8 +187,7 @@ public class XAttributeAssertionSpecs
             var theAttribute = new XAttribute("name", "value");
 
             // Act
-            Action act = () =>
-                theAttribute.Should().BeNull("because we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -232,8 +229,7 @@ public class XAttributeAssertionSpecs
             XAttribute theAttribute = null;
 
             // Act
-            Action act = () =>
-                theAttribute.Should().NotBeNull("because we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -276,8 +272,7 @@ public class XAttributeAssertionSpecs
             var theAttribute = new XAttribute("age", "36");
 
             // Act
-            Action act = () =>
-                theAttribute.Should().HaveValue("16", "because we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().HaveValue("16", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -290,12 +285,11 @@ public class XAttributeAssertionSpecs
             XAttribute theAttribute = null;
 
             // Act
-            Action act = () =>
-                theAttribute.Should().HaveValue("value", "we want to test the failure {0}", "message");
+            Action act = () => theAttribute.Should().HaveValue("value", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the attribute to have value \"value\" *failure message*, but theAttribute is <null>.");
+                .WithMessage("Expected the attribute to have value \"value\" because*failure message*, but theAttribute is <null>.");
         }
     }
 }
