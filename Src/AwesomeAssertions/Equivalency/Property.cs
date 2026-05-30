@@ -13,6 +13,7 @@ internal class Property : Node, IMember
 {
     private readonly PropertyInfo propertyInfo;
     private bool? isBrowsable;
+    private bool? isObsolete;
 
     public Property(PropertyInfo propertyInfo, INode parent)
         : this(propertyInfo.ReflectedType, propertyInfo, parent)
@@ -53,6 +54,17 @@ internal class Property : Node, IMember
                 propertyInfo.GetCustomAttribute<EditorBrowsableAttribute>() is not { State: EditorBrowsableState.Never };
 
             return isBrowsable.Value;
+        }
+    }
+
+    public bool IsObsolete
+    {
+        get
+        {
+            isObsolete ??=
+                propertyInfo.GetCustomAttribute<ObsoleteAttribute>() is not null;
+
+            return isObsolete.Value;
         }
     }
 }

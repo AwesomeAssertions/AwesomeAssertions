@@ -39,4 +39,6 @@ public interface IMember : INode
     /// <see cref="EditorBrowsableAttribute"/>.
     /// </summary>
     bool IsBrowsable { get; }
+
+    bool IsObsolete { get; }
 }

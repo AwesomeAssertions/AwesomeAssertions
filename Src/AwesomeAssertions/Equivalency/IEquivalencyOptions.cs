@@ -84,6 +84,8 @@ public interface IEquivalencyOptions
     /// </summary>
     bool ExcludeNonBrowsableOnExpectation { get; }
 
+    bool ExcludeObsoleteMembers { get; }
+
     /// <summary>
     /// Gets a value indicating whether records should be compared by value instead of their members
     /// </summary>

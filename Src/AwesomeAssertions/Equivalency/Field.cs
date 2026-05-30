@@ -12,6 +12,7 @@ internal class Field : Node, IMember
 {
     private readonly FieldInfo fieldInfo;
     private bool? isBrowsable;
+    private bool? isObsolete;
 
     public Field(FieldInfo fieldInfo, INode parent)
     {
@@ -41,4 +42,7 @@ internal class Field : Node, IMember
 
     public bool IsBrowsable =>
         isBrowsable ??= fieldInfo.GetCustomAttribute<EditorBrowsableAttribute>() is not { State: EditorBrowsableState.Never };
+
+    public bool IsObsolete =>
+        isObsolete ??= fieldInfo.GetCustomAttribute<ObsoleteAttribute>() is not null;
 }

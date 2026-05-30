@@ -76,6 +76,8 @@ public class UsersOfGetClosedGenericInterfaces
 
         public bool ExcludeNonBrowsableOnExpectation => throw new NotImplementedException();
 
+        public bool ExcludeObsoleteMembers => throw new NotImplementedException();
+
         public bool? CompareRecordsByValue => throw new NotImplementedException();
 
         public ITraceWriter TraceWriter => throw new NotImplementedException();

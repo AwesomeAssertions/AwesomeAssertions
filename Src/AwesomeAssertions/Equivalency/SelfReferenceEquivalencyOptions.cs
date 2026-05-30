@@ -59,6 +59,7 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     private MemberVisibility includedFields;
     private bool ignoreNonBrowsableOnSubject;
     private bool excludeNonBrowsableOnExpectation;
+    private bool excludeObsoleteMembers;
 
     private IEqualityComparer<string> stringComparer;
 
@@ -92,6 +93,7 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
         includedFields = defaults.IncludedFields;
         ignoreNonBrowsableOnSubject = defaults.IgnoreNonBrowsableOnSubject;
         excludeNonBrowsableOnExpectation = defaults.ExcludeNonBrowsableOnExpectation;
+        excludeObsoleteMembers = defaults.ExcludeObsoleteMembers;
         IgnoreLeadingWhitespace = defaults.IgnoreLeadingWhitespace;
         IgnoreTrailingWhitespace = defaults.IgnoreTrailingWhitespace;
         IgnoreCase = defaults.IgnoreCase;
@@ -132,6 +134,11 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
             if (excludeNonBrowsableOnExpectation)
             {
                 yield return new ExcludeNonBrowsableMembersRule();
+            }
+
+            if (excludeObsoleteMembers)
+            {
+                yield return new ExcludeObsoleteMembersRule();
             }
 
             foreach (IMemberSelectionRule rule in selectionRules)
@@ -188,6 +195,8 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     bool IEquivalencyOptions.IgnoreNonBrowsableOnSubject => ignoreNonBrowsableOnSubject;
 
     bool IEquivalencyOptions.ExcludeNonBrowsableOnExpectation => excludeNonBrowsableOnExpectation;
+
+    bool IEquivalencyOptions.ExcludeObsoleteMembers => excludeObsoleteMembers;
 
     /// <summary>
     /// Gets a value indicating whether records are compared by value instead of by their members, or
@@ -355,6 +364,12 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     public TSelf IgnoringNonBrowsableMembersOnSubject()
     {
         ignoreNonBrowsableOnSubject = true;
+        return (TSelf)this;
+    }
+
+    public TSelf ExcludeObsoleteMembers()
+    {
+        excludeObsoleteMembers = true;
         return (TSelf)this;
     }
 
