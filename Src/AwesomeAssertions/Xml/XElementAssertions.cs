@@ -232,7 +232,6 @@ public class XElementAssertions : ReferenceTypeAssertions<XElement, XElementAsse
 
         var postfix = $".Attribute(\"{expectedText}\")";
         return new AndWhichConstraint<XElementAssertions, XAttribute>(this, selectedAttribute, assertionChain, postfix);
-);
     }
 
     /// <summary>
