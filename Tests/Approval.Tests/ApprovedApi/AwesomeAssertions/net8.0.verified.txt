@@ -3548,9 +3548,9 @@ namespace AwesomeAssertions.Xml
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<AwesomeAssertions.Xml.XElementAssertions> BeEquivalentTo(System.Xml.Linq.XElement expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<AwesomeAssertions.Xml.XElementAssertions> HaveAttribute(System.Xml.Linq.XName expectedName, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<AwesomeAssertions.Xml.XElementAssertions, System.Xml.Linq.XAttribute> HaveAttribute(System.Xml.Linq.XName expectedName, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<AwesomeAssertions.Xml.XElementAssertions> HaveAttribute(string expectedName, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndWhichConstraint<AwesomeAssertions.Xml.XElementAssertions, System.Xml.Linq.XAttribute> HaveAttribute(string expectedName, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<AwesomeAssertions.Xml.XElementAssertions> HaveAttributeWithValue(System.Xml.Linq.XName expectedName, string expectedValue, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]

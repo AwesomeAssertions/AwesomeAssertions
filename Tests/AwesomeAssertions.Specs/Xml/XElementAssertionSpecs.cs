@@ -1028,6 +1028,95 @@ public class XElementAssertionSpecs
         }
     }
 
+    public class HaveAttributeWhich
+    {
+        [Fact]
+        public void When_asserting_element_has_attribute_which_has_value_it_should_succeed()
+        {
+            // Arrange
+            var element = XElement.Parse(@"<user name=""martin"" />");
+
+            // Act / Assert
+            element.Should().HaveAttribute("name")
+                .Which.Value.Should().Contain("art");
+        }
+
+        [Fact]
+        public void When_asserting_element_has_attribute_with_ns_which_has_value_it_should_succeed()
+        {
+            // Arrange
+            var element = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
+
+            // Act / Assert
+            element.Should().HaveAttribute(XName.Get("name", "http://www.example.com/2012/test"))
+                .Which.Value.Should().Contain("art");
+        }
+
+        [Fact]
+        public void When_asserting_element_has_attribute_which_has_value_but_attribute_does_not_exist_it_should_fail()
+        {
+            // Arrange
+            var theElement = XElement.Parse("""<user name="martin" />""");
+
+            // Act
+            Action act = () =>
+                theElement.Should().HaveAttribute("age")
+                    .Which.Value.Should().Be("36");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theElement to have attribute \"age\", but found no such attribute in <user name=\"martin\" />.");
+        }
+
+        [Fact]
+        public void When_asserting_element_has_attribute_with_ns_which_has_value_but_attribute_does_not_exist_it_should_fail()
+        {
+            // Arrange
+            var theElement = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
+
+            // Act
+            Action act = () =>
+                theElement.Should().HaveAttribute(XName.Get("age", "http://www.example.com/2012/test"))
+                    .Which.Value.Should().Be("36");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theElement to have attribute \"{http://www.example.com/2012/test}age\","
+                + " but found no such attribute in <user xmlns:a=\"http://www.example.com/2012/test\" a:name=\"martin\" />.");
+        }
+
+        [Fact]
+        public void When_asserting_element_has_attribute_which_has_value_but_attribute_has_different_value_it_should_fail()
+        {
+            // Arrange
+            var theElement = XElement.Parse("""<user name="martin" />""");
+
+            // Act
+            Action act = () => theElement.Should().HaveAttribute("name").Which.Value.Should().Be("dennis");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theElement.Attribute(\"name\") to be the same string, but they differ at index 0:*martin*dennis*");
+        }
+
+        [Fact]
+        public void
+            When_asserting_element_has_attribute_with_ns_which_has_value_but_attribute_has_different_value_it_should_fail()
+        {
+            // Arrange
+            var theElement = XElement.Parse("""<user xmlns:a="http://www.example.com/2012/test" a:name="martin" />""");
+
+            // Act
+            Action act = () =>
+                theElement.Should().HaveAttribute(XName.Get("name", "http://www.example.com/2012/test"))
+                    .Which.Value.Should().Be("dennis");
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theElement.Attribute(\"{*}name\") to be the same string, but they differ at index 0:*martin*dennis*");
+        }
+    }
+
     public class HaveAttributeWithValue
     {
         [Fact]
