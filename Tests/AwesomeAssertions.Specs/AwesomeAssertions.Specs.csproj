@@ -9,6 +9,10 @@
     <DebugType>full</DebugType>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PolySharpIncludeRuntimeSupportedAttributes>true</PolySharpIncludeRuntimeSupportedAttributes>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
     <!--
       (SRCU = System.Runtime.CompilerServices.Unsafe)
@@ -18,6 +22,7 @@
       Upgrading to 1.6.0 gives "Could not load file or assembly 'System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0"
     -->
     <PackageReference Include="System.Collections.Immutable" Version="[1.5.0]" />
+    <PackageReference Include="PolySharp" Version="1.16.0" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
