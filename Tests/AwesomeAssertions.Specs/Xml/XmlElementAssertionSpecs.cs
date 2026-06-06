@@ -70,8 +70,7 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveInnerText("stamac", "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveInnerText("stamac", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -119,8 +118,7 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttribute("age", "36", "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttribute("age", "36", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -156,8 +154,7 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttribute("name", "dennis", "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttribute("name", "dennis", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -211,8 +208,8 @@ public class XmlElementAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                theElement.Should().HaveAttributeWithNamespace("age", "http://www.example.com/2012/test", "36",
-                    "because we want to test the failure {0}", "message");
+                theElement.Should().HaveAttributeWithNamespace(
+                    "age", "http://www.example.com/2012/test", "36", "we want to test the {0} message", "failure");
             };
 
             // Assert
@@ -250,16 +247,14 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveAttributeWithNamespace("name", "http://www.example.com/2012/test", "dennis",
-                    "because we want to test the failure {0}", "message");
+            Action act = () => theElement.Should().HaveAttributeWithNamespace(
+                "name", "http://www.example.com/2012/test", "dennis", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected attribute \"{http://www.example.com/2012/test}name\" in theElement to have value \"dennis\"" +
-                    " because we want to test the failure message" +
-                    ", but found \"martin\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected attribute \"{http://www.example.com/2012/test}name\" in theElement to have value \"dennis\"" +
+                " because we want to test the failure message" +
+                ", but found \"martin\".");
         }
     }
 
@@ -323,8 +318,7 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveElement("unknown", "because we want to test the failure message");
+            Action act = () => theElement.Should().HaveElement("unknown", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -457,9 +451,8 @@ public class XmlElementAssertionSpecs
             var theElement = document.DocumentElement;
 
             // Act
-            Action act = () =>
-                theElement.Should().HaveElementWithNamespace("unknown", "http://www.example.com/2012/test",
-                    "because we want to test the failure message");
+            Action act = () => theElement.Should().HaveElementWithNamespace(
+                "unknown", "http://www.example.com/2012/test", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(

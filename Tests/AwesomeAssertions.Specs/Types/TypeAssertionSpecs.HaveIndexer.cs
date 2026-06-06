@@ -33,15 +33,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithNoMembers);
 
             // Act
-            Action act = () =>
-                type.Should().HaveIndexer(
-                    typeof(string), [typeof(int), typeof(Type)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveIndexer(
+                typeof(string), [typeof(int), typeof(Type)], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected string *ClassWithNoMembers[int, System.Type] to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected string *ClassWithNoMembers[int, System.Type] to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -51,14 +49,12 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should().HaveIndexer(
-                    typeof(string), [typeof(int), typeof(Type)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveIndexer(
+                typeof(string), [typeof(int), typeof(Type)], "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected string *.ClassWithMembers[int, System.Type] to exist *failure message*, but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected string *.ClassWithMembers[int, System.Type] to exist because*failure message*, but it does not.");
         }
 
         [Fact]
@@ -69,11 +65,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().HaveIndexer(typeof(string), [typeof(string)], "we want to test the failure {0}", "message");
+                type.Should().HaveIndexer(typeof(string), [typeof(string)], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected string type[string] to exist *failure message*, but type is <null>.");
+                .WithMessage("Expected string type[string] to exist because*failure message*, but type is <null>.");
         }
 
         [Fact]
@@ -126,12 +122,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveIndexer([typeof(string)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveIndexer([typeof(string)], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected indexer *.ClassWithMembers[string] to not exist *failure message*, but it does.");
+                .WithMessage("Expected indexer *.ClassWithMembers[string] to not exist because*failure message*, but it does.");
         }
 
         [Fact]
@@ -141,12 +136,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveIndexer([typeof(string)], "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveIndexer([typeof(string)], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected indexer type[string] to not exist *failure message*, but type is <null>.");
+                .WithMessage("Expected indexer type[string] to not exist because*failure message*, but type is <null>.");
         }
 
         [Fact]

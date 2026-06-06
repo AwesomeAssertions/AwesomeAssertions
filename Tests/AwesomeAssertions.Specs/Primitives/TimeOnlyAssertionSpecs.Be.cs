@@ -61,11 +61,11 @@ public partial class TimeOnlyAssertionSpecs
             var otherTimeOnly = new TimeOnly(15, 03, 11);
 
             // Act
-            Action act = () => timeOnly.Should().Be(otherTimeOnly, "because we want to test the failure {0}", "message");
+            Action act = () => timeOnly.Should().Be(otherTimeOnly, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected timeOnly to be <15:03:11.000>*failure message, but found <15:03:10.000>.");
+                .WithMessage("Expected timeOnly to be <15:03:11.000>*because*failure message, but found <15:03:10.000>.");
         }
 
         [Fact]
@@ -76,11 +76,11 @@ public partial class TimeOnlyAssertionSpecs
             var otherTimeOnly = new TimeOnly(15, 03, 10, 175);
 
             // Act
-            Action act = () => timeOnly.Should().Be(otherTimeOnly, "because we want to test the failure {0}", "message");
+            Action act = () => timeOnly.Should().Be(otherTimeOnly, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected timeOnly to be <15:03:10.175>*failure message, but found <15:03:10.556>.");
+                .WithMessage("Expected timeOnly to be <15:03:10.175>*because*failure message, but found <15:03:10.556>.");
         }
 
         [Fact]
@@ -128,8 +128,7 @@ public partial class TimeOnlyAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableTimeOnly.Should().Be(new TimeOnly(15, 06, 04), "because we want to test the failure {0}",
-                    "message");
+                nullableTimeOnly.Should().Be(new TimeOnly(15, 06, 04), "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -181,8 +180,7 @@ public partial class TimeOnlyAssertionSpecs
             TimeOnly sameTime = new(19, 06, 04);
 
             // Act
-            Action act =
-                () => time.Should().NotBe(sameTime, "because we want to test the failure {0}", "message");
+            Action act = () => time.Should().NotBe(sameTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -198,8 +196,7 @@ public partial class TimeOnlyAssertionSpecs
             TimeOnly? sameTime = new(19, 06, 04);
 
             // Act
-            Action act =
-                () => time.Should().NotBe(sameTime, "because we want to test the failure {0}", "message");
+            Action act = () => time.Should().NotBe(sameTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

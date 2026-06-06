@@ -84,11 +84,10 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().ContainEquivalentOf(item, "because we want to test the failure {0}", "message");
+                collection.Should().ContainEquivalentOf(item, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("*because we want to test the failure message*");
+            act.Should().Throw<XunitException>().WithMessage("*because*failure message*");
         }
 
         [Fact]
@@ -116,12 +115,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().ContainEquivalentOf(expectation, "because we want to test the behaviour with a null subject");
+                collection.Should().ContainEquivalentOf(expectation, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain equivalent of 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain equivalent of 1 because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -279,11 +278,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().NotContainEquivalentOf(item, "because we want to test the failure {0}", "message");
+                collection.Should().NotContainEquivalentOf(item, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {0, 1} not to contain*because we want to test the failure message, " +
+                "Expected collection {0, 1} not to contain*because*failure message, " +
                 "but found one at index 1.*With configuration*");
         }
 
@@ -296,11 +295,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().NotContainEquivalentOf(item, "because we want to test the failure {0}", "message");
+                collection.Should().NotContainEquivalentOf(item, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {0, 1, 1} not to contain*because we want to test the failure message, " +
+                "Expected collection {0, 1, 1} not to contain*because*failure message, " +
                 "but found several at indices {1, 2}.*With configuration*");
         }
 
@@ -354,12 +353,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContainEquivalentOf(1, config => config, "we want to test the failure {0}", "message");
+                collection.Should().NotContainEquivalentOf(1, config => config, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection not to contain *failure message*, but collection is <null>.");
+                .WithMessage("Expected collection not to contain*because*failure message*, but collection is <null>*");
         }
 
         [Fact]
@@ -413,14 +412,14 @@ public partial class CollectionAssertionSpecs
                 using var _ = new AssertionScope();
 
                 collection.Should()
-                    .NotContainEquivalentOf(another, "because we want to test {0}", "first message")
+                    .NotContainEquivalentOf(another, "we want to test the {0} message", "first failure")
                     .And
-                    .HaveCount(4, "because we want to test {0}", "second message");
+                    .HaveCount(4, "we want to test the {0} message", "second failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection*not to contain*first message*but found one at index 2.*");
+                .WithMessage("Expected collection*not to contain*first failure*but found one at index 2.*");
         }
     }
 }

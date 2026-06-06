@@ -55,12 +55,12 @@ public partial class GenericDictionaryAssertionSpecs
 
             // Act
             Action action = () =>
-                dictionary.Should().HaveCountGreaterThan(3, "because we want to test the failure {0}", "message");
+                dictionary.Should().HaveCountGreaterThan(3, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected dictionary to contain more than 3 item(s) because we want to test the failure message, but found 3: {[1] = \"One\", [2] = \"Two\", [3] = \"Three\"}.");
+                    "Expected dictionary to contain more than 3 item(s) because*failure message, but found 3: {[1] = \"One\", [2] = \"Two\", [3] = \"Three\"}.");
         }
 
         [Fact]
@@ -70,11 +70,11 @@ public partial class GenericDictionaryAssertionSpecs
             Dictionary<int, string> dictionary = null;
 
             // Act
-            Action act = () => dictionary.Should().HaveCountGreaterThan(1, "we want to test the behaviour with a null subject");
+            Action act = () => dictionary.Should().HaveCountGreaterThan(1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("*more than*1*we want to test the behaviour with a null subject*found <null>*");
+                .WithMessage("*more than*1*because*failure message, but found <null>*");
         }
     }
 }

@@ -37,7 +37,7 @@ public class BooleanAssertionSpecs
         {
             // Act
             Action action = () =>
-                false.Should().BeTrue("because we want to test the failure {0}", "message");
+                false.Should().BeTrue("we want to test the {0} message", "failure");
 
             // Assert
             action
@@ -71,7 +71,7 @@ public class BooleanAssertionSpecs
         {
             // Act
             Action action = () =>
-                true.Should().BeFalse("we want to test the failure {0}", "message");
+                true.Should().BeFalse("we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -104,7 +104,7 @@ public class BooleanAssertionSpecs
         {
             // Act
             Action action = () =>
-                false.Should().Be(true, "because we want to test the failure {0}", "message");
+                false.Should().Be(true, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -137,7 +137,7 @@ public class BooleanAssertionSpecs
         {
             // Act
             Action action = () =>
-                true.Should().NotBe(true, "because we want to test the failure {0}", "message");
+                true.Should().NotBe(true, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -175,11 +175,11 @@ public class BooleanAssertionSpecs
         public void Antecedent_does_not_imply_consequent(bool? antecedent, bool consequent)
         {
             // Act
-            Action act = () => antecedent.Should().Imply(consequent, "because we want to test the {0}", "failure");
+            Action act = () => antecedent.Should().Imply(consequent, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected antecedent*to imply consequent*test the failure*but*");
+                .WithMessage("Expected antecedent*to imply consequent*because*failure message*but*");
         }
     }
 }

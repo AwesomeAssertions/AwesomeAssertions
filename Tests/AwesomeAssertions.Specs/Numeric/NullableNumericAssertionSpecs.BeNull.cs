@@ -38,7 +38,7 @@ public partial class NullableNumericAssertionSpecs
             int? nullableInteger = 1;
 
             // Act
-            Action act = () => nullableInteger.Should().BeNull("because we want to test the failure {0}", "message");
+            Action act = () => nullableInteger.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -79,7 +79,7 @@ public partial class NullableNumericAssertionSpecs
             int? nullableInteger = null;
 
             // Act
-            Action act = () => nullableInteger.Should().NotBeNull("because we want to test the failure {0}", "message");
+            Action act = () => nullableInteger.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

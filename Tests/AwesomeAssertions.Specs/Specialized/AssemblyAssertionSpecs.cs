@@ -57,12 +57,11 @@ public class AssemblyAssertionSpecs
             Assembly assemblyB = FindAssembly.Containing<ClassB>();
 
             // Act
-            Action act = () => assemblyA.Should().NotReference(assemblyB, "we want to test the failure {0}", "message");
+            Action act = () => assemblyA.Should().NotReference(assemblyB, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected assembly not to reference assembly \"AssemblyB\" *failure message*, but assemblyA is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected assembly not to reference assembly \"AssemblyB\" because*failure message*, but assemblyA is <null>.");
         }
 
         [Fact]
@@ -127,12 +126,11 @@ public class AssemblyAssertionSpecs
             Assembly assemblyB = FindAssembly.Containing<ClassB>();
 
             // Act
-            Action act = () => assemblyA.Should().Reference(assemblyB, "we want to test the failure {0}", "message");
+            Action act = () => assemblyA.Should().Reference(assemblyB, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected assembly to reference assembly \"AssemblyB\" *failure message*, but assemblyA is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected assembly to reference assembly \"AssemblyB\" because*failure message*, but assemblyA is <null>.");
         }
 
         [Fact]
@@ -188,8 +186,8 @@ public class AssemblyAssertionSpecs
             var thisAssembly = GetType().Assembly;
 
             // Act
-            Action act = () => thisAssembly.Should().DefineType("FakeNamespace", "FakeName",
-                "because we want to test the failure {0}", "message");
+            Action act = () =>
+                thisAssembly.Should().DefineType("FakeNamespace", "FakeName", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -205,15 +203,13 @@ public class AssemblyAssertionSpecs
             Assembly thisAssembly = null;
 
             // Act
-            Action act = () =>
-                thisAssembly.Should().DefineType(GetType().Namespace, "WellKnownClassWithAttribute",
-                    "we want to test the failure {0}", "message");
+            Action act = () => thisAssembly.Should().DefineType(GetType().Namespace, "WellKnownClassWithAttribute",
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected assembly to define type *.\"WellKnownClassWithAttribute\" *failure message*" +
-                    ", but thisAssembly is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected assembly to define type *.\"WellKnownClassWithAttribute\" because*failure message*" +
+                ", but thisAssembly is <null>.");
         }
 
         [Fact]
@@ -280,11 +276,11 @@ public class AssemblyAssertionSpecs
             var signedAssembly = FindAssembly.Stub("0123456789ABCEF007");
 
             // Act
-            Action act = () => signedAssembly.Should().BeUnsigned("this assembly is never shipped");
+            Action act = () => signedAssembly.Should().BeUnsigned("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect the assembly * to be signed because this assembly is never shipped, but it is.");
+                .WithMessage("Did not expect the assembly * to be signed because*failure message, but it is.");
         }
 
         [Fact]
@@ -336,11 +332,12 @@ public class AssemblyAssertionSpecs
             var unsignedAssembly = FindAssembly.Stub(noKey);
 
             // Act
-            Action act = () => unsignedAssembly.Should().BeSignedWithPublicKey("1234", "signing is part of the contract");
+            Action act = () =>
+                unsignedAssembly.Should().BeSignedWithPublicKey("1234", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected assembly * to have public key \"1234\" because signing is part of the contract, but it is unsigned.");
+                .WithMessage("Expected assembly * to have public key \"1234\" because*failure message, but it is unsigned.");
         }
 
         [Fact]
@@ -350,11 +347,12 @@ public class AssemblyAssertionSpecs
             var signedAssembly = FindAssembly.Stub("0123456789ABCEF007");
 
             // Act
-            Action act = () => signedAssembly.Should().BeSignedWithPublicKey("1234", "signing is part of the contract");
+            Action act = () =>
+                signedAssembly.Should().BeSignedWithPublicKey("1234", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected assembly * to have public key \"1234\" because signing is part of the contract, but it has * instead.");
+                .WithMessage("Expected assembly * to have public key \"1234\" because*failure message, but it has * instead.");
         }
 
         [Fact]

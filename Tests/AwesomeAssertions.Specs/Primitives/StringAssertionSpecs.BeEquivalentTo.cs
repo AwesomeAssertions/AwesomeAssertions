@@ -124,11 +124,11 @@ public partial class StringAssertionSpecs
         public void When_strings_differ_other_than_by_case_it_should_throw()
         {
             // Act
-            Action act = () => "ADC".Should().BeEquivalentTo("abc", "we will test {0} + {1}", 1, 2);
+            Action act = () => "ADC".Should().BeEquivalentTo("abc", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be equivalent *because we will test 1 + 2, but*index 1*\"ADC\"*\"abc\"*.");
+                "Expected string to be equivalent *because we want to test the failure message, but*index 1*\"ADC\"*\"abc\"*.");
         }
 
         [Fact]
@@ -171,11 +171,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             string someString = null;
-            Action act = () => someString.Should().BeEquivalentTo("abc", "we will test {0} + {1}", 1, 2);
+            Action act = () => someString.Should().BeEquivalentTo("abc", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected someString to be equivalent to \"abc\" because we will test 1 + 2, but found <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected someString to be equivalent to \"abc\" because we want to test the failure message, but found <null>.");
         }
 
         [Fact]
@@ -183,7 +183,7 @@ public partial class StringAssertionSpecs
             When_the_expected_string_is_equivalent_to_the_actual_string_but_with_trailing_spaces_it_should_throw_with_clear_error_message()
         {
             // Act
-            Action act = () => "ABC".Should().BeEquivalentTo("abc ", "because I say {0}", "so");
+            Action act = () => "ABC".Should().BeEquivalentTo("abc ", "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -191,7 +191,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 3*
+                    *because*failure message*index 3*
                           ↓ (actual)
                       "ABC"
                       "abc "
@@ -204,7 +204,7 @@ public partial class StringAssertionSpecs
             When_the_actual_string_equivalent_to_the_expected_but_with_trailing_spaces_it_should_throw_with_clear_error_message()
         {
             // Act
-            Action act = () => "ABC ".Should().BeEquivalentTo("abc", "because I say {0}", "so");
+            Action act = () => "ABC ".Should().BeEquivalentTo("abc", "we want to test the {0} message", "failure");
 
             // Assert
             act
@@ -212,7 +212,7 @@ public partial class StringAssertionSpecs
                 .Throw<XunitException>()
                 .WithMessage(
                     """
-                    *index 3*
+                    *because*failure message*index 3*
                           ↓ (actual)
                       "ABC "
                       "abc"
@@ -314,11 +314,11 @@ public partial class StringAssertionSpecs
             string unexpected = "abc";
 
             // Act
-            Action action = () => actual.Should().NotBeEquivalentTo(unexpected, "because I say {0}", "so");
+            Action action = () => actual.Should().NotBeEquivalentTo(unexpected, "we want to test the {0} message", "failure");
 
             // Assert
-            action.Should().Throw<XunitException>()
-                .WithMessage("Expected actual not to be equivalent to \"abc\" because I say so, but they are.");
+            action.Should().Throw<XunitException>().WithMessage(
+                "Expected actual not to be equivalent to \"abc\" because we want to test the failure message, but they are.");
         }
 
         [Fact]

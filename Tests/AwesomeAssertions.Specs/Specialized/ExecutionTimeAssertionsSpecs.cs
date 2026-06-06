@@ -21,12 +21,13 @@ public class ExecutionTimeAssertionsSpecs
             var subject = new SleepingClass();
 
             // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(610)).Should().BeLessThanOrEqualTo(500.Milliseconds(),
-                "we like speed");
+            Action act = () =>
+                subject.ExecutionTimeOf(s => s.Sleep(610)).Should()
+                    .BeLessThanOrEqualTo(500.Milliseconds(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*(s.Sleep(610)) should be less than or equal to 500ms because we like speed, but it required*");
+                "*(s.Sleep(610)) should be less than or equal to 500ms because*failure message, but it required*");
         }
 
         [Fact]
@@ -119,12 +120,13 @@ public class ExecutionTimeAssertionsSpecs
             var subject = new SleepingClass();
 
             // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(610)).Should().BeLessThan(500.Milliseconds(),
-                "we like speed");
+            Action act = () =>
+                subject.ExecutionTimeOf(s => s.Sleep(610)).Should()
+                    .BeLessThan(500.Milliseconds(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*(s.Sleep(610)) should be less than 500ms because we like speed, but it required*");
+                "*(s.Sleep(610)) should be less than 500ms because*failure message, but it required*");
         }
 
         [Fact]
@@ -228,12 +230,13 @@ public class ExecutionTimeAssertionsSpecs
             var subject = new SleepingClass();
 
             // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(100)).Should().BeGreaterThanOrEqualTo(1.Seconds(),
-                "we like speed");
+            Action act = () =>
+                subject.ExecutionTimeOf(s => s.Sleep(100)).Should()
+                    .BeGreaterThanOrEqualTo(1.Seconds(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*(s.Sleep(100)) should be greater than or equal to 1s because we like speed, but it required*");
+                "*(s.Sleep(100)) should be greater than or equal to 1s because*failure message, but it required*");
         }
 
         [Fact]
@@ -325,12 +328,13 @@ public class ExecutionTimeAssertionsSpecs
             var subject = new SleepingClass();
 
             // Act
-            Action act = () => subject.ExecutionTimeOf(s => s.Sleep(100)).Should().BeGreaterThan(1.Seconds(),
-                "we like speed");
+            Action act = () =>
+                subject.ExecutionTimeOf(s => s.Sleep(100)).Should()
+                    .BeGreaterThan(1.Seconds(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*(s.Sleep(100)) should be greater than 1s because we like speed, but it required*");
+                "*(s.Sleep(100)) should be greater than 1s because*failure message, but it required*");
         }
 
         [Fact]
@@ -426,12 +430,11 @@ public class ExecutionTimeAssertionsSpecs
 
             // Act
             Action act = () => subject.ExecutionTimeOf(s => s.Sleep(200)).Should().BeCloseTo(100.Milliseconds(),
-                50.Milliseconds(),
-                "we like speed");
+                50.Milliseconds(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*(s.Sleep(200)) should be within 50ms from 100ms because we like speed, but it required*");
+                "*(s.Sleep(200)) should be within 50ms from 100ms because*failure message, but it required*");
         }
 
         [Fact]

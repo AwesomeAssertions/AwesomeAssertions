@@ -71,7 +71,7 @@ public partial class StringAssertionSpecs
             string actual = "abc";
 
             // Act
-            Action act = () => actual.Should().BeUpperCased("because we want to test the failure {0}", "message");
+            Action act = () => actual.Should().BeUpperCased("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -85,11 +85,11 @@ public partial class StringAssertionSpecs
             string nullString = null;
 
             // Act
-            Action act = () => nullString.Should().BeUpperCased("because strings should never be {0}", "null");
+            Action act = () => nullString.Should().BeUpperCased("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected all alphabetic characters in nullString to be upper-case because strings should never be null, but found <null>.");
+                "Expected all alphabetic characters in nullString to be upper-case because we want to test the failure message, but found <null>.");
         }
     }
 
@@ -178,7 +178,7 @@ public partial class StringAssertionSpecs
             string actual = "ABC";
 
             // Act
-            Action act = () => actual.Should().NotBeUpperCased("because we want to test the failure {0}", "message");
+            Action act = () => actual.Should().NotBeUpperCased("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(

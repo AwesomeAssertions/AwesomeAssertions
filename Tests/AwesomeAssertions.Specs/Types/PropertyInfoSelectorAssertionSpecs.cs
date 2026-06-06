@@ -43,12 +43,12 @@ public class PropertyInfoSelectorAssertionSpecs
 
             // Act
             Action act = () =>
-                propertyInfoSelector.Should().BeVirtual("we want to test the error {0}", "message");
+                propertyInfoSelector.Should().BeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected properties" +
-                    " to be virtual because we want to test the error message," +
+                    " to be virtual because we want to test the failure message," +
                     " but the following properties are not virtual:*" +
                     "ClassWithNonVirtualPublicProperties.PublicNonVirtualProperty*" +
                     "ClassWithNonVirtualPublicProperties.InternalNonVirtualProperty*" +
@@ -91,16 +91,16 @@ public class PropertyInfoSelectorAssertionSpecs
 
             // Act
             Action act = () =>
-                propertyInfoSelector.Should().NotBeVirtual("we want to test the error {0}", "message");
+                propertyInfoSelector.Should().NotBeVirtual("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected all selected properties" +
-                    " not to be virtual because we want to test the error message," +
-                    " but the following properties are virtual*" +
-                    "*ClassWithAllPropertiesVirtual.PublicVirtualProperty" +
-                    "*ClassWithAllPropertiesVirtual.InternalVirtualProperty" +
-                    "*ClassWithAllPropertiesVirtual.ProtectedVirtualProperty");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected all selected properties" +
+                " not to be virtual because we want to test the failure message," +
+                " but the following properties are virtual*" +
+                "*ClassWithAllPropertiesVirtual.PublicVirtualProperty" +
+                "*ClassWithAllPropertiesVirtual.InternalVirtualProperty" +
+                "*ClassWithAllPropertiesVirtual.ProtectedVirtualProperty");
         }
     }
 
@@ -141,16 +141,16 @@ public class PropertyInfoSelectorAssertionSpecs
             // Act
             Action act = () =>
                 propertyInfoSelector.Should()
-                    .BeDecoratedWith<DummyPropertyAttribute>("because we want to test the error {0}", "message");
+                    .BeDecoratedWith<DummyPropertyAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected all selected properties to be decorated with" +
-                    " AwesomeAssertions*DummyPropertyAttribute because we want to test the error message," +
-                    " but the following properties are not:*" +
-                    "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.PublicProperty*" +
-                    "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.InternalProperty*" +
-                    "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.ProtectedProperty");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected all selected properties to be decorated with" +
+                " AwesomeAssertions*DummyPropertyAttribute because we want to test the failure message," +
+                " but the following properties are not:*" +
+                "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.PublicProperty*" +
+                "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.InternalProperty*" +
+                "ClassWithPropertiesThatAreNotDecoratedWithDummyAttribute.ProtectedProperty");
         }
     }
 
@@ -191,16 +191,16 @@ public class PropertyInfoSelectorAssertionSpecs
             // Act
             Action act = () =>
                 propertyInfoSelector.Should()
-                    .NotBeDecoratedWith<DummyPropertyAttribute>("because we want to test the error {0}", "message");
+                    .NotBeDecoratedWith<DummyPropertyAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected all selected properties not to be decorated*" +
-                    "DummyPropertyAttribute*" +
-                    "because we want to test the error message*" +
-                    "ClassWithAllPropertiesDecoratedWithDummyAttribute.PublicProperty*" +
-                    "ClassWithAllPropertiesDecoratedWithDummyAttribute.InternalProperty*" +
-                    "ClassWithAllPropertiesDecoratedWithDummyAttribute.ProtectedProperty*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected all selected properties not to be decorated*" +
+                "DummyPropertyAttribute*" +
+                "because we want to test the failure message*" +
+                "ClassWithAllPropertiesDecoratedWithDummyAttribute.PublicProperty*" +
+                "ClassWithAllPropertiesDecoratedWithDummyAttribute.InternalProperty*" +
+                "ClassWithAllPropertiesDecoratedWithDummyAttribute.ProtectedProperty*");
         }
     }
 
@@ -213,13 +213,12 @@ public class PropertyInfoSelectorAssertionSpecs
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithReadOnlyProperties));
 
             // Act
-            Action action = () => propertyInfoSelector.Should().BeWritable("because we want to test the error {0}", "message");
+            Action action = () => propertyInfoSelector.Should().BeWritable("we want to test the {0} message", "failure");
 
             // Assert
             action
-                .Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected all selected properties to have a setter because we want to test the error message, " +
+                .Should().Throw<XunitException>().WithMessage(
+                    "Expected all selected properties to have a setter because we want to test the failure message, " +
                     "but the following properties do not:*" +
                     "ClassWithReadOnlyProperties.ReadOnlyProperty*" +
                     "ClassWithReadOnlyProperties.ReadOnlyProperty2");
@@ -245,13 +244,12 @@ public class PropertyInfoSelectorAssertionSpecs
             var propertyInfoSelector = new PropertyInfoSelector(typeof(ClassWithWritableProperties));
 
             // Act
-            Action action = () => propertyInfoSelector.Should().NotBeWritable("because we want to test the error {0}", "message");
+            Action action = () => propertyInfoSelector.Should().NotBeWritable("we want to test the {0} message", "failure");
 
             // Assert
             action
-                .Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected selected properties to not have a setter because we want to test the error message, " +
+                .Should().Throw<XunitException>().WithMessage(
+                    "Expected selected properties to not have a setter because we want to test the failure message, " +
                     "but the following properties do:*" +
                     "ClassWithWritableProperties.ReadWriteProperty*" +
                     "ClassWithWritableProperties.ReadWriteProperty2");
@@ -291,14 +289,13 @@ public class PropertyInfoSelectorAssertionSpecs
             var propertyInfoSelector = new PropertyInfoSelector(typeof(GenericClassWithOnlyReadOnlyProperties<object>));
 
             // Act
-            Action action = () => propertyInfoSelector.Should().BeWritable("because we want to test the error {0}", "message");
+            Action action = () => propertyInfoSelector.Should().BeWritable("we want to test the {0} message", "failure");
 
             // Assert
-            action.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected all selected properties to have a setter because we want to test the error message, " +
-                    "but the following properties do not:*" +
-                    "GenericClassWithOnlyReadOnlyProperties<object>.ReadOnlyProperty");
+            action.Should().Throw<XunitException>().WithMessage(
+                "Expected all selected properties to have a setter because we want to test the failure message, " +
+                "but the following properties do not:*" +
+                "GenericClassWithOnlyReadOnlyProperties<object>.ReadOnlyProperty");
         }
     }
 }

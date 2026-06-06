@@ -171,10 +171,10 @@ public class MiscellaneousExceptionSpecs
         // Act
         Action act = () =>
             throwException.Should().Throw<ArgumentException>()
-                .WithParameterName("someParameter", "we want to test the failure {0}", "message");
+                .WithParameterName("someParameter", "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
-            .WithMessage("*with parameter name \"someParameter\"*we want to test the failure message*\"someOtherParameter\"*");
+            .WithMessage("*with parameter name \"someParameter\"*because*failure message*\"someOtherParameter\"*");
     }
 }

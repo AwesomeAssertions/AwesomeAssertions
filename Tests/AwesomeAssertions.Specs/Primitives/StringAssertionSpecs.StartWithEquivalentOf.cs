@@ -99,10 +99,10 @@ public partial class StringAssertionSpecs
         public void When_start_of_string_does_not_meet_equivalent_it_should_throw()
         {
             // Act
-            Action act = () => "ABC".Should().StartWithEquivalentOf("bc", "because it should start");
+            Action act = () => "ABC".Should().StartWithEquivalentOf("bc", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("Expected string to start with*ABC*bc*");
+            act.Should().Throw<XunitException>().WithMessage("Expected string to start with*because*failure message*ABC*bc*");
         }
 
         [Fact]
@@ -111,12 +111,12 @@ public partial class StringAssertionSpecs
             When_start_of_string_does_not_meet_equivalent_and_one_of_them_is_long_it_should_display_both_strings_on_separate_line()
         {
             // Act
-            Action act = () => "ABCDEFGHI".Should().StartWithEquivalentOf("abcddfghi", "it should {0}", "start");
+            Action act = () => "ABCDEFGHI".Should().StartWithEquivalentOf("abcddfghi", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                Expected string to start with equivalent of the same string because it should start, but they differ at index 4:
+                Expected string to start with equivalent of the same string because*failure message, but they differ at index 4:
                        ↓ (actual)
                   "ABCDEFGHI"
                   "abcddfghi"
@@ -277,11 +277,11 @@ public partial class StringAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().NotStartWithEquivalentOf("aB", "because of some reason");
+                value.Should().NotStartWithEquivalentOf("aB", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>().WithMessage(
-                "Expected value not to start with equivalent of \"aB\" because of some reason, but found \"ABC\".");
+                "Expected value not to start with equivalent of \"aB\" because*failure message, but found \"ABC\".");
         }
 
         [Fact]

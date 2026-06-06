@@ -27,13 +27,13 @@ public partial class ReferenceTypeAssertionsSpecs
             var someObject = new object();
 
             // Act
-            Action act = () => someObject.Should().Satisfy<object>(o => o.Should().BeNull("it is not initialized yet"));
+            Action act = () => someObject.Should().Satisfy<object>(o => o.Should().BeNull("we want to test the {0} message", "failure"));
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 $"""
                  Expected {nameof(someObject)} to match inspector, but the inspector was not satisfied:
-                 *Expected o to be <null> because it is not initialized yet, but found System.Object*
+                 *Expected o to be <null> because*failure message*, but found System.Object*
                  """);
         }
 

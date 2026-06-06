@@ -30,11 +30,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3, 3];
 
             // Act
-            Action act = () => collection.Should().OnlyHaveUniqueItems("{0} don't like {1}", "we", "duplicates");
+            Action act = () => collection.Should().OnlyHaveUniqueItems("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items because we don't like duplicates, but item 3 is not unique.");
+                "Expected collection to only have unique items because*failure message, but item 3 is not unique.");
         }
 
         [Fact]
@@ -62,11 +62,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 2, 3, 3];
 
             // Act
-            Action act = () => collection.Should().OnlyHaveUniqueItems("{0} don't like {1}", "we", "duplicates");
+            Action act = () => collection.Should().OnlyHaveUniqueItems("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items because we don't like duplicates, but items {2, 3} are not unique.");
+                "Expected collection to only have unique items because*failure message, but items {2, 3} are not unique.");
         }
 
         [Fact]
@@ -97,12 +97,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().OnlyHaveUniqueItems("because we want to test the behaviour with a null subject");
+                collection.Should().OnlyHaveUniqueItems("we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to only have unique items because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -148,11 +148,11 @@ public partial class CollectionAssertionSpecs
             ];
 
             // Act
-            Action act = () => collection.Should().OnlyHaveUniqueItems(e => e.Text, "{0} don't like {1}", "we", "duplicates");
+            Action act = () => collection.Should().OnlyHaveUniqueItems(e => e.Text, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items*on e.Text*because we don't like duplicates, but item*three*is not unique.");
+                "Expected collection to only have unique items*on e.Text*because*failure message*but item*three*is not unique.");
         }
 
         [Fact]
@@ -169,11 +169,11 @@ public partial class CollectionAssertionSpecs
             ];
 
             // Act
-            Action act = () => collection.Should().OnlyHaveUniqueItems(e => e.Text, "{0} don't like {1}", "we", "duplicates");
+            Action act = () => collection.Should().OnlyHaveUniqueItems(e => e.Text, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items*on e.Text*because we don't like duplicates, but items*two*two*three*three*are not unique.");
+                "Expected collection to only have unique items*on e.Text*because*failure message*but items*two*two*three*three*are not unique.");
         }
 
         [Fact]
@@ -212,12 +212,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().OnlyHaveUniqueItems(e => e.Text, "because we want to test the behaviour with a null subject");
+                collection.Should().OnlyHaveUniqueItems(e => e.Text, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to only have unique items because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to only have unique items because*failure message, but found <null>.");
         }
     }
 }

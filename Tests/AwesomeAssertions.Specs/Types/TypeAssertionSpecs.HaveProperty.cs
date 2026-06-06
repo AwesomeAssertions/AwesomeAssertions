@@ -63,11 +63,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().HaveProperty(typeof(string), "PublicProperty", "we want to test the failure {0}", "message");
+                type.Should().HaveProperty(typeof(string), "PublicProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected AwesomeAssertions.*ClassWithNoMembers to have a property PublicProperty of type String because we want to test the failure message, but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected AwesomeAssertions.*ClassWithNoMembers to have a property PublicProperty of type String"
+                + " because*failure message, but it does not.");
         }
 
         [Fact]
@@ -77,12 +78,12 @@ public partial class TypeAssertionSpecs
             Type type = typeof(ClassWithNoMembers);
 
             // Act
-            Action act = () =>
-                type.Should().HaveProperty("PublicProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveProperty("PublicProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected AwesomeAssertions.*ClassWithNoMembers to have a property PublicProperty because we want to test the failure message, but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected AwesomeAssertions.*ClassWithNoMembers to have a property PublicProperty because*failure message,"
+                + " but it does not.");
         }
 
         [Fact]
@@ -92,14 +93,13 @@ public partial class TypeAssertionSpecs
             Type type = typeof(ClassWithMembers);
 
             // Act
-            Action act = () =>
-                type.Should()
-                    .HaveProperty(typeof(int), "PrivateWriteProtectedReadProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should()
+                .HaveProperty(typeof(int), "PrivateWriteProtectedReadProperty", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected property PrivateWriteProtectedReadProperty " +
-                    "to be of type int because we want to test the failure message, but it is not.");
+                    "to be of type int because*failure message, but it is not.");
         }
 
         [Fact]
@@ -109,8 +109,7 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveProperty(typeof(string), "PublicProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveProperty(typeof(string), "PublicProperty");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -124,8 +123,7 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveProperty("PublicProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveProperty("PublicProperty");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -275,11 +273,12 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotHaveProperty("PrivateWriteProtectedReadProperty", "we want to test the failure {0}", "message");
+                type.Should().NotHaveProperty("PrivateWriteProtectedReadProperty", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Did not expect AwesomeAssertions.*.ClassWithMembers to have a property PrivateWriteProtectedReadProperty because we want to test the failure message, but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect AwesomeAssertions.*.ClassWithMembers to have a property PrivateWriteProtectedReadProperty"
+                + " because we want to test the failure message, but it does.");
         }
 
         [Fact]
@@ -289,8 +288,7 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveProperty("PublicProperty", "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveProperty("PublicProperty");
 
             // Assert
             act.Should().Throw<XunitException>()

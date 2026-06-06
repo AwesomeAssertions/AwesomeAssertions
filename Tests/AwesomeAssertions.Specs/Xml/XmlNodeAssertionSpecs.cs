@@ -29,13 +29,11 @@ public class XmlNodeAssertionSpecs
             otherNode.LoadXml("<otherDoc/>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeSameAs(otherNode, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeSameAs(otherNode, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected theDocument to refer to <otherDoc /> because we want to test the failure message, but found <doc />.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theDocument to refer to <otherDoc /> because we want to test the failure message, but found <doc />.");
         }
 
         [Fact]
@@ -49,13 +47,11 @@ public class XmlNodeAssertionSpecs
             otherNode.LoadXml("<otherDoc/>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeSameAs(otherNode, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeSameAs(otherNode, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected theDocument to refer to <otherDoc /> because we want to test the failure message, but found <doc>Some very long….");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theDocument to refer to <otherDoc /> because*failure message, but found <doc>Some very long….");
         }
 
         [Fact]
@@ -110,13 +106,11 @@ public class XmlNodeAssertionSpecs
             theDocument.LoadXml("<xml/>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeNull("because we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected theDocument to be <null> because we want to test the failure message," +
-                    " but found <xml />.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected theDocument to be <null> because we want to test the failure message, but found <xml />.");
         }
     }
 
@@ -154,8 +148,7 @@ public class XmlNodeAssertionSpecs
             XmlDocument theDocument = null;
 
             // Act
-            Action act = () =>
-                theDocument.Should().NotBeNull("because we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -186,13 +179,12 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<expected/>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected local name of element in theDocument at \"/\" to be \"expected\" because we want to test the failure message, but found \"subject\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected local name of element in theDocument at \"/\" to be \"expected\" because*failure message,"
+                + " but found \"subject\".");
         }
 
         [Fact]
@@ -249,13 +241,12 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><child><expected/></child></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected local name of element in theDocument at \"/xml/child\" to be \"expected\" because we want to test the failure message, but found \"subject\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected local name of element in theDocument at \"/xml/child\" to be \"expected\" because*failure message,"
+                + " but found \"subject\".");
         }
 
         [Fact]
@@ -269,13 +260,12 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml xmlns=\"urn:a\"><child><data xmlns=\"urn:b\"/></child></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected namespace of element \"data\" in theDocument at \"/xml/child\" to be \"urn:b\" because we want to test the failure message, but found \"urn:a\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected namespace of element \"data\" in theDocument at \"/xml/child\" to be \"urn:b\" because*failure message,"
+                + " but found \"urn:a\".");
         }
 
         [Fact]
@@ -289,13 +279,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><data/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected Element \"data\" in theDocument at \"/xml\" because we want to test the failure message, but found content \"data\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected Element \"data\" in theDocument at \"/xml\" because*failure message, but found content \"data\".");
         }
 
         [Fact]
@@ -309,13 +297,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml/>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected end of document in theDocument because we want to test the failure message, but found \"data\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected end of document in theDocument because we want to test the failure message, but found \"data\".");
         }
 
         [Fact]
@@ -329,13 +315,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><data/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected \"data\" in theDocument because we want to test the failure message, but found end of document.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected \"data\" in theDocument because we want to test the failure message, but found end of document.");
         }
 
         [Fact]
@@ -349,13 +333,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><element a=\"b\" b=\"1\"/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected attribute \"a\" in theDocument at \"/xml/element\" because we want to test the failure message, but found none.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected attribute \"a\" in theDocument at \"/xml/element\" because*failure message, but found none.");
         }
 
         [Fact]
@@ -369,13 +351,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><element/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect to find attribute \"a\" in theDocument at \"/xml/element\" because we want to test the failure message.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect to find attribute \"a\" in theDocument at \"/xml/element\" because*failure message.");
         }
 
         [Fact]
@@ -389,13 +369,12 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><element a=\"c\"/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected attribute \"a\" in theDocument at \"/xml/element\" to have value \"c\" because we want to test the failure message, but found \"b\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected attribute \"a\" in theDocument at \"/xml/element\" to have value \"c\" because*failure message,"
+                + " but found \"b\".");
         }
 
         [Fact]
@@ -409,13 +388,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml><element a=\"b\"/></xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect to find attribute \"ns:a\" in theDocument at \"/xml/element\" because we want to test the failure message.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect to find attribute \"ns:a\" in theDocument at \"/xml/element\" because*failure message.");
         }
 
         [Fact]
@@ -429,13 +406,11 @@ public class XmlNodeAssertionSpecs
             expected.LoadXml("<xml>b</xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().BeEquivalentTo(expected, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().BeEquivalentTo(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected content to be \"b\" in theDocument at \"/xml\" because we want to test the failure message, but found \"a\".");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected content to be \"b\" in theDocument at \"/xml\" because*failure message, but found \"a\".");
         }
 
         [Fact]
@@ -526,13 +501,11 @@ public class XmlNodeAssertionSpecs
             theDocument.LoadXml("<xml>a</xml>");
 
             // Act
-            Action act = () =>
-                theDocument.Should().NotBeEquivalentTo(theDocument, "we want to test the failure {0}", "message");
+            Action act = () => theDocument.Should().NotBeEquivalentTo(theDocument, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Did not expect theDocument to be equivalent because we want to test the failure message, but it is.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect theDocument to be equivalent because we want to test the failure message, but it is.");
         }
     }
 }

@@ -96,11 +96,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             Action act = () =>
-                "a".Should().ContainEquivalentOf("aa", "failure {0}", "message");
+                "a".Should().ContainEquivalentOf("aa", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time because failure message, but found it 0 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected string \"a\" to contain the equivalent of \"aa\" at least 1 time because*failure message, but found it 0 times.");
         }
 
         [Fact]
@@ -157,12 +157,12 @@ public partial class StringAssertionSpecs
 
                 // Act
                 Action act = () =>
-                    actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Once(), "that is {0}", "required");
+                    actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Once(), "we want to test the {0} message",
+                        "failure");
 
                 // Assert
-                act.Should().Throw<XunitException>()
-                    .WithMessage(
-                        "Expected * <null> to contain the equivalent of \"XyZ\" exactly 1 time because that is required, but found it 0 times.");
+                act.Should().Throw<XunitException>().WithMessage(
+                    "Expected * <null> to contain the equivalent of \"XyZ\" exactly 1 time because*failure message, but found it 0 times.");
             }
 
             [Fact]
@@ -189,9 +189,8 @@ public partial class StringAssertionSpecs
                 Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Times(3));
 
                 // Assert
-                act.Should().Throw<XunitException>()
-                    .WithMessage(
-                        "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" exactly 3 times, but found it 2 times.");
+                act.Should().Throw<XunitException>().WithMessage(
+                    "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" exactly 3 times, but found it 2 times.");
             }
 
             [Fact]
@@ -206,8 +205,8 @@ public partial class StringAssertionSpecs
                 Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, Exactly.Once());
 
                 // Assert
-                act.Should().Throw<XunitException>()
-                    .WithMessage("Expected * \"abCDEf\" to contain the equivalent of \"xyS\" exactly 1 time, but found it 0 times.");
+                act.Should().Throw<XunitException>().WithMessage(
+                    "Expected * \"abCDEf\" to contain the equivalent of \"xyS\" exactly 1 time, but found it 0 times.");
             }
 
             [Fact]
@@ -254,8 +253,8 @@ public partial class StringAssertionSpecs
             Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtLeast.Times(3));
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at least 3 times, but found it 2 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at least 3 times, but found it 2 times.");
         }
 
         [Fact]
@@ -317,9 +316,8 @@ public partial class StringAssertionSpecs
             Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, MoreThan.Times(2));
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" more than 2 times, but found it 2 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" more than 2 times, but found it 2 times.");
         }
 
         [Fact]
@@ -334,8 +332,8 @@ public partial class StringAssertionSpecs
             Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, MoreThan.Once());
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected * \"abCDEf\" to contain the equivalent of \"xyS\" more than 1 time, but found it 0 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected * \"abCDEf\" to contain the equivalent of \"xyS\" more than 1 time, but found it 0 times.");
         }
 
         [Fact]
@@ -381,8 +379,8 @@ public partial class StringAssertionSpecs
             Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, AtMost.Times(1));
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at most 1 time, but found it 2 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" at most 1 time, but found it 2 times.");
         }
 
         [Fact]
@@ -436,9 +434,8 @@ public partial class StringAssertionSpecs
             Action act = () => actual.Should().ContainEquivalentOf(expectedSubstring, LessThan.Times(2));
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" less than 2 times, but found it 2 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected * \"abCDEBcDF\" to contain the equivalent of \"Bcd\" less than 2 times, but found it 2 times.");
         }
 
         [Fact]
@@ -601,11 +598,11 @@ public partial class StringAssertionSpecs
             string subject = null;
 
             // Act
-            Action act = () => subject.Should().NotContainEquivalentOf("ANY", "failure {0}", "message");
+            Action act = () => subject.Should().NotContainEquivalentOf("ANY", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .Which.Message.Should().Be("Did not expect subject to contain the equivalent of \"ANY\" because failure message, but found <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect subject to contain the equivalent of \"ANY\" because*failure message, but found <null>.");
         }
     }
 }

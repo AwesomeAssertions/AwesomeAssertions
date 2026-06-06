@@ -67,7 +67,7 @@ public partial class ObjectAssertionSpecs
 
             // Act
             Action act = () =>
-                valueTypeObject.Should().BeOfType(typeof(int), "because we want to test the failure {0}", "message");
+                valueTypeObject.Should().BeOfType(typeof(int), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -109,11 +109,11 @@ public partial class ObjectAssertionSpecs
             var someObject = new object();
 
             // Act
-            Action act = () => someObject.Should().BeOfType<int>("because they are {0} {1}", "of different", "type");
+            Action act = () => someObject.Should().BeOfType<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected type to be int because they are of different type, but found object.");
+                "Expected type to be int because we want to test the failure message, but found object.");
         }
 
         [Fact]
@@ -218,7 +218,7 @@ public partial class ObjectAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                valueTypeObject.Should().NotBeOfType(typeof(int), "because we want to test the failure {0}", "message");
+                valueTypeObject.Should().NotBeOfType(typeof(int), "we want to test the {0} message", "failure");
             };
 
             // Assert

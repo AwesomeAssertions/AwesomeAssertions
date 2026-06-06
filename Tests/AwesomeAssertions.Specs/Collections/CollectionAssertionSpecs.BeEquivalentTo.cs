@@ -54,11 +54,11 @@ public partial class CollectionAssertionSpecs
             int[] collection2 = [1, 2];
 
             // Act
-            Action act = () => collection1.Should().BeEquivalentTo(collection2, "we treat {0} alike", "all");
+            Action act = () => collection1.Should().BeEquivalentTo(collection2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*collection*2 item(s)*we treat all alike, but *1 item(s) more than*");
+                "Expected*collection*2 item(s) because*failure message, but *1 item(s) more than*");
         }
 
         [Fact]
@@ -114,7 +114,7 @@ public partial class CollectionAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected*<null>*failure message*but found {1, 2, 3}*");
+                "Expected*<null> because*failure message*but found {1, 2, 3}*");
         }
 
         [Fact]
@@ -263,12 +263,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                actual.Should().NotBeEquivalentTo(expectation, "because we want to test the behaviour with a null subject");
+                actual.Should().NotBeEquivalentTo(expectation, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*be equivalent because we want to test the behaviour with a null subject, but found <null>*");
+                "*be equivalent because*failure message, but found <null>*");
         }
 
         [Fact]
@@ -306,12 +306,11 @@ public partial class CollectionAssertionSpecs
             var collection1 = collection;
 
             // Act
-            Action act = () => collection.Should().NotBeEquivalentTo(collection1,
-                "because we want to test the behaviour with same objects");
+            Action act = () => collection.Should().NotBeEquivalentTo(collection1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "*not to be equivalent*because we want to test the behaviour with same objects*but they both reference the same object.");
+                "*not to be equivalent*because* failure message, but they both reference the same object.");
         }
 
         [Fact]
@@ -325,11 +324,10 @@ public partial class CollectionAssertionSpecs
             Action act = () => collection.Should().NotBeEquivalentTo(collection1, opt => opt
                     .Using<double>(ctx => ctx.Subject.Should().BeApproximately(ctx.Expectation, 0.5))
                     .WhenTypeIs<double>(),
-                "because we want to test the failure {0}", "message");
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "*not to be equivalent*because we want to test the failure message*");
+            act.Should().Throw<XunitException>().WithMessage("*not to be equivalent*because*failure message*");
         }
 
         [Fact]
@@ -343,12 +341,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                actual.Should().NotBeEquivalentTo(expectation, opt => opt, "we want to test the failure {0}", "message");
+                actual.Should().NotBeEquivalentTo(expectation, opt => opt, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected actual not to be equivalent *failure message*, but found <null>.*");
+                .WithMessage("Expected actual not to be equivalent because*failure message*, but found <null>.*");
         }
 
         [Fact]

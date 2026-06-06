@@ -109,11 +109,11 @@ public partial class StringAssertionSpecs
         public void When_end_of_string_does_not_meet_equivalent_it_should_throw()
         {
             // Act
-            Action act = () => "ABC".Should().EndWithEquivalentOf("ab", "because it should end");
+            Action act = () => "ABC".Should().EndWithEquivalentOf("ab", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string*it should*index 3*ABC*ab*");
+                "Expected string*because*failure message*index 3*ABC*ab*");
         }
 
         [Fact]
@@ -275,11 +275,11 @@ public partial class StringAssertionSpecs
 
             // Act
             Action action = () =>
-                value.Should().NotEndWithEquivalentOf("Bc", "because of some {0}", "reason");
+                value.Should().NotEndWithEquivalentOf("Bc", "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>().WithMessage(
-                "Expected value not to end with equivalent of \"Bc\" because of some reason, but found \"ABC\".");
+                "Expected value not to end with equivalent of \"Bc\" because*failure message*, but found \"ABC\".");
         }
 
         [Fact]
@@ -322,12 +322,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                someString.Should().NotEndWithEquivalentOf("Abc", "some {0}", "reason");
+                someString.Should().NotEndWithEquivalentOf("Abc", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someString not to end with equivalent of \"Abc\"*some reason*, but found <null>.");
+                "Expected someString not to end with equivalent of \"Abc\" because*failure message*, but found <null>.");
         }
     }
 }

@@ -17,7 +17,7 @@ public partial class StringAssertionSpecs
             string sut = "aaa";
 
             // Act
-            Action act = () => sut.Should().BeParsableInto<int>("we want to test the {0}", "failure message")
+            Action act = () => sut.Should().BeParsableInto<int>("we want to test the {0} message", "failure")
                 .Which.Should().Be(0);
 
             // Assert
@@ -88,7 +88,7 @@ public partial class StringAssertionSpecs
             string sut = "1";
 
             // Act
-            Action act = () => sut.Should().NotBeParsableInto<int>("we want to test the {0}", "failure message");
+            Action act = () => sut.Should().NotBeParsableInto<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("*1*int*we want*failure message*could*");

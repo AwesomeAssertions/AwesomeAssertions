@@ -39,11 +39,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithoutMembers);
 
             // Act
-            Action act = () => type.Should().BeAbstract("we want to test the failure {0}", "message");
+            Action act = () => type.Should().BeAbstract("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.ClassWithoutMembers to be abstract *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithoutMembers to be abstract because*failure message*.");
         }
 
         [Theory]
@@ -68,11 +68,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().BeAbstract("we want to test the failure {0}", "message");
+                type.Should().BeAbstract("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be abstract *failure message*, but type is <null>.");
+                .WithMessage("Expected type to be abstract because*failure message*, but type is <null>.");
         }
     }
 
@@ -109,11 +109,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(Abstract);
 
             // Act
-            Action act = () => type.Should().NotBeAbstract("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBeAbstract("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.Abstract not to be abstract *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.Abstract not to be abstract because*failure message*.");
         }
 
         [Theory]
@@ -138,11 +138,11 @@ public partial class TypeAssertionSpecs
 
             // Act
             Action act = () =>
-                type.Should().NotBeAbstract("we want to test the failure {0}", "message");
+                type.Should().NotBeAbstract("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be abstract *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type not to be abstract because*failure message*, but type is <null>.");
         }
     }
 }

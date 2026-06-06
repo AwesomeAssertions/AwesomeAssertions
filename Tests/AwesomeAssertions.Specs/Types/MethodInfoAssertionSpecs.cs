@@ -29,13 +29,12 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = typeof(ClassWithNonVirtualPublicMethods).GetParameterlessMethod("PublicDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().BeVirtual("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().BeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected method void AwesomeAssertions*ClassWithNonVirtualPublicMethods.PublicDoNothing" +
-                    " to be virtual because we want to test the error message," +
+                    " to be virtual because we want to test the failure message," +
                     " but it is not virtual.");
         }
 
@@ -46,12 +45,11 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().BeVirtual("we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().BeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method to be virtual *failure message*, but methodInfo is <null>.");
+                .WithMessage("Expected method to be virtual because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -74,13 +72,12 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = typeof(ClassWithAllMethodsVirtual).GetParameterlessMethod("PublicVirtualDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotBeVirtual("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().NotBeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected method *ClassWithAllMethodsVirtual.PublicVirtualDoNothing" +
-                    " not to be virtual because we want to test the error message," +
+                    " not to be virtual because we want to test the failure message," +
                     " but it is.");
         }
 
@@ -91,8 +88,7 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotBeVirtual("we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().NotBeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -243,13 +239,13 @@ public class MethodInfoAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>("because we want to test the error {0}", "message");
+                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected method void AwesomeAssertions*ClassWithMethodsThatAreNotDecoratedWithDummyAttribute.PublicDoNothing to be decorated with " +
-                    "AwesomeAssertions*DummyMethodAttribute because we want to test the error message," +
+                    "AwesomeAssertions*DummyMethodAttribute because we want to test the failure message," +
                     " but that attribute was not found.");
         }
 
@@ -298,15 +294,14 @@ public class MethodInfoAssertionSpecs
                 typeof(ClassWithMethodsThatAreNotDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should()
-                    .BeDecoratedWith<DummyMethodAttribute>(d => !d.Filter, "because we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should()
+                .BeDecoratedWith<DummyMethodAttribute>(d => !d.Filter, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected method void AwesomeAssertions*ClassWithMethodsThatAreNotDecoratedWithDummyAttribute.PublicDoNothing to be decorated with " +
-                    "AwesomeAssertions*DummyMethodAttribute because we want to test the error message," +
+                    "AwesomeAssertions*DummyMethodAttribute because we want to test the failure message," +
                     " but that attribute was not found.");
         }
 
@@ -357,12 +352,11 @@ public class MethodInfoAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>("we want to test the failure {0}", "message");
+                methodInfo.Should().BeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method to be decorated with *.DummyMethodAttribute *failure message*, but methodInfo is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method to be decorated with *.DummyMethodAttribute because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -428,13 +422,13 @@ public class MethodInfoAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>("because we want to test the error {0}", "message");
+                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected method void AwesomeAssertions*ClassWithAllMethodsDecoratedWithDummyAttribute.PublicDoNothing to not be decorated with " +
-                    "AwesomeAssertions*DummyMethodAttribute because we want to test the error message," +
+                    "AwesomeAssertions*DummyMethodAttribute because we want to test the failure message," +
                     " but that attribute was found.");
         }
 
@@ -490,15 +484,14 @@ public class MethodInfoAssertionSpecs
                 typeof(ClassWithAllMethodsDecoratedWithDummyAttribute).GetParameterlessMethod("PublicDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should()
-                    .NotBeDecoratedWith<DummyMethodAttribute>(d => d.Filter, "because we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should()
+                .NotBeDecoratedWith<DummyMethodAttribute>(d => d.Filter, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     "Expected method void AwesomeAssertions*ClassWithAllMethodsDecoratedWithDummyAttribute.PublicDoNothing to not be decorated with " +
-                    "AwesomeAssertions*DummyMethodAttribute because we want to test the error message," +
+                    "AwesomeAssertions*DummyMethodAttribute because we want to test the failure message," +
                     " but that attribute was found.");
         }
 
@@ -510,7 +503,7 @@ public class MethodInfoAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>("we want to test the failure {0}", "message");
+                methodInfo.Should().NotBeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -539,13 +532,12 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = typeof(ClassWithNonAsyncMethods).GetParameterlessMethod("PublicDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().BeAsync("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().BeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected method Task AwesomeAssertions*ClassWithNonAsyncMethods.PublicDoNothing" +
-                    " to be async because we want to test the error message," +
+                    " to be async because we want to test the failure message," +
                     " but it is not.");
         }
 
@@ -556,8 +548,7 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().BeAsync("we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().BeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -584,13 +575,12 @@ public class MethodInfoAssertionSpecs
             MethodInfo methodInfo = typeof(ClassWithAllMethodsAsync).GetParameterlessMethod("PublicAsyncDoNothing");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotBeAsync("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().NotBeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*ClassWithAllMethodsAsync.PublicAsyncDoNothing*" +
-                    "not to be async*because we want to test the error message*");
+                    "not to be async*because we want to test the failure message*");
         }
 
         [Fact]
@@ -601,11 +591,11 @@ public class MethodInfoAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().NotBeAsync("we want to test the failure {0}", "message");
+                methodInfo.Should().NotBeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method not to be async *failure message*, but methodInfo is <null>.");
+                .WithMessage("Expected method not to be async because*failure message*, but methodInfo is <null>.");
         }
     }
 }

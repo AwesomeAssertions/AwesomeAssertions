@@ -52,7 +52,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan? nullTimeSpan = null;
 
         // Act
-        Action act = () => nullTimeSpan.Should().BePositive("because we want to test the failure {0}", "message");
+        Action act = () => nullTimeSpan.Should().BePositive("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -66,7 +66,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan timeSpan = 1.Seconds().Negate();
 
         // Act
-        Action act = () => timeSpan.Should().BePositive("because we want to test the failure {0}", "message");
+        Action act = () => timeSpan.Should().BePositive("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -116,7 +116,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan? nullTimeSpan = null;
 
         // Act
-        Action act = () => nullTimeSpan.Should().BeNegative("because we want to test the failure {0}", "message");
+        Action act = () => nullTimeSpan.Should().BeNegative("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -130,7 +130,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan timeSpan = 1.Seconds();
 
         // Act
-        Action act = () => timeSpan.Should().BeNegative("because we want to test the failure {0}", "message");
+        Action act = () => timeSpan.Should().BeNegative("we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -184,7 +184,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan expected = 1.Seconds();
 
         // Act
-        Action act = () => nullTimeSpan.Should().Be(expected, "because we want to test the failure {0}", "message");
+        Action act = () => nullTimeSpan.Should().Be(expected, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -198,7 +198,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan timeSpan = 1.Seconds();
 
         // Act
-        Action act = () => timeSpan.Should().Be(2.Seconds(), "because we want to test the failure {0}", "message");
+        Action act = () => timeSpan.Should().Be(2.Seconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -247,7 +247,7 @@ public class SimpleTimeSpanAssertionSpecs
         var oneSecond = 1.Seconds();
 
         // Act
-        Action act = () => oneSecond.Should().NotBe(oneSecond, "because we want to test the failure {0}", "message");
+        Action act = () => oneSecond.Should().NotBe(oneSecond, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
@@ -287,7 +287,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan expected = 1.Seconds();
 
         // Act
-        Action act = () => nullTimeSpan.Should().BeGreaterThan(expected, "because we want to test the failure {0}", "message");
+        Action act = () => nullTimeSpan.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -314,7 +314,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan actual = 1.Seconds();
 
         // Act
-        Action act = () => actual.Should().BeGreaterThan(2.Seconds(), "because we want to test the failure {0}", "message");
+        Action act = () => actual.Should().BeGreaterThan(2.Seconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -341,7 +341,7 @@ public class SimpleTimeSpanAssertionSpecs
 
         // Act
         Action act = () =>
-            nullTimeSpan.Should().BeGreaterThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+            nullTimeSpan.Should().BeGreaterThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -390,7 +390,7 @@ public class SimpleTimeSpanAssertionSpecs
 
         // Act
         Action act = () =>
-            actual.Should().BeGreaterThanOrEqualTo(2.Seconds(), "because we want to test the failure {0}", "message");
+            actual.Should().BeGreaterThanOrEqualTo(2.Seconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -430,7 +430,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan expected = 1.Seconds();
 
         // Act
-        Action act = () => nullTimeSpan.Should().BeLessThan(expected, "because we want to test the failure {0}", "message");
+        Action act = () => nullTimeSpan.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -457,7 +457,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan actual = 2.Seconds();
 
         // Act
-        Action act = () => actual.Should().BeLessThan(1.Seconds(), "because we want to test the failure {0}", "message");
+        Action act = () => actual.Should().BeLessThan(1.Seconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -495,7 +495,7 @@ public class SimpleTimeSpanAssertionSpecs
 
         // Act
         Action act = () =>
-            nullTimeSpan.Should().BeLessThanOrEqualTo(expected, "because we want to test the failure {0}", "message");
+            nullTimeSpan.Should().BeLessThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -533,7 +533,7 @@ public class SimpleTimeSpanAssertionSpecs
         TimeSpan actual = 2.Seconds();
 
         // Act
-        Action act = () => actual.Should().BeLessThanOrEqualTo(1.Seconds(), "because we want to test the failure {0}", "message");
+        Action act = () => actual.Should().BeLessThanOrEqualTo(1.Seconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>().WithMessage(
@@ -602,12 +602,12 @@ public class SimpleTimeSpanAssertionSpecs
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
         // Act
-        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds(), "we want to test the error message");
+        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because we want to test the error message, but found 1d, 12h, 15m, 30s and 979ms.");
+                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because*failure message, but found 1d, 12h, 15m, 30s and 979ms.");
     }
 
     [Fact]
@@ -618,12 +618,12 @@ public class SimpleTimeSpanAssertionSpecs
         var nearbyTime = new TimeSpan(1, 12, 15, 31, 000);
 
         // Act
-        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds(), "we want to test the error message");
+        Action act = () => time.Should().BeCloseTo(nearbyTime, 20.Milliseconds(), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because we want to test the error message, but found 1d, 12h, 15m, 31s and 21ms.");
+                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because*failure message, but found 1d, 12h, 15m, 31s and 21ms.");
     }
 
     [Fact]
@@ -661,12 +661,12 @@ public class SimpleTimeSpanAssertionSpecs
 
         // Act
         Action act = () =>
-            time.Should().BeCloseTo(nearbyTime, TimeSpan.FromMilliseconds(20), "we want to test the error message");
+            time.Should().BeCloseTo(nearbyTime, TimeSpan.FromMilliseconds(20), "we want to test the {0} message", "failure");
 
         // Assert
         act.Should().Throw<XunitException>()
             .WithMessage(
-                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because we want to test the error message, but found 1d, 12h, 15m, 30s and 979ms.");
+                "Expected time to be within 20ms from 1d, 12h, 15m and 31s because*failure message, but found 1d, 12h, 15m, 30s and 979ms.");
     }
 
     #endregion

@@ -28,12 +28,11 @@ public class BufferedStreamAssertionSpecs
             using var stream = new BufferedStream(new MemoryStream(), 1);
 
             // Act
-            Action act = () =>
-                stream.Should().HaveBufferSize(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().HaveBufferSize(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the buffer size of stream to be 10 *failure message*, but it was 1.");
+                .WithMessage("Expected the buffer size of stream to be 10 because*failure message*, but it was 1.");
         }
 
         [Fact]
@@ -46,12 +45,12 @@ public class BufferedStreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().HaveBufferSize(10, "we want to test the failure {0}", "message");
+                stream.Should().HaveBufferSize(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the buffer size of stream to be 10 *failure message*, but found a <null> reference.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the buffer size of stream to be 10 because*failure message*, but found a <null> reference.");
         }
     }
 
@@ -74,12 +73,11 @@ public class BufferedStreamAssertionSpecs
             using var stream = new BufferedStream(new MemoryStream(), 10);
 
             // Act
-            Action act = () =>
-                stream.Should().NotHaveBufferSize(10, "we want to test the failure {0}", "message");
+            Action act = () => stream.Should().NotHaveBufferSize(10, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the buffer size of stream not to be 10 *failure message*, but it was.");
+                .WithMessage("Expected the buffer size of stream not to be 10 because*failure message*, but it was.");
         }
 
         [Fact]
@@ -92,12 +90,12 @@ public class BufferedStreamAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                stream.Should().NotHaveBufferSize(10, "we want to test the failure {0}", "message");
+                stream.Should().NotHaveBufferSize(10, "we want to test the {0} message", "failure");
             };
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the buffer size of stream not to be 10 *failure message*, but found a <null> reference.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the buffer size of stream not to be 10 because*failure message*, but found a <null> reference.");
         }
     }
 }

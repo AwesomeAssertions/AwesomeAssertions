@@ -32,12 +32,12 @@ public partial class StringAssertionSpecs
             string value = "abc";
 
             // Act
-            Action action = () => value.Should().BeOneOf(["def", "xyz"], "because those are the valid values");
+            Action action = () => value.Should().BeOneOf(["def", "xyz"], "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected value to be one of {\"def\", \"xyz\"} because those are the valid values, but found \"abc\".");
+                    "Expected value to be one of {\"def\", \"xyz\"} because we want to test the failure message, but found \"abc\".");
         }
 
         [Fact]

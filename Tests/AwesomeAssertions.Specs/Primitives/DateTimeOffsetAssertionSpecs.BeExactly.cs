@@ -40,7 +40,7 @@ public partial class DateTimeOffsetAssertionSpecs
             var otherDateTime = dateTime.ToUniversalTime();
 
             // Act
-            Action act = () => dateTime.Should().BeExactly(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().BeExactly(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -55,7 +55,7 @@ public partial class DateTimeOffsetAssertionSpecs
             DateTimeOffset? otherDateTime = dateTime.ToUniversalTime();
 
             // Act
-            Action act = () => dateTime.Should().BeExactly(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().BeExactly(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -108,7 +108,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableDateTime.Should().BeExactly(expectation, "because we want to test the failure {0}", "message");
+                nullableDateTime.Should().BeExactly(expectation, "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -150,7 +150,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBeExactly(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBeExactly(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -166,7 +166,7 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBeExactly(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBeExactly(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
@@ -182,11 +182,11 @@ public partial class DateTimeOffsetAssertionSpecs
 
             // Act
             Action act =
-                () => subject.Should().BeExactly(TimeSpan.FromMinutes(20)).Before(target, "{0} minutes is enough", 20);
+                () => subject.Should().BeExactly(TimeSpan.FromMinutes(20)).Before(target, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected subject <12:36:00 +0h> to be exactly 20m before <12:55:00 +0h> because 20 minutes is enough, but it is behind by 19m.");
+                "Expected subject <12:36:00 +0h> to be exactly 20m before <12:55:00 +0h> because*failure message, but it is behind by 19m.");
         }
 
         [Fact]

@@ -80,11 +80,11 @@ public partial class ObjectAssertionSpecs
 
             // Act
             Action act = () => value.Should().BeOneOf([new SomeClass(4), new SomeClass(5)],
-                new SomeClassEqualityComparer(), "I said so");
+                new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*I said so*SomeClass(3).");
+               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*failure message*SomeClass(3).");
         }
 
         [Fact]
@@ -108,11 +108,11 @@ public partial class ObjectAssertionSpecs
 
             // Act
             Action act = () => value.Should().BeOneOf([new SomeClass(4), new SomeClass(5)],
-                new SomeClassEqualityComparer(), "I said so");
+                new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*I said so*SomeClass(3).");
+               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*failure message*SomeClass(3).");
         }
 
         [Fact]
@@ -136,11 +136,11 @@ public partial class ObjectAssertionSpecs
 
             // Act
             Action act = () => value.Should().BeOneOf([new SomeClass(4), new SomeClass(5)],
-                new SomeClassEqualityComparer(), "I said so");
+                new SomeClassEqualityComparer(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*I said so*ClassWithCustomEqualMethod(3).");
+               .WithMessage("Expected value to be one of {SomeClass(4), SomeClass(5)}*failure message*ClassWithCustomEqualMethod(3).");
         }
 
         [Fact]

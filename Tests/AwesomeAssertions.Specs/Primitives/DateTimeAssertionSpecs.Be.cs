@@ -61,7 +61,7 @@ public partial class DateTimeAssertionSpecs
             var otherDateTime = new DateTime(2012, 03, 11);
 
             // Act
-            Action act = () => dateTime.Should().Be(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().Be(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -76,7 +76,7 @@ public partial class DateTimeAssertionSpecs
             DateTime? otherDateTime = 11.March(2012);
 
             // Act
-            Action act = () => dateTime.Should().Be(otherDateTime, "because we want to test the failure {0}", "message");
+            Action act = () => dateTime.Should().Be(otherDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -150,7 +150,7 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action action = () =>
-                nullableDateTime.Should().Be(new DateTime(2016, 06, 04), "because we want to test the failure {0}", "message");
+                nullableDateTime.Should().Be(new DateTime(2016, 06, 04), "we want to test the {0} message", "failure");
 
             // Assert
             action.Should().Throw<XunitException>()
@@ -192,7 +192,7 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBe(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBe(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
@@ -209,7 +209,7 @@ public partial class DateTimeAssertionSpecs
 
             // Act
             Action act =
-                () => dateTime.Should().NotBe(sameDateTime, "because we want to test the failure {0}", "message");
+                () => dateTime.Should().NotBe(sameDateTime, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()

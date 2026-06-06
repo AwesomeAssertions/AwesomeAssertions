@@ -42,13 +42,12 @@ public class MethodInfoSelectorAssertionSpecs
             var methodSelector = new MethodInfoSelector(typeof(ClassWithNonVirtualPublicMethods));
 
             // Act
-            Action act = () =>
-                methodSelector.Should().BeVirtual("we want to test the error {0}", "message");
+            Action act = () => methodSelector.Should().BeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods" +
-                    " to be virtual because we want to test the error message," +
+                    " to be virtual because we want to test the failure message," +
                     " but the following methods are not virtual:*" +
                     "Void AwesomeAssertions*ClassWithNonVirtualPublicMethods.PublicDoNothing*" +
                     "Void AwesomeAssertions*ClassWithNonVirtualPublicMethods.InternalDoNothing*" +
@@ -90,13 +89,12 @@ public class MethodInfoSelectorAssertionSpecs
             var methodSelector = new MethodInfoSelector(typeof(ClassWithAllMethodsVirtual));
 
             // Act
-            Action act = () =>
-                methodSelector.Should().NotBeVirtual("we want to test the error {0}", "message");
+            Action act = () => methodSelector.Should().NotBeVirtual("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods" +
-                    " not to be virtual because we want to test the error message," +
+                    " not to be virtual because we want to test the failure message," +
                     " but the following methods are virtual" +
                     "*ClassWithAllMethodsVirtual.PublicVirtualDoNothing" +
                     "*ClassWithAllMethodsVirtual.InternalVirtualDoNothing" +
@@ -156,12 +154,12 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Act
             Action act = () =>
-                methodSelector.Should().BeDecoratedWith<DummyMethodAttribute>("because we want to test the error {0}", "message");
+                methodSelector.Should().BeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods to be decorated with" +
-                    " AwesomeAssertions*DummyMethodAttribute because we want to test the error message," +
+                    " AwesomeAssertions*DummyMethodAttribute because we want to test the failure message," +
                     " but the following methods are not:*" +
                     "Void AwesomeAssertions*ClassWithMethodsThatAreNotDecoratedWithDummyAttribute.PublicDoNothing*" +
                     "Void AwesomeAssertions*ClassWithMethodsThatAreNotDecoratedWithDummyAttribute.ProtectedDoNothing*" +
@@ -221,12 +219,12 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Act
             Action act = () => methodSelector.Should()
-                    .NotBeDecoratedWith<DummyMethodAttribute>("because we want to test the error {0}", "message");
+                .NotBeDecoratedWith<DummyMethodAttribute>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected all selected methods to not be decorated*DummyMethodAttribute*because we want to test the error message" +
+                    "Expected all selected methods to not be decorated*DummyMethodAttribute*because we want to test the failure message" +
                     "*ClassWithAllMethodsDecoratedWithDummyAttribute.PublicDoNothing*" +
                     "*ClassWithAllMethodsDecoratedWithDummyAttribute.PublicDoNothingWithSameAttributeTwice*" +
                     "*ClassWithAllMethodsDecoratedWithDummyAttribute.ProtectedDoNothing*" +
@@ -273,12 +271,12 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Act
             Action act = () =>
-                methodSelector.Should().Be(CSharpAccessModifier.Public, "we want to test the error {0}", "message");
+                methodSelector.Should().Be(CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods to be Public" +
-                    " because we want to test the error message" +
+                    " because we want to test the failure message" +
                     ", but the following methods are not:*" +
                     "Void AwesomeAssertions*.GenericClassWithNonPublicMethods<int>.PublicDoNothing*" +
                     "Void AwesomeAssertions*.GenericClassWithNonPublicMethods<int>.DoNothingWithParameter*" +
@@ -323,12 +321,12 @@ public class MethodInfoSelectorAssertionSpecs
 
             // Act
             Action act = () =>
-                methodSelector.Should().NotBe(CSharpAccessModifier.Public, "we want to test the error {0}", "message");
+                methodSelector.Should().NotBe(CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected all selected methods to not be Public" +
-                    " because we want to test the error message" +
+                    " because we want to test the failure message" +
                     ", but the following methods are:*" +
                     "Void AwesomeAssertions*ClassWithPublicMethods.PublicDoNothing*");
         }
@@ -353,13 +351,13 @@ public class MethodInfoSelectorAssertionSpecs
             var methodSelector = new MethodInfoSelector(typeof(ClassWithNonAsyncMethods));
 
             // Act
-            Action act = () => methodSelector.Should().BeAsync("we want to test the error {0}", "message");
+            Action act = () => methodSelector.Should().BeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
                     """
-                    Expected all selected methods to be async because we want to test the error message, but the following methods are not:
+                    Expected all selected methods to be async because we want to test the failure message, but the following methods are not:
                     Task AwesomeAssertions.Specs.Types.ClassWithNonAsyncMethods.PublicDoNothing
                     Task AwesomeAssertions.Specs.Types.ClassWithNonAsyncMethods.InternalDoNothing
                     Task AwesomeAssertions.Specs.Types.ClassWithNonAsyncMethods.ProtectedDoNothing
@@ -386,12 +384,12 @@ public class MethodInfoSelectorAssertionSpecs
             var methodSelector = new MethodInfoSelector(typeof(ClassWithAllMethodsAsync));
 
             // Act
-            Action act = () => methodSelector.Should().NotBeAsync("we want to test the error {0}", "message");
+            Action act = () => methodSelector.Should().NotBeAsync("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("""
-                    Expected all selected methods not to be async because we want to test the error message, but the following methods are:
+                    Expected all selected methods not to be async because we want to test the failure message, but the following methods are:
                     Task AwesomeAssertions.Specs.Types.ClassWithAllMethodsAsync.PublicAsyncDoNothing
                     Task AwesomeAssertions.Specs.Types.ClassWithAllMethodsAsync.InternalAsyncDoNothing
                     Task AwesomeAssertions.Specs.Types.ClassWithAllMethodsAsync.ProtectedAsyncDoNothing

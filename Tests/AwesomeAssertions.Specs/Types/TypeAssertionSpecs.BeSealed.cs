@@ -39,11 +39,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(ClassWithoutMembers);
 
             // Act
-            Action act = () => type.Should().BeSealed("we want to test the failure {0}", "message");
+            Action act = () => type.Should().BeSealed("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.ClassWithoutMembers to be sealed *failure message*.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type *.ClassWithoutMembers to be sealed because*failure message*.");
         }
 
         [Theory]
@@ -67,12 +67,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().BeSealed("we want to test the failure {0}", "message");
+            Action act = () => type.Should().BeSealed("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected type to be sealed *failure message*, but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected type to be sealed because*failure message*, but type is <null>.");
         }
     }
 
@@ -109,11 +108,11 @@ public partial class TypeAssertionSpecs
             var type = typeof(Sealed);
 
             // Act
-            Action act = () => type.Should().NotBeSealed("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBeSealed("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type *.Sealed not to be sealed *failure message*.");
+                .WithMessage("Expected type *.Sealed not to be sealed because*failure message*.");
         }
 
         [Theory]
@@ -137,12 +136,11 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotBeSealed("we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotBeSealed("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected type not to be sealed *failure message*, but type is <null>.");
+                .WithMessage("Expected type not to be sealed because*failure message*, but type is <null>.");
         }
     }
 }

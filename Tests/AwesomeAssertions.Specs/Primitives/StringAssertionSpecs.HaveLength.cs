@@ -32,12 +32,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                actual.Should().HaveLength(0, "we want to test the failure {0}", "message");
+                actual.Should().HaveLength(0, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected actual with length 0 *failure message*, but found <null>.");
+                .WithMessage("Expected actual with length 0 because*failure message*, but found <null>.");
         }
 
         [Fact]
@@ -50,12 +50,12 @@ public partial class StringAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                actual.Should().HaveLength(1, "we want to test the failure {0}", "message");
+                actual.Should().HaveLength(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected actual with length 1 *failure message*, but found string \"ABC\" with length 3.");
+                .WithMessage("Expected actual with length 1 because*failure message*, but found string \"ABC\" with length 3.");
         }
     }
 }

@@ -29,11 +29,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<string> someCollection = new string[0];
 
             // Act
-            Action act = () => someCollection.Should().BeNull("because {0} is valid", "null");
+            Action act = () => someCollection.Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someCollection to be <null> because null is valid, but found {empty}.");
+                "Expected someCollection to be <null> because*failure message, but found {empty}.");
         }
     }
 
@@ -56,11 +56,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<string> someCollection = null;
 
             // Act
-            Action act = () => someCollection.Should().NotBeNull("because {0} should not", "someCollection");
+            Action act = () => someCollection.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someCollection not to be <null> because someCollection should not.");
+                "Expected someCollection not to be <null> because*failure message.");
         }
     }
 }

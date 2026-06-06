@@ -18,12 +18,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world!";
 
             // Act
-            Action act = () => subject.Should().Match("h*earth!", "failure {0}", "message");
+            Action act = () => subject.Should().Match("h*earth!", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected subject to match*\"h*earth!\" because failure message, but*\"hello world!\" does not.");
+                    "Expected subject to match*\"h*earth!\" because*failure message, but*\"hello world!\" does not.");
         }
 
         [Fact]
@@ -129,12 +129,12 @@ public partial class StringAssertionSpecs
             string subject = "hello world";
 
             // Act
-            Action act = () => subject.Should().NotMatch("*world*", "because that's illegal");
+            Action act = () => subject.Should().NotMatch("*world*", "we want to test the {0} message", "failure");
 
             // Assert
             act
                 .Should().Throw<XunitException>().WithMessage(
-                    "Did not expect subject to match*\"*world*\" because that's illegal, but*\"hello world\" matches.");
+                    "Did not expect subject to match*\"*world*\" because*failure message, but*\"hello world\" matches.");
         }
 
         [Fact]
@@ -175,12 +175,11 @@ public partial class StringAssertionSpecs
             string subject = null;
 
             // Act
-            Action act = () => subject.Should().NotMatch("*", "failure {0}", "message");
+            Action act = () => subject.Should().NotMatch("*", "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .Which.Message.Should().Be(
-                    "Did not expect subject to match \"*\" because failure message, but found <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Did not expect subject to match \"*\" because*failure message, but found <null>.");
         }
     }
 }

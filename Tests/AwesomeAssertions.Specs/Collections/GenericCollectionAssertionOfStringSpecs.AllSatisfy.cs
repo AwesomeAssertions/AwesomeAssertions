@@ -25,17 +25,15 @@ public partial class GenericCollectionAssertionOfStringSpecs
             string[] collection = ["Jack", "Jessica"];
 
             // Act
-            Action act = () => collection.Should()
-                .AllSatisfy(
-                    value => value.Should().Be("John"),
-                    "because we want to test the failure {0}",
-                    "message");
+            Action act = () => collection.Should().AllSatisfy(
+                value => value.Should().Be("John"),
+                "we want to test the {0} message", "failure");
 
             // Assert
             act.Should()
                 .Throw<XunitException>()
                 .WithMessage(
-                    "Expected collection to contain only items satisfying the inspector because we want to test the failure message:"
+                    "Expected collection to contain only items satisfying the inspector because*failure message:"
                     + "*Jack*John"
                     + "*Jessica*John*");
         }

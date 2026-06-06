@@ -33,12 +33,13 @@ public partial class StringAssertionSpecs
         public void When_two_strings_differ_unexpectedly_it_should_throw()
         {
             // Act
-            Action act = () => "ADC".Should().Be("ABC", "because we {0}", "do");
+            Action act = () => "ADC".Should().Be("ABC", "we want to test the {0} message", "failure");
 
             // Assert
             // we want one assertion with the full message.
-            act.Should().Throw<XunitException>().Which.Message.Should().Be("""
-                Expected string to be the same string because we do, but they differ at index 1:
+            act.Should().Throw<XunitException>().Which.Message.Should().Be(
+                """
+                Expected string to be the same string because we want to test the failure message, but they differ at index 1:
                     ↓ (actual)
                   "ADC"
                   "ABC"
@@ -139,11 +140,11 @@ public partial class StringAssertionSpecs
         public void When_string_is_expected_to_be_null_it_should_throw()
         {
             // Act
-            Action act = () => "AB".Should().BeNull("we like {0}", "null");
+            Action act = () => "AB".Should().BeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string to be <null> because we like null, but found \"AB\".");
+                "Expected string to be <null> because we want to test the failure message, but found \"AB\".");
         }
 
         [Fact]
@@ -162,12 +163,12 @@ public partial class StringAssertionSpecs
         public void When_the_expected_string_is_the_same_but_with_trailing_spaces_it_should_throw_with_clear_error_message()
         {
             // Act
-            Action act = () => "ABC".Should().Be("ABC ", "because I say {0}", "so");
+            Action act = () => "ABC".Should().Be("ABC ", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                *index 3*
+                *because we want to test the failure message*index 3*
                       ↓ (actual)
                   "ABC"
                   "ABC "
@@ -181,12 +182,12 @@ public partial class StringAssertionSpecs
             When_the_actual_string_is_the_same_as_the_expected_but_with_trailing_spaces_it_should_throw_with_clear_error_message()
         {
             // Act
-            Action act = () => "ABC ".Should().Be("ABC", "because I say {0}", "so");
+            Action act = () => "ABC ".Should().Be("ABC", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
                 """
-                *index 3*
+                *because we want to test the failure message*index 3*
                       ↓ (actual)
                   "ABC "
                   "ABC"
@@ -228,7 +229,8 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
-        public void When_two_strings_differ_and_contain_white_spaces_to_escape_these_are_shown_in_the_message_and_respected_in_the_index()
+        public void
+            When_two_strings_differ_and_contain_white_spaces_to_escape_these_are_shown_in_the_message_and_respected_in_the_index()
         {
             string subject = "\t\r\nand now some longer text, parts of which get truncated, and \t\r\ndiff\r\n\t";
             string expected = "\t\r\nand now some longer text, parts of which get truncated, and \t\r\nDIFF\r\n\t";
@@ -253,11 +255,12 @@ public partial class StringAssertionSpecs
             const string expected = "this is a long text which differs in between two words";
 
             // Act
-            Action act = () => subject.Should().Be(expected, "because we use arrows now");
+            Action act = () => subject.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                Expected subject to be the same string because we use arrows now, but they differ at index 20:
+            act.Should().Throw<XunitException>().WithMessage(
+                """
+                Expected subject to be the same string because we want to test the failure message, but they differ at index 20:
                                    ↓ (actual)
                   "…is a long text that differs in between two words"
                   "…is a long text which differs in between two words"
@@ -272,11 +275,12 @@ public partial class StringAssertionSpecs
             const string expected = "this was too short";
 
             // Act
-            Action act = () => subject.Should().Be(expected, "because we use arrows now");
+            Action act = () => subject.Should().Be(expected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("""
-                Expected subject to be the same string because we use arrows now, but they differ at index 5:
+            act.Should().Throw<XunitException>().WithMessage(
+                """
+                Expected subject to be the same string because we want to test the failure message, but they differ at index 5:
                         ↓ (actual)
                   "this is a long text that has more than 60 characters so it…"
                   "this was too short"
@@ -287,7 +291,9 @@ public partial class StringAssertionSpecs
         [Theory]
         [InlineData("ThisIsUsedTo Check a difference after 5 characters")]
         [InlineData("ThisIsUsedTo CheckADifferenc e after 15 characters")]
-        public void Will_look_for_a_word_boundary_between_5_and_15_characters_before_the_mismatching_index_to_highlight_the_mismatch(string expected)
+        public void
+            Will_look_for_a_word_boundary_between_5_and_15_characters_before_the_mismatching_index_to_highlight_the_mismatch(
+                string expected)
         {
             const string subject = "ThisIsUsedTo CheckADifferenceInThe WordBoundaryAlgorithm";
 
@@ -302,7 +308,7 @@ public partial class StringAssertionSpecs
         [InlineData("ThisIsUsedTo Chec k a difference after 4 characters", "\"…sedTo CheckADifferen")]
         [InlineData("ThisIsUsedTo CheckADifference after 16 characters", "\"…Difference")]
         public void Will_fallback_to_10_characters_if_no_word_boundary_can_be_found_before_the_mismatching_index(
-                string expected, string expectedMessagePart)
+            string expected, string expectedMessagePart)
         {
             const string subject = "ThisIsUsedTo CheckADifferenceInThe WordBoundaryAlgorithm";
 
@@ -316,9 +322,12 @@ public partial class StringAssertionSpecs
         [Theory]
         [InlineData("This Is A LongTextWithMoreThan60CharactersWhichIs after 10 + 35 characters")]
         [InlineData("This Is A LongTextWithMoreThan60Ch after 10 + 50 characters")]
-        public void Will_look_for_a_word_boundary_between_45_and_60_characters_after_the_mismatching_index_to_highlight_the_mismatch(string expected)
+        public void
+            Will_look_for_a_word_boundary_between_45_and_60_characters_after_the_mismatching_index_to_highlight_the_mismatch(
+                string expected)
         {
-            const string subject = "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
+            const string subject =
+                "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
 
             // Act
             Action act = () => subject.Should().Be(expected);
@@ -348,12 +357,15 @@ public partial class StringAssertionSpecs
         }
 
         [Theory]
-        [InlineData("This Is A LongTextWithMoreThan60C that differs with 60 characters remaining", "oreThan60CharactersWhichIsUsedToCheckADifferenceAt…\"")]
-        [InlineData("This Is A LongTextWithMoreThan60Ch IsALongTextIsUsedToCheckADiffere after 10 + 16 characters", "reThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe…\"")]
+        [InlineData("This Is A LongTextWithMoreThan60C that differs with 60 characters remaining",
+            "oreThan60CharactersWhichIsUsedToCheckADifferenceAt…\"")]
+        [InlineData("This Is A LongTextWithMoreThan60Ch IsALongTextIsUsedToCheckADiffere after 10 + 16 characters",
+            "reThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe…\"")]
         public void Will_fallback_to_50_characters_if_no_word_boundary_can_be_found_after_the_mismatching_index(
-                string expected, string expectedMessagePart)
+            string expected, string expectedMessagePart)
         {
-            const string subject = "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
+            const string subject =
+                "This Is A LongTextWithMoreThan60CharactersWhichIsUsedToCheckADifferenceAtTheEndOfThe WordBoundaryAlgorithm";
 
             // Act
             Action act = () => subject.Should().Be(expected);
@@ -368,30 +380,31 @@ public partial class StringAssertionSpecs
             var expectedIndex = 100 + (4 * Environment.NewLine.Length);
 
             var subject = """
-            @startuml
-            Alice -> Bob : Authentication Request
-            Bob --> Alice : Authentication Response
+                @startuml
+                Alice -> Bob : Authentication Request
+                Bob --> Alice : Authentication Response
 
-            Alice -> Bob : Another authentication Request
-            Alice <-- Bob : Another authentication Response
-            @enduml
-            """;
+                Alice -> Bob : Another authentication Request
+                Alice <-- Bob : Another authentication Response
+                @enduml
+                """;
 
             var expected = """
-            @startuml
-            Alice -> Bob : Authentication Request
-            Bob --> Alice : Authentication Response
+                @startuml
+                Alice -> Bob : Authentication Request
+                Bob --> Alice : Authentication Response
 
-            Alice -> Bob : Invalid authentication Request
-            Alice <-- Bob : Another authentication Response
-            @enduml
-            """;
+                Alice -> Bob : Invalid authentication Request
+                Alice <-- Bob : Another authentication Response
+                @enduml
+                """;
 
             // Act
             Action act = () => subject.Should().Be(expected);
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage($"""
+            act.Should().Throw<XunitException>().WithMessage(
+                $"""
                 Expected subject to be the same string, but they differ on line 5 and column 16 (index {expectedIndex}):
                              ↓ (actual)
                   "…-> Bob : Another authentication Request*\nAlice <-- Bob :…"
@@ -418,12 +431,12 @@ public partial class StringAssertionSpecs
             Action act = () => "public class Foo { }".Should().Be("public class Foo { };");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .Which.Message.Should().Match("""
-                     *"…class Foo { }"
-                     *"…class Foo { };"
-                     *(expected).
-                     """);
+            act.Should().Throw<XunitException>().Which.Message.Should().Match(
+                """
+                *"…class Foo { }"
+                *"…class Foo { };"
+                *(expected).
+                """);
         }
 
         [Fact]
@@ -467,11 +480,11 @@ public partial class StringAssertionSpecs
         public void When_equal_strings_are_expected_to_differ_it_should_throw()
         {
             // Act
-            Action act = () => "ABC".Should().NotBe("ABC", "because we don't like {0}", "ABC");
+            Action act = () => "ABC".Should().NotBe("ABC", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected string not to be \"ABC\" because we don't like ABC.");
+                "Expected string not to be \"ABC\" because we want to test the failure message.");
         }
 
         [Fact]
@@ -528,11 +541,11 @@ public partial class StringAssertionSpecs
         {
             // Act
             string someString = null;
-            Action act = () => someString.Should().NotBeNull("we don't like {0}", "null");
+            Action act = () => someString.Should().NotBeNull("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected someString not to be <null> because we don't like null.");
+                "Expected someString not to be <null> because we want to test the failure message.");
         }
 
         [Fact]
@@ -543,11 +556,10 @@ public partial class StringAssertionSpecs
             string expectedString = null;
 
             // Act
-            Action act = () => actualString.Should().NotBe(expectedString, "failure {0}", "message");
+            Action act = () => actualString.Should().NotBe(expectedString, "we want to test the {0} message", "failure");
 
             // Act / Assert
-            act.Should().Throw<XunitException>().WithMessage(
-                "*not to be <null>*failure message*");
+            act.Should().Throw<XunitException>().WithMessage("*not to be <null>*because*failure message*");
         }
     }
 }

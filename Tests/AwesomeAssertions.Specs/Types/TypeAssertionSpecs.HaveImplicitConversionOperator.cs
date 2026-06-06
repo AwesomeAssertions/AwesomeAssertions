@@ -36,15 +36,13 @@ public partial class TypeAssertionSpecs
             var targetType = typeof(string);
 
             // Act
-            Action act = () =>
-                type.Should().HaveImplicitConversionOperator(
-                    sourceType, targetType, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveImplicitConversionOperator(
+                sourceType, targetType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -54,15 +52,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveImplicitConversionOperator(
-                    typeof(TypeWithConversionOperators), typeof(string), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveImplicitConversionOperator(
+                typeof(TypeWithConversionOperators), typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to exist because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -126,7 +122,8 @@ public partial class TypeAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method implicit operator int(TypeWithConversionOperators) to be Internal, but it is Public.");
+                .WithMessage(
+                    "Expected method implicit operator int(TypeWithConversionOperators) to be Internal, but it is Public.");
         }
 
         [Fact]
@@ -136,15 +133,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(TypeWithConversionOperators);
 
             // Act
-            Action act = () =>
-                type.Should().HaveImplicitConversionOperator<TypeWithConversionOperators, string>(
-                    "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveImplicitConversionOperator<TypeWithConversionOperators, string>(
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
-                    ", but it does not.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to exist because*failure message*" +
+                ", but it does not.");
         }
 
         [Fact]
@@ -154,15 +149,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().HaveImplicitConversionOperator<TypeWithConversionOperators, string>(
-                    "we want to test the failure {0}", "message");
+            Action act = () => type.Should().HaveImplicitConversionOperator<TypeWithConversionOperators, string>(
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to exist *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to exist because*failure message*" +
+                ", but type is <null>.");
         }
     }
 
@@ -190,15 +183,13 @@ public partial class TypeAssertionSpecs
             var targetType = typeof(int);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveImplicitConversionOperator(
-                    sourceType, targetType, "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveImplicitConversionOperator(
+                sourceType, targetType, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit int(*.TypeWithConversionOperators) to not exist *failure message*" +
-                    ", but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit int(*.TypeWithConversionOperators) to not exist because*failure message*" +
+                ", but it does.");
         }
 
         [Fact]
@@ -208,15 +199,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveImplicitConversionOperator(
-                    typeof(TypeWithConversionOperators), typeof(string), "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveImplicitConversionOperator(
+                typeof(TypeWithConversionOperators), typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to not exist *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to not exist because*failure message*" +
+                ", but type is <null>.");
         }
 
         [Fact]
@@ -270,15 +259,13 @@ public partial class TypeAssertionSpecs
             var type = typeof(TypeWithConversionOperators);
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveImplicitConversionOperator<TypeWithConversionOperators, int>(
-                    "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveImplicitConversionOperator<TypeWithConversionOperators, int>(
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit int(*.TypeWithConversionOperators) to not exist *failure message*" +
-                    ", but it does.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit int(*.TypeWithConversionOperators) to not exist because*failure message*" +
+                ", but it does.");
         }
 
         [Fact]
@@ -288,15 +275,13 @@ public partial class TypeAssertionSpecs
             Type type = null;
 
             // Act
-            Action act = () =>
-                type.Should().NotHaveImplicitConversionOperator<TypeWithConversionOperators, string>(
-                    "we want to test the failure {0}", "message");
+            Action act = () => type.Should().NotHaveImplicitConversionOperator<TypeWithConversionOperators, string>(
+                "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected public static implicit string(*.TypeWithConversionOperators) to not exist *failure message*" +
-                    ", but type is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected public static implicit string(*.TypeWithConversionOperators) to not exist because*failure message*" +
+                ", but type is <null>.");
         }
     }
 }

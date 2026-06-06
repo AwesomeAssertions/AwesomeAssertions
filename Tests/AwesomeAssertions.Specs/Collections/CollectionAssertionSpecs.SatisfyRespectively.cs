@@ -53,12 +53,12 @@ public partial class CollectionAssertionSpecs
                 using var _ = new AssertionScope();
 
                 collection.Should().SatisfyRespectively(
-                    new Action<int>[] { x => x.Should().Be(1) }, "because we want to test the failure {0}", "message");
+                    new Action<int>[] { x => x.Should().Be(1) }, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to satisfy all inspectors because we want to test the failure message, but collection is <null>.");
+                "Expected collection to satisfy all inspectors because*failure message, but collection is <null>.");
         }
 
         [Fact]
@@ -69,11 +69,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () => collection.Should().SatisfyRespectively(new Action<int>[] { x => x.Should().Be(1) },
-                "because we want to test the failure {0}", "message");
+                "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to satisfy all inspectors because we want to test the failure message, but collection is empty.");
+                "Expected collection to satisfy all inspectors because*failure message, but collection is empty.");
         }
 
         [Fact]
@@ -123,11 +123,11 @@ public partial class CollectionAssertionSpecs
                         customer.Age.Should().BeLessThan(22);
                         customer.Items.Should().SatisfyRespectively(item => item.Should().Be(2));
                     }
-                }, "because we want to test {0}", "nested assertions");
+                }, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage("""
-                Expected customers to satisfy all inspectors because we want to test nested assertions, but some inspectors are not satisfied:
+                Expected customers to satisfy all inspectors because*failure message, but some inspectors are not satisfied:
                 *At index 0:
                 *Expected customer.Age to be less than 21, but found 21
                 *Expected customer.Items to satisfy all inspectors, but some inspectors are not satisfied:
@@ -165,11 +165,11 @@ public partial class CollectionAssertionSpecs
             // Act
             Action act = () => collection.Should().SatisfyRespectively(
                 new Action<int>[] { value => value.Should().Be(1), value => value.Should().Be(2) },
-                "because we want to test the failure {0}", "message");
+                "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain exactly 2 items*we want to test the failure message*, but it contains 3 items");
+                "Expected collection to contain exactly 2 items*because*failure message, but it contains 3 items");
         }
 
         [Fact]
@@ -180,10 +180,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () => collection.Should().SatisfyRespectively(
-                new Action<int>[] { value => value.Should().Be(1), }, "because we want to test the failure {0}", "message");
+                new Action<int>[] { value => value.Should().Be(1), }, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().WithMessage("*because we want to test the failure*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection to satisfy all inspectors because*failure message, but collection is empty.");
         }
     }
 

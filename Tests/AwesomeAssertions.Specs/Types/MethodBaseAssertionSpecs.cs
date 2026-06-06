@@ -27,13 +27,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().Return(typeof(string), "we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().Return(typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method IntMethod to be string because we want to test the " +
-                    "error message, but it is int.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method IntMethod to be string"
+                + " because we want to test the failure message, but it is int.");
         }
 
         [Fact]
@@ -43,13 +42,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("VoidMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().Return(typeof(string), "we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().Return(typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method VoidMethod to be string because we want to test the " +
-                    "error message, but it is void.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method VoidMethod to be string"
+                + " because we want to test the failure message, but it is void.");
         }
 
         [Fact]
@@ -59,13 +57,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().Return(typeof(string), "we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().Return(typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected the return type of method to be string *failure message*, but methodInfo is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method to be string because*failure message*, but methodInfo is <null>.");
         }
 
         [Fact]
@@ -103,13 +99,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotReturn(typeof(int), "we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().NotReturn(typeof(int), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of*IntMethod*not to be int*because we want to test the " +
-                    "error message, but it is.");
+                .WithMessage("Expected the return type of*IntMethod*not to be int*because*failure message, but it is.");
         }
 
         [Fact]
@@ -120,12 +114,12 @@ public class MethodBaseAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().NotReturn(typeof(string), "we want to test the failure {0}", "message");
+                methodInfo.Should().NotReturn(typeof(string), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected the return type of method not to be string *failure message*, but methodInfo is <null>.");
+                    "Expected the return type of method not to be string because*failure message, but methodInfo is <null>.");
         }
 
         [Fact]
@@ -163,13 +157,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().Return<string>("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().Return<string>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method IntMethod to be string because we want to test the " +
-                    "error message, but it is int.");
+                .WithMessage("Expected the return type of method IntMethod to be string because*failure message, but it is int.");
         }
 
         [Fact]
@@ -180,11 +172,11 @@ public class MethodBaseAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().Return<string>("we want to test the failure {0}", "message");
+                methodInfo.Should().Return<string>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method to be string *failure message*, but methodInfo is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method to be string because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -207,13 +199,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotReturn<int>("we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().NotReturn<int>("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected the return type of*IntMethod*not to be int*because we want to test the " +
-                    "error message, but it is.");
+                    "failure message, but it is.");
         }
 
         [Fact]
@@ -223,13 +214,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotReturn<string>("we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().NotReturn<string>("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected the return type of method not to be string *failure message*, but methodInfo is <null>.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method not to be string because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -252,14 +241,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("IntMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().ReturnVoid("because we want to test the error message {0}", "message");
+            Action act = () => methodInfo.Should().ReturnVoid("we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected the return type of method IntMethod to be void because we want to test the error message " +
-                    "message, but it is int.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected the return type of method IntMethod to be void because*failure message, but it is int.");
         }
 
         [Fact]
@@ -270,11 +256,11 @@ public class MethodBaseAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().ReturnVoid("we want to test the failure {0}", "message");
+                methodInfo.Should().ReturnVoid("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method to be void *failure message*, but methodInfo is <null>.");
+                .WithMessage("Expected the return type of method to be void because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -297,12 +283,11 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("VoidMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotReturnVoid("because we want to test the error {0}", "message");
+            Action act = () => methodInfo.Should().NotReturnVoid("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of*VoidMethod*not to be void*because we want to test the error message*");
+                .WithMessage("Expected the return type of*VoidMethod*not to be void because*failure message*");
         }
 
         [Fact]
@@ -312,12 +297,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = null;
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotReturnVoid("we want to test the failure {0}", "message");
+            Action act = () => methodInfo.Should().NotReturnVoid("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected the return type of method not to be void *failure message*, but methodInfo is <null>.");
+                .WithMessage(
+                    "Expected the return type of method not to be void because*failure message*, but methodInfo is <null>.");
         }
     }
 
@@ -352,12 +337,12 @@ public class MethodBaseAssertionSpecs
             // Act
             Action act = () =>
                 methodInfo.Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the error {0}", "message");
+                    .HaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method TestClass.PrivateMethod to be Protected because we want to test the error message" +
+                    "Expected method TestClass.PrivateMethod to be Protected because we want to test the failure message" +
                     ", but it is Private.");
         }
 
@@ -385,12 +370,12 @@ public class MethodBaseAssertionSpecs
             Action act = () =>
                 setMethod
                     .Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the error {0}", "message");
+                    .HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method TestClass.set_ProtectedSetProperty to be Public because we want to test the error message" +
+                    "Expected method TestClass.set_ProtectedSetProperty to be Public because we want to test the failure message" +
                     ", but it is Protected.");
         }
 
@@ -418,13 +403,13 @@ public class MethodBaseAssertionSpecs
             Action act = () =>
                 getMethod
                     .Should()
-                    .HaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the error {0}", "message");
+                    .HaveAccessModifier(CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected method TestClass.get_PublicGetProperty to be Internal because we want to test the error message, but it" +
-                    " is Public.");
+                    "Expected method TestClass.get_PublicGetProperty to be Internal because we want to test the failure message," +
+                    " but it is Public.");
         }
 
         [Fact]
@@ -444,15 +429,13 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("InternalMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.ProtectedInternal, "because we want to test the" +
-                    " error {0}", "message");
+            Action act = () => methodInfo.Should().HaveAccessModifier(
+                CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method TestClass.InternalMethod to be ProtectedInternal because we want to test the error message, but" +
-                    " it is Internal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.InternalMethod to be ProtectedInternal because we want to test the failure message," +
+                " but it is Internal.");
         }
 
         [Fact]
@@ -473,13 +456,13 @@ public class MethodBaseAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Private, "we want to test the error {0}", "message");
+                methodInfo.Should()
+                    .HaveAccessModifier(CSharpAccessModifier.Private, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method TestClass.ProtectedInternalMethod to be Private because we want to test the error message, but it is " +
-                    "ProtectedInternal.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.ProtectedInternalMethod to be Private because we want to test the failure message," +
+                " but it is ProtectedInternal.");
         }
 
         [Fact]
@@ -490,11 +473,11 @@ public class MethodBaseAssertionSpecs
 
             // Act
             Action act = () =>
-                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the failure {0}", "message");
+                methodInfo.Should().HaveAccessModifier(CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method to be Public *failure message*, but methodInfo is <null>.");
+                .WithMessage("Expected method to be Public because*failure message*, but methodInfo is <null>.");
         }
 
         [Fact]
@@ -544,11 +527,11 @@ public class MethodBaseAssertionSpecs
             // Act
             Action act = () =>
                 methodInfo.Should()
-                    .NotHaveAccessModifier(CSharpAccessModifier.Private, "we want to test the error {0}", "message");
+                    .NotHaveAccessModifier(CSharpAccessModifier.Private, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected method TestClass.PrivateMethod not to be Private*because we want to test the error message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.PrivateMethod not to be Private because*failure message*");
         }
 
         [Fact]
@@ -573,12 +556,11 @@ public class MethodBaseAssertionSpecs
             Action act = () =>
                 setMethod
                     .Should()
-                    .NotHaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the error {0}", "message");
+                    .NotHaveAccessModifier(CSharpAccessModifier.Protected, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method TestClass.set_ProtectedSetProperty not to be Protected*because we want to test the error message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.set_ProtectedSetProperty not to be Protected because*failure message*");
         }
 
         [Fact]
@@ -611,14 +593,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo getMethod = propertyInfo.GetMethod;
 
             // Act
-            Action act = () =>
-                getMethod
-                    .Should()
-                    .NotHaveAccessModifier(CSharpAccessModifier.Public, "we want to test the error {0}", "message");
+            Action act = () => getMethod.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected method TestClass.get_PublicGetProperty not to be Public*because we want to test the error message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.get_PublicGetProperty not to be Public because*failure message*");
         }
 
         [Fact]
@@ -638,13 +618,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("InternalMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.Internal, "because we want to test the" +
-                    " error {0}", "message");
+            Action act = () => methodInfo.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.Internal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage("Expected method TestClass.InternalMethod not to be Internal*because we want to test the error message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.InternalMethod not to be Internal*because we want to test the failure message*");
         }
 
         [Fact]
@@ -664,14 +643,12 @@ public class MethodBaseAssertionSpecs
             MethodInfo methodInfo = typeof(TestClass).GetParameterlessMethod("ProtectedInternalMethod");
 
             // Act
-            Action act = () =>
-                methodInfo.Should().NotHaveAccessModifier(CSharpAccessModifier.ProtectedInternal, "we want to test the error {0}",
-                    "message");
+            Action act = () => methodInfo.Should().NotHaveAccessModifier(
+                CSharpAccessModifier.ProtectedInternal, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected method TestClass.ProtectedInternalMethod not to be ProtectedInternal*because we want to test the error message*");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected method TestClass.ProtectedInternalMethod not to be ProtectedInternal because*failure message*");
         }
 
         [Fact]
@@ -683,11 +660,11 @@ public class MethodBaseAssertionSpecs
             // Act
             Action act = () =>
                 methodInfo.Should().NotHaveAccessModifier(
-                    CSharpAccessModifier.Public, "we want to test the failure {0}", "message");
+                    CSharpAccessModifier.Public, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected method not to be Public *failure message*, but methodInfo is <null>.");
+                .WithMessage("Expected method not to be Public because*failure message*, but methodInfo is <null>.");
         }
 
         [Fact]

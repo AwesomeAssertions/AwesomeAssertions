@@ -45,12 +45,12 @@ public partial class GenericDictionaryAssertionSpecs
             };
 
             // Act
-            Action act = () => dictionary.Should().BeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => dictionary.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage(
-                    "Expected dictionary to be empty because we want to test the failure message, but found at least one item {[1, One]}.");
+                    "Expected dictionary to be empty because*failure message, but found at least one item {[1, One]}.");
         }
 
         [Fact]
@@ -60,11 +60,11 @@ public partial class GenericDictionaryAssertionSpecs
             Dictionary<int, string> dictionary = null;
 
             // Act
-            Action act = () => dictionary.Should().BeEmpty("because we want to test the behaviour with a null subject");
+            Action act = () => dictionary.Should().BeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary to be empty because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary to be empty because*failure message, but found <null>.");
         }
     }
 
@@ -119,11 +119,11 @@ public partial class GenericDictionaryAssertionSpecs
             var dictionary = new Dictionary<int, string>();
 
             // Act
-            Action act = () => dictionary.Should().NotBeEmpty("because we want to test the failure {0}", "message");
+            Action act = () => dictionary.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected dictionary not to be empty because we want to test the failure message.");
+                .WithMessage("Expected dictionary not to be empty because*failure message.");
         }
 
         [Fact]
@@ -133,11 +133,11 @@ public partial class GenericDictionaryAssertionSpecs
             Dictionary<int, string> dictionary = null;
 
             // Act
-            Action act = () => dictionary.Should().NotBeEmpty("because we want to test the behaviour with a null subject");
+            Action act = () => dictionary.Should().NotBeEmpty("we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected dictionary not to be empty because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected dictionary not to be empty because*failure message, but found <null>.");
         }
     }
 }

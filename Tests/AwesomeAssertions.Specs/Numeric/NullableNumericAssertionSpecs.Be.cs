@@ -53,11 +53,11 @@ public partial class NullableNumericAssertionSpecs
 
             // Act
             Action act = () =>
-                nullableIntegerA.Should().Be(nullableIntegerB, "because we want to test the failure {0}", "message");
+                nullableIntegerA.Should().Be(nullableIntegerB, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected*2 because we want to test the failure message, but found 1.");
+                .WithMessage("Expected*2 because*failure message, but found 1.");
         }
 
         [Fact]

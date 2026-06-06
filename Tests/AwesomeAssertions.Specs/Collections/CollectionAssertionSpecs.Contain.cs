@@ -52,11 +52,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().Contain(4, "because {0}", "we do");
+            Action act = () => collection.Should().Contain(4, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to contain 4 because we do.");
+                "Expected collection {1, 2, 3} to contain 4 because*failure message.");
         }
 
         [Fact]
@@ -66,11 +66,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 1];
 
             // Act
-            Action act = () => collection.Should().Contain(1, AtMost.Once(), "failure {0}", "message");
+            Action act = () => collection.Should().Contain(1, AtMost.Once(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 1} to contain 1 at most 1 time because failure message, but found it 2 times.");
+                "Expected collection {1, 2, 1} to contain 1 at most 1 time because*failure message, but found it 2 times.");
         }
 
         [Fact]
@@ -83,12 +83,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().Contain(1, "because we want to test the behaviour with a null subject");
+                collection.Should().Contain(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to contain 1 because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -99,11 +99,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act = () =>
-                collection.Should().Contain(1, AtLeast.Once(), "failure {0}", "message");
+                collection.Should().Contain(1, AtLeast.Once(), "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to contain 1 because failure message, but found <null>.");
+                "Expected collection to contain 1 because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -113,11 +113,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().Contain([3, 4, 5], "because {0}", "we do");
+            Action act = () => collection.Should().Contain([3, 4, 5], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to contain {3, 4, 5} because we do, but could not find {4, 5}.");
+                "Expected collection {1, 2, 3} to contain {3, 4, 5} because*failure message, but could not find {4, 5}.");
         }
 
         [Fact]
@@ -127,11 +127,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().Contain([4], "because {0}", "we do");
+            Action act = () => collection.Should().Contain([4], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to contain 4 because we do.");
+                "Expected collection {1, 2, 3} to contain 4 because*failure message.");
         }
 
         [Fact]
@@ -178,12 +178,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().Contain([1, 2], "we want to test the failure {0}", "message");
+                collection.Should().Contain([1, 2], "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to contain {1, 2} *failure message*, but found <null>.");
+                .WithMessage("Expected collection to contain {1, 2} because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -249,11 +249,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<int> collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().Contain(item => item > 3, "at least {0} item should be larger than 3", 1);
+            Action act = () => collection.Should().Contain(item => item > 3, "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().Which.Message.Should().Be(
-                "Expected collection {1, 2, 3} to have an item matching (item > 3) because at least 1 item should be larger than 3.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection {1, 2, 3} to have an item matching (item > 3) because*failure message.");
         }
 
         [Fact]
@@ -263,11 +263,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<int> collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().Contain(item => item >= 2, Exactly.Times(3), "failure {0}", "message");
+            Action act = () => collection.Should().Contain(item => item >= 2, Exactly.Times(3), "we want to test the {0} message", "failure");
 
             // Assert
-            act.Should().Throw<XunitException>().Which.Message.Should().Be(
-                "Expected collection {1, 2, 3} to contain items matching (item >= 2) exactly 3 times because failure message, but found it 2 times.");
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection {1, 2, 3} to contain items matching (item >= 2) exactly 3 times because*failure message, but found it 2 times.");
         }
 
         [Fact]
@@ -341,11 +341,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<string> strings = ["string1", "string2", "string3"];
 
             // Act
-            Action act = () => strings.Should().Contain("string4", "because {0} is required", "4");
+            Action act = () => strings.Should().Contain("string4", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected strings {\"string1\", \"string2\", \"string3\"} to contain \"string4\" because 4 is required.");
+                "Expected strings {\"string1\", \"string2\", \"string3\"} to contain \"string4\" because*failure message.");
         }
 
         [Fact]
@@ -358,12 +358,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                strings.Should().Contain("string4", "because we're checking how it reacts to a null subject");
+                strings.Should().Contain("string4", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected strings to contain \"string4\" because we're checking how it reacts to a null subject, but found <null>.");
+                "Expected strings to contain \"string4\" because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -391,12 +391,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                strings.Should().Contain(x => x == "xxx", "because we're checking how it reacts to a null subject");
+                strings.Should().Contain(x => x == "xxx", "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected strings to contain (x == \"xxx\") because we're checking how it reacts to a null subject, but found <null>.");
+                "Expected strings to contain (x == \"xxx\") because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -454,11 +454,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().NotContain(1, "because we {0} like it, but found it anyhow", "don't");
+            Action act = () => collection.Should().NotContain(1, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to not contain 1 because we don't like it, but found it anyhow.");
+                "Expected collection {1, 2, 3} to not contain 1 because*failure message.");
         }
 
         [Fact]
@@ -482,11 +482,11 @@ public partial class CollectionAssertionSpecs
             IEnumerable<int> collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should().NotContain(item => item == 2, "because {0}s are evil", 2);
+            Action act = () => collection.Should().NotContain(item => item == 2, "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to not have any items matching (item == 2) because 2s are evil,*{2}*");
+                "Expected collection {1, 2, 3} to not have any items matching (item == 2) because*failure message*");
         }
 
         [Fact]
@@ -509,12 +509,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContain(1, "because we want to test the behaviour with a null subject");
+                collection.Should().NotContain(1, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection to not contain 1 because we want to test the behaviour with a null subject, but found <null>.");
+                "Expected collection to not contain 1 because*failure message, but found <null>.");
         }
 
         [Fact]
@@ -524,12 +524,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should()
-                .NotContain([2], "because we {0} like them", "don't");
+            Action act = () => collection.Should().NotContain([2], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to not contain 2 because we don't like them.");
+                "Expected collection {1, 2, 3} to not contain 2 because*failure message.");
         }
 
         [Fact]
@@ -539,12 +538,11 @@ public partial class CollectionAssertionSpecs
             int[] collection = [1, 2, 3];
 
             // Act
-            Action act = () => collection.Should()
-                .NotContain([1, 2, 4], "because we {0} like them", "don't");
+            Action act = () => collection.Should().NotContain([1, 2, 4], "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected collection {1, 2, 3} to not contain {1, 2, 4} because we don't like them, but found {1, 2}.");
+                "Expected collection {1, 2, 3} to not contain {1, 2, 4} because*failure message, but found {1, 2}.");
         }
 
         [Fact]
@@ -588,12 +586,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContain(item => item == 4, "we want to test the failure {0}", "message");
+                collection.Should().NotContain(item => item == 4, "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection not to contain (item == 4) *failure message*, but found <null>.");
+                .WithMessage("Expected collection not to contain (item == 4) because*failure message*, but found <null>.");
         }
 
         [Fact]
@@ -606,12 +604,12 @@ public partial class CollectionAssertionSpecs
             Action act = () =>
             {
                 using var _ = new AssertionScope();
-                collection.Should().NotContain([1, 2, 4], "we want to test the failure {0}", "message");
+                collection.Should().NotContain([1, 2, 4], "we want to test the {0} message", "failure");
             };
 
             // Assert
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected collection to not contain {1, 2, 4} *failure message*, but found <null>.");
+                .WithMessage("Expected collection to not contain {1, 2, 4} because*failure message*, but found <null>.");
         }
 
         [Fact]
@@ -623,11 +621,11 @@ public partial class CollectionAssertionSpecs
 
             // Act
             Action act =
-                () => strings.Should().NotContain(x => x == "xxx", "because we're checking how it reacts to a null subject");
+                () => strings.Should().NotContain(x => x == "xxx", "we want to test the {0} message", "failure");
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected strings not to contain (x == \"xxx\") because we're checking how it reacts to a null subject, but found <null>.");
+                "Expected strings not to contain (x == \"xxx\") because*failure message, but found <null>.");
         }
 
         [Fact]
