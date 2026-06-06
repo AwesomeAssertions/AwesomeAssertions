@@ -14,7 +14,7 @@ public partial class SelectionRulesSpecs
             var subject = new ClassWithObsoleteMembers { ObsoleteProperty = "SubjectValue" };
             var expected = new ClassWithObsoleteMembers { ObsoleteProperty = "ExpectedValue" };
 
-            subject.Should().BeEquivalentTo(expected, o => o.ExcludeObsoleteMembers());
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
         }
 
         private class ClassWithObsoleteMembers

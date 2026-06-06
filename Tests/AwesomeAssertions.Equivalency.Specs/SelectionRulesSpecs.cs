@@ -30,7 +30,7 @@ public partial class SelectionRulesSpecs
                 .ExcludingMissingMembers()
                 .WithoutRecursing()
                 .ExcludingNonBrowsableMembers()
-                .ExcludeObsoleteMembers()
+                .ExcludingObsoleteMembers()
                 .ExcludingProperties()
                 .IgnoringCyclicReferences()
                 .IgnoringNonBrowsableMembersOnSubject()
