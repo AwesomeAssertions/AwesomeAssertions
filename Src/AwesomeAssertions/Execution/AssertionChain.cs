@@ -180,6 +180,16 @@ public sealed class AssertionChain
         return this;
     }
 
+    public AssertionChain ForCondition(Func<bool> condition)
+    {
+        if (PreviousAssertionSucceeded)
+        {
+            succeeded = condition();
+        }
+
+        return this;
+    }
+
     public AssertionChain ForConstraint(OccurrenceConstraint constraint, int actualOccurrences)
     {
         if (PreviousAssertionSucceeded)
