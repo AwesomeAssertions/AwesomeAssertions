@@ -621,8 +621,29 @@ public partial class AssertionChainSpecs
             string[] failures = scope.Discard();
             scope.Dispose();
 
-            Assert.Single(failures);
-            Assert.Contains("First assertion", failures);
+            failures.Should().Equal("First assertion");
+        }
+
+        [Fact]
+        public void A_lazy_condition_is_not_evaluated_if_a_previous_assertion_in_chain_failed()
+        {
+            bool lazyConditionEvaluated = false;
+
+            // Act
+            Action act = () => AssertionChain.GetOrCreate()
+                .ForCondition(false)
+                .FailWith("First assertion")
+                .Then
+                .ForCondition(() =>
+                {
+                    lazyConditionEvaluated = true;
+                    return false;
+                })
+                .FailWith("Second assertion");
+
+            // Arrange
+            act.Should().Throw<XunitException>().WithMessage("*First assertion*");
+            lazyConditionEvaluated.Should().BeFalse();
         }
 
         // [Fact]
