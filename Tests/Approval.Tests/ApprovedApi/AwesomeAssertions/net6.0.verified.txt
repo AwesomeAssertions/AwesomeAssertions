@@ -1426,6 +1426,7 @@ namespace AwesomeAssertions.Execution
         public AwesomeAssertions.Execution.Continuation FailWith(string message, params System.Func<object>[] argProviders) { }
         [System.Diagnostics.StackTraceHidden]
         public AwesomeAssertions.Execution.Continuation FailWith(string message, params object[] args) { }
+        public AwesomeAssertions.Execution.AssertionChain ForCondition(System.Func<bool> condition) { }
         public AwesomeAssertions.Execution.AssertionChain ForCondition(bool condition) { }
         public AwesomeAssertions.Execution.AssertionChain ForConstraint(AwesomeAssertions.OccurrenceConstraint constraint, int actualOccurrences) { }
         public AwesomeAssertions.Execution.GivenSelector<T> Given<T>(System.Func<T> selector) { }

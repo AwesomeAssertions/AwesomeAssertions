@@ -12,6 +12,7 @@ sidebar:
 * Add `[Not]BeDecoratedWith` for `ParameterInfo`- [#449](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/449)
 * Return `AndWhichConstraint` from `IntersectWith` [#495](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/495)
 * Return `AndWhichConstraint` from `XElementAssertions.HaveAttribute` [#504](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/504)
+* Add overload of `AssertionChain.ForCondition()` that allows for lazy execution of `condition` [#511](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/511)
 
 ## 9.4.0
 

@@ -575,6 +575,69 @@ public partial class AssertionChainSpecs
             Assert.Contains("First \"assertion\"", failures);
         }
 
+        [Fact]
+        public void A_successful_lazy_assertion_does_not_affect_the_chained_failing_assertion()
+        {
+            Action act = () => AssertionChain.GetOrCreate()
+                .ForCondition(() => true)
+                .FailWith("First assertion")
+                .Then
+                .FailWith("Second assertion");
+
+            act.Should().Throw<XunitException>().WithMessage("*Second assertion*");
+        }
+
+        [Fact]
+        public void A_successful_assertion_does_not_affect_the_chained_failing_lazy_assertion()
+        {
+            Action act = () => AssertionChain.GetOrCreate()
+                .ForCondition(true)
+                .FailWith("First assertion")
+                .Then
+                .ForCondition(() => false)
+                .FailWith("Second assertion");
+
+            act.Should().Throw<XunitException>().WithMessage("*Second assertion*");
+        }
+
+        [Fact]
+        public void When_the_previous_lazy_assertion_failed_it_should_not_execute_the_succeeding_failure()
+        {
+            var scope = new AssertionScope();
+
+            AssertionChain.GetOrCreate()
+                .ForCondition(() => false)
+                .FailWith("First assertion")
+                .Then
+                .ForCondition(false)
+                .FailWith("Second assertion");
+
+            string[] failures = scope.Discard();
+            scope.Dispose();
+
+            failures.Should().Equal("First assertion");
+        }
+
+        [Fact]
+        public void A_lazy_condition_is_not_evaluated_if_a_previous_assertion_in_chain_failed()
+        {
+            bool lazyConditionEvaluated = false;
+
+            Action act = () => AssertionChain.GetOrCreate()
+                .ForCondition(false)
+                .FailWith("First assertion")
+                .Then
+                .ForCondition(() =>
+                {
+                    lazyConditionEvaluated = true;
+                    return false;
+                })
+                .FailWith("Second assertion");
+
+            act.Should().Throw<XunitException>().WithMessage("*First assertion*");
+            lazyConditionEvaluated.Should().BeFalse();
+        }
+
         // [Fact]
         // public void Get_info_about_line_breaks_from_parent_scope_after_continuing_chained_assertion()
         // {
