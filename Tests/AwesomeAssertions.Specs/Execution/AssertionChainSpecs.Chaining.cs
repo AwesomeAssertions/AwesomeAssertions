@@ -578,21 +578,18 @@ public partial class AssertionChainSpecs
         [Fact]
         public void A_successful_lazy_assertion_does_not_affect_the_chained_failing_assertion()
         {
-            // Act
             Action act = () => AssertionChain.GetOrCreate()
                 .ForCondition(() => true)
                 .FailWith("First assertion")
                 .Then
                 .FailWith("Second assertion");
 
-            // Arrange
             act.Should().Throw<XunitException>().WithMessage("*Second assertion*");
         }
 
         [Fact]
         public void A_successful_assertion_does_not_affect_the_chained_failing_lazy_assertion()
         {
-            // Act
             Action act = () => AssertionChain.GetOrCreate()
                 .ForCondition(true)
                 .FailWith("First assertion")
@@ -600,17 +597,14 @@ public partial class AssertionChainSpecs
                 .ForCondition(() => false)
                 .FailWith("Second assertion");
 
-            // Arrange
             act.Should().Throw<XunitException>().WithMessage("*Second assertion*");
         }
 
         [Fact]
         public void When_the_previous_lazy_assertion_failed_it_should_not_execute_the_succeeding_failure()
         {
-            // Arrange
             var scope = new AssertionScope();
 
-            // Act
             AssertionChain.GetOrCreate()
                 .ForCondition(() => false)
                 .FailWith("First assertion")
@@ -629,7 +623,6 @@ public partial class AssertionChainSpecs
         {
             bool lazyConditionEvaluated = false;
 
-            // Act
             Action act = () => AssertionChain.GetOrCreate()
                 .ForCondition(false)
                 .FailWith("First assertion")
@@ -641,7 +634,6 @@ public partial class AssertionChainSpecs
                 })
                 .FailWith("Second assertion");
 
-            // Arrange
             act.Should().Throw<XunitException>().WithMessage("*First assertion*");
             lazyConditionEvaluated.Should().BeFalse();
         }
