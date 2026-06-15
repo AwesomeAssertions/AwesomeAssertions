@@ -1742,7 +1742,7 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
         {
             CSharpAccessModifier subjectAccessModifier = Subject.GetCSharpAccessModifier();
 
-            assertionChain.ForCondition(accessModifier == subjectAccessModifier)
+            assertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(accessModifier == subjectAccessModifier)
                 .FailWith(
@@ -1783,7 +1783,6 @@ public class TypeAssertions : ReferenceTypeAssertions<Type, TypeAssertions>
             CSharpAccessModifier subjectAccessModifier = Subject.GetCSharpAccessModifier();
 
             assertionChain
-                .ForCondition(accessModifier != subjectAccessModifier)
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(accessModifier != subjectAccessModifier)
                 .FailWith($"Expected {{context:type}} {{0}} not to be {accessModifier}{{reason}}, but it is.",
