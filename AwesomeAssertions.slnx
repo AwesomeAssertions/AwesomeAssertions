@@ -49,11 +49,6 @@
     <Project Path="Tests/FSharp.Specs/FSharp.Specs.fsproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
-    <Project Path="Tests/UWP.Specs/UWP.Specs.csproj">
-      <BuildType Solution="CI|*" Project="Debug" />
-      <Platform Project="x64" />
-      <Build Project="false" />
-    </Project>
     <Project Path="Tests/VB.Specs/VB.Specs.vbproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
