@@ -144,6 +144,8 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
             new AutoConversionStep(),
             new ReferenceEqualityEquivalencyStep(),
             new GenericDictionaryEquivalencyStep(),
+            new DateBuilderEquivalencyStep(),
+            new DateTimeBuilderEquivalencyStep(),
             new XDocumentEquivalencyStep(),
             new XElementEquivalencyStep(),
             new XAttributeEquivalencyStep(),
