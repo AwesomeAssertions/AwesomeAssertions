@@ -638,6 +638,68 @@ public partial class AssertionChainSpecs
             lazyConditionEvaluated.Should().BeFalse();
         }
 
+        [Fact]
+        public void When_an_assertion_succeeds_it_should_not_invoke_the_fail_reason_provider()
+        {
+            var invocationCount = 0;
+
+            AssertionChain.GetOrCreate()
+                .ForCondition(true)
+                .FailWith("Expected {0}", () =>
+                {
+                    ++invocationCount;
+
+                    return "nothing";
+                });
+
+            invocationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void When_an_assertion_succeeds_it_should_not_invoke_argument_providers()
+        {
+            var invocationCount = 0;
+
+            AssertionChain.GetOrCreate()
+                .ForCondition(true)
+                .FailWith(() =>
+                {
+                    ++invocationCount;
+
+                    return new FailReason("Expected nothing");
+                });
+
+            invocationCount.Should().Be(0);
+        }
+
+        [Fact]
+        public void When_an_assertion_fails_it_should_invoke_the_fail_reason_provider()
+        {
+            Action act = () =>
+            {
+                AssertionChain.GetOrCreate()
+                    .ForCondition(() => false)
+                    .FailWith("Expected {0}", () => "a failure");
+            };
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected \"a failure\"");
+        }
+
+        [Fact]
+        public void When_an_assertion_fails_it_should_invoke_argument_providers()
+        {
+            Action act = () =>
+            {
+                AssertionChain.GetOrCreate()
+                    .ForCondition(() => false)
+                    .FailWith(() => new FailReason("Expected a failure"));
+            };
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected a failure");
+        }
+
         // [Fact]
         // public void Get_info_about_line_breaks_from_parent_scope_after_continuing_chained_assertion()
         // {
