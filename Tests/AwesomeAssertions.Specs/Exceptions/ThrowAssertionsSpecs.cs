@@ -1,4 +1,5 @@
 using System;
+using AwesomeAssertions.Execution;
 using Xunit;
 using Xunit.Sdk;
 
@@ -99,5 +100,21 @@ public class ThrowAssertionsSpecs
             ex.Message.Should().Be(
                 "Expected a <System.Exception> to be thrown, but no exception was thrown.");
         }
+    }
+
+    [Fact]
+    public void When_null_action_is_expected_to_throw_inside_scope_it_should_report_the_null_failure()
+    {
+        Action act = () =>
+        {
+            Action nullAct = null;
+
+            _ = new AssertionScope();
+            nullAct.Should().Throw<InvalidOperationException>()
+                .WithMessage("*");
+        };
+
+        act.Should().Throw<XunitException>()
+            .WithMessage("*InvalidOperationException* <null>*");
     }
 }
