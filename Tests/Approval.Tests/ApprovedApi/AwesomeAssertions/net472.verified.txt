@@ -1560,6 +1560,11 @@ namespace AwesomeAssertions.Execution
         public object[] Arguments { get; set; }
         public string FormattedMessage { get; set; }
     }
+    public static class StringExtensions
+    {
+        public static object AsNonFormattable(this object value) { }
+        public static object AsNonFormattable(this string value) { }
+    }
 }
 namespace AwesomeAssertions.Extensibility
 {

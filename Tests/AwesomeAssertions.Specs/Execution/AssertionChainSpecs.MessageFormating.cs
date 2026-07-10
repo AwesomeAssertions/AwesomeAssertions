@@ -509,5 +509,66 @@ public partial class AssertionChainSpecs
                     }
                     """);
         }
+
+        [Theory]
+        [InlineData("{0}{0}", "\"foo\"\"foo\"")]
+        [InlineData("{{0}}{0}", "{0}\"foo\"")]
+        [InlineData("{0}{{0}}", "\"foo\"{0}")]
+        [InlineData("{{{0}}}{0}", "{\"foo\"}\"foo\"")]
+        [InlineData("{0}{{{0}}}", "\"foo\"{\"foo\"}")]
+        public void Can_handle_escaped_braces(string format, string expected)
+        {
+            Action act = () => AssertionChain.GetOrCreate()
+                .FailWith(format, "foo");
+
+            act.Should().Throw<XunitException>().WithMessage(expected);
+        }
+
+        [Theory]
+        [InlineData("{")]
+        [InlineData("}")]
+        [InlineData("{}")]
+        [InlineData("{0}")]
+        [InlineData("{{0}}")]
+        public void Can_handle_more_braces_in_dictionary_keys(string key)
+        {
+            // Arrange
+            var subject = new Dictionary<string, string> { [key] = "" };
+            var expectation = new Dictionary<string, string> { [key] = null };
+
+            // Act
+            var act = () => expectation.Should().BeEquivalentTo(subject);
+
+            // Assert
+            act.Should().Throw<XunitException>()
+                .WithMessage($"Expected expectation[{key}] to be \"\", but found <null>.*");
+        }
+
+        [Fact]
+        public void String_because_arguments_passed_as_non_formattables_are_kept_unchanged()
+        {
+            var subject = "nonformattable string".AsNonFormattable();
+
+            Action act = () => AssertionChain.GetOrCreate().FailWith("This is a message with {0}.", subject);
+
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("This is a message with nonformattable string.");
+        }
+
+        [Fact]
+        public void Because_arguments_passed_as_non_formattables_are_formatted_by_their_custom_string_representation()
+        {
+            var subject = new MyClass().AsNonFormattable();
+
+            Action act = () => AssertionChain.GetOrCreate().FailWith("This is a message with {0}.", subject);
+
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("This is a message with custom string.");
+        }
+
+        private sealed class MyClass
+        {
+            public override string ToString() => "custom string";
+        }
     }
 }
