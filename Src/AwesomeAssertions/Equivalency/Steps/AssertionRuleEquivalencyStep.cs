@@ -72,13 +72,12 @@ public class AssertionRuleEquivalencyStep<TSubject> : IEquivalencyStep
 
         assertionChain
                 .ForCondition(subjectIsNull || comparands.Subject.GetType().IsSameOrInherits(typeof(TSubject)))
-                .FailWith("Expected " + context.CurrentNode.Subject + " from subject to be a {0}{reason}, but found a {1}.",
-                    typeof(TSubject), comparands.Subject?.GetType())
+                .FailWith("Expected {0} from subject to be a {1}{reason}, but found a {2}.",
+                    context.CurrentNode.Subject.AsNonFormattable(), typeof(TSubject), comparands.Subject?.GetType())
                 .Then
                 .ForCondition(expectationIsNull || comparands.Expectation.GetType().IsSameOrInherits(typeof(TSubject)))
-                .FailWith(
-                    "Expected " + context.CurrentNode.Subject + " from expectation to be a {0}{reason}, but found a {1}.",
-                    typeof(TSubject), comparands.Expectation?.GetType());
+                .FailWith("Expected {0} from expectation to be a {1}{reason}, but found a {2}.",
+                    context.CurrentNode.Subject.AsNonFormattable(), typeof(TSubject), comparands.Expectation?.GetType());
 
         if (assertionChain.Succeeded)
         {

@@ -1,5 +1,4 @@
 using System;
-using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
@@ -80,7 +79,8 @@ public class StringEqualityEquivalencyStep : IEquivalencyStep
         if (onlyOneNull)
         {
             assertionChain.FailWith(
-                $"Expected {currentNode.Subject.Description.EscapePlaceholders()} to be {{0}}{{reason}}, but found {{1}}.", expected, subject);
+                "Expected {0} to be {1}{reason}, but found {2}.",
+                currentNode.Subject.Description.AsNonFormattable(), expected, subject);
 
             return false;
         }
@@ -96,8 +96,8 @@ public class StringEqualityEquivalencyStep : IEquivalencyStep
         }
 
         assertionChain.FailWith(
-            $"Expected {currentNode} to be {{0}}, but found {{1}}.",
-            comparands.RuntimeType, comparands.Subject.GetType());
+            "Expected {0} to be {1}, but found {2}.",
+            currentNode.AsNonFormattable(), comparands.RuntimeType, comparands.Subject.GetType());
 
         return assertionChain.Succeeded;
     }
