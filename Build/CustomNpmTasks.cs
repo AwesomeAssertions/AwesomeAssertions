@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nuke.Common;
-using Nuke.Common.IO;
-using Nuke.Common.Tooling;
-using Nuke.Common.Utilities;
-using Nuke.Common.Utilities.Collections;
+using Fallout.Common;
+using Fallout.Common.IO;
+using Fallout.Common.Tooling;
+using Fallout.Common.Utilities;
+using Fallout.Common.Utilities.Collections;
 using static Serilog.Log;
 
 public static class CustomNpmTasks
