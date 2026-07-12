@@ -4,22 +4,20 @@
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace></RootNamespace>
     <NoWarn>CS0649;CS0169</NoWarn>
-    <NukeRootDirectory>..\</NukeRootDirectory>
-    <NukeScriptDirectory>..\</NukeScriptDirectory>
-    <NukeVersion>10.1.0</NukeVersion>
-    <NukeTelemetryVersion>1</NukeTelemetryVersion>
+    <FalloutRootDirectory>..\</FalloutRootDirectory>
+    <FalloutScriptDirectory>..\</FalloutScriptDirectory>
+    <FalloutVersion>10.3.49</FalloutVersion>
+    <FalloutTelemetryVersion>1</FalloutTelemetryVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageDownload Include="GitVersion.Tool" Version="[6.5.1]" />
     <PackageDownload Include="ReportGenerator" Version="[5.5.0]" />
     <PackageDownload Include="xunit.runner.console" Version="[2.9.2]" />
     <PackageReference Include="LibGit2Sharp" Version="0.31.0" />
-    <PackageReference Include="Nuke.Common" Version="$(NukeVersion)" />
-    <PackageReference Include="Nuke.Components" Version="$(NukeVersion)" />
+    <PackageReference Include="Fallout.Common" Version="$(FalloutVersion)" />
+    <PackageReference Include="Fallout.Components" Version="$(FalloutVersion)" />
     <PackageReference Include="SharpCompress" Version="0.48.0" />
-    <!-- Replace the implicitly referenced version 9.0.11, which is defined by the package Nuke.Common and has known vulnerabilities, with a fixed version -->
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.15" />
-    <!-- Replace the implicitly referenced version 6.12.1, which is defined by the package Nuke.Common and has known vulnerabilities, with a fixed version -->
+    <!-- Replace the implicitly referenced version 6.12.1, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
     <PackageReference Include="Nuget.Packaging" Version="7.3.1" />
   </ItemGroup>
 </Project>
