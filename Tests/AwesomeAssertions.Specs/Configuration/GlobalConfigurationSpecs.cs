@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using AwesomeAssertions.Configuration;
 using AwesomeAssertions.Execution;
 using Xunit;
+using Xunit.Sdk;
 
 namespace AwesomeAssertions.Specs.Configuration;
 
@@ -32,6 +32,32 @@ public sealed class GlobalConfigurationSpecs : IDisposable
     }
 
     [Fact]
+    public void Tracing_must_be_safe_when_executed_concurrently()
+    {
+        try
+        {
+            // Arrange
+            AssertionConfiguration.Current.Equivalency.Modify(e => e.WithTracing());
+
+            Parallel.For(1, 10_000, (_, _) =>
+            {
+                try
+                {
+                    new { A = "a" }.Should().BeEquivalentTo(new { A = "b" });
+                }
+                catch (XunitException)
+                {
+                    // we are only interested in exception not related to the actual assertion.
+                }
+            });
+        }
+        finally
+        {
+            AssertionConfiguration.Current.Equivalency.Modify(_ => new());
+        }
+    }
+
+    [Fact]
     public void Can_override_the_runtime_test_framework_implementation()
     {
         // Arrange
@@ -48,7 +74,7 @@ public sealed class GlobalConfigurationSpecs : IDisposable
     public void Can_override_the_runtime_test_framework()
     {
         // Arrange
-        AssertionEngine.Configuration.TestFramework = TestFramework.NUnit;
+        AssertionEngine.Configuration.TestFramework = AwesomeAssertions.Configuration.TestFramework.NUnit;
 
         // Act
         var act = () => 1.Should().Be(2);
