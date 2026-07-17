@@ -17,6 +17,7 @@ sidebar:
 ### Fixes
 * Fix formatting of lambda expressions with `ReadOnlySpan` - [#538](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/538)
 * Ensured `WithTracing` is safe when used with `BeEquivalentTo` globally - [#539](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/539)
+* Fix a crash while formatting a collection with nested empty collections - [#542](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/542)
 
 ## 9.4.0
 
