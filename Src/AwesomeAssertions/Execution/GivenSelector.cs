@@ -71,12 +71,9 @@ public class GivenSelector<T>
 
     public ContinuationOfGiven<T> FailWith(string message, params Func<T, object>[] args)
     {
-        if (assertionChain.PreviousAssertionSucceeded)
-        {
-            object[] mappedArguments = args.Select(a => a(selector)).ToArray();
-            return FailWith(message, mappedArguments);
-        }
-
+        assertionChain.FailWith(() => new FailReason(
+            message,
+            args.Select(a => a(selector)).ToArray()));
         return new ContinuationOfGiven<T>(this);
     }
 

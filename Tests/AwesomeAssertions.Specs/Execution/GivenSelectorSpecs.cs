@@ -226,4 +226,74 @@ public class GivenSelectorSpecs
         // Assert
         assertionChain.Succeeded.Should().BeTrue();
     }
+
+    [Fact]
+    public void When_an_assertion_succeeds_it_should_not_invoke_argument_providers()
+    {
+        var invocationCount = 0;
+
+        AssertionChain.GetOrCreate()
+            .Given(static () => "Don't care")
+            .ForCondition(static _ => true)
+            .FailWith("Expected {0}", _ =>
+            {
+                ++invocationCount;
+
+                return "nothing";
+            });
+
+        invocationCount.Should().Be(0);
+    }
+
+    [Fact]
+    public void When_an_assertion_succeeds_it_should_not_invoke_the_fail_reason_provider()
+    {
+        var invocationCount = 0;
+
+        AssertionChain.GetOrCreate()
+            .Given(static () => "Don't care")
+            .ForCondition(static _ => true)
+            .FailWith(_ =>
+            {
+                ++invocationCount;
+
+                return new FailReason("Expected nothing");
+            });
+
+        invocationCount.Should().Be(0);
+    }
+
+    [Fact]
+    public void When_an_assertion_fails_it_should_invoke_argument_providers()
+    {
+        // Act
+        Action act = () =>
+        {
+            AssertionChain.GetOrCreate()
+                .Given(static () => "Don't care")
+                .ForCondition(static _ => false)
+                .FailWith("Expected {0}", _ => "a failure");
+        };
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage("Expected \"a failure\"");
+    }
+
+    [Fact]
+    public void When_an_assertion_fails_it_should_invoke_the_fail_reason_provider()
+    {
+        // Act
+        Action act = () =>
+        {
+            AssertionChain.GetOrCreate()
+                .Given(static () => "Don't care")
+                .ForCondition(static _ => false)
+                .FailWith(_ => new FailReason("Expected a failure"));
+        };
+
+        // Assert
+        act.Should().Throw<XunitException>()
+            .WithMessage("Expected a failure");
+    }
 }
