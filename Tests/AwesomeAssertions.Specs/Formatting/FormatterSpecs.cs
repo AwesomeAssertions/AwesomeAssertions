@@ -1175,6 +1175,31 @@ public sealed class FormatterSpecs : IDisposable
             "    },*…1 more…*}*");
     }
 
+    [Fact]
+    public void Can_render_an_empty_nested_collection_without_crashing()
+    {
+        // Arrange
+        IReadOnlyCollection<IReadOnlyCollection<SomeObject>> x =
+        [
+            [],
+            [new SomeObject(42)]
+        ];
+
+        // Act
+        string result = Formatter.ToString(x, new FormattingOptions
+        {
+            MaxDepth = 5,
+            MaxLines = 100,
+            UseLineBreaks = false
+        });
+
+        // Assert
+        result.Should().NotBeEmpty();
+    }
+
+    // ReSharper disable once NotAccessedPositionalProperty.Local
+    private record SomeObject(int Bar);
+
     private class SingleItemValueFormatter : EnumerableValueFormatter
     {
         protected override int MaxItems => 1;

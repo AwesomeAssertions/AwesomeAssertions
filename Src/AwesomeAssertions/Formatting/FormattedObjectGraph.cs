@@ -218,8 +218,10 @@ public class FormattedObjectGraph
             }
             else
             {
-                parentGraph.lines[startingLineCount] = parentGraph.lines[startingLineCount]
-                    .Insert(startingLineBuilderIndex, InsertNewLineIntoFragment(fragment));
+                string parentGraphLine = parentGraph.lines[startingLineCount];
+
+                parentGraph.lines[startingLineCount] = parentGraphLine
+                    .Insert(Math.Min(startingLineBuilderIndex, parentGraphLine.Length), InsertNewLineIntoFragment(fragment));
             }
         }
 
