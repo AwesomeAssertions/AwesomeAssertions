@@ -8,11 +8,16 @@ sidebar:
 ---
 ## Unreleased
 
+## 9.5.0
+
 ### What's new
 * Add `[Not]BeDecoratedWith` for `ParameterInfo` - [#449](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/449)
+* Add overload of `AssertionChain.ForCondition()` that allows for lazy execution of `condition` - [#511](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/511)
+
+### Improvements 
 * Return `AndWhichConstraint` from `IntersectWith` - [#495](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/495)
 * Return `AndWhichConstraint` from `XElementAssertions.HaveAttribute` - [#504](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/504)
-* Add overload of `AssertionChain.ForCondition()` that allows for lazy execution of `condition` - [#511](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/511)
+* Evaluate `GivenSelector<T>.FailWith` arguments only upon failure - [#522](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/522)
 
 ### Fixes
 * Fix formatting of lambda expressions with `ReadOnlySpan` - [#538](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/538)
