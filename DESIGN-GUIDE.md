@@ -30,6 +30,18 @@ Start reading the section titles, go in deep if the title is not self-explanator
   Pass the predicate to `FailWith` and let the `PredicateLambdaExpressionValueFormatter` handle formatting it properly.
 * ❌ Don't use `type.Name` to format a type, but rather pass it to `FailWith` and let the `TypeValueFormatter` do its thing.
 
+### Preparing API changes
+
+When API members are planned to be replaced, renamed or removed in future versions:
+
+* ✅ Extend the documentation of the member to be deprecated (summary section).
+  Point to the replacement member.
+* ✅ Add a clear note of deprecation in the release notes
+  (addtional section `Deprecations` as the first section within a version).
+* ❌ Don't mark deprecated members with the `ObsoleteAttribute`.
+  Several users have enabled "warning as error", so the obsolete warning will cause compiler error.
+* ✅ Use the `EditorBrowsableAttribute` instead to hide the member.
+
 ### Tests in AwesomeAssertions
 
 * Naming and grouping guidelines (based on [this post](https://www.continuousimprover.com/2023/03/test-naming.html))
