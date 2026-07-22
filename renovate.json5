@@ -10,11 +10,6 @@
     // Use "dependencies" as a label for all created pull requests.
     "labels": ["dependencies"],
 
-    // Do not update the build project.
-    // NUKE sometimes change API break without a major version.
-    // Let's update manually.
-    "ignorePaths": ["Build/**"],
-
     "packageRules": [
         // Do not update xUnit runner.
         // Versions 3.0.0 and above do not support net47(0) anymore.
