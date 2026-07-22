@@ -19,5 +19,7 @@
     <PackageReference Include="SharpCompress" Version="0.48.0" />
     <!-- Replace the implicitly referenced version 6.12.1, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
     <PackageReference Include="Nuget.Packaging" Version="7.3.1" />
+    <!-- Replace the implicitly referenced version 10.0.6, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.10" />
   </ItemGroup>
 </Project>
