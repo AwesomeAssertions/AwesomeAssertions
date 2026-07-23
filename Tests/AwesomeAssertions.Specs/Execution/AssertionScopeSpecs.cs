@@ -289,7 +289,60 @@ namespace AwesomeAssertions.Specs.Execution
 
             // Assert
             act.Should().Throw<XunitException>()
-                .Which.Message.Should().Match("Whatever reason*outerReportable*foo*innerReportable*bar*");
+                .WithMessage("Whatever reason*outerReportable*foo*innerReportable*bar*");
+        }
+
+        [Fact]
+        public void When_scope_is_disposed_without_assertion_failure_the_lazy_reportable_is_not_evaluated()
+        {
+            bool lazyReportableEvaluated = false;
+            string LazyReportable()
+            {
+                lazyReportableEvaluated = true;
+                return "foo";
+            }
+
+            var scope = new AssertionScope();
+            scope.AddReportable("reportable", LazyReportable);
+
+            Action act = () => scope.Dispose();
+
+            lazyReportableEvaluated.Should().BeFalse("because no assertion failed");
+        }
+
+        [Fact]
+        public void When_scope_is_disposed_with_assertion_failure_the_lazy_reportable_is_evaluated()
+        {
+            string LazyReportable() => "foo";
+            var scope = new AssertionScope();
+            scope.AddReportable("reportable", LazyReportable);
+            AssertionChain.GetOrCreate().FailWith("any reason");
+
+            Action act = () => scope.Dispose();
+
+            act.Should().Throw<XunitException>().WithMessage("*With reportable:*foo");
+        }
+
+        [Fact]
+        public void When_scope_is_disposed_with_assertion_failure_the_reportable_object_is_formatted()
+        {
+            object value = new { Property = "AnyValue" };
+            var scope = new AssertionScope();
+            scope.AddReportable("reportable", value);
+            AssertionChain.GetOrCreate().FailWith("any reason");
+
+            Action act = () => scope.Dispose();
+
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("""
+                    Any reason
+
+                    With reportable:
+
+                    {
+                        Property = "AnyValue"
+                    }
+                    """);
         }
 
         [Fact]

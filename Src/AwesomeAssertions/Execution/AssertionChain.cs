@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -29,7 +30,7 @@ public sealed class AssertionChain
     private string callerPostfix = string.Empty;
 
     private static readonly AsyncLocal<AssertionChain> Instance = new();
-    
+
     /// <summary>
     /// The effective caller identifier including any prefixes and postfixes configured through
     /// <see cref="WithCallerPostfix"/>.
@@ -124,7 +125,7 @@ public sealed class AssertionChain
             }
         };
     }
-    
+
     /// <summary>
     /// Adds an explanation of why the assertion is supposed to succeed to the scope.
     /// </summary>
@@ -349,29 +350,72 @@ public sealed class AssertionChain
     }
 
     /// <summary>
-    /// Adds some information to the assertion that will be included in the message
-    /// that is emitted if an assertion fails.
+    /// <para>
+    /// Obsolete, use <see cref="WithReportable(string,string)"/> instead.
+    /// </para>
+    /// <para>
+    /// Adds named information to the assertion chain, which will be included
+    /// in the message emitted if the chain finally fails.
+    /// </para>
     /// </summary>
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="value">The value of the information to add.</param>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public void AddReportable(string key, string value)
     {
         getCurrentScope().AddReportable(key, value);
     }
 
     /// <summary>
-    /// Adds some information to the assertion that will be included in the message
-    /// that is emitted if an assertion fails. The value is only calculated on failure.
+    /// <para>
+    /// Obsolete, use <see cref="WithReportable(string,Func{string})"/> instead.
+    /// </para>
+    /// <para>
+    /// Adds named information to the assertion chain, which will be included
+    /// in the message emitted if the chain finally fails. The value is only calculated on failure.
+    /// </para>
     /// </summary>
-    public void AddReportable(string key, Func<string> getValue)
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="valueFunc">Calculates the value of the information to add upon failure.</param>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public void AddReportable(string key, Func<string> valueFunc)
     {
-        getCurrentScope().AddReportable(key, getValue);
+        getCurrentScope().AddReportable(key, valueFunc);
     }
 
     /// <summary>
-    /// Fluent alternative for <see cref="AddReportable(string,string)"/>
+    /// Adds named information to the assertion chain, which will be included
+    /// in the message emitted if the chain finally fails.
     /// </summary>
-    public AssertionChain WithReportable(string name, Func<string> content)
+    /// <param name="key">The name of the information to add.</param>
+    /// <param name="value">The value of the information to add.</param>
+    public AssertionChain WithReportable(string key, string value)
     {
-        getCurrentScope().AddReportable(name, content);
+        getCurrentScope().AddReportable(key, value);
+        return this;
+    }
+
+    /// <summary>
+    /// Adds named information to the assertion chain, which will be included
+    /// in the message emitted if the chain finally fails.
+    /// </summary>
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="valueFunc">Calculates the value of the information to add upon failure.</param>
+    public AssertionChain WithReportable(string key, Func<string> valueFunc)
+    {
+        getCurrentScope().AddReportable(key, valueFunc);
+        return this;
+    }
+
+    /// <summary>
+    /// Adds named information to the assertion chain, which will be included
+    /// in the message emitted if the chain finally fails.
+    /// </summary>
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="value">The value of the information to add. Is formatted using the <see cref="Formatter"/> upon failure.</param>
+    public AssertionChain WithReportable(string key, object value)
+    {
+        getCurrentScope().AddReportable(key, value);
         return this;
     }
 

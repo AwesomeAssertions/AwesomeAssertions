@@ -8,6 +8,13 @@ sidebar:
 ---
 ## Unreleased
 
+### What's new
+* Add `AssertionScope.AddReportable` to add custom reportable information to the current scope - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
+* Add more `AssertionChain.WithReportable` overloads - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
+
+### Deprecations
+* Deprecate `AssertionChain.AddReportable` in favor of `AssertionChain.WithReportable` to get a more consistent fluent API for chaining - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
+ 
 ## 9.5.0
 
 ### What's new
