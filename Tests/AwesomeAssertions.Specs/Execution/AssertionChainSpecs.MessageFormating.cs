@@ -454,9 +454,23 @@ public partial class AssertionChainSpecs
             AssertionChain.GetOrCreate()
                 .WithReportable("reportable", LazyReportable);
 
-            Action act = () => scope.Dispose();
+            scope.Dispose();
 
             lazyReportableEvaluated.Should().BeFalse("because no assertion failed");
+        }
+
+        [Fact]
+        public void String_reportable_is_appended_to_failure_message_when_scope_is_disposed()
+        {
+            const string stringReportable = "foo";
+            var scope = new AssertionScope();
+            AssertionChain.GetOrCreate()
+                .WithReportable("reportable", stringReportable)
+                .FailWith("any reason");
+
+            Action act = () => scope.Dispose();
+
+            act.Should().Throw<XunitException>().WithMessage("*With reportable:*foo");
         }
 
         [Fact]
