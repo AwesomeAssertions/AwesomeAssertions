@@ -13,25 +13,11 @@ internal class ContextDataDictionary
 
     public IDictionary<string, object> GetReportable()
     {
-        return items.Where(item => item.Reportable).ToDictionary(item => item.Key, item => item.Value);
+        return items.Where(item => item.Reportable).ToDictionary(item => item.Key, item => (object)item);
     }
 
-    public string AsStringOrDefault(string key)
-    {
-        DataItem item = items.SingleOrDefault(i => i.Key == key);
-
-        if (item is not null)
-        {
-            if (item.RequiresFormatting)
-            {
-                return Formatter.ToString(item.Value);
-            }
-
-            return item.Value.ToString();
-        }
-
-        return null;
-    }
+    public string AsStringOrDefault(string key) =>
+        items.SingleOrDefault(i => i.Key == key)?.ToString();
 
     public void Add(ContextDataDictionary contextDataDictionary)
     {
@@ -68,6 +54,16 @@ internal class ContextDataDictionary
         {
             object clone = Value is ICloneable2 cloneable ? cloneable.Clone() : Value;
             return new DataItem(Key, clone, Reportable, RequiresFormatting);
+        }
+
+        public override string ToString()
+        {
+            if (RequiresFormatting)
+            {
+                return Formatter.ToString(Value);
+            }
+
+            return Value?.ToString();
         }
     }
 }

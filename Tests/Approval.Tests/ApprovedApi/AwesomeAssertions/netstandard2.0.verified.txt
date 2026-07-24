@@ -1338,7 +1338,7 @@ namespace AwesomeAssertions.Execution
         public bool HasOverriddenCallerIdentifier { get; }
         public bool Succeeded { get; }
         public AwesomeAssertions.Execution.AssertionChain UsingLineBreaks { get; }
-        public void AddReportable(string key, System.Func<string> getValue) { }
+        public void AddReportable(string key, System.Func<string> valueFunc) { }
         public void AddReportable(string key, string value) { }
         public AwesomeAssertions.Execution.AssertionChain BecauseOf(AwesomeAssertions.Execution.Reason reason) { }
         public AwesomeAssertions.Execution.AssertionChain BecauseOf(string because, params object[] becauseArgs) { }
@@ -1357,7 +1357,9 @@ namespace AwesomeAssertions.Execution
         public AwesomeAssertions.Execution.Continuation WithExpectation(string message, System.Action<AwesomeAssertions.Execution.AssertionChain> chain) { }
         public AwesomeAssertions.Execution.Continuation WithExpectation(string message, object arg1, System.Action<AwesomeAssertions.Execution.AssertionChain> chain) { }
         public AwesomeAssertions.Execution.Continuation WithExpectation(string message, object arg1, object arg2, System.Action<AwesomeAssertions.Execution.AssertionChain> chain) { }
-        public AwesomeAssertions.Execution.AssertionChain WithReportable(string name, System.Func<string> content) { }
+        public AwesomeAssertions.Execution.AssertionChain WithReportable(string key, System.Func<string> valueFunc) { }
+        public AwesomeAssertions.Execution.AssertionChain WithReportable(string key, object value) { }
+        public AwesomeAssertions.Execution.AssertionChain WithReportable(string key, string value) { }
         public static AwesomeAssertions.Execution.AssertionChain GetOrCreate() { }
     }
     public class AssertionFailedException : System.Exception
@@ -1374,6 +1376,9 @@ namespace AwesomeAssertions.Execution
         public System.Func<string> Name { get; }
         public static AwesomeAssertions.Execution.AssertionScope Current { get; }
         public void AddPreFormattedFailure(string formattedFailureMessage) { }
+        public void AddReportable(string key, System.Func<string> valueFunc) { }
+        public void AddReportable(string key, object value) { }
+        public void AddReportable(string key, string value) { }
         public void AppendTracing(string tracingBlock) { }
         public string[] Discard() { }
         public void Dispose() { }

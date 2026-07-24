@@ -9,7 +9,7 @@ namespace AwesomeAssertions.Execution;
 /// assertion as passed to <see cref="AssertionChain.BecauseOf(string, object[])"/>.
 /// <para>
 /// Other named placeholders will be replaced with the <see cref="AssertionScope.Current"/> scope data passed through
-/// <see cref="AssertionChain.WithReportable"/>.
+/// <see cref="AssertionChain.WithReportable(string,string)"/>.
 /// </para>
 /// <para>
 /// Finally, a description of the current subject can be passed through the <em>{context:description}</em> placeholder.

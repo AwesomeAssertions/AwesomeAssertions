@@ -171,22 +171,37 @@ public sealed class AssertionScope : IDisposable
     }
 
     /// <summary>
-    /// Adds some information to the assertion scope that will be included in the message
-    /// that is emitted if an assertion fails.
+    /// Adds named information to the assertion scope which will be included in the message
+    /// emitted if any assertion inside the scope fails.
     /// </summary>
-    internal void AddReportable(string key, string value)
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="value">The value of the information to add.</param>
+    public void AddReportable(string key, string value)
     {
         reportableData.Add(new ContextDataDictionary.DataItem(key, value, reportable: true, requiresFormatting: false));
     }
 
     /// <summary>
-    /// Adds some information to the assertion scope that will be included in the message
-    /// that is emitted if an assertion fails. The value is only calculated on failure.
+    /// Adds named information to the assertion scope which will be included in the message
+    /// emitted if any assertion inside the scope fails.
     /// </summary>
-    internal void AddReportable(string key, Func<string> valueFunc)
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="valueFunc">Calculates the value of the information to add upon failure.</param>
+    public void AddReportable(string key, Func<string> valueFunc)
     {
         reportableData.Add(new ContextDataDictionary.DataItem(key, new DeferredReportable(valueFunc), reportable: true,
             requiresFormatting: false));
+    }
+
+    /// <summary>
+    /// Adds named information to the assertion scope which will be included in the message
+    /// emitted if any assertion inside the scope fails.
+    /// </summary>
+    /// <param name="key">The key of the information to add.</param>
+    /// <param name="value">The value of the information to add. Is formatted using the <see cref="Formatter"/> upon failure.</param>
+    public void AddReportable(string key, object value)
+    {
+        reportableData.Add(new ContextDataDictionary.DataItem(key, value, reportable: true, requiresFormatting: true));
     }
 
     /// <summary>

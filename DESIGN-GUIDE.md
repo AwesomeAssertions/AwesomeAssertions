@@ -37,7 +37,7 @@ When API members are planned to be replaced, renamed or removed in future versio
 * ✅ Extend the documentation of the member to be deprecated (summary section).
   Point to the replacement member.
 * ✅ Add a clear note of deprecation in the release notes
-  (addtional section `Deprecations` as the first section within a version).
+  (addtional section `Deprecations` after `Fixes` section within a version).
 * ❌ Don't mark deprecated members with the `ObsoleteAttribute`.
   Several users have enabled "warning as error", so the obsolete warning will cause compiler error.
 * ✅ Use the `EditorBrowsableAttribute` instead to hide the member.

@@ -266,7 +266,7 @@ public partial class AssertionChainSpecs
             // Assert
             act.Should().ThrowExactly<XunitException>()
                 .WithMessage("""
-                    *With SomeKey:
+                    With SomeKey:
                     SomeValue
                     With AnotherKey:
                     AnotherValue
@@ -438,6 +438,62 @@ public partial class AssertionChainSpecs
             // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("Expected because reasons with arguments");
+        }
+
+        [Fact]
+        public void Lazy_reportable_is_not_evaluated_without_assertion_failure()
+        {
+            bool lazyReportableEvaluated = false;
+            string LazyReportable()
+            {
+                lazyReportableEvaluated = true;
+                return "foo";
+            }
+
+            var scope = new AssertionScope();
+            AssertionChain.GetOrCreate()
+                .WithReportable("reportable", LazyReportable);
+
+            Action act = () => scope.Dispose();
+
+            lazyReportableEvaluated.Should().BeFalse("because no assertion failed");
+        }
+
+        [Fact]
+        public void Lazy_reportable_is_appended_to_failure_message_when_scope_is_disposed()
+        {
+            string LazyReportable() => "foo";
+            var scope = new AssertionScope();
+            AssertionChain.GetOrCreate()
+                .WithReportable("reportable", LazyReportable)
+                .FailWith("any reason");
+
+            Action act = () => scope.Dispose();
+
+            act.Should().Throw<XunitException>().WithMessage("*With reportable:*foo");
+        }
+
+        [Fact]
+        public void Reportable_object_gets_formatted_and_is_appended_to_failure_message_when_scope_is_disposed()
+        {
+            object value = new { Property = "AnyValue" };
+            var scope = new AssertionScope();
+            AssertionChain.GetOrCreate()
+                .WithReportable("reportable", value)
+                .FailWith("any reason");
+
+            Action act = () => scope.Dispose();
+
+            act.Should().Throw<XunitException>()
+                .Which.Message.Should().Be("""
+                    Any reason
+
+                    With reportable:
+
+                    {
+                        Property = "AnyValue"
+                    }
+                    """);
         }
     }
 }
