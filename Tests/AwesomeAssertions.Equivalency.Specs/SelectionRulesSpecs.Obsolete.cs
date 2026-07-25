@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Xunit;
 
 namespace AwesomeAssertions.Equivalency.Specs;
@@ -17,6 +18,17 @@ public partial class SelectionRulesSpecs
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
         }
 
+        [Fact]
+        public void When_obsolete_property_is_missing_comparison_should_ignore_it()
+        {
+            var subject = new { StringProperty = "String" };
+            var expected = new ClassWithObsoleteMembers { StringProperty = "String", ObsoleteProperty = "ExpectedValue" };
+
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [SuppressMessage("ReSharper", "UnusedMember.Local")]
+        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
         private class ClassWithObsoleteMembers
         {
             public string StringProperty { get; set; }
