@@ -29,7 +29,7 @@ public static class CustomNpmTasks
     public static void Initialize(AbsolutePath root)
     {
         RootDirectory = root;
-        NodeDir = RootDirectory / ".nuke" / "temp";
+        NodeDir = RootDirectory / ".fallout" / "temp";
 
         Version = (RootDirectory / "NodeVersion").ReadAllText().Trim();
         GetCachedNodeModules = os => NodeDir.GlobFiles($"node*{Version}-{os}*/**/node*", $"node*{Version}-{os}*/**/npm*").Count != 0;

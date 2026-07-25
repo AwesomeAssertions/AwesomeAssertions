@@ -23,11 +23,11 @@ jobs:
           8.0.x
           10.0.x
 
-    - name: Cache .nuke/temp
+    - name: Cache .fallout/temp
       uses: actions/cache@v6
       with:
         path: |
-          .nuke/temp
+          .fallout/temp
         key: ${{ runner.os }}-${{ hashFiles('NodeVersion') }}
 
     - name: Run NUKE
