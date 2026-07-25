@@ -19,9 +19,18 @@ public partial class SelectionRulesSpecs
         }
 
         [Fact]
+        public void When_obsolete_field_differs_comparison_should_ignore_it()
+        {
+            var subject = new ClassWithObsoleteMembers { ObsoleteField = "SubjectValue" };
+            var expected = new ClassWithObsoleteMembers { ObsoleteField = "ExpectedValue" };
+
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [Fact]
         public void When_obsolete_property_is_missing_comparison_should_ignore_it()
         {
-            var subject = new { StringProperty = "String" };
+            var subject = new { StringProperty = "String", ObsoleteField = (string)null };
             var expected = new ClassWithObsoleteMembers { StringProperty = "String", ObsoleteProperty = "ExpectedValue" };
 
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
@@ -29,12 +38,16 @@ public partial class SelectionRulesSpecs
 
         [SuppressMessage("ReSharper", "UnusedMember.Local")]
         [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
+        [SuppressMessage("ReSharper", "NotAccessedField.Local")]
         private class ClassWithObsoleteMembers
         {
             public string StringProperty { get; set; }
 
             [Obsolete("This property is obsolete and will be removed in a future version.")]
             public string ObsoleteProperty { get; set; }
+
+            [Obsolete("This property is obsolete and will be removed in a future version.")]
+            public string ObsoleteField;
         }
     }
 }
