@@ -36,7 +36,7 @@ sidebar:
       - title: Global Configuration
         url: /introduction#global-configuration
       - title: Assertion Scopes
-        url: /introduction#assertion-scopes
+        url: /assertionscopes
       - title: Basic Assertions
         url: /basicassertions
       - title: Nullable Types
