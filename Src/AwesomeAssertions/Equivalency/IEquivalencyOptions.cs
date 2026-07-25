@@ -84,6 +84,9 @@ public interface IEquivalencyOptions
     /// </summary>
     bool ExcludeNonBrowsableOnExpectation { get; }
 
+    /// <summary>
+    /// Gets a value indicating whether members on the expectation marked with <see cref="ObsoleteAttribute"/> should be excluded.
+    /// </summary>
     bool ExcludeObsoleteMembers { get; }
 
     /// <summary>

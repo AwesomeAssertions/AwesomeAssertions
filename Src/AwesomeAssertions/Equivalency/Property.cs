@@ -61,9 +61,7 @@ internal class Property : Node, IMember
     {
         get
         {
-            isObsolete ??=
-                propertyInfo.GetCustomAttribute<ObsoleteAttribute>() is not null;
-
+            isObsolete ??= propertyInfo.GetCustomAttribute<ObsoleteAttribute>() is not null;
             return isObsolete.Value;
         }
     }

@@ -367,6 +367,9 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
         return (TSelf)this;
     }
 
+    /// <summary>
+    /// Instructs the comparison to exclude obsolete members in the expectation.
+    /// </summary>
     public TSelf ExcludingObsoleteMembers()
     {
         excludeObsoleteMembers = true;
