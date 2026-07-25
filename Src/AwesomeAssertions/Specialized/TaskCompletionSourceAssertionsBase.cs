@@ -17,7 +17,7 @@ public class TaskCompletionSourceAssertionsBase
         Clock = clock ?? throw new ArgumentNullException(nameof(clock));
     }
 
-    private protected IClock Clock { get; }
+    private IClock Clock { get; }
 
     /// <inheritdoc/>
     [SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations")]
