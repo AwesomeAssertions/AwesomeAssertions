@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="sbyte"/> value.
+/// </summary>
 public class SByteValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class SByteValueFormatter : IValueFormatter
         return value is sbyte;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((sbyte)value).ToString(CultureInfo.InvariantCulture) + "y");

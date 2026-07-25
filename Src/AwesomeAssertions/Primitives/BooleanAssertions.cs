@@ -12,6 +12,13 @@ namespace AwesomeAssertions.Primitives;
 public class BooleanAssertions
     : BooleanAssertions<BooleanAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BooleanAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public BooleanAssertions(bool? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -27,6 +34,13 @@ public class BooleanAssertions
 public class BooleanAssertions<TAssertions>
     where TAssertions : BooleanAssertions<TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BooleanAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public BooleanAssertions(bool? value, AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

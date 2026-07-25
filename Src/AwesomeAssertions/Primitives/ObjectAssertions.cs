@@ -15,6 +15,13 @@ public class ObjectAssertions : ObjectAssertions<object, ObjectAssertions>
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ObjectAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public ObjectAssertions(object value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -127,6 +134,13 @@ public class ObjectAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ObjectAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public ObjectAssertions(TSubject value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {

@@ -2,8 +2,13 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equality of the subject and expectation using their <see cref="object.Equals(object)"/> implementation
+/// when the comparison is non-recursive and the current node is not the root.
+/// </summary>
 public class SimpleEqualityEquivalencyStep : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

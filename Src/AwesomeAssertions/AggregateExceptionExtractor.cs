@@ -6,8 +6,20 @@ using AwesomeAssertions.Specialized;
 
 namespace AwesomeAssertions;
 
+/// <summary>
+/// Extracts the exceptions of a particular type from an <see cref="AggregateException"/> (or a single exception).
+/// </summary>
 public class AggregateExceptionExtractor : IExtractExceptions
 {
+    /// <summary>
+    /// Extracts all exceptions of type <typeparamref name="T"/> from the specified exception.
+    /// </summary>
+    /// <typeparam name="T">The type of the exceptions to extract.</typeparam>
+    /// <param name="actualException">
+    /// The exception to extract from. When it is an <see cref="AggregateException"/>, its flattened inner
+    /// exceptions are searched; otherwise the exception itself is considered.
+    /// </param>
+    /// <returns>The exceptions of type <typeparamref name="T"/> that were found.</returns>
     public IEnumerable<T> OfType<T>(Exception actualException)
         where T : Exception
     {

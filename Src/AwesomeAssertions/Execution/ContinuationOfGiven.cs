@@ -15,5 +15,8 @@ public class ContinuationOfGiven<TSubject>
     /// </summary>
     public GivenSelector<TSubject> Then { get; }
 
+    /// <summary>
+    /// Gets a value indicating whether the previous assertion in the chain was successful.
+    /// </summary>
     public bool Succeeded => Then.Succeeded;
 }

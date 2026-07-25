@@ -14,20 +14,36 @@ using AwesomeAssertions.Primitives;
 
 namespace AwesomeAssertions.Collections;
 
+/// <summary>
+/// Contains a number of methods to assert that an <see cref="IEnumerable{T}"/> is in the expected state.
+/// </summary>
 [DebuggerNonUserCode]
 public class GenericCollectionAssertions<T> : GenericCollectionAssertions<IEnumerable<T>, T, GenericCollectionAssertions<T>>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GenericCollectionAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="actualValue">The collection to assert.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public GenericCollectionAssertions(IEnumerable<T> actualValue, AssertionChain assertionChain)
         : base(actualValue, assertionChain)
     {
     }
 }
 
+/// <summary>
+/// Contains a number of methods to assert that a <typeparamref name="TCollection"/> is in the expected state.
+/// </summary>
 [DebuggerNonUserCode]
 public class GenericCollectionAssertions<TCollection, T>
     : GenericCollectionAssertions<TCollection, T, GenericCollectionAssertions<TCollection, T>>
     where TCollection : IEnumerable<T>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GenericCollectionAssertions{TCollection, T}"/> class.
+    /// </summary>
+    /// <param name="actualValue">The collection to assert.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public GenericCollectionAssertions(TCollection actualValue, AssertionChain assertionChain)
         : base(actualValue, assertionChain)
     {
@@ -37,6 +53,9 @@ public class GenericCollectionAssertions<TCollection, T>
 #pragma warning disable CS0659, S1206 // Ignore not overriding Object.GetHashCode()
 #pragma warning disable CA1065 // Ignore throwing NotSupportedException from Equals
 
+/// <summary>
+/// Contains a number of methods to assert that a <typeparamref name="TCollection"/> is in the expected state.
+/// </summary>
 [DebuggerNonUserCode]
 public class GenericCollectionAssertions<TCollection, T, TAssertions> : ReferenceTypeAssertions<TCollection, TAssertions>
     where TCollection : IEnumerable<T>
@@ -44,6 +63,11 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GenericCollectionAssertions{TCollection, T, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="actualValue">The collection to assert.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public GenericCollectionAssertions(TCollection actualValue, AssertionChain assertionChain)
         : base(actualValue, assertionChain)
     {
@@ -3564,6 +3588,16 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         return expectation;
     }
 
+    /// <summary>
+    /// Returns a sequence that repeats the specified <paramref name="value"/> as many times as there are elements
+    /// in the specified <paramref name="enumerable"/>.
+    /// </summary>
+    /// <param name="value">The value to repeat.</param>
+    /// <param name="enumerable">The sequence whose number of elements determines how often <paramref name="value"/> is repeated.</param>
+    /// <returns>
+    /// An empty sequence if <paramref name="enumerable"/> is <see langword="null"/>; otherwise a sequence containing
+    /// <paramref name="value"/> repeated once for each element in <paramref name="enumerable"/>.
+    /// </returns>
     protected static IEnumerable<TExpectation> RepeatAsManyAs<TExpectation>(TExpectation value, IEnumerable<T> enumerable)
     {
         if (enumerable is null)
@@ -3574,6 +3608,22 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         return RepeatAsManyAsIterator(value, enumerable);
     }
 
+    /// <summary>
+    /// Asserts that the <paramref name="actual"/> collection ends with the items in the <paramref name="expected"/> collection.
+    /// </summary>
+    /// <param name="actual">The collection to inspect.</param>
+    /// <param name="expected">The items that are expected to appear at the end of <paramref name="actual"/>.</param>
+    /// <param name="equalityComparison">
+    /// A predicate used to determine whether an actual item is equal to an expected item.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="equalityComparison"/> is <see langword="null"/>.</exception>
     protected void AssertCollectionEndsWith<TActual, TExpectation>(IEnumerable<TActual> actual,
         ICollection<TExpectation> expected, Func<TActual, TExpectation, bool> equalityComparison,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
@@ -3596,6 +3646,22 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                 }));
     }
 
+    /// <summary>
+    /// Asserts that the <paramref name="actualItems"/> collection starts with the items in the <paramref name="expected"/> collection.
+    /// </summary>
+    /// <param name="actualItems">The collection to inspect.</param>
+    /// <param name="expected">The items that are expected to appear at the start of <paramref name="actualItems"/>.</param>
+    /// <param name="equalityComparison">
+    /// A predicate used to determine whether an actual item is equal to an expected item.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="equalityComparison"/> is <see langword="null"/>.</exception>
     protected void AssertCollectionStartsWith<TActual, TExpectation>(
         IEnumerable<TActual> actualItems,
         ICollection<TExpectation> expected, Func<TActual, TExpectation, bool> equalityComparison,
@@ -3615,6 +3681,23 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                     (a, e) => a.Take(e.Count).IndexOfFirstDifferenceWith(e, equalityComparison)));
     }
 
+    /// <summary>
+    /// Asserts that the current collection is equal to the specified <paramref name="expectation"/> collection,
+    /// meaning that both collections contain the same items in the same order.
+    /// </summary>
+    /// <param name="expectation">The collection of expected items.</param>
+    /// <param name="equalityComparison">
+    /// A predicate used to determine whether an item of the subject is equal to an expected item.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="equalityComparison"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="expectation"/> is <see langword="null"/>.</exception>
     protected void AssertSubjectEquality<TExpectation>(
         IEnumerable<TExpectation> expectation,
         Func<T, TExpectation, bool> equalityComparison,

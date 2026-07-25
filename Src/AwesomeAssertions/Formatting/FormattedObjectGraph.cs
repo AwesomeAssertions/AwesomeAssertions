@@ -23,6 +23,10 @@ public class FormattedObjectGraph
     private int indentation;
     private string lineBuilderWhitespace = string.Empty;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FormattedObjectGraph"/> class.
+    /// </summary>
+    /// <param name="maxLines">The maximum number of lines the formatted output may contain.</param>
     public FormattedObjectGraph(int maxLines)
     {
         this.maxLines = maxLines;

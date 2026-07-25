@@ -14,12 +14,29 @@ public class ActionAssertions : DelegateAssertions<Action, ActionAssertions>
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActionAssertions"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="Action"/> to assert on.</param>
+    /// <param name="extractor">The strategy used to extract exceptions of a specific type from a thrown exception.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     public ActionAssertions(Action subject, IExtractExceptions extractor, AssertionChain assertionChain)
         : base(subject, extractor, assertionChain)
     {
         this.assertionChain = assertionChain;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ActionAssertions"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="Action"/> to assert on.</param>
+    /// <param name="extractor">The strategy used to extract exceptions of a specific type from a thrown exception.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
+    /// <param name="clock">The clock used to measure elapsed time.</param>
     public ActionAssertions(Action subject, IExtractExceptions extractor, AssertionChain assertionChain, IClock clock)
         : base(subject, extractor, assertionChain, clock)
     {
@@ -119,6 +136,9 @@ public class ActionAssertions : DelegateAssertions<Action, ActionAssertions>
         return new AndConstraint<ActionAssertions>(this);
     }
 
+    /// <summary>
+    /// Invokes the current <see cref="Action"/> subject.
+    /// </summary>
     protected override void InvokeSubject()
     {
         Subject();

@@ -2,6 +2,9 @@ using System.Xml.Linq;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Xml.Linq.XAttribute"/> value.
+/// </summary>
 public class XAttributeValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class XAttributeValueFormatter : IValueFormatter
         return value is XAttribute;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((XAttribute)value).ToString());

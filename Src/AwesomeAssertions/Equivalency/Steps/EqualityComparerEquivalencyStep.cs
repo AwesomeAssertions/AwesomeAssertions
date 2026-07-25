@@ -5,15 +5,24 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of objects of type <typeparamref name="T"/> using a user-supplied
+/// <see cref="IEqualityComparer{T}"/> instead of the default structural comparison.
+/// </summary>
 public class EqualityComparerEquivalencyStep<T> : IEquivalencyStep
 {
     private readonly IEqualityComparer<T> comparer;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EqualityComparerEquivalencyStep{T}"/> class.
+    /// </summary>
+    /// <param name="comparer">The equality comparer used to compare objects of type <typeparamref name="T"/>.</param>
     public EqualityComparerEquivalencyStep(IEqualityComparer<T> comparer)
     {
         this.comparer = comparer ?? throw new ArgumentNullException(nameof(comparer));
     }
 
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {
@@ -44,6 +53,9 @@ public class EqualityComparerEquivalencyStep<T> : IEquivalencyStep
         return EquivalencyResult.EquivalencyProven;
     }
 
+    /// <summary>
+    /// Returns a human-readable description of the comparer and the type it is applied to.
+    /// </summary>
     public override string ToString()
     {
         return $"Use {comparer} for objects of type {typeof(T).ToFormattedString()}";

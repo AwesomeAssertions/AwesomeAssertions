@@ -4,13 +4,18 @@ using AwesomeAssertions.Formatting;
 
 namespace AwesomeAssertions.Xml;
 
+/// <summary>
+/// Formats a <see cref="System.Xml.XmlNode"/> value for display in assertion failure messages.
+/// </summary>
 public class XmlNodeFormatter : IValueFormatter
 {
+    /// <inheritdoc />
     public bool CanHandle(object value)
     {
         return value is XmlNode;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         string outerXml = ((XmlNode)value).OuterXml;

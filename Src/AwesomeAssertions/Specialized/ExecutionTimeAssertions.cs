@@ -18,6 +18,9 @@ public class ExecutionTimeAssertions
     /// Initializes a new instance of the <see cref="ExecutionTime"/> class.
     /// </summary>
     /// <param name="executionTime">The execution on which time must be asserted.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     public ExecutionTimeAssertions(ExecutionTime executionTime, AssertionChain assertionChain)
     {
         execution = executionTime ?? throw new ArgumentNullException(nameof(executionTime));

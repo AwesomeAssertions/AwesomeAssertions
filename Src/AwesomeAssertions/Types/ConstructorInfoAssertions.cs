@@ -22,6 +22,7 @@ public class ConstructorInfoAssertions : MethodBaseAssertions<ConstructorInfo, C
 
     private protected override string SubjectDescription => GetDescriptionFor(Subject);
 
+    /// <inheritdoc />
     protected override string Identifier => "constructor";
 
     private static string GetDescriptionFor(ConstructorInfo constructorInfo)

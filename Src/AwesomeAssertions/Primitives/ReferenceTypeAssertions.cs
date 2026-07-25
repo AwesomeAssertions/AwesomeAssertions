@@ -17,6 +17,13 @@ namespace AwesomeAssertions.Primitives;
 public abstract class ReferenceTypeAssertions<TSubject, TAssertions>
     where TAssertions : ReferenceTypeAssertions<TSubject, TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReferenceTypeAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     protected ReferenceTypeAssertions(TSubject subject, AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

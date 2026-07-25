@@ -68,6 +68,9 @@ public sealed class AssertionChain
     /// </summary>
     public bool Succeeded => PreviousAssertionSucceeded && succeeded is null or true;
 
+    /// <summary>
+    /// Forces the objects involved in the assertion to be formatted using line breaks in the failure message.
+    /// </summary>
     public AssertionChain UsingLineBreaks
     {
         get
@@ -171,6 +174,16 @@ public sealed class AssertionChain
         return this;
     }
 
+    /// <summary>
+    /// Specifies the condition that must be satisfied for the assertion to succeed.
+    /// </summary>
+    /// <param name="condition">
+    /// If <see langword="true"/> the assertion is treated as successful; if <see langword="false"/> the next call
+    /// to one of the <c>FailWith</c> overloads records the failure.
+    /// </param>
+    /// <remarks>
+    /// The condition is ignored when a prior assertion in the chain already failed.
+    /// </remarks>
     public AssertionChain ForCondition(bool condition)
     {
         if (PreviousAssertionSucceeded)
@@ -181,6 +194,16 @@ public sealed class AssertionChain
         return this;
     }
 
+    /// <summary>
+    /// Specifies the condition that must be satisfied for the assertion to succeed.
+    /// </summary>
+    /// <param name="condition">
+    /// A function returning <see langword="true"/> when the assertion should be treated as successful, or
+    /// <see langword="false"/> to have the next call to one of the <c>FailWith</c> overloads record the failure.
+    /// </param>
+    /// <remarks>
+    /// The <paramref name="condition"/> is only invoked when a prior assertion in the chain succeeded.
+    /// </remarks>
     public AssertionChain ForCondition(Func<bool> condition)
     {
         if (PreviousAssertionSucceeded)
@@ -191,6 +214,17 @@ public sealed class AssertionChain
         return this;
     }
 
+    /// <summary>
+    /// Specifies that the occurrence <paramref name="constraint"/> must satisfy the number <paramref name="actualOccurrences"/>
+    /// for the assertion to succeed.
+    /// </summary>
+    /// <param name="constraint">
+    /// The occurrence constraint (such as those produced by <c>AtLeast</c>, <c>AtMost</c> or <c>Exactly</c>) to evaluate.
+    /// </param>
+    /// <param name="actualOccurrences">The number of occurrences that were actually found.</param>
+    /// <remarks>
+    /// The constraint is not evaluated when a prior assertion in the chain already failed.
+    /// </remarks>
     public AssertionChain ForConstraint(OccurrenceConstraint constraint, int actualOccurrences)
     {
         if (PreviousAssertionSucceeded)
@@ -204,16 +238,46 @@ public sealed class AssertionChain
         return this;
     }
 
+    /// <summary>
+    /// Defines the expectation part of the failure message that is prepended to the failure reason of the assertions
+    /// executed within <paramref name="chain"/>.
+    /// </summary>
+    /// <param name="message">
+    /// The expectation shown as part of the failure message. May contain numbered
+    /// <see cref="string.Format(string,object[])"/>-style placeholders as well as specialized placeholders.
+    /// </param>
+    /// <param name="arg1">An object to format using the placeholders in <paramref name="message"/>.</param>
+    /// <param name="chain">The assertions to execute using the specified expectation.</param>
     public Continuation WithExpectation(string message, object arg1, Action<AssertionChain> chain)
     {
         return WithExpectation(message, chain, arg1);
     }
 
+    /// <summary>
+    /// Defines the expectation part of the failure message that is prepended to the failure reason of the assertions
+    /// executed within <paramref name="chain"/>.
+    /// </summary>
+    /// <param name="message">
+    /// The expectation shown as part of the failure message. May contain numbered
+    /// <see cref="string.Format(string,object[])"/>-style placeholders as well as specialized placeholders.
+    /// </param>
+    /// <param name="arg1">The first object to format using the placeholders in <paramref name="message"/>.</param>
+    /// <param name="arg2">The second object to format using the placeholders in <paramref name="message"/>.</param>
+    /// <param name="chain">The assertions to execute using the specified expectation.</param>
     public Continuation WithExpectation(string message, object arg1, object arg2, Action<AssertionChain> chain)
     {
         return WithExpectation(message, chain, arg1, arg2);
     }
 
+    /// <summary>
+    /// Defines the expectation part of the failure message that is prepended to the failure reason of the assertions
+    /// executed within <paramref name="chain"/>.
+    /// </summary>
+    /// <param name="message">
+    /// The expectation shown as part of the failure message. May contain specialized placeholders such as
+    /// <em>{context}</em>.
+    /// </param>
+    /// <param name="chain">The assertions to execute using the specified expectation.</param>
     public Continuation WithExpectation(string message, Action<AssertionChain> chain)
     {
         return WithExpectation(message, chain, []);
@@ -242,12 +306,25 @@ public sealed class AssertionChain
         return new Continuation(this);
     }
 
+    /// <summary>
+    /// Sets the identifier that is used in the failure message when the caller identifier could not be determined
+    /// and no other identifier was provided.
+    /// </summary>
+    /// <param name="identifier">The fallback identifier to use in the failure message.</param>
     public AssertionChain WithDefaultIdentifier(string identifier)
     {
         fallbackIdentifier = identifier;
         return this;
     }
 
+    /// <summary>
+    /// Allows executing an assertion against the object returned by <paramref name="selector"/>, which is only invoked
+    /// when the previous assertion in the chain succeeded.
+    /// </summary>
+    /// <param name="selector">A function that returns the object on which the continued assertion is executed.</param>
+    /// <returns>
+    /// A <see cref="GivenSelector{T}"/> that can be used to continue the assertion on the selected object.
+    /// </returns>
     public GivenSelector<T> Given<T>(Func<T> selector)
     {
         return new GivenSelector<T>(selector, this);
@@ -259,18 +336,48 @@ public sealed class AssertionChain
         return FailWith(() => formattedFailReason);
     }
 
+    /// <summary>
+    /// Records a failure with the specified <paramref name="message"/> when the condition set through one of the
+    /// <see cref="ForCondition(bool)"/> overloads was not met.
+    /// </summary>
+    /// <param name="message">
+    /// The failure message. May contain specialized placeholders such as <em>{reason}</em> and <em>{context}</em>.
+    /// </param>
     [StackTraceHidden]
     public Continuation FailWith(string message)
     {
         return FailWith(() => new FailReason(message));
     }
 
+    /// <summary>
+    /// Records a failure with the specified <paramref name="message"/> when the condition set through one of the
+    /// <see cref="ForCondition(bool)"/> overloads was not met.
+    /// </summary>
+    /// <param name="message">
+    /// The failure message. May contain numbered <see cref="string.Format(string,object[])"/>-style placeholders as well
+    /// as specialized placeholders.
+    /// </param>
+    /// <param name="args">
+    /// Zero or more objects to format using the placeholders in <paramref name="message"/>.
+    /// </param>
     [StackTraceHidden]
     public Continuation FailWith(string message, params object[] args)
     {
         return FailWith(() => new FailReason(message, args));
     }
 
+    /// <summary>
+    /// Records a failure with the specified <paramref name="message"/> when the condition set through one of the
+    /// <see cref="ForCondition(bool)"/> overloads was not met.
+    /// </summary>
+    /// <param name="message">
+    /// The failure message. May contain numbered <see cref="string.Format(string,object[])"/>-style placeholders as well
+    /// as specialized placeholders.
+    /// </param>
+    /// <param name="argProviders">
+    /// Zero or more functions that provide the objects to format using the placeholders in <paramref name="message"/>.
+    /// Each function is only invoked when the assertion actually failed.
+    /// </param>
     [StackTraceHidden]
     public Continuation FailWith(string message, params Func<object>[] argProviders)
     {
@@ -280,6 +387,14 @@ public sealed class AssertionChain
                 argProviders.Select(a => a()).ToArray()));
     }
 
+    /// <summary>
+    /// Records a failure using the <see cref="FailReason"/> produced by <paramref name="getFailureReason"/> when the
+    /// condition set through one of the <see cref="ForCondition(bool)"/> overloads was not met.
+    /// </summary>
+    /// <param name="getFailureReason">
+    /// A function that produces the <see cref="FailReason"/> describing the failure. It is only invoked when the
+    /// assertion actually failed.
+    /// </param>
     [StackTraceHidden]
     public Continuation FailWith(Func<FailReason> getFailureReason)
     {

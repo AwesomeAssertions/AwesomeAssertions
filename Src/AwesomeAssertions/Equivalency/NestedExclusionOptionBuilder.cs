@@ -6,6 +6,12 @@ using AwesomeAssertions.Equivalency.Selection;
 
 namespace AwesomeAssertions.Equivalency;
 
+/// <summary>
+/// Provides a fluent API for excluding a nested member reached by navigating through one or more collections
+/// on the <typeparamref name="TExpectation"/> object graph.
+/// </summary>
+/// <typeparam name="TExpectation">The type of the root expectation the exclusions are configured on.</typeparam>
+/// <typeparam name="TCurrent">The item type of the collection currently selected in the navigation chain.</typeparam>
 public class NestedExclusionOptionBuilder<TExpectation, TCurrent>
 {
     /// <summary>

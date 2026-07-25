@@ -17,8 +17,17 @@ namespace AwesomeAssertions;
 // REFACTOR: Should be internal and treated as an implementation detail of the AssertionScope
 public static class CallerIdentifier
 {
+    /// <summary>
+    /// Gets or sets the action used to log diagnostic messages produced while determining the caller identity.
+    /// </summary>
     public static Action<string> Logger { get; set; } = _ => { };
 
+    /// <summary>
+    /// Tries to determine the name of the variable or invocation on which the assertion is executed.
+    /// </summary>
+    /// <returns>
+    /// The identified caller expression, or <see langword="null"/> when it could not be determined.
+    /// </returns>
     public static string DetermineCallerIdentity()
     {
         string caller = null;

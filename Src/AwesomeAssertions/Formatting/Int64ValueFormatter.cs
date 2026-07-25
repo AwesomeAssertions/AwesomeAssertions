@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="long"/> values.
+/// </summary>
 public class Int64ValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class Int64ValueFormatter : IValueFormatter
         return value is long;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((long)value).ToString(CultureInfo.InvariantCulture) + "L");

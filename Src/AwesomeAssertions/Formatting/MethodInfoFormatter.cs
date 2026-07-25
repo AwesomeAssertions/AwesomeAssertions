@@ -2,6 +2,9 @@ using System.Reflection;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Reflection.MethodInfo"/> value.
+/// </summary>
 public class MethodInfoFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class MethodInfoFormatter : IValueFormatter
         return value is MethodInfo;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var method = (MethodInfo)value;

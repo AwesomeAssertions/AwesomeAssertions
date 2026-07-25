@@ -25,6 +25,9 @@ public interface IEquivalencyValidationContext
     /// </summary>
     Tracer Tracer { get; }
 
+    /// <summary>
+    /// Gets the <see cref="IEquivalencyOptions"/> that are in effect for the current equivalency validation.
+    /// </summary>
     IEquivalencyOptions Options { get; }
 
     /// <summary>

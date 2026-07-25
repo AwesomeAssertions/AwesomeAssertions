@@ -2,6 +2,9 @@ using System.Xml;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Xml.XmlReader"/> value.
+/// </summary>
 public class XmlReaderValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class XmlReaderValueFormatter : IValueFormatter
         return value is XmlReader;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var reader = (XmlReader)value;

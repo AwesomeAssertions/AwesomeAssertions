@@ -18,6 +18,14 @@ public abstract class DelegateAssertions<TDelegate, TAssertions> : DelegateAsser
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DelegateAssertions{TDelegate, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="delegate">The delegate to assert on.</param>
+    /// <param name="extractor">The strategy used to extract exceptions of a specific type from a thrown exception.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     protected DelegateAssertions(TDelegate @delegate, IExtractExceptions extractor, AssertionChain assertionChain)
         : base(@delegate, extractor, assertionChain, new Clock())
     {
@@ -135,6 +143,9 @@ public abstract class DelegateAssertions<TDelegate, TAssertions> : DelegateAsser
         return new ExceptionAssertions<TException>([], assertionChain);
     }
 
+    /// <summary>
+    /// Invokes the current delegate subject so that any exception it throws can be captured.
+    /// </summary>
     protected abstract void InvokeSubject();
 
     private protected Exception InvokeSubjectWithInterception()

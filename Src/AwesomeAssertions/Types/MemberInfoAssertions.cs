@@ -21,6 +21,11 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MemberInfoAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="MemberInfo"/> to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     protected MemberInfoAssertions(TSubject subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {
@@ -155,6 +160,7 @@ public abstract class MemberInfoAssertions<TSubject, TAssertions> : ReferenceTyp
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
+    /// <inheritdoc />
     protected override string Identifier => "member";
 
     private protected virtual string SubjectDescription => $"{Subject.DeclaringType}.{Subject.Name}";

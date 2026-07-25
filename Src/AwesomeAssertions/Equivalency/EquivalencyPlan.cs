@@ -18,6 +18,12 @@ public class EquivalencyPlan : IEnumerable<IEquivalencyStep>
 {
     private List<IEquivalencyStep> steps = GetDefaultSteps();
 
+    /// <summary>
+    /// Returns an enumerator that iterates through the ordered collection of equivalency steps.
+    /// </summary>
+    /// <returns>
+    /// An <see cref="IEnumerator{T}"/> that can be used to iterate through the equivalency steps.
+    /// </returns>
     public IEnumerator<IEquivalencyStep> GetEnumerator()
     {
         return steps.GetEnumerator();

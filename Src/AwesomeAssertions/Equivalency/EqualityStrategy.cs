@@ -1,5 +1,8 @@
 namespace AwesomeAssertions.Equivalency;
 
+/// <summary>
+/// Determines how equality between two objects is established during a structural equivalency assertion.
+/// </summary>
 public enum EqualityStrategy
 {
     /// <summary>

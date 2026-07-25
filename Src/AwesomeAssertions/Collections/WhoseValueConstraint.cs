@@ -2,6 +2,10 @@ using System.Collections.Generic;
 
 namespace AwesomeAssertions.Collections;
 
+/// <summary>
+/// Provides access to the value associated with a key that was asserted to be present in a dictionary,
+/// while still allowing the assertion chain to be continued.
+/// </summary>
 public class WhoseValueConstraint<TCollection, TKey, TValue, TAssertions> : AndConstraint<TAssertions>
     where TCollection : IEnumerable<KeyValuePair<TKey, TValue>>
     where TAssertions : GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>

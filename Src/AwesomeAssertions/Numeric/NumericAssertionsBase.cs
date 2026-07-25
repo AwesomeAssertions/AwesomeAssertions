@@ -10,12 +10,24 @@ namespace AwesomeAssertions.Numeric;
 
 #pragma warning disable CS0659, S1206 // Ignore not overriding Object.GetHashCode()
 #pragma warning disable CA1065 // Ignore throwing NotSupportedException from Equals
+/// <summary>
+/// Contains a number of methods to assert that a numeric value is in the expected state.
+/// </summary>
 public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
     where T : struct, IComparable<T>
     where TAssertions : NumericAssertionsBase<T, TSubject, TAssertions>
 {
+    /// <summary>
+    /// Gets the object whose value is being asserted.
+    /// </summary>
     public abstract TSubject Subject { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NumericAssertionsBase{T, TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     protected NumericAssertionsBase(AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

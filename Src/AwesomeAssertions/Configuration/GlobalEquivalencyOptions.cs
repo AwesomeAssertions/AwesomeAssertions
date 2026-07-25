@@ -5,6 +5,9 @@ using JetBrains.Annotations;
 
 namespace AwesomeAssertions.Configuration;
 
+/// <summary>
+/// Provides access to the defaults used by the structural equivalency assertions.
+/// </summary>
 public class GlobalEquivalencyOptions
 {
     private EquivalencyOptions defaults = new();

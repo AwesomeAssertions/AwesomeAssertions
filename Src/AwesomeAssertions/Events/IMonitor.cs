@@ -22,6 +22,11 @@ public interface IMonitor<T> : IDisposable
     /// </summary>
     EventAssertions<T> Should();
 
+    /// <summary>
+    /// Gets a recording of all events that have been raised for the event with the specified <paramref name="eventName"/>.
+    /// </summary>
+    /// <param name="eventName">The name of the event to get the recording for.</param>
+    /// <returns>An <see cref="IEventRecording"/> exposing the events that were raised for the specified event.</returns>
     IEventRecording GetRecordingFor(string eventName);
 
     /// <summary>

@@ -8,6 +8,9 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two objects that implement <see cref="IEnumerable{T}"/> by comparing their elements.
+/// </summary>
 public class GenericEnumerableEquivalencyStep : IEquivalencyStep
 {
 #pragma warning disable SA1110 // Allow opening parenthesis on new line to reduce line length
@@ -15,6 +18,7 @@ public class GenericEnumerableEquivalencyStep : IEquivalencyStep
         (HandleImpl).GetMethodInfo().GetGenericMethodDefinition();
 #pragma warning restore SA1110
 
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

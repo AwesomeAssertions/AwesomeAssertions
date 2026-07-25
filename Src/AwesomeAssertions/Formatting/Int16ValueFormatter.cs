@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="short"/> values.
+/// </summary>
 public class Int16ValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class Int16ValueFormatter : IValueFormatter
         return value is short;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((short)value).ToString(CultureInfo.InvariantCulture) + "s");

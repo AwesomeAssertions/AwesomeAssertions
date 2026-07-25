@@ -16,6 +16,11 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class TimeOnlyAssertions : TimeOnlyAssertions<TimeOnlyAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TimeOnlyAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public TimeOnlyAssertions(TimeOnly? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -31,6 +36,11 @@ public class TimeOnlyAssertions : TimeOnlyAssertions<TimeOnlyAssertions>
 public class TimeOnlyAssertions<TAssertions>
     where TAssertions : TimeOnlyAssertions<TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TimeOnlyAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public TimeOnlyAssertions(TimeOnly? value, AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

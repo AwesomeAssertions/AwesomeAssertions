@@ -13,6 +13,13 @@ namespace AwesomeAssertions.Xml;
 [DebuggerNonUserCode]
 public class XmlNodeAssertions : XmlNodeAssertions<XmlNode, XmlNodeAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="XmlNodeAssertions"/> class.
+    /// </summary>
+    /// <param name="xmlNode">The <see cref="XmlNode"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public XmlNodeAssertions(XmlNode xmlNode, AssertionChain assertionChain)
         : base(xmlNode, assertionChain)
     {
@@ -29,6 +36,13 @@ public class XmlNodeAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="XmlNodeAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="xmlNode">The <see cref="XmlNode"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public XmlNodeAssertions(TSubject xmlNode, AssertionChain assertionChain)
         : base(xmlNode, assertionChain)
     {

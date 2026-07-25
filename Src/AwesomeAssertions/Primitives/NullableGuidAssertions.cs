@@ -11,6 +11,11 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class NullableGuidAssertions : NullableGuidAssertions<NullableGuidAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableGuidAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableGuidAssertions(Guid? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -26,6 +31,11 @@ public class NullableGuidAssertions<TAssertions> : GuidAssertions<TAssertions>
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableGuidAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableGuidAssertions(Guid? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {

@@ -15,6 +15,11 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class NullableDateTimeAssertions : NullableDateTimeAssertions<NullableDateTimeAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableDateTimeAssertions"/> class.
+    /// </summary>
+    /// <param name="expected">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableDateTimeAssertions(DateTime? expected, AssertionChain assertionChain)
         : base(expected, assertionChain)
     {
@@ -33,6 +38,11 @@ public class NullableDateTimeAssertions<TAssertions> : DateTimeAssertions<TAsser
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableDateTimeAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="expected">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableDateTimeAssertions(DateTime? expected, AssertionChain assertionChain)
         : base(expected, assertionChain)
     {

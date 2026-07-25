@@ -6,8 +6,13 @@ using static System.FormattableString;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two non-generic <see cref="IDictionary"/> instances by comparing their keys and
+/// recursively comparing the associated values.
+/// </summary>
 public class DictionaryEquivalencyStep : EquivalencyStep<IDictionary>
 {
+    /// <inheritdoc />
     [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
     protected override EquivalencyResult OnHandle(Comparands comparands,
         IEquivalencyValidationContext context,

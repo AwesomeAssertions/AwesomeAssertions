@@ -2,6 +2,9 @@ using System;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.Exception"/> values.
+/// </summary>
 public class ExceptionValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class ExceptionValueFormatter : IValueFormatter
         return value is Exception;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((Exception)value).ToString());

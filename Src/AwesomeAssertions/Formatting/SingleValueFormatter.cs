@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="float"/> value.
+/// </summary>
 public class SingleValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -17,6 +20,7 @@ public class SingleValueFormatter : IValueFormatter
         return value is float;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         float singleValue = (float)value;

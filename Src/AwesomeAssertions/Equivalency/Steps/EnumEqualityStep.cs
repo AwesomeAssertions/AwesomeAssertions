@@ -8,8 +8,13 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two enum values, comparing them either by their underlying value or by their name
+/// depending on the configured <see cref="EnumEquivalencyHandling"/>.
+/// </summary>
 public class EnumEqualityStep : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

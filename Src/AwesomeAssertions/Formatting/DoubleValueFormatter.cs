@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="double"/> values.
+/// </summary>
 public class DoubleValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -17,6 +20,7 @@ public class DoubleValueFormatter : IValueFormatter
         return value is double;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(Format(value));

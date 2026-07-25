@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of enum values.
+/// </summary>
 public class EnumValueFormatter : IValueFormatter
 {
     /// <summary>

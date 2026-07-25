@@ -8,6 +8,9 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Collections;
 
+/// <summary>
+/// Contains a number of methods to assert that an <see cref="IEnumerable{T}"/> of <see cref="string"/> is in the expected state.
+/// </summary>
 public class StringCollectionAssertions : StringCollectionAssertions<IEnumerable<string>>
 {
     /// <summary>
@@ -19,6 +22,9 @@ public class StringCollectionAssertions : StringCollectionAssertions<IEnumerable
     }
 }
 
+/// <summary>
+/// Contains a number of methods to assert that a <typeparamref name="TCollection"/> of <see cref="string"/> is in the expected state.
+/// </summary>
 public class StringCollectionAssertions<TCollection>
     : StringCollectionAssertions<TCollection, StringCollectionAssertions<TCollection>>
     where TCollection : IEnumerable<string>
@@ -32,6 +38,9 @@ public class StringCollectionAssertions<TCollection>
     }
 }
 
+/// <summary>
+/// Contains a number of methods to assert that a <typeparamref name="TCollection"/> of <see cref="string"/> is in the expected state.
+/// </summary>
 public class StringCollectionAssertions<TCollection, TAssertions> : GenericCollectionAssertions<TCollection, string, TAssertions>
     where TCollection : IEnumerable<string>
     where TAssertions : StringCollectionAssertions<TCollection, TAssertions>

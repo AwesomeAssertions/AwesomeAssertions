@@ -15,6 +15,11 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class DateOnlyAssertions : DateOnlyAssertions<DateOnlyAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateOnlyAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public DateOnlyAssertions(DateOnly? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -30,6 +35,11 @@ public class DateOnlyAssertions : DateOnlyAssertions<DateOnlyAssertions>
 public class DateOnlyAssertions<TAssertions>
     where TAssertions : DateOnlyAssertions<TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateOnlyAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public DateOnlyAssertions(DateOnly? value, AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

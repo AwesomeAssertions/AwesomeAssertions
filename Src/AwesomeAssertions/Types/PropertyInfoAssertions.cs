@@ -15,6 +15,11 @@ public class PropertyInfoAssertions : MemberInfoAssertions<PropertyInfo, Propert
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PropertyInfoAssertions"/> class.
+    /// </summary>
+    /// <param name="propertyInfo">The <see cref="PropertyInfo"/> to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public PropertyInfoAssertions(PropertyInfo propertyInfo, AssertionChain assertionChain)
         : base(propertyInfo, assertionChain)
     {

@@ -3,6 +3,9 @@ using System.Linq.Expressions;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.Linq.Expressions.Expression"/> values.
+/// </summary>
 public class ExpressionValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -17,6 +20,7 @@ public class ExpressionValueFormatter : IValueFormatter
         return value is Expression;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(value.ToString().Replace(" = ", " == ", StringComparison.Ordinal));

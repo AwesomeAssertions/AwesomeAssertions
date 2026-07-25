@@ -8,11 +8,13 @@ namespace AwesomeAssertions.Formatting;
 /// </summary>
 public class TaskFormatter : IValueFormatter
 {
+    /// <inheritdoc />
     public bool CanHandle(object value)
     {
         return value is Task;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var task = (Task)value;

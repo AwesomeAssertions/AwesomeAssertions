@@ -18,7 +18,10 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
     /// <summary>
     /// Initializes a new instance of the <see cref="XmlElementAssertions"/> class.
     /// </summary>
-    /// <param name="xmlElement"></param>
+    /// <param name="xmlElement">The <see cref="XmlElement"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public XmlElementAssertions(XmlElement xmlElement, AssertionChain assertionChain)
         : base(xmlElement, assertionChain)
     {
@@ -176,5 +179,6 @@ public class XmlElementAssertions : XmlNodeAssertions<XmlElement, XmlElementAsse
         return new AndWhichConstraint<XmlElementAssertions, XmlElement>(this, element, assertionChain, "/" + expectedName);
     }
 
+    /// <inheritdoc />
     protected override string Identifier => "XML element";
 }

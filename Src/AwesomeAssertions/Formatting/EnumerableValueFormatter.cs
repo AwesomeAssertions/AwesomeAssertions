@@ -7,6 +7,9 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.Collections.IEnumerable"/> values.
+/// </summary>
 public class EnumerableValueFormatter : IValueFormatter
 {
     /// <summary>

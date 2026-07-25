@@ -118,6 +118,7 @@ public static class AssertionExtensions
     /// </summary>
     /// <param name="subject">The object that exposes the method or property.</param>
     /// <param name="action">A reference to the method or property to measure the execution time of.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the execution time.</param>
     /// <returns>
     /// Returns an object for asserting that the execution time matches certain conditions.
     /// </returns>
@@ -140,6 +141,7 @@ public static class AssertionExtensions
     /// Provides methods for asserting the execution time of an action.
     /// </summary>
     /// <param name="action">An action to measure the execution time of.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the execution time.</param>
     /// <returns>
     /// Returns an object for asserting that the execution time matches certain conditions.
     /// </returns>

@@ -21,6 +21,15 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AsyncFunctionAssertions{TTask, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="Func{TTask}"/> to assert on.</param>
+    /// <param name="extractor">The strategy used to extract exceptions of a specific type from a thrown exception.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
+    /// <param name="clock">The clock used to measure elapsed time.</param>
     protected AsyncFunctionAssertions(Func<TTask> subject, IExtractExceptions extractor, AssertionChain assertionChain,
         IClock clock)
         : base(subject, extractor, assertionChain, clock)
@@ -28,6 +37,7 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
         this.assertionChain = assertionChain;
     }
 
+    /// <inheritdoc />
     protected override string Identifier => "async function";
 
     /// <summary>

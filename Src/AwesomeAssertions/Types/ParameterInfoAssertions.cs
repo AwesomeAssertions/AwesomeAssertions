@@ -19,6 +19,7 @@ public sealed class ParameterInfoAssertions : ReferenceTypeAssertions<ParameterI
 {
     private readonly AssertionChain assertionChain;
 
+    /// <inheritdoc />
     protected override string Identifier => "parameter";
 
     private string SubjectDescription =>
@@ -26,6 +27,11 @@ public sealed class ParameterInfoAssertions : ReferenceTypeAssertions<ParameterI
             ? $"return parameter {Subject.ParameterType.ToFormattedString()}"
             : $"parameter {Subject.ParameterType.ToFormattedString()} {Subject.Name}";
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ParameterInfoAssertions"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="ParameterInfo"/> to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public ParameterInfoAssertions(ParameterInfo subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {

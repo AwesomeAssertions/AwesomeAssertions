@@ -10,16 +10,34 @@ namespace AwesomeAssertions.Specialized;
 #pragma warning disable CA1065 // Ignore throwing NotSupportedException from Equals
 
 #if NET6_0_OR_GREATER
+/// <summary>
+/// Contains a number of methods to assert that a <see cref="TaskCompletionSource"/> yields the expected result.
+/// </summary>
 public class TaskCompletionSourceAssertions : TaskCompletionSourceAssertionsBase
 {
     private readonly TaskCompletionSource subject;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskCompletionSourceAssertions"/> class.
+    /// </summary>
+    /// <param name="tcs">The <see cref="TaskCompletionSource"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     public TaskCompletionSourceAssertions(TaskCompletionSource tcs, AssertionChain assertionChain)
         : this(tcs, assertionChain, new Clock())
     {
         CurrentAssertionChain = assertionChain;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskCompletionSourceAssertions"/> class.
+    /// </summary>
+    /// <param name="tcs">The <see cref="TaskCompletionSource"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
+    /// <param name="clock">The clock used to measure elapsed time.</param>
     public TaskCompletionSourceAssertions(TaskCompletionSource tcs, AssertionChain assertionChain, IClock clock)
         : base(clock)
     {
@@ -96,16 +114,34 @@ public class TaskCompletionSourceAssertions : TaskCompletionSourceAssertionsBase
 }
 #endif
 
+/// <summary>
+/// Contains a number of methods to assert that a <see cref="TaskCompletionSource{T}"/> yields the expected result.
+/// </summary>
 public class TaskCompletionSourceAssertions<T> : TaskCompletionSourceAssertionsBase
 {
     private readonly TaskCompletionSource<T> subject;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskCompletionSourceAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="tcs">The <see cref="TaskCompletionSource{T}"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     public TaskCompletionSourceAssertions(TaskCompletionSource<T> tcs, AssertionChain assertionChain)
         : this(tcs, assertionChain, new Clock())
     {
         CurrentAssertionChain = assertionChain;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskCompletionSourceAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="tcs">The <see cref="TaskCompletionSource{T}"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
+    /// <param name="clock">The clock used to measure elapsed time.</param>
     public TaskCompletionSourceAssertions(TaskCompletionSource<T> tcs, AssertionChain assertionChain, IClock clock)
         : base(clock)
     {

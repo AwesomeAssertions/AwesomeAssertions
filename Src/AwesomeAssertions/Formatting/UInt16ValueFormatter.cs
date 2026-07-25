@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="ushort"/> value.
+/// </summary>
 public class UInt16ValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class UInt16ValueFormatter : IValueFormatter
         return value is ushort;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((ushort)value).ToString(CultureInfo.InvariantCulture) + "us");

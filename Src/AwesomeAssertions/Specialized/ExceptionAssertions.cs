@@ -21,6 +21,13 @@ public class ExceptionAssertions<TException> : ReferenceTypeAssertions<IEnumerab
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ExceptionAssertions{TException}"/> class.
+    /// </summary>
+    /// <param name="exceptions">The thrown exceptions to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion and is used to report failures.
+    /// </param>
     public ExceptionAssertions(IEnumerable<TException> exceptions, AssertionChain assertionChain)
         : base(exceptions, assertionChain)
     {

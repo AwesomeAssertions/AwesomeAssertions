@@ -12,6 +12,12 @@ public class MemberSelectionContext
     private readonly Type runtimeType;
     private readonly IEquivalencyOptions options;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MemberSelectionContext"/> class.
+    /// </summary>
+    /// <param name="compileTimeType">The declared (compile-time) type of the object whose members are being selected.</param>
+    /// <param name="runtimeType">The run-time type of the object whose members are being selected.</param>
+    /// <param name="options">The options that control how the structural equivalency is asserted.</param>
     public MemberSelectionContext(Type compileTimeType, Type runtimeType, IEquivalencyOptions options)
     {
         this.runtimeType = runtimeType;

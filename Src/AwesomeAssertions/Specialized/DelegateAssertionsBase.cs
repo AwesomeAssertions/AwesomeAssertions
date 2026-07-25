@@ -33,6 +33,21 @@ public abstract class DelegateAssertionsBase<TDelegate, TAssertions>
 
     private protected IClock Clock { get; }
 
+    /// <summary>
+    /// Asserts that the provided <paramref name="exception"/> contains an exception of type <typeparamref name="TException"/>.
+    /// </summary>
+    /// <typeparam name="TException">The type of exception that is expected.</typeparam>
+    /// <param name="exception">The exception that was thrown by the subject, or <see langword="null"/> if none was thrown.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <returns>
+    /// Returns an object that allows asserting additional members of the thrown exception.
+    /// </returns>
     protected ExceptionAssertions<TException> ThrowInternal<TException>(
         Exception exception,
         [StringSyntax("CompositeFormat")] string because, object[] becauseArgs)
@@ -54,6 +69,18 @@ public abstract class DelegateAssertionsBase<TDelegate, TAssertions>
         return new ExceptionAssertions<TException>(expectedExceptions, assertionChain);
     }
 
+    /// <summary>
+    /// Asserts that no exception was thrown by the subject.
+    /// </summary>
+    /// <param name="exception">The exception that was thrown by the subject, or <see langword="null"/> if none was thrown.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
     [return: NotNull]
     protected AndConstraint<TAssertions> NotThrowInternal(Exception exception, [StringSyntax("CompositeFormat")] string because,
         object[] becauseArgs)
@@ -66,6 +93,19 @@ public abstract class DelegateAssertionsBase<TDelegate, TAssertions>
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
+    /// <summary>
+    /// Asserts that the provided <paramref name="exception"/> does not contain an exception of type <typeparamref name="TException"/>.
+    /// </summary>
+    /// <typeparam name="TException">The type of exception that is not expected.</typeparam>
+    /// <param name="exception">The exception that was thrown by the subject, or <see langword="null"/> if none was thrown.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <returns>An <see cref="AndConstraint{T}"/> which can be used to chain assertions.</returns>
     [return: NotNull]
     protected AndConstraint<TAssertions> NotThrowInternal<TException>(Exception exception,
         [StringSyntax("CompositeFormat")] string because, object[] becauseArgs)

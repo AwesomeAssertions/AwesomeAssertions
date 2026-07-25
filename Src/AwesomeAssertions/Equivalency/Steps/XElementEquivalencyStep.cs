@@ -3,8 +3,12 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two <see cref="XElement"/> instances.
+/// </summary>
 public class XElementEquivalencyStep : EquivalencyStep<XElement>
 {
+    /// <inheritdoc />
     protected override EquivalencyResult OnHandle(Comparands comparands,
         IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency nestedValidator)

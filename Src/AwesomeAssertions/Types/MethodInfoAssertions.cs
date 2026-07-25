@@ -16,6 +16,11 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MethodInfoAssertions"/> class.
+    /// </summary>
+    /// <param name="methodInfo">The <see cref="MethodInfo"/> to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public MethodInfoAssertions(MethodInfo methodInfo, AssertionChain assertionChain)
         : base(methodInfo, assertionChain)
     {
@@ -315,5 +320,6 @@ public class MethodInfoAssertions : MethodBaseAssertions<MethodInfo, MethodInfoA
 
     private protected override string SubjectDescription => GetDescriptionFor(Subject);
 
+    /// <inheritdoc />
     protected override string Identifier => "method";
 }

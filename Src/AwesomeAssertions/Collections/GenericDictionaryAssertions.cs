@@ -17,6 +17,11 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue>
     : GenericDictionaryAssertions<TCollection, TKey, TValue, GenericDictionaryAssertions<TCollection, TKey, TValue>>
     where TCollection : IEnumerable<KeyValuePair<TKey, TValue>>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GenericDictionaryAssertions{TCollection, TKey, TValue}"/> class.
+    /// </summary>
+    /// <param name="keyValuePairs">The dictionary to assert.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public GenericDictionaryAssertions(TCollection keyValuePairs, AssertionChain assertionChain)
         : base(keyValuePairs, assertionChain)
     {
@@ -33,6 +38,11 @@ public class GenericDictionaryAssertions<TCollection, TKey, TValue, TAssertions>
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="GenericDictionaryAssertions{TCollection, TKey, TValue, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="keyValuePairs">The dictionary to assert.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public GenericDictionaryAssertions(TCollection keyValuePairs, AssertionChain assertionChain)
         : base(keyValuePairs, assertionChain)
     {

@@ -2,6 +2,9 @@ using System.Reflection;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Reflection.PropertyInfo"/> value.
+/// </summary>
 public class PropertyInfoFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class PropertyInfoFormatter : IValueFormatter
         return value is PropertyInfo;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var property = (PropertyInfo)value;

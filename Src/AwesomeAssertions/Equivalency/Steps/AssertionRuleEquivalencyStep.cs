@@ -6,6 +6,10 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Applies a user-supplied assertion action to every member that matches a predicate, optionally attempting
+/// an automatic type conversion before the assertion is executed.
+/// </summary>
 public class AssertionRuleEquivalencyStep<TSubject> : IEquivalencyStep
 {
     private readonly Func<IObjectInfo, bool> predicate;
@@ -13,6 +17,11 @@ public class AssertionRuleEquivalencyStep<TSubject> : IEquivalencyStep
     private readonly Action<IAssertionContext<TSubject>> assertionAction;
     private readonly AutoConversionStep converter = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AssertionRuleEquivalencyStep{TSubject}"/> class.
+    /// </summary>
+    /// <param name="predicate">A predicate that determines to which members the assertion action applies.</param>
+    /// <param name="assertionAction">The assertion action to execute on the members matching the <paramref name="predicate"/>.</param>
     public AssertionRuleEquivalencyStep(
         Expression<Func<IObjectInfo, bool>> predicate,
         Action<IAssertionContext<TSubject>> assertionAction)
@@ -22,6 +31,7 @@ public class AssertionRuleEquivalencyStep<TSubject> : IEquivalencyStep
         description = predicate.ToString();
     }
 
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

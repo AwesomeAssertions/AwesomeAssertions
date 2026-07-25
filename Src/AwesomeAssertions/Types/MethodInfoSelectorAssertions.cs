@@ -23,6 +23,7 @@ public class MethodInfoSelectorAssertions
     /// <summary>
     /// Initializes a new instance of the <see cref="MethodInfoSelectorAssertions"/> class.
     /// </summary>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     /// <param name="methods">The methods to assert.</param>
     /// <exception cref="ArgumentNullException"><paramref name="methods"/> is <see langword="null"/>.</exception>
     public MethodInfoSelectorAssertions(AssertionChain assertionChain, params MethodInfo[] methods)

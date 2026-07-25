@@ -1579,6 +1579,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is seen as not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1604,6 +1605,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is seen as not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1629,6 +1631,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is seen as not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1654,6 +1657,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is seen as not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1683,6 +1687,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is not seen as the special value not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1708,6 +1713,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is not seen as the special value not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1733,6 +1739,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is not seen as the special value not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
@@ -1759,6 +1766,7 @@ public static class NumericAssertionsExtensions
     /// <summary>
     /// Asserts that the number is not seen as the special value not a number (NaN).
     /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
     /// <param name="because">
     /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
     /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.

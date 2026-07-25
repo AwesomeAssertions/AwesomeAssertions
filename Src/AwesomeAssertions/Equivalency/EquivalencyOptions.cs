@@ -15,10 +15,18 @@ namespace AwesomeAssertions.Equivalency;
 public class EquivalencyOptions<TExpectation>
     : SelfReferenceEquivalencyOptions<EquivalencyOptions<TExpectation>>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EquivalencyOptions{TExpectation}"/> class.
+    /// </summary>
     public EquivalencyOptions()
     {
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EquivalencyOptions{TExpectation}"/> class based on defaults
+    /// previously configured by the caller.
+    /// </summary>
+    /// <param name="defaults">The options that provide the defaults to initialize this instance with.</param>
     public EquivalencyOptions(IEquivalencyOptions defaults)
         : base(defaults)
     {
@@ -197,6 +205,10 @@ public class EquivalencyOptions<TExpectation>
 /// </summary>
 public class EquivalencyOptions : SelfReferenceEquivalencyOptions<EquivalencyOptions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EquivalencyOptions"/> class using the default behavior of
+    /// recursively including all public fields and properties based on their declared types.
+    /// </summary>
     public EquivalencyOptions()
     {
         IncludingNestedObjects();

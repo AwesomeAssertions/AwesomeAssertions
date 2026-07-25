@@ -7,7 +7,6 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>../AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>1591;1573</NoWarn>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>

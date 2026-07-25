@@ -5,6 +5,9 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.DateTime"/> and <see cref="System.DateTimeOffset"/> values.
+/// </summary>
 public class DateTimeOffsetValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -19,6 +22,7 @@ public class DateTimeOffsetValueFormatter : IValueFormatter
         return value is DateTime or DateTimeOffset;
     }
 
+    /// <inheritdoc />
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Needs to be refactored")]
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {

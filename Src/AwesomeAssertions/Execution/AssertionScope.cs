@@ -72,6 +72,7 @@ public sealed class AssertionScope : IDisposable
     /// <summary>
     /// Starts a new scope based on the given assertion strategy and parent assertion scope
     /// </summary>
+    /// <param name="name">A function that returns the name or context of the scope.</param>
     /// <param name="assertionStrategy">The assertion strategy for this scope.</param>
     /// <exception cref="ArgumentNullException"><paramref name="assertionStrategy"/> is <see langword="null"/>.</exception>
     private AssertionScope(Func<string> name, IAssertionStrategy assertionStrategy)
@@ -221,6 +222,12 @@ public sealed class AssertionScope : IDisposable
         return assertionStrategy.DiscardFailures().ToArray();
     }
 
+    /// <summary>
+    /// Determines whether any failures have been collected in the current scope.
+    /// </summary>
+    /// <returns>
+    /// <see langword="true"/> if one or more assertions in the scope have failed; otherwise, <see langword="false"/>.
+    /// </returns>
     public bool HasFailures()
     {
         return assertionStrategy.FailureMessages.Any();
