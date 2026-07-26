@@ -60,8 +60,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
                 .BecauseOf(because, becauseArgs)
                 .FailWith(() =>
                 {
-                    string subject = GetSubjectDescription(assertionChain);
-
+                    string subject = GetSubjectDescription();
                     return new FailReason(
                         $"Expected {subject} to be {accessModifier}{{reason}}, but it is {subjectAccessModifier}.");
                 });
@@ -103,8 +102,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
                 .BecauseOf(because, becauseArgs)
                 .FailWith(() =>
                 {
-                    string subject = GetSubjectDescription(assertionChain);
-
+                    string subject = GetSubjectDescription();
                     return new FailReason($"Expected {subject} not to be {accessModifier}{{reason}}, but it is.");
                 });
         }
@@ -119,7 +117,7 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
         return string.Join(", ", parameterTypes.Select(p => p.AsFormattableShortType().ToFormattedString()));
     }
 
-    private protected string GetSubjectDescription(AssertionChain assertionChain) =>
+    private string GetSubjectDescription() =>
         assertionChain.HasOverriddenCallerIdentifier
             ? assertionChain.CallerIdentifier
             : $"{Identifier} {Subject.ToFormattedString()}";

@@ -114,7 +114,7 @@ public class FunctionAssertions<T> : DelegateAssertions<Func<T>, FunctionAsserti
         return new AndWhichConstraint<FunctionAssertions<T>, T>(this, result, assertionChain, ".Result");
     }
 
-    internal TResult NotThrowAfter<TResult>(Func<TResult> subject, IClock clock, TimeSpan waitTime, TimeSpan pollInterval,
+    private TResult NotThrowAfter<TResult>(Func<TResult> subject, IClock clock, TimeSpan waitTime, TimeSpan pollInterval,
         string because, object[] becauseArgs)
     {
         Guard.ThrowIfArgumentIsNegative(waitTime);
