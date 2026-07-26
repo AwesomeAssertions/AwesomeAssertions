@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
+using Xunit.Sdk;
+using static AwesomeAssertions.FluentActions;
 
 namespace AwesomeAssertions.Equivalency.Specs;
 
@@ -34,6 +36,19 @@ public partial class SelectionRulesSpecs
             var expected = new ClassWithObsoleteMembers { StringProperty = "String", ObsoleteProperty = "ExpectedValue" };
 
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [Fact]
+        public void When_obsolete_property_is_defined_on_the_subject_it_is_not_excluded()
+        {
+            var subject = new ClassWithObsoleteMembers { ObsoleteProperty = "SubjectValue" };
+            var expected = new { ObsoleteProperty = "ExpectedValue" };
+
+            Action act = () => subject.Should().BeEquivalentTo(
+                expected, o => o.ExcludingObsoleteMembers(),
+                "we want to test the {0} message", "failure");
+
+            act.Should().Throw<XunitException>().WithMessage("*failure message*SubjectValue*ExpectedValue*");
         }
 
         [SuppressMessage("ReSharper", "UnusedMember.Local")]
