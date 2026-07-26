@@ -9,6 +9,10 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Collections;
 
+/// <summary>
+/// Contains a number of methods to assert that an <see cref="IEnumerable{T}"/> is ordered by one or more
+/// subsequent orderings in addition to a previously applied ordering.
+/// </summary>
 [DebuggerNonUserCode]
 public class SubsequentOrderingAssertions<T>
     : GenericCollectionAssertions<IEnumerable<T>, T>
@@ -16,6 +20,12 @@ public class SubsequentOrderingAssertions<T>
     private readonly IOrderedEnumerable<T> previousOrderedEnumerable;
     private bool subsequentOrdering;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SubsequentOrderingAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="actualValue">The collection to assert.</param>
+    /// <param name="previousOrderedEnumerable">The result of the previously applied ordering.</param>
+    /// <param name="assertionChain">The assertion chain used to build up and terminate the assertion.</param>
     public SubsequentOrderingAssertions(IEnumerable<T> actualValue, IOrderedEnumerable<T> previousOrderedEnumerable, AssertionChain assertionChain)
         : base(actualValue, assertionChain)
     {

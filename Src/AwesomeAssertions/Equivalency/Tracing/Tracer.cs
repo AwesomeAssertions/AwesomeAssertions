@@ -45,5 +45,9 @@ public class Tracer
         return new Disposable(() => { });
     }
 
+    /// <summary>
+    /// Returns the trace collected by the configured <see cref="ITraceWriter"/>, or an empty string if no tracer
+    /// has been configured.
+    /// </summary>
     public override string ToString() => traceWriter is not null ? traceWriter.ToString() : string.Empty;
 }

@@ -12,6 +12,10 @@ namespace AwesomeAssertions.Specialized;
 /// </summary>
 public class TaskCompletionSourceAssertionsBase
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TaskCompletionSourceAssertionsBase"/> class.
+    /// </summary>
+    /// <param name="clock">The clock used to measure elapsed time.</param>
     protected TaskCompletionSourceAssertionsBase(IClock clock)
     {
         Clock = clock ?? throw new ArgumentNullException(nameof(clock));

@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="decimal"/> values.
+/// </summary>
 public class DecimalValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class DecimalValueFormatter : IValueFormatter
         return value is decimal;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((decimal)value).ToString(CultureInfo.InvariantCulture) + "M");

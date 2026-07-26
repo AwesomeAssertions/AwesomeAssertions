@@ -6,6 +6,9 @@ using Reflectify;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// The fallback formatter used to create a human-readable representation of any value for which no more specific formatter applies.
+/// </summary>
 public class DefaultValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -20,6 +23,7 @@ public class DefaultValueFormatter : IValueFormatter
         return true;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         if (value.GetType() == typeof(object))

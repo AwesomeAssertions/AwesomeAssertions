@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="uint"/> value.
+/// </summary>
 public class UInt32ValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class UInt32ValueFormatter : IValueFormatter
         return value is uint;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((uint)value).ToString(CultureInfo.InvariantCulture) + "u");

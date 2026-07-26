@@ -4,8 +4,13 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two <see cref="string"/> values, honoring the string-related equivalency options such as
+/// ignoring case, whitespace, or newline style.
+/// </summary>
 public class StringEqualityEquivalencyStep : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

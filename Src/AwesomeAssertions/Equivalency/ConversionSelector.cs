@@ -29,6 +29,9 @@ public class ConversionSelector
     private readonly List<ConversionSelectorRule> inclusions;
     private readonly List<ConversionSelectorRule> exclusions;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ConversionSelector"/> class without any conversion rules.
+    /// </summary>
     public ConversionSelector()
         : this([], [])
     {
@@ -40,6 +43,10 @@ public class ConversionSelector
         this.exclusions = exclusions;
     }
 
+    /// <summary>
+    /// Instructs the equivalency comparison to try to convert the value of all members on the expectation object
+    /// before running any of the other steps.
+    /// </summary>
     public void IncludeAll()
     {
         inclusions.Add(new ConversionSelectorRule(_ => true, "Try conversion of all members. "));
@@ -73,6 +80,16 @@ public class ConversionSelector
             $"Do not convert member {predicate.Body}."));
     }
 
+    /// <summary>
+    /// Determines whether the member identified by <paramref name="currentNode"/> should be converted before the
+    /// remaining equivalency steps are applied.
+    /// </summary>
+    /// <param name="comparands">The subject and expectation that are currently being compared.</param>
+    /// <param name="currentNode">The node describing the member being evaluated.</param>
+    /// <returns>
+    /// <see langword="true"/> if the member matches an inclusion rule and is not matched by an exclusion rule;
+    /// otherwise, <see langword="false"/>.
+    /// </returns>
     public bool RequiresConversion(Comparands comparands, INode currentNode)
     {
         if (inclusions.Count == 0)
@@ -85,6 +102,9 @@ public class ConversionSelector
         return inclusions.Exists(p => p.Predicate(objectInfo)) && !exclusions.Exists(p => p.Predicate(objectInfo));
     }
 
+    /// <summary>
+    /// Returns a human-readable description of the configured inclusion and exclusion rules.
+    /// </summary>
     public override string ToString()
     {
         if (inclusions.Count == 0 && exclusions.Count == 0)
@@ -107,6 +127,9 @@ public class ConversionSelector
         return descriptionBuilder.ToString();
     }
 
+    /// <summary>
+    /// Creates a deep copy of the current <see cref="ConversionSelector"/> with its inclusion and exclusion rules.
+    /// </summary>
     public ConversionSelector Clone()
     {
         return new ConversionSelector(new List<ConversionSelectorRule>(inclusions), new List<ConversionSelectorRule>(exclusions));

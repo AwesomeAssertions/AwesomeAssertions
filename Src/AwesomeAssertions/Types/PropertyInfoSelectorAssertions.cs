@@ -21,6 +21,7 @@ public class PropertyInfoSelectorAssertions
     /// <summary>
     /// Initializes a new instance of the <see cref="PropertyInfoSelectorAssertions"/> class, for a number of <see cref="PropertyInfo"/> objects.
     /// </summary>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     /// <param name="properties">The properties to assert.</param>
     /// <exception cref="ArgumentNullException"><paramref name="properties"/> is <see langword="null"/>.</exception>
     public PropertyInfoSelectorAssertions(AssertionChain assertionChain, params PropertyInfo[] properties)

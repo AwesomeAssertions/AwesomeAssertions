@@ -39,6 +39,10 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     private CyclicReferenceHandling cyclicReferenceHandling = CyclicReferenceHandling.ThrowException;
 
+    /// <summary>
+    /// Gets the ordered collection of rules that determine whether the order of collections is important during the
+    /// equivalency assertion.
+    /// </summary>
     [DebuggerBrowsable(DebuggerBrowsableState.Never)]
     protected OrderingRuleCollection OrderingRules { get; } = [];
 
@@ -148,6 +152,10 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     /// </summary>
     IEnumerable<IEquivalencyStep> IEquivalencyOptions.UserEquivalencySteps => userEquivalencySteps;
 
+    /// <summary>
+    /// Gets the selector that determines which member values are converted to the type of the expectation before the
+    /// actual comparison takes place.
+    /// </summary>
     public ConversionSelector ConversionSelector { get; } = new();
 
     /// <summary>
@@ -181,19 +189,39 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
 
     bool IEquivalencyOptions.ExcludeNonBrowsableOnExpectation => excludeNonBrowsableOnExpectation;
 
+    /// <summary>
+    /// Gets a value indicating whether records are compared by value instead of by their members, or
+    /// <see langword="null"/> when this has not been explicitly configured.
+    /// </summary>
     public bool? CompareRecordsByValue => equalityStrategyProvider.CompareRecordsByValue;
 
     EqualityStrategy IEquivalencyOptions.GetEqualityStrategy(Type type)
         => equalityStrategyProvider.GetEqualityStrategy(type);
 
+    /// <summary>
+    /// Gets a value indicating whether leading whitespace should be ignored when comparing <see langword="string"/>s.
+    /// </summary>
     public bool IgnoreLeadingWhitespace { get; private set; }
 
+    /// <summary>
+    /// Gets a value indicating whether trailing whitespace should be ignored when comparing <see langword="string"/>s.
+    /// </summary>
     public bool IgnoreTrailingWhitespace { get; private set; }
 
+    /// <summary>
+    /// Gets a value indicating whether <see langword="string"/>s should be compared case-insensitively.
+    /// </summary>
     public bool IgnoreCase { get; private set; }
 
+    /// <summary>
+    /// Gets a value indicating whether the newline style should be ignored when comparing <see langword="string"/>s.
+    /// </summary>
     public bool IgnoreNewlineStyle { get; private set; }
 
+    /// <summary>
+    /// Gets the <see cref="ITraceWriter"/> used to trace the steps the equivalency validation followed, or
+    /// <see langword="null"/> when tracing is not enabled.
+    /// </summary>
     public ITraceWriter TraceWriter { get; private set; }
 
     /// <summary>
@@ -376,8 +404,8 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     }
 
     /// <summary>
-    /// Tries to match the members of the expectation with equally named members on the subject. Ignores those
-    /// members that don't exist on the subject and previously registered matching rules.
+    /// Tries to match the members of the expectation with equally named members on the subject. Excludes those
+    /// members of the expectation that do not exist on the subject, so their absence does not fail the assertion.
     /// </summary>
     public TSelf ExcludingMissingMembers()
     {
@@ -869,6 +897,11 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
         private readonly Action<IAssertionContext<TMember>> action;
         private readonly TSelf options;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Restriction{TMember}"/> class.
+        /// </summary>
+        /// <param name="options">The equivalency options the override is registered on.</param>
+        /// <param name="action">The assertion to execute when the restriction's predicate is met.</param>
         public Restriction(TSelf options, Action<IAssertionContext<TMember>> action)
         {
             this.options = options;
@@ -911,12 +944,20 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
         selectionRules.RemoveAll(selectionRule => selectionRule is T);
     }
 
+    /// <summary>
+    /// Adds a selection rule that is evaluated after all previously registered selection rules.
+    /// </summary>
+    /// <param name="selectionRule">The selection rule to add.</param>
     protected internal TSelf AddSelectionRule(IMemberSelectionRule selectionRule)
     {
         selectionRules.Add(selectionRule);
         return (TSelf)this;
     }
 
+    /// <summary>
+    /// Adds a matching rule that is evaluated before all previously registered matching rules.
+    /// </summary>
+    /// <param name="matchingRule">The matching rule to add.</param>
     protected TSelf AddMatchingRule(IMemberMatchingRule matchingRule)
     {
         matchingRules.Insert(0, matchingRule);

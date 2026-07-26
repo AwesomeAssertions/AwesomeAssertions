@@ -3,6 +3,9 @@ using static System.FormattableString;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats an <see cref="AggregateException"/> by writing its inner exceptions.
+/// </summary>
 public class AggregateExceptionValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -17,6 +20,7 @@ public class AggregateExceptionValueFormatter : IValueFormatter
         return value is AggregateException;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var exception = (AggregateException)value;

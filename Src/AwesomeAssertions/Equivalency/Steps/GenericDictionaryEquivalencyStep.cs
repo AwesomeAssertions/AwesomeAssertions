@@ -7,6 +7,10 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two objects that implement <see cref="IDictionary{TKey,TValue}"/> by comparing their
+/// keys and recursively comparing the associated values.
+/// </summary>
 public class GenericDictionaryEquivalencyStep : IEquivalencyStep
 {
 #pragma warning disable SA1110 // Allow opening parenthesis on new line to reduce line length
@@ -16,6 +20,7 @@ public class GenericDictionaryEquivalencyStep : IEquivalencyStep
             (AssertDictionaryEquivalence).GetMethodInfo().GetGenericMethodDefinition();
 #pragma warning restore SA1110
 
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

@@ -4,6 +4,9 @@ using AwesomeAssertions.Specialized;
 
 namespace AwesomeAssertions;
 
+/// <summary>
+/// Provides extension methods for asserting on the results of asynchronous assertions.
+/// </summary>
 public static class AsyncAssertionsExtensions
 {
 #pragma warning disable AV1755 // "Name of async method ... should end with Async"; Async suffix is too noisy in fluent API

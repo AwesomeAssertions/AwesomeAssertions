@@ -5,13 +5,18 @@ using System.Text;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Type"/> value.
+/// </summary>
 public sealed class TypeValueFormatter : IValueFormatter
 {
+    /// <inheritdoc />
     public bool CanHandle(object value)
     {
         return value is Type or ShortTypeValue;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         if (value is ShortTypeValue shortValue)

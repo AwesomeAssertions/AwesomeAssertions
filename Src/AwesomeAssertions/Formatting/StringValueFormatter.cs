@@ -1,5 +1,8 @@
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="string"/> value.
+/// </summary>
 public class StringValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -14,6 +17,7 @@ public class StringValueFormatter : IValueFormatter
         return value is string;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         string result = $"""

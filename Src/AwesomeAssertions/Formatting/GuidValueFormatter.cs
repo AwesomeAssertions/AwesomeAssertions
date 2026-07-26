@@ -2,6 +2,9 @@ using System;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.Guid"/> values.
+/// </summary>
 public class GuidValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class GuidValueFormatter : IValueFormatter
         return value is Guid;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment($"{{{value}}}");

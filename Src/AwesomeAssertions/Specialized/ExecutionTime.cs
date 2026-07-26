@@ -4,6 +4,9 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Specialized;
 
+/// <summary>
+/// Captures the time it takes to execute an action or asynchronous function.
+/// </summary>
 public class ExecutionTime
 {
     private ITimer timer;
@@ -12,6 +15,7 @@ public class ExecutionTime
     /// Initializes a new instance of the <see cref="ExecutionTime"/> class.
     /// </summary>
     /// <param name="action">The action of which the execution time must be asserted.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the elapsed time.</param>
     /// <exception cref="ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
     public ExecutionTime(Action action, StartTimer createTimer)
         : this(action, "the action", createTimer)
@@ -22,6 +26,7 @@ public class ExecutionTime
     /// Initializes a new instance of the <see cref="ExecutionTime"/> class.
     /// </summary>
     /// <param name="action">The action of which the execution time must be asserted.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the elapsed time.</param>
     /// <exception cref="ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
     public ExecutionTime(Func<Task> action, StartTimer createTimer)
         : this(action, "the action", createTimer)
@@ -33,6 +38,7 @@ public class ExecutionTime
     /// </summary>
     /// <param name="action">The action of which the execution time must be asserted.</param>
     /// <param name="actionDescription">The description of the action to be asserted.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the elapsed time.</param>
     /// <exception cref="ArgumentNullException"><paramref name="action"/> is <see langword="null"/>.</exception>
     protected ExecutionTime(Action action, string actionDescription, StartTimer createTimer)
     {
@@ -69,6 +75,7 @@ public class ExecutionTime
     /// </summary>
     /// <param name="action">The action of which the execution time must be asserted.</param>
     /// <param name="actionDescription">The description of the action to be asserted.</param>
+    /// <param name="createTimer">A function that creates the <see cref="ITimer"/> used to measure the elapsed time.</param>
     /// <remarks>
     /// This constructor is almost exact copy of the one accepting <see cref="Action"/>.
     /// The original constructor shall stay in place in order to keep backward-compatibility

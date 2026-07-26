@@ -2,13 +2,18 @@ using System.Xml.Linq;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Xml.Linq.XDocument"/> value.
+/// </summary>
 public class XDocumentValueFormatter : IValueFormatter
 {
+    /// <inheritdoc />
     public bool CanHandle(object value)
     {
         return value is XDocument;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var document = (XDocument)value;

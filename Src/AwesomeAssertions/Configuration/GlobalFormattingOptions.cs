@@ -3,10 +3,17 @@ using AwesomeAssertions.Formatting;
 
 namespace AwesomeAssertions.Configuration;
 
+/// <summary>
+/// Provides access to the formatting defaults used by all assertions.
+/// </summary>
 public class GlobalFormattingOptions : FormattingOptions
 {
     private string valueFormatterAssembly;
 
+    /// <summary>
+    /// Gets or sets the name of the assembly that is scanned for custom value formatters.
+    /// Setting this property changes <see cref="ValueFormatterDetectionMode"/> to <see cref="AwesomeAssertions.Common.ValueFormatterDetectionMode.Specific"/>.
+    /// </summary>
     public string ValueFormatterAssembly
     {
         get => valueFormatterAssembly;
@@ -17,6 +24,9 @@ public class GlobalFormattingOptions : FormattingOptions
         }
     }
 
+    /// <summary>
+    /// Gets or sets the mode that determines how custom value formatters are detected.
+    /// </summary>
     public ValueFormatterDetectionMode ValueFormatterDetectionMode { get; set; }
 
     internal new GlobalFormattingOptions Clone()

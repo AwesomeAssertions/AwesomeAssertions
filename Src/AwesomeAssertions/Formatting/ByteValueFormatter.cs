@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="byte"/> value as its hexadecimal representation.
+/// </summary>
 public class ByteValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class ByteValueFormatter : IValueFormatter
         return value is byte;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment("0x" + ((byte)value).ToString("X2", CultureInfo.InvariantCulture));

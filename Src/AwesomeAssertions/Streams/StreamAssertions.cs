@@ -13,6 +13,13 @@ namespace AwesomeAssertions.Streams;
 [DebuggerNonUserCode]
 public class StreamAssertions : StreamAssertions<Stream, StreamAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamAssertions"/> class.
+    /// </summary>
+    /// <param name="stream">The <see cref="Stream"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public StreamAssertions(Stream stream, AssertionChain assertionChain)
         : base(stream, assertionChain)
     {
@@ -28,12 +35,20 @@ public class StreamAssertions<TSubject, TAssertions> : ReferenceTypeAssertions<T
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StreamAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="stream">The <see cref="Stream"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public StreamAssertions(TSubject stream, AssertionChain assertionChain)
         : base(stream, assertionChain)
     {
         this.assertionChain = assertionChain;
     }
 
+    /// <inheritdoc />
     protected override string Identifier => "stream";
 
     /// <summary>

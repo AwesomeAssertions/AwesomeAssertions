@@ -1,5 +1,8 @@
 namespace AwesomeAssertions.Configuration;
 
+/// <summary>
+/// Provides access to the global configuration and defaults used by Awesome Assertions.
+/// </summary>
 public class GlobalConfiguration
 {
     private TestFramework? testFramework;

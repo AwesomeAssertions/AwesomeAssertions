@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.TimeSpan"/> value.
+/// </summary>
 public class TimeSpanValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -19,6 +22,7 @@ public class TimeSpanValueFormatter : IValueFormatter
         return value is TimeSpan;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var timeSpan = (TimeSpan)value;

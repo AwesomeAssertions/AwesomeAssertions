@@ -4,8 +4,20 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Equivalency;
 
+/// <summary>
+/// Provides factory methods for creating <see cref="IMember"/> instances that wrap the fields and properties of an object graph.
+/// </summary>
 public static class MemberFactory
 {
+    /// <summary>
+    /// Creates an <see cref="IMember"/> representing the field or property described by <paramref name="memberInfo"/>.
+    /// </summary>
+    /// <param name="memberInfo">The reflection metadata of the field or property to wrap.</param>
+    /// <param name="parent">The node representing the object that declares the member.</param>
+    /// <returns>An <see cref="IMember"/> wrapping the specified field or property.</returns>
+    /// <exception cref="NotSupportedException">
+    /// <paramref name="memberInfo"/> represents a member that is neither a field nor a property.
+    /// </exception>
     public static IMember Create(MemberInfo memberInfo, INode parent)
     {
         return memberInfo.MemberType switch

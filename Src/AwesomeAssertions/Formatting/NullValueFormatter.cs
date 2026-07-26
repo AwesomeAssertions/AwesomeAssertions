@@ -1,5 +1,8 @@
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see langword="null"/> reference.
+/// </summary>
 public class NullValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -14,6 +17,7 @@ public class NullValueFormatter : IValueFormatter
         return value is null;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment("<null>");

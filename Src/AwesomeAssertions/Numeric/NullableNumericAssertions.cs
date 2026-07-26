@@ -14,6 +14,13 @@ namespace AwesomeAssertions.Numeric;
 public class NullableNumericAssertions<T> : NullableNumericAssertions<T, NullableNumericAssertions<T>>
     where T : struct, IComparable<T>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableNumericAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public NullableNumericAssertions(T? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -30,6 +37,13 @@ public class NullableNumericAssertions<T, TAssertions> : NumericAssertionsBase<T
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableNumericAssertions{T, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public NullableNumericAssertions(T? value, AssertionChain assertionChain)
         : base(assertionChain)
     {
@@ -37,6 +51,9 @@ public class NullableNumericAssertions<T, TAssertions> : NumericAssertionsBase<T
         this.assertionChain = assertionChain;
     }
 
+    /// <summary>
+    /// Gets the object whose value is being asserted.
+    /// </summary>
     public override T? Subject { get; }
 
     /// <summary>

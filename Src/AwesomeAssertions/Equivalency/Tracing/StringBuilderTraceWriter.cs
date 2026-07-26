@@ -3,16 +3,22 @@ using System.Text;
 
 namespace AwesomeAssertions.Equivalency.Tracing;
 
+/// <summary>
+/// An <see cref="ITraceWriter"/> that collects the trace of a structural equivalency comparison in a
+/// <see cref="StringBuilder"/>.
+/// </summary>
 public class StringBuilderTraceWriter : ITraceWriter
 {
     private readonly StringBuilder builder = new();
     private int depth = 1;
 
+    /// <inheritdoc />
     public void AddSingle(string trace)
     {
         WriteLine(trace);
     }
 
+    /// <inheritdoc />
     public IDisposable AddBlock(string trace)
     {
         WriteLine(trace);
@@ -34,6 +40,7 @@ public class StringBuilderTraceWriter : ITraceWriter
         }
     }
 
+    /// <inheritdoc />
     public override string ToString()
     {
         return builder.ToString();

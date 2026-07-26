@@ -12,12 +12,22 @@ namespace AwesomeAssertions.Streams;
 [DebuggerNonUserCode]
 public class BufferedStreamAssertions : BufferedStreamAssertions<BufferedStreamAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BufferedStreamAssertions"/> class.
+    /// </summary>
+    /// <param name="stream">The <see cref="BufferedStream"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public BufferedStreamAssertions(BufferedStream stream, AssertionChain assertionChain)
         : base(stream, assertionChain)
     {
     }
 }
 
+/// <summary>
+/// Contains a number of methods to assert that a <see cref="BufferedStream"/> is in the expected state.
+/// </summary>
 public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedStream, TAssertions>
     where TAssertions : BufferedStreamAssertions<TAssertions>
 {
@@ -25,6 +35,13 @@ public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedSt
 
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BufferedStreamAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="stream">The <see cref="BufferedStream"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public BufferedStreamAssertions(BufferedStream stream, AssertionChain assertionChain)
         : base(stream, assertionChain)
     {
@@ -97,11 +114,19 @@ public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedSt
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 #else
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BufferedStreamAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="stream">The <see cref="BufferedStream"/> to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public BufferedStreamAssertions(BufferedStream stream, AssertionChain assertionChain)
         : base(stream, assertionChain)
     {
     }
 #endif
 
+    /// <inheritdoc />
     protected override string Identifier => "buffered stream";
 }

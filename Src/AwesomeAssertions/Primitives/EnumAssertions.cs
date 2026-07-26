@@ -15,6 +15,13 @@ namespace AwesomeAssertions.Primitives;
 public class EnumAssertions<TEnum> : EnumAssertions<TEnum, EnumAssertions<TEnum>>
     where TEnum : struct, Enum
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EnumAssertions{TEnum}"/> class.
+    /// </summary>
+    /// <param name="subject">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public EnumAssertions(TEnum subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {
@@ -30,6 +37,13 @@ public class EnumAssertions<TEnum, TAssertions>
     where TEnum : struct, Enum
     where TAssertions : EnumAssertions<TEnum, TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EnumAssertions{TEnum, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public EnumAssertions(TEnum subject, AssertionChain assertionChain)
         : this((TEnum?)subject, assertionChain)
     {
@@ -41,6 +55,9 @@ public class EnumAssertions<TEnum, TAssertions>
         Subject = value;
     }
 
+    /// <summary>
+    /// Gets the object whose value is being asserted.
+    /// </summary>
     public TEnum? Subject { get; }
 
     /// <summary>

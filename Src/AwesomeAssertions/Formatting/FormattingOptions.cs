@@ -3,6 +3,9 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides the options that control how values are formatted into human-readable strings.
+/// </summary>
 public class FormattingOptions
 {
     internal List<IValueFormatter> ScopedFormatters { get; set; } = [];

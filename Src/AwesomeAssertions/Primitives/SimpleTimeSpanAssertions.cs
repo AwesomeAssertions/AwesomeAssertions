@@ -12,6 +12,13 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class SimpleTimeSpanAssertions : SimpleTimeSpanAssertions<SimpleTimeSpanAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleTimeSpanAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public SimpleTimeSpanAssertions(TimeSpan? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -27,6 +34,13 @@ public class SimpleTimeSpanAssertions : SimpleTimeSpanAssertions<SimpleTimeSpanA
 public class SimpleTimeSpanAssertions<TAssertions>
     where TAssertions : SimpleTimeSpanAssertions<TAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SimpleTimeSpanAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public SimpleTimeSpanAssertions(TimeSpan? value, AssertionChain assertionChain)
     {
         CurrentAssertionChain = assertionChain;

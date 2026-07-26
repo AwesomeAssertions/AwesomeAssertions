@@ -5,6 +5,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.TimeOnly"/> values.
+/// </summary>
 public class TimeOnlyValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -19,6 +22,7 @@ public class TimeOnlyValueFormatter : IValueFormatter
         return value is TimeOnly;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var timeOnly = (TimeOnly)value;

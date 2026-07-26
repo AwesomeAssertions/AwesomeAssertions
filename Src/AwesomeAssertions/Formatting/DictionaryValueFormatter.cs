@@ -7,6 +7,9 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.Collections.IDictionary"/> values.
+/// </summary>
 public class DictionaryValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -27,6 +30,7 @@ public class DictionaryValueFormatter : IValueFormatter
         return value is IDictionary;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         int startCount = formattedGraph.LineCount;

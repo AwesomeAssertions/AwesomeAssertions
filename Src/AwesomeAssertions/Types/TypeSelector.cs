@@ -14,6 +14,10 @@ public class TypeSelector : IEnumerable<Type>
 {
     private List<Type> types;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TypeSelector"/> class.
+    /// </summary>
+    /// <param name="type">The <see cref="Type"/> to assert on.</param>
     public TypeSelector(Type type)
         : this([type])
     {

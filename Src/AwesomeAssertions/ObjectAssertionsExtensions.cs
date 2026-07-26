@@ -9,6 +9,9 @@ using AwesomeAssertions.Primitives;
 
 namespace AwesomeAssertions;
 
+/// <summary>
+/// Contains a number of extension methods for <see cref="ObjectAssertions"/>.
+/// </summary>
 public static class ObjectAssertionsExtensions
 {
     /// <summary>

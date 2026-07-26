@@ -39,6 +39,16 @@ public class DateTimeRangeAssertions<TAssertions>
 
     #endregion
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DateTimeRangeAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="parentAssertions">The parent assertions object that this range assertion continues from.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
+    /// <param name="subject">The <see cref="DateTime"/> whose distance to another value is being asserted.</param>
+    /// <param name="condition">The condition that determines how the <paramref name="timeSpan"/> is compared.</param>
+    /// <param name="timeSpan">The time span against which the distance is compared.</param>
     protected internal DateTimeRangeAssertions(TAssertions parentAssertions, AssertionChain assertionChain,
         DateTime? subject,
         TimeSpanCondition condition,

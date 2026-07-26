@@ -5,8 +5,12 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
+/// <summary>
+/// Asserts the equivalency of two non-generic <see cref="IEnumerable"/> collections by comparing their elements.
+/// </summary>
 public class EnumerableEquivalencyStep : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

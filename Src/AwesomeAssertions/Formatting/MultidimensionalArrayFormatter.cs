@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a multidimensional <see cref="System.Array"/> value.
+/// </summary>
 public class MultidimensionalArrayFormatter : IValueFormatter
 {
     /// <summary>
@@ -19,6 +22,7 @@ public class MultidimensionalArrayFormatter : IValueFormatter
         return value is Array { Rank: >= 2 };
     }
 
+    /// <inheritdoc />
     [SuppressMessage("Design", "MA0051:Method is too long", Justification = "Required refactoring")]
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {

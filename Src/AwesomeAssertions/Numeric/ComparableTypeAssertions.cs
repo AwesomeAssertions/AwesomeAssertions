@@ -16,6 +16,13 @@ namespace AwesomeAssertions.Numeric;
 [DebuggerNonUserCode]
 public class ComparableTypeAssertions<T> : ComparableTypeAssertions<T, ComparableTypeAssertions<T>>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ComparableTypeAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public ComparableTypeAssertions(IComparable<T> value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -32,6 +39,13 @@ public class ComparableTypeAssertions<T, TAssertions> : ReferenceTypeAssertions<
     private const int Equal = 0;
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ComparableTypeAssertions{T, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">
+    /// The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.
+    /// </param>
     public ComparableTypeAssertions(IComparable<T> value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {

@@ -50,6 +50,10 @@ public class OrderingRuleCollection : IEnumerable<IOrderingRule>
         return GetEnumerator();
     }
 
+    /// <summary>
+    /// Adds an ordering rule to the collection.
+    /// </summary>
+    /// <param name="rule">The ordering rule to add.</param>
     public void Add(IOrderingRule rule)
     {
         rules.Add(rule);

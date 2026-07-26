@@ -4,6 +4,9 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="System.Xml.Linq.XElement"/> value.
+/// </summary>
 public class XElementValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -18,6 +21,7 @@ public class XElementValueFormatter : IValueFormatter
         return value is XElement;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var element = (XElement)value;

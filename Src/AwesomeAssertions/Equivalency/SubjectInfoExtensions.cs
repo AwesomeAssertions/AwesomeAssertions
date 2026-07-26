@@ -2,6 +2,10 @@ using AwesomeAssertions.Common;
 
 namespace AwesomeAssertions.Equivalency;
 
+/// <summary>
+/// Provides extension methods on <see cref="IMemberInfo"/> for inspecting the accessibility of a member's getter and
+/// setter.
+/// </summary>
 public static class SubjectInfoExtensions
 {
     /// <summary>

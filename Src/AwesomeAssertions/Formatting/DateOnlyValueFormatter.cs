@@ -5,6 +5,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Provides a human-readable representation of <see cref="System.DateOnly"/> values.
+/// </summary>
 public class DateOnlyValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -19,6 +22,7 @@ public class DateOnlyValueFormatter : IValueFormatter
         return value is DateOnly;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var dateOnly = (DateOnly)value;

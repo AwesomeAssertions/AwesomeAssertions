@@ -11,8 +11,10 @@ namespace AwesomeAssertions.Formatting;
 /// </summary>
 public class PredicateLambdaExpressionValueFormatter : IValueFormatter
 {
+    /// <inheritdoc />
     public bool CanHandle(object value) => value is LambdaExpression;
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         var lambdaExpression = (LambdaExpression)value;

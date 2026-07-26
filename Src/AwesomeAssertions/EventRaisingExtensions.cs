@@ -17,6 +17,7 @@ public static class EventRaisingExtensions
     /// <summary>
     /// Asserts that all occurrences of the event originates from the <param name="expectedSender"/>.
     /// </summary>
+    /// <param name="eventRecording">The recorded events to filter by sender.</param>
     /// <returns>
     /// Returns only the events that comes from that sender.
     /// </returns>
@@ -154,6 +155,7 @@ public static class EventRaisingExtensions
     /// Asserts that all occurrences of the events has arguments of type <see cref="PropertyChangedEventArgs"/>
     /// and are for property <paramref name="propertyName"/>.
     /// </summary>
+    /// <param name="eventRecording">The recorded events to filter by property name.</param>
     /// <param name="propertyName">
     /// The property name for which the property changed events should have been raised.
     /// </param>

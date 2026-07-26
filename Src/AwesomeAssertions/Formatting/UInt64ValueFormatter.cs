@@ -2,6 +2,9 @@ using System.Globalization;
 
 namespace AwesomeAssertions.Formatting;
 
+/// <summary>
+/// Formats a <see cref="ulong"/> value.
+/// </summary>
 public class UInt64ValueFormatter : IValueFormatter
 {
     /// <summary>
@@ -16,6 +19,7 @@ public class UInt64ValueFormatter : IValueFormatter
         return value is ulong;
     }
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         formattedGraph.AddFragment(((ulong)value).ToString(CultureInfo.InvariantCulture) + "UL");

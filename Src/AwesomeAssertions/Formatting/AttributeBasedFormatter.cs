@@ -30,6 +30,7 @@ public class AttributeBasedFormatter : IValueFormatter
 
     private static bool IsScanningEnabled => AssertionConfiguration.Current.Formatting.ValueFormatterDetectionMode == ValueFormatterDetectionMode.Scan;
 
+    /// <inheritdoc />
     public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext context, FormatChild formatChild)
     {
         MethodInfo method = GetFormatter(value);

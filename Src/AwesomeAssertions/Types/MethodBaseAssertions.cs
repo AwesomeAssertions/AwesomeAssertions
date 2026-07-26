@@ -20,6 +20,11 @@ public abstract class MethodBaseAssertions<TSubject, TAssertions> : MemberInfoAs
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MethodBaseAssertions{TSubject, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The <see cref="MethodBase"/> to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     protected MethodBaseAssertions(TSubject subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {

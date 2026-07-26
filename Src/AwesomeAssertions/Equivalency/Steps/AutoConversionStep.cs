@@ -13,6 +13,7 @@ namespace AwesomeAssertions.Equivalency.Steps;
 /// </remarks>
 public class AutoConversionStep : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {
@@ -80,6 +81,9 @@ public class AutoConversionStep : IEquivalencyStep
         return false;
     }
 
+    /// <summary>
+    /// Returns an empty string, as this step does not contribute a description to the equivalency comparison.
+    /// </summary>
     public override string ToString()
     {
         return string.Empty;

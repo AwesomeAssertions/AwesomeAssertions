@@ -18,6 +18,11 @@ public class EventAssertions<T> : ReferenceTypeAssertions<T, EventAssertions<T>>
     private const string PropertyChangedEventName = nameof(INotifyPropertyChanged.PropertyChanged);
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="EventAssertions{T}"/> class.
+    /// </summary>
+    /// <param name="monitor">The monitor that records the events raised by the object being asserted.</param>
+    /// <param name="assertionChain">The assertion chain used to execute the assertions.</param>
     protected internal EventAssertions(IMonitor<T> monitor, AssertionChain assertionChain)
         : base(monitor.Subject, assertionChain)
     {
@@ -171,5 +176,6 @@ public class EventAssertions<T> : ReferenceTypeAssertions<T, EventAssertions<T>>
         }
     }
 
+    /// <inheritdoc />
     protected override string Identifier => "subject";
 }

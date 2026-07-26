@@ -10,6 +10,11 @@ namespace AwesomeAssertions.Primitives;
 [DebuggerNonUserCode]
 public class NullableBooleanAssertions : NullableBooleanAssertions<NullableBooleanAssertions>
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableBooleanAssertions"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableBooleanAssertions(bool? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {
@@ -25,6 +30,11 @@ public class NullableBooleanAssertions<TAssertions> : BooleanAssertions<TAsserti
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableBooleanAssertions{TAssertions}"/> class.
+    /// </summary>
+    /// <param name="value">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableBooleanAssertions(bool? value, AssertionChain assertionChain)
         : base(value, assertionChain)
     {

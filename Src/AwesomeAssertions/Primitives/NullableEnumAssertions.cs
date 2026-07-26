@@ -10,6 +10,11 @@ namespace AwesomeAssertions.Primitives;
 public class NullableEnumAssertions<TEnum> : NullableEnumAssertions<TEnum, NullableEnumAssertions<TEnum>>
     where TEnum : struct, Enum
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableEnumAssertions{TEnum}"/> class.
+    /// </summary>
+    /// <param name="subject">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableEnumAssertions(TEnum? subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {
@@ -25,6 +30,11 @@ public class NullableEnumAssertions<TEnum, TAssertions> : EnumAssertions<TEnum, 
 {
     private readonly AssertionChain assertionChain;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="NullableEnumAssertions{TEnum, TAssertions}"/> class.
+    /// </summary>
+    /// <param name="subject">The value to assert on.</param>
+    /// <param name="assertionChain">The <see cref="AssertionChain"/> that manages the state of the assertion, including the reason and identifier.</param>
     public NullableEnumAssertions(TEnum? subject, AssertionChain assertionChain)
         : base(subject, assertionChain)
     {

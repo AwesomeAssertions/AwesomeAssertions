@@ -5,6 +5,7 @@ namespace AwesomeAssertions.Equivalency;
 /// </summary>
 public abstract class EquivalencyStep<T> : IEquivalencyStep
 {
+    /// <inheritdoc />
     public EquivalencyResult Handle(Comparands comparands, IEquivalencyValidationContext context,
         IValidateChildNodeEquivalency valueChildNodes)
     {

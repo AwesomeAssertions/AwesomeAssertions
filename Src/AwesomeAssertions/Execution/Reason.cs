@@ -7,6 +7,16 @@ namespace AwesomeAssertions.Execution;
 /// </summary>
 public class Reason
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Reason"/> class.
+    /// </summary>
+    /// <param name="formattedMessage">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="arguments">
+    /// Zero or more objects to format using the placeholders in <paramref name="formattedMessage"/>.
+    /// </param>
     public Reason([StringSyntax("CompositeFormat")] string formattedMessage, object[] arguments)
     {
         FormattedMessage = formattedMessage;
