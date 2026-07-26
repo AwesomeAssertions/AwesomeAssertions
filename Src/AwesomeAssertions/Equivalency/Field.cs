@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using AwesomeAssertions.Common;
 
@@ -43,5 +44,12 @@ internal class Field : Node, IMember
     public bool IsBrowsable =>
         isBrowsable ??= fieldInfo.GetCustomAttribute<EditorBrowsableAttribute>() is not { State: EditorBrowsableState.Never };
 
-    public bool IsObsolete => isObsolete ??= Attribute.IsDefined(fieldInfo, typeof(ObsoleteAttribute));
+    public bool IsObsolete
+    {
+        get
+        {
+            isObsolete ??= Attribute.IsDefined(fieldInfo, typeof(ObsoleteAttribute));
+            return isObsolete.Value;
+        }
+    }
 }
