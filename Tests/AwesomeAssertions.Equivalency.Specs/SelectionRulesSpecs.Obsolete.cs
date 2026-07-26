@@ -24,9 +24,9 @@ public partial class SelectionRulesSpecs
         public void When_obsolete_property_in_collection_differs_comparison_should_ignore_it()
         {
             var subject = new List<ClassWithObsoleteMembers>
-            { new() { ObsoleteProperty = "SubjectValue1" }, new() { ObsoleteProperty = "SubjectValue2" } };
+                { new() { ObsoleteProperty = "SubjectValue1" }, new() { ObsoleteProperty = "SubjectValue2" } };
             var expected = new List<ClassWithObsoleteMembers>
-            { new() { ObsoleteProperty = "ExpectedValue1" }, new() { ObsoleteProperty = "ExpectedValue2" } };
+                { new() { ObsoleteProperty = "ExpectedValue1" }, new() { ObsoleteProperty = "ExpectedValue2" } };
 
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
         }
@@ -54,8 +54,17 @@ public partial class SelectionRulesSpecs
         [Fact]
         public void When_obsolete_property_is_missing_comparison_should_ignore_it()
         {
-            var subject = new { StringProperty = "String", ObsoleteField = (string)null };
+            var subject = new { StringProperty = "String", StringField = (string)null, ObsoleteField = (string)null };
             var expected = new ClassWithObsoleteMembers { StringProperty = "String", ObsoleteProperty = "ExpectedValue" };
+
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [Fact]
+        public void When_obsolete_field_is_missing_comparison_should_ignore_it()
+        {
+            var subject = new { StringProperty = (string)null, StringField = "String", ObsoleteField = (string)null };
+            var expected = new ClassWithObsoleteMembers { StringField = "String", ObsoleteField = "ExpectedValue" };
 
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
         }
@@ -82,6 +91,8 @@ public partial class SelectionRulesSpecs
 
             [Obsolete("This property is obsolete and will be removed in a future version.")]
             public string ObsoleteProperty { get; set; }
+
+            public string StringField;
 
             [Obsolete("This property is obsolete and will be removed in a future version.")]
             public string ObsoleteField;
