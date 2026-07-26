@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Xunit;
 using Xunit.Sdk;
-using static AwesomeAssertions.FluentActions;
 
 namespace AwesomeAssertions.Equivalency.Specs;
 
@@ -21,10 +21,32 @@ public partial class SelectionRulesSpecs
         }
 
         [Fact]
+        public void When_obsolete_property_in_collection_differs_comparison_should_ignore_it()
+        {
+            var subject = new List<ClassWithObsoleteMembers>
+            { new() { ObsoleteProperty = "SubjectValue1" }, new() { ObsoleteProperty = "SubjectValue2" } };
+            var expected = new List<ClassWithObsoleteMembers>
+            { new() { ObsoleteProperty = "ExpectedValue1" }, new() { ObsoleteProperty = "ExpectedValue2" } };
+
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [Fact]
         public void When_obsolete_field_differs_comparison_should_ignore_it()
         {
             var subject = new ClassWithObsoleteMembers { ObsoleteField = "SubjectValue" };
             var expected = new ClassWithObsoleteMembers { ObsoleteField = "ExpectedValue" };
+
+            subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
+        }
+
+        [Fact]
+        public void When_obsolete_field_in_collection_differs_comparison_should_ignore_it()
+        {
+            var subject = new List<ClassWithObsoleteMembers>
+                { new() { ObsoleteField = "SubjectValue1" }, new() { ObsoleteField = "SubjectValue2" } };
+            var expected = new List<ClassWithObsoleteMembers>
+                { new() { ObsoleteField = "ExpectedValue1" }, new() { ObsoleteField = "ExpectedValue2" } };
 
             subject.Should().BeEquivalentTo(expected, o => o.ExcludingObsoleteMembers());
         }

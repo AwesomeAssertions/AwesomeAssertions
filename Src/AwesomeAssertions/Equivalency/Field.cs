@@ -43,9 +43,5 @@ internal class Field : Node, IMember
     public bool IsBrowsable =>
         isBrowsable ??= fieldInfo.GetCustomAttribute<EditorBrowsableAttribute>() is not { State: EditorBrowsableState.Never };
 
-    /// <summary>
-    /// Gets a value indicating whether the field is marked as obsolete.
-    /// </summary>
-    public bool IsObsolete =>
-        isObsolete ??= fieldInfo.GetCustomAttribute<ObsoleteAttribute>() is not null;
+    public bool IsObsolete => isObsolete ??= Attribute.IsDefined(fieldInfo, typeof(ObsoleteAttribute));
 }
