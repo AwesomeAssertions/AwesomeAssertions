@@ -1030,6 +1030,7 @@ namespace AwesomeAssertions.Equivalency
         AwesomeAssertions.Equivalency.CyclicReferenceHandling CyclicReferenceHandling { get; }
         AwesomeAssertions.Equivalency.EnumEquivalencyHandling EnumEquivalencyHandling { get; }
         bool ExcludeNonBrowsableOnExpectation { get; }
+        bool ExcludeObsoleteMembers { get; }
         bool IgnoreCase { get; }
         bool IgnoreLeadingWhitespace { get; }
         bool IgnoreNewlineStyle { get; }
@@ -1067,6 +1068,7 @@ namespace AwesomeAssertions.Equivalency
         System.Type DeclaringType { get; }
         AwesomeAssertions.Common.CSharpAccessModifier GetterAccessibility { get; }
         bool IsBrowsable { get; }
+        bool IsObsolete { get; }
         System.Type ReflectedType { get; }
         AwesomeAssertions.Common.CSharpAccessModifier SetterAccessibility { get; }
         object GetValue(object obj);
@@ -1198,6 +1200,7 @@ namespace AwesomeAssertions.Equivalency
         public TSelf ExcludingMembersNamed(params string[] memberNames) { }
         public TSelf ExcludingMissingMembers() { }
         public TSelf ExcludingNonBrowsableMembers() { }
+        public TSelf ExcludingObsoleteMembers() { }
         public TSelf ExcludingProperties() { }
         public TSelf IgnoringCase() { }
         public TSelf IgnoringCyclicReferences() { }

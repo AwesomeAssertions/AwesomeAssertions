@@ -39,4 +39,10 @@ public interface IMember : INode
     /// <see cref="EditorBrowsableAttribute"/>.
     /// </summary>
     bool IsBrowsable { get; }
+
+    /// <summary>
+    /// Gets a value indicating whether the member is marked as obsolete.
+    /// This is controlled with <see cref="ObsoleteAttribute"/>.
+    /// </summary>
+    bool IsObsolete { get; }
 }

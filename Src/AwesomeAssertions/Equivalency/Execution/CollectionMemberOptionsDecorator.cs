@@ -66,6 +66,8 @@ internal class CollectionMemberOptionsDecorator : IEquivalencyOptions
 
     public bool ExcludeNonBrowsableOnExpectation => inner.ExcludeNonBrowsableOnExpectation;
 
+    public bool ExcludeObsoleteMembers => inner.ExcludeObsoleteMembers;
+
     public bool? CompareRecordsByValue => inner.CompareRecordsByValue;
 
     public EqualityStrategy GetEqualityStrategy(Type type)
