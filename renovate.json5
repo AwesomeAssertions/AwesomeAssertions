@@ -10,6 +10,10 @@
     // Use "dependencies" as a label for all created pull requests.
     "labels": ["dependencies"],
 
+    // We have defined a close timeslot (below).
+    // So, we need larger amount of PRs per hour get more/all updates.
+    "prHourlyLimit": 10,
+
     "packageRules": [
         // Do not update xUnit runner.
         // Versions 3.0.0 and above do not support net47(0) anymore.

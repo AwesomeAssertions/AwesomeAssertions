@@ -30,7 +30,7 @@ jobs:
           .fallout/temp
         key: ${{ runner.os }}-${{ hashFiles('NodeVersion') }}
 
-    - name: Run NUKE
+    - name: Run FALLOUT
       run: ./build.ps1
       env:
         NuGetApiKey: ${{ secrets.NUGETAPIKEY }}
@@ -78,7 +78,7 @@ jobs:
           8.0.x
           10.0.x
 
-    - name: Run NUKE
+    - name: Run FALLOUT
       run: ./build.sh UnitTests
 
     - name: Upload artifacts
