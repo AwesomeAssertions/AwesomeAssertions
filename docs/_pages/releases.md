@@ -14,6 +14,9 @@ sidebar:
 * Add documentation to all public API - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
 * Add `ExcludingObsoleteMembers` to `SelfReferenceEquivalencyOptions` allowing obsolete members to be ignored in structural comparison - [#558](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/558)
 
+### Fixes
+* Fix duplicate matching rules - [#566](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/566)
+
 ### Deprecations
 * Deprecate `AssertionChain.AddReportable` in favor of `AssertionChain.WithReportable` to get a more consistent fluent API for chaining - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
 

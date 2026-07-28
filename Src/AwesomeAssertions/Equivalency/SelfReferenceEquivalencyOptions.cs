@@ -427,6 +427,7 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     /// </summary>
     public TSelf ExcludingMissingMembers()
     {
+        matchingRules.RemoveAll(x => x is TryMatchByNameRule);
         matchingRules.RemoveAll(x => x is MustMatchByNameRule);
         matchingRules.Add(new TryMatchByNameRule());
         return (TSelf)this;
@@ -453,6 +454,7 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     public TSelf ThrowingOnMissingMembers()
     {
         matchingRules.RemoveAll(x => x is TryMatchByNameRule);
+        matchingRules.RemoveAll(x => x is MustMatchByNameRule);
         matchingRules.Add(new MustMatchByNameRule());
         return (TSelf)this;
     }
