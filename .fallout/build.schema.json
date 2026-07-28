@@ -68,7 +68,7 @@
         },
         "NoLogo": {
           "type": "boolean",
-          "description": "Disables displaying the NUKE logo"
+          "description": "Disables displaying the FALLOUT logo"
         },
         "Partition": {
           "type": "string",
@@ -131,7 +131,7 @@
         "NuGetApiKey": {
           "type": "string",
           "description": "The key to push to Nuget",
-          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+          "default": "Secrets must be entered via 'fallout :secrets [profile]'"
         },
         "Solution": {
           "type": "string",
