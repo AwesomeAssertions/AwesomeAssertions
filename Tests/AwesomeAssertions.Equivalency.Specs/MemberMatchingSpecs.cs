@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using JetBrains.Annotations;
 using Xunit;
 using Xunit.Sdk;
@@ -358,6 +359,36 @@ public class MemberMatchingSpecs
             .NotBeEquivalentTo(expectation, opt => opt
                 .ExcludingMissingMembers()
                 .WithMapping("Property2", "Property1"));
+    }
+
+    [Fact]
+    public void Exclusion_can_be_configured_only_once()
+    {
+        var subject = new[] { 1 };
+        var expectation = new[] { 2 };
+
+        Action act = () => subject.Should().BeEquivalentTo(expectation, o => o
+            .ExcludingMissingMembers().ExcludingMissingMembers());
+
+        var message = act.Should().Throw<XunitException>().Which.Message;
+        var configurationMessages =
+            message.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+        configurationMessages.GroupBy(x => x).Should().OnlyContain(x => x.Count() == 1);
+    }
+
+    [Fact]
+    public void Throwing_can_be_configured_only_once()
+    {
+        var subject = new[] { 1 };
+        var expectation = new[] { 2 };
+
+        Action act = () => subject.Should().BeEquivalentTo(expectation, o => o
+            .ThrowingOnMissingMembers().ThrowingOnMissingMembers());
+
+        var message = act.Should().Throw<XunitException>().Which.Message;
+        var configurationMessages =
+            message.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim());
+        configurationMessages.GroupBy(x => x).Should().OnlyContain(x => x.Count() == 1);
     }
 
     [Fact]
