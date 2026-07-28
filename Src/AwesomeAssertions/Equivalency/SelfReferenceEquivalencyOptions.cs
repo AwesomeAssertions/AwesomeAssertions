@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using AwesomeAssertions.Common;
@@ -427,7 +428,8 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     /// </summary>
     public TSelf ExcludingMissingMembers()
     {
-        matchingRules.RemoveAll(x => x is TryMatchByNameRule or MustMatchByNameRule);
+        matchingRules.RemoveAll(x => x is TryMatchByNameRule);
+        matchingRules.RemoveAll(x => x is MustMatchByNameRule);
         matchingRules.Add(new TryMatchByNameRule());
         return (TSelf)this;
     }
@@ -452,7 +454,8 @@ public abstract class SelfReferenceEquivalencyOptions<TSelf> : IEquivalencyOptio
     /// </summary>
     public TSelf ThrowingOnMissingMembers()
     {
-        matchingRules.RemoveAll(x => x is TryMatchByNameRule or MustMatchByNameRule);
+        matchingRules.RemoveAll(x => x is TryMatchByNameRule);
+        matchingRules.RemoveAll(x => x is MustMatchByNameRule);
         matchingRules.Add(new MustMatchByNameRule());
         return (TSelf)this;
     }
