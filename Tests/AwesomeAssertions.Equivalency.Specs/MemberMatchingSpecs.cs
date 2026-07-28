@@ -392,6 +392,32 @@ public class MemberMatchingSpecs
     }
 
     [Fact]
+    public void Exclusion_after_throwing_let_exclude_win()
+    {
+        var subject = new[] { 1 };
+        var expectation = new[] { 2 };
+
+        Action act = () => subject.Should().BeEquivalentTo(expectation, o => o
+            .ThrowingOnMissingMembers().ExcludingMissingMembers());
+
+        act.Should().Throw<XunitException>().WithMessage("*Try to match member by name*")
+            .And.Message.Should().NotContain("Match member by name (or throw)");
+    }
+
+    [Fact]
+    public void Throwing_after_exclude_let_throwing_win()
+    {
+        var subject = new[] { 1 };
+        var expectation = new[] { 2 };
+
+        Action act = () => subject.Should().BeEquivalentTo(expectation, o => o
+            .ExcludingMissingMembers().ThrowingOnMissingMembers());
+
+        act.Should().Throw<XunitException>().WithMessage("*Match member by name (or throw)*")
+            .And.Message.Should().NotContain("Try to match member by name");
+    }
+
+    [Fact]
     public void Can_map_members_of_a_root_collection()
     {
         var entity = new Entity { EntityId = 1, Name = "Test" };
