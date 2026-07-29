@@ -15,7 +15,7 @@
     <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
     <PackageReference Include="Fallout.Common" Version="10.3.49" />
     <PackageReference Include="Fallout.Components" Version="10.3.49" />
-    <PackageReference Include="SharpCompress" Version="0.48.0" />
+    <PackageReference Include="SharpCompress" Version="0.50.1" />
     <!-- Replace the implicitly referenced version 6.12.1, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
     <PackageReference Include="Nuget.Packaging" Version="7.3.1" />
     <!-- Replace the implicitly referenced version 10.0.6, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
