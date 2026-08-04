@@ -36,18 +36,6 @@
             "allowedVersions": "< 4.6.0"
         },
 
-        // We are supporting test frameworks in different major versions.
-        // They have different test projects in the solution.
-        // We need to limit the updates for individual projects.
-        // First, we disable the update rule for the affected packages...
-        {
-            "matchPackageNames": [
-                "MSTest.TestAdapter", "MSTest.TestFramework",
-                "NUnit", "NUnit3TestAdapter"
-            ],
-            "enabled": false
-        },
-        // ... then we enable:
         // - MSTest.* in the MSTestV2.Specs project which tests V2 and V3 (< V4) of MSTest framework
         {
             "matchPackageNames": ["MSTest.TestAdapter","MSTest.TestFramework"],
@@ -78,11 +66,6 @@
             "matchPackageNames": ["NUnit3TestAdapter"],
             "matchFileNames": ["**/NUnit3.Specs/**"],
             "allowedVersions": "< 6.0.0"
-        },
-        // - NUnit3TestAdapter in the NUnit4.Specs project which tests V4 of NUnit framework
-        {
-            "matchPackageNames": ["NUnit3TestAdapter"],
-            "matchFileNames": ["**/NUnit4.Specs/**"]
         },
 
         // Disable updates for pinned packages for Src and Tests.
