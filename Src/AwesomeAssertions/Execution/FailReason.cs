@@ -8,10 +8,6 @@ namespace AwesomeAssertions.Execution;
 /// few specialized placeholders as well. For instance, <em>{reason}</em> will be replaced with the reason of the
 /// assertion as passed to <see cref="AssertionChain.BecauseOf(string, object[])"/>.
 /// <para>
-/// Other named placeholders will be replaced with the <see cref="AssertionScope.Current"/> scope data passed through
-/// <see cref="AssertionChain.WithReportable(string,string)"/>.
-/// </para>
-/// <para>
 /// Finally, a description of the current subject can be passed through the <em>{context:description}</em> placeholder.
 /// This is used in the message if no explicit context is specified through the <see cref="AssertionScope"/> constructor.
 /// </para>
