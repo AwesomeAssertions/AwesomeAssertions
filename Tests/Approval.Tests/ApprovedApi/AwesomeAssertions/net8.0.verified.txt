@@ -302,9 +302,11 @@ namespace AwesomeAssertions
     }
     public static class EnumAssertionsExtensions
     {
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.EnumAssertions<TEnum> Should<TEnum>(this TEnum @enum)
             where TEnum :  struct, System.Enum { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableEnumAssertions<TEnum> Should<TEnum>([System.Diagnostics.CodeAnalysis.NotNull] this TEnum? @enum)
             where TEnum :  struct, System.Enum { }
@@ -2094,15 +2096,19 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> Be(System.DateTime? expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeAfter(System.DateTime expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeAtLeast(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeBefore(System.DateTime expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeCloseTo(System.DateTime nearbyTime, System.TimeSpan precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeExactly(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeIn(System.DateTimeKind expectedKind, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeLessThan(System.TimeSpan timeSpan) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeMoreThan(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeOnOrAfter(System.DateTime expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2118,6 +2124,7 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<System.DateTime?> validValues, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeSameDateAs(System.DateTime expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeWithin(System.TimeSpan timeSpan) { }
         public override bool Equals(object obj) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -2179,17 +2186,21 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> Be(System.DateTimeOffset? expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeAfter(System.DateTimeOffset expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeAtLeast(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeBefore(System.DateTimeOffset expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeCloseTo(System.DateTimeOffset nearbyTime, System.TimeSpan precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeExactly(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeExactly(System.DateTimeOffset expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeExactly(System.DateTimeOffset? expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeLessThan(System.TimeSpan timeSpan) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeMoreThan(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeOnOrAfter(System.DateTimeOffset expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -2205,6 +2216,7 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<System.DateTimeOffset?> validValues, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeSameDateAs(System.DateTimeOffset expected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeWithin(System.TimeSpan timeSpan) { }
         public override bool Equals(object obj) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
