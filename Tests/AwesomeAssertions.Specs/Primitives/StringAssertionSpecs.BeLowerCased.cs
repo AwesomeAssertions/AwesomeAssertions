@@ -162,6 +162,26 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
+        public void Lower_case_characters_are_okay()
+        {
+            // Arrange
+            string actual = "abc";
+
+            // Act / Assert
+            actual.Should().NotBeUpperCased();
+        }
+
+        [Fact]
+        public void Upper_case_characters_are_okay()
+        {
+            // Arrange
+            string actual = "ABC";
+
+            // Act / Assert
+            actual.Should().NotBeLowerCased();
+        }
+
+        [Fact]
         public void All_cased_characters_being_lower_case_is_not_okay()
         {
             // Arrange
