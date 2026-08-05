@@ -2163,7 +2163,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasMixedOrNoCase(Subject))
+            .ForCondition(Subject is null || HasNonUpperChar(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected some characters in {context:string} to be lower-case{reason}.");
 
@@ -2218,30 +2218,37 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasMixedOrNoCase(Subject))
+            .ForCondition(Subject is null || HasNonLowerChar(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected some characters in {context:string} to be upper-case{reason}.");
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
-    private static bool HasMixedOrNoCase(string value)
+    private static bool HasNonUpperChar(string subject)
     {
-        var hasUpperCase = false;
-        var hasLowerCase = false;
-
-        foreach (var ch in value)
+        foreach (var c in subject)
         {
-            hasUpperCase |= char.IsUpper(ch);
-            hasLowerCase |= char.IsLower(ch);
-
-            if (hasUpperCase && hasLowerCase)
+            if (!char.IsUpper(c))
             {
                 return true;
             }
         }
 
-        return !hasUpperCase && !hasLowerCase;
+        return false;
+    }
+
+    private static bool HasNonLowerChar(string subject)
+    {
+        foreach (var c in subject)
+        {
+            if (!char.IsLower(c))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     [return: NotNull]
