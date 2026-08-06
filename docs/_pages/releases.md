@@ -15,11 +15,18 @@ sidebar:
 * Add `ExcludingObsoleteMembers` to `SelfReferenceEquivalencyOptions` allowing obsolete members to be ignored in structural comparison - [#558](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/558)
   * Please note that the interface `IEquivalencyOptions` has been marked as "technically public" and not part of the public API.
 
+### Improvements
+* `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#340](https://github.com/AwesomeAssertions/AwesomeAssertions/issues/340)
+
 ### Fixes
 * Fix duplicate matching rules - [#566](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/566)
 
 ### Deprecations
 * Deprecate `AssertionChain.AddReportable` in favor of `AssertionChain.WithReportable` to get a more consistent fluent API for chaining - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
+* Deprecate `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#340](https://github.com/AwesomeAssertions/AwesomeAssertions/issues/340)
+
+### Breaking Changes (for users)
+* The result of `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now returns `ExceptionAssertionsTask<TException>` instead of `Task<ExceptionAssertions<TException>>`. - [#340](https://github.com/AwesomeAssertions/AwesomeAssertions/issues/340)
 
 ## 9.5.0
 
