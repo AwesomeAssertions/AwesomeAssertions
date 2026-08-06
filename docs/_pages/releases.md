@@ -16,7 +16,7 @@ sidebar:
 
 ### Fixes
 * Fix duplicate matching rules - [#566](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/566)
-* Fix `NotBeUpperCased` and `NotBeLowerCased` for all lower-/uppercased strings - [#590](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/590)
+* Fix `NotBeUpperCased` and `NotBeLowerCased` for all lower-/uppercased strings - [#591](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/591)
 
 ### Deprecations
 * Deprecate `AssertionChain.AddReportable` in favor of `AssertionChain.WithReportable` to get a more consistent fluent API for chaining - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
