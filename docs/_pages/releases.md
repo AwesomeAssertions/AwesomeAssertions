@@ -8,15 +8,20 @@ sidebar:
 ---
 ## Unreleased
 
+### Improvements
+* `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+* The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
+
+### Deprecations
+* Deprecate `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+
 ### Breaking Changes (for users)
 * Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * Upgraded the minimum target for .NET Framework to 4.7.2 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * The reference to `System.Threading.Tasks.Extensions` to has been upgraded to version 4.6.3 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * Enable [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) in the public API - [#605](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/605)
   * It is declared as a breaking change because it may raise warnings like [CA1806](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1806).
-
-### Improvements
-* The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
+* The result of `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` has changed to `ExceptionAssertionsTask<TException>` instead of `Task<ExceptionAssertions<TException>>`. - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
 
 ## 9.6.0
 

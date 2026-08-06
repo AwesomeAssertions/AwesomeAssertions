@@ -391,6 +391,8 @@ namespace AwesomeAssertions
             where TInnerException : System.Exception { }
         public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> WithMessage<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string expectedWildcardPattern, string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
+        public static AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> WithParameterName<TException>(this AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> assertions, string paramName, string because = "", params object[] becauseArgs)
+            where TException : System.ArgumentException { }
         public static AwesomeAssertions.Specialized.ExceptionAssertions<TException> WithParameterName<TException>(this AwesomeAssertions.Specialized.ExceptionAssertions<TException> parent, string paramName, string because = "", params object[] becauseArgs)
             where TException : System.ArgumentException { }
         public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> WithParameterName<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string paramName, string because = "", params object[] becauseArgs)
@@ -2729,11 +2731,11 @@ namespace AwesomeAssertions.Specialized
         public System.Threading.Tasks.Task<AwesomeAssertions.AndConstraint<TAssertions>> NotCompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
         public System.Threading.Tasks.Task<AwesomeAssertions.AndConstraint<TAssertions>> NotThrowAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowAsync<TException>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowExactlyAsync<TException>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowExactlyAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowWithinAsync<TException>(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowWithinAsync<TException>(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
     }
     public abstract class DelegateAssertionsBase<TDelegate, TAssertions> : AwesomeAssertions.Primitives.ReferenceTypeAssertions<TDelegate, AwesomeAssertions.Specialized.DelegateAssertionsBase<TDelegate, TAssertions>>
@@ -2761,6 +2763,29 @@ namespace AwesomeAssertions.Specialized
             where TException : System.Exception { }
         public AwesomeAssertions.Specialized.ExceptionAssertions<TException> ThrowExactly<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
+    }
+    public sealed class ExceptionAssertionsTask<TException>
+        where TException : System.Exception
+    {
+        public ExceptionAssertionsTask(System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task) { }
+        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> AsTask() { }
+        public System.Runtime.CompilerServices.ConfiguredTaskAwaitable<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ConfigureAwait(bool continueOnCapturedContext) { }
+        public System.Runtime.CompilerServices.TaskAwaiter<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> GetAwaiter() { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> Where(System.Linq.Expressions.Expression<System.Func<TException, bool>> exceptionExpression, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<System.Exception> WithInnerException(System.Type innerException, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerException<TInnerException>(string because = "", params object[] becauseArgs)
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerException<TOuterException, TInnerException>(string because = "", params object[] becauseArgs)
+            where TOuterException : System.Exception
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<System.Exception> WithInnerExceptionExactly(System.Type innerException, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerExceptionExactly<TInnerException>(string because = "", params object[] becauseArgs)
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerExceptionExactly<TOuterException, TInnerException>(string because = "", params object[] becauseArgs)
+            where TOuterException : System.Exception
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> WithMessage(string expectedWildcardPattern, string because = "", params object[] becauseArgs) { }
+        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> op_Implicit(AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> assertions) { }
     }
     public class ExceptionAssertions<TException> : AwesomeAssertions.Primitives.ReferenceTypeAssertions<System.Collections.Generic.IEnumerable<TException>, AwesomeAssertions.Specialized.ExceptionAssertions<TException>>
         where TException : System.Exception
