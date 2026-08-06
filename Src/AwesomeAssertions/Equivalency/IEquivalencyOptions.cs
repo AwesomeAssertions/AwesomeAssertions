@@ -8,6 +8,10 @@ namespace AwesomeAssertions.Equivalency;
 /// <summary>
 /// Provides the run-time details of the <see cref="EquivalencyOptions{TExpectation}" /> class.
 /// </summary>
+/// <remarks>
+/// Please note that this interface is public only for technical reason and is not part of the public API.
+/// It should not be used outside the library.
+/// </remarks>
 public interface IEquivalencyOptions
 {
     /// <summary>
