@@ -2225,9 +2225,9 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
-    private static bool HasNonUpperChar(string subject)
+    private static bool HasNonUpperChar(string value)
     {
-        foreach (var c in subject)
+        foreach (var c in value)
         {
             if (!char.IsUpper(c))
             {
@@ -2238,9 +2238,9 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         return false;
     }
 
-    private static bool HasNonLowerChar(string subject)
+    private static bool HasNonLowerChar(string value)
     {
-        foreach (var c in subject)
+        foreach (var c in value)
         {
             if (!char.IsLower(c))
             {
