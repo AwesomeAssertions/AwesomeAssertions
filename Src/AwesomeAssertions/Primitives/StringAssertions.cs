@@ -2227,6 +2227,11 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
     private static bool HasNonUpperChar(string value)
     {
+        if (string.IsNullOrEmpty(value))
+        {
+            return true;
+        }
+
         foreach (var c in value)
         {
             if (!char.IsUpper(c))
@@ -2240,6 +2245,11 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
     private static bool HasNonLowerChar(string value)
     {
+        if (string.IsNullOrEmpty(value))
+        {
+            return true;
+        }
+
         foreach (var c in value)
         {
             if (!char.IsLower(c))
