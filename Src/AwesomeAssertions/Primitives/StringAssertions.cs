@@ -2234,7 +2234,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
         foreach (var c in value)
         {
-            if (!char.IsUpper(c))
+            if (char.IsLetter(c) && !char.IsUpper(c))
             {
                 return true;
             }
@@ -2252,7 +2252,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
         foreach (var c in value)
         {
-            if (!char.IsLower(c))
+            if (char.IsLetter(c) && !char.IsLower(c))
             {
                 return true;
             }
