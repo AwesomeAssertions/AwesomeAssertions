@@ -2165,7 +2165,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         assertionChain
             .ForCondition(Subject is null || HasNonUpperChar(Subject))
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected some characters in {context:string} to be lower-case{reason}.");
+            .FailWith("Expected some characters in {context:string} to be lower-case{reason}, but found {0}.", Subject);
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -2220,7 +2220,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         assertionChain
             .ForCondition(Subject is null || HasNonLowerChar(Subject))
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected some characters in {context:string} to be upper-case{reason}.");
+            .FailWith("Expected some characters in {context:string} to be upper-case{reason}, but found {0}.", Subject);
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }

@@ -190,7 +190,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected some characters in actual to be lower-case because we want to test the failure message.");
+                "Expected some characters in actual to be lower-case because we want to test the failure message, but found \"ABC\".");
         }
     }
 }
