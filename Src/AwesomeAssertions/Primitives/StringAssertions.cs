@@ -2163,9 +2163,9 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasMixedOrNoCase(Subject))
+            .ForCondition(Subject is null || HasNonUpperChar(Subject))
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected some characters in {context:string} to be lower-case{reason}.");
+            .FailWith("Expected some characters in {context:string} to be lower-case{reason}, but found {0}.", Subject);
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -2218,30 +2218,47 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasMixedOrNoCase(Subject))
+            .ForCondition(Subject is null || HasNonLowerChar(Subject))
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected some characters in {context:string} to be upper-case{reason}.");
+            .FailWith("Expected some characters in {context:string} to be upper-case{reason}, but found {0}.", Subject);
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
-    private static bool HasMixedOrNoCase(string value)
+    private static bool HasNonUpperChar(string value)
     {
-        var hasUpperCase = false;
-        var hasLowerCase = false;
-
-        foreach (var ch in value)
+        if (string.IsNullOrEmpty(value))
         {
-            hasUpperCase |= char.IsUpper(ch);
-            hasLowerCase |= char.IsLower(ch);
+            return true;
+        }
 
-            if (hasUpperCase && hasLowerCase)
+        foreach (var c in value)
+        {
+            if (char.IsLetter(c) && !char.IsUpper(c))
             {
                 return true;
             }
         }
 
-        return !hasUpperCase && !hasLowerCase;
+        return false;
+    }
+
+    private static bool HasNonLowerChar(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return true;
+        }
+
+        foreach (var c in value)
+        {
+            if (char.IsLetter(c) && !char.IsLower(c))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     [return: NotNull]
