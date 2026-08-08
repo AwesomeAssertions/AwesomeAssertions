@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AwesomeAssertions.Events;
 
@@ -7,6 +8,8 @@ namespace AwesomeAssertions.Events;
 /// </summary>
 public class EventMonitorOptions
 {
+    private readonly Dictionary<Type, Func<EventRecorder, Delegate>> safeEventHandlerAdapters = new();
+
     /// <summary>
     /// Will ignore the events, if they throw an exception on any custom event accessor implementation. default: false.
     /// </summary>
@@ -40,6 +43,25 @@ public class EventMonitorOptions
         return this;
     }
 
+#if NET6_0_OR_GREATER
+    /// <summary>
+    /// Registers a safe-mode event handler adapter for a specific delegate type.
+    /// </summary>
+    /// <typeparam name="TDelegate">The event delegate type to adapt.</typeparam>
+    /// <param name="factory">
+    /// Factory that creates a delegate bound to a callback accepting captured event arguments.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="factory"/> is <see langword="null"/>.</exception>
+    public EventMonitorOptions UsingSafeEventHandlerAdapter<TDelegate>(Func<Action<object[]>, TDelegate> factory)
+        where TDelegate : Delegate
+    {
+        ArgumentNullException.ThrowIfNull(factory);
+
+        safeEventHandlerAdapters[typeof(TDelegate)] = recorder => factory(arguments => recorder.RecordEvent(arguments));
+        return this;
+    }
+#endif
+
     /// <summary>
     /// Sets the timestamp provider. By default it is <see cref="DateTime.UtcNow"/>.
     /// </summary>
@@ -52,5 +74,26 @@ public class EventMonitorOptions
         }
 
         return this;
+    }
+
+    internal bool TryCreateSafeEventHandler(Type eventSignature, EventRecorder recorder, out Delegate handler, out string reason)
+    {
+        if (!safeEventHandlerAdapters.TryGetValue(eventSignature, out Func<EventRecorder, Delegate> factory))
+        {
+            handler = null;
+            reason = null;
+            return false;
+        }
+
+        handler = factory(recorder);
+
+        if (handler is null)
+        {
+            reason = $"Safe adapter for delegate '{eventSignature.Name}' returned null.";
+            return false;
+        }
+
+        reason = null;
+        return true;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using JetBrains.Annotations;
 
@@ -47,6 +48,7 @@ internal sealed class EventRecorder : IEventRecording, IDisposable
 
     public Type EventHandlerType { get; private set; }
 
+    [RequiresDynamicCode("Event monitoring requires runtime-generated delegates.")]
     public void Attach(WeakReference subject, EventInfo eventInfo)
     {
         EventHandlerType = eventInfo.EventHandlerType;
@@ -61,6 +63,28 @@ internal sealed class EventRecorder : IEventRecording, IDisposable
                 eventInfo.RemoveEventHandler(subject.Target, handler);
             }
         };
+    }
+
+    public bool TryAttachSafe(WeakReference subject, EventInfo eventInfo, EventMonitorOptions options, out string reason)
+    {
+        EventHandlerType = eventInfo.EventHandlerType;
+
+        if (!EventHandlerFactory.TryGenerateSafeHandler(eventInfo.EventHandlerType, this, options, out Delegate handler, out reason))
+        {
+            return false;
+        }
+
+        eventInfo.AddEventHandler(subject.Target, handler);
+
+        cleanup = () =>
+        {
+            if (subject.Target is not null)
+            {
+                eventInfo.RemoveEventHandler(subject.Target, handler);
+            }
+        };
+
+        return true;
     }
 
     public void Dispose()
@@ -86,6 +110,12 @@ internal sealed class EventRecorder : IEventRecording, IDisposable
             raisedEvents.Add(new RecordedEvent(utcNow(), sequenceGenerator.Increment(), parameters));
         }
     }
+
+    [UsedImplicitly]
+    public void RecordEventHandlerEvent(object sender, EventArgs args) => RecordEvent(sender, args);
+
+    [UsedImplicitly]
+    public void RecordGenericEventHandlerEvent(object sender, object args) => RecordEvent(sender, args);
 
     /// <summary>
     /// Resets recorder to clear records of events raised so far.
