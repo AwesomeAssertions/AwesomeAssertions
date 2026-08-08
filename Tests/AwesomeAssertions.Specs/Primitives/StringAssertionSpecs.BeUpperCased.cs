@@ -45,6 +45,16 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
+        public void A_mixed_case_string_is_not_okay()
+        {
+            string actual = "AbC";
+
+            Action act = () => actual.Should().BeUpperCased();
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
         public void Upper_case_and_caseless_characters_are_ok()
         {
             // Arrange
