@@ -260,7 +260,11 @@ public sealed class AssertionChain
         {
             // The nested assertion changes the current chain's state, so we have to restore it afterwards.
             State savedState = state;
+            var savedInstance = Instance.Value;
+
+            // and it must not see anything of the assertion that is being built here
             state = new State();
+            Instance.Value = null;
 
             using AssertionScope scope = new();
             failingAssertion();
@@ -272,6 +276,7 @@ public sealed class AssertionChain
 
             // restore the state after the nested assertion
             state = savedState;
+            Instance.Value = savedInstance;
 
             // and update the success state
             state.Succeeded = hasFailures;
