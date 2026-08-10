@@ -13,7 +13,7 @@
     <PackageDownload Include="ReportGenerator" Version="[5.5.0]" />
     <PackageDownload Include="xunit.runner.console" Version="[2.9.2]" />
     <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
-    <PackageReference Include="Fallout.Common" Version="10.3.49" />
+    <PackageReference Include="Fallout.Common" Version="10.4.0" />
     <PackageReference Include="Fallout.Components" Version="10.3.49" />
     <PackageReference Include="SharpCompress" Version="0.50.3" />
     <!-- Replace the implicitly referenced version 6.12.1, which is defined by the package Fallout.Common and has known vulnerabilities, with a fixed version -->
