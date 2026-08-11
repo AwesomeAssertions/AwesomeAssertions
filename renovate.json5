@@ -67,6 +67,11 @@
             "matchFileNames": ["**/NUnit3.Specs/**"],
             "allowedVersions": "< 6.0.0"
         },
+        // Fallout package grouping
+        {
+            "matchPackageNames": ["/^fallout/i"],
+            "groupName": "Fallout-build"
+        },
 
         // Disable updates for pinned packages for Src and Tests.
         // The Build project must have some pinned versions because dotnet allows only exact versions with PackageDownload
