@@ -6,7 +6,7 @@
     <NoWarn>CS0649;CS0169</NoWarn>
     <FalloutRootDirectory>..\</FalloutRootDirectory>
     <FalloutScriptDirectory>..\</FalloutScriptDirectory>
-</PropertyGroup>
+  </PropertyGroup>
   <ItemGroup>
     <PackageDownload Include="GitVersion.Tool" Version="[6.5.1]" />
     <PackageDownload Include="ReportGenerator" Version="[5.5.0]" />
@@ -15,5 +15,5 @@
     <PackageReference Include="Fallout.Common" Version="10.4.0" />
     <PackageReference Include="Fallout.Components" Version="10.4.0" />
     <PackageReference Include="SharpCompress" Version="0.50.4" />
-</ItemGroup>
+  </ItemGroup>
 </Project>
