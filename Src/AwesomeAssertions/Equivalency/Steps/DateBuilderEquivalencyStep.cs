@@ -4,7 +4,10 @@ using AwesomeAssertions.Execution;
 
 namespace AwesomeAssertions.Equivalency.Steps;
 
-public class DateBuilderEquivalencyStep : IEquivalencyStep
+/// <summary>
+/// Handles the equivalency of a <see cref="DateBuilder"/> expectation with a subject value.
+/// </summary>
+public sealed class DateBuilderEquivalencyStep : IEquivalencyStep
 {
     /// <inheritdoc />
     public EquivalencyResult Handle(
