@@ -125,15 +125,13 @@ public class MiscellaneousExceptionSpecs
     [Fact]
     public void When_two_exceptions_are_thrown_and_the_assertion_assumes_there_can_only_be_one_it_should_fail()
     {
-        // Arrange
         Does testSubject = Does.Throw(new AggregateException(new Exception(), new Exception()));
         Action throwingMethod = testSubject.Do;
 
-        // Act
-        Action action = () => throwingMethod.Should().Throw<Exception>().And.Message.Should();
+        Action action = () => _ = throwingMethod.Should().Throw<Exception>().And;
 
-        // Assert
-        action.Should().Throw<Exception>();
+        action.Should().Throw<XunitException>().WithMessage(
+            "More than one exception was thrown.*AwesomeAssertions cannot determine which Exception was meant.*");
     }
 
     [Fact]
