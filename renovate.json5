@@ -60,13 +60,6 @@
             "matchFileNames": ["**/NUnit4.Specs/**"],
             "allowedVersions": ">= 4.0.0"
         },
-        // - NUnit3TestAdapter in the NUnit3.Specs project limited to < V6 because of removals of net6 support
-        // TODO Remove these rules once net6 is removed.
-        {
-            "matchPackageNames": ["NUnit3TestAdapter"],
-            "matchFileNames": ["**/NUnit3.Specs/**"],
-            "allowedVersions": "< 6.0.0"
-        },
 
         // Fallout package grouping
         {
