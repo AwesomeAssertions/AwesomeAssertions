@@ -39,12 +39,12 @@ will fail with:
 
 ## Supported Frameworks and Libraries
 
-Awesome Assertions cross-compiles to .NET Framework 4.7, as well as .NET 6, .NET Standard 2.0 and 2.1.
+Awesome Assertions cross-compiles to .NET Framework 4.7.2, as well as .NET 8+, .NET Standard 2.0 and 2.1.
 
 Because of that Awesome Assertions supports the following minimum platforms.
 
-* .NET Framework 4.7 and later
-* .NET 6.0 and later
+* .NET Framework 4.7.2 and later
+* .NET 8.0 and later
 * Mono 5.4, Xamarin.iOS 10.14, Xamarin.Mac 3.8 and Xamarin.Android 8.0
 * Universal Windows Platform 10.0.16299 and later
 
