@@ -12,6 +12,11 @@ using static AwesomeAssertions.FluentActions;
 
 namespace AwesomeAssertions.Specs.Specialized;
 
+// xUnit1051: xUnit V3 wants to ensure using overloads with CancellationToken.
+// But .NET Framework does not support CancellationToken for these methods.
+// Therefore, we ignore this warning.
+#pragma warning disable xUnit1051
+
 public static class TaskOfTAssertionSpecs
 {
     public class CompleteWithinAsync

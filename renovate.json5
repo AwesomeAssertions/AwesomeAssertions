@@ -15,14 +15,6 @@
     "prHourlyLimit": 10,
 
     "packageRules": [
-        // Do not update xUnit runner.
-        // Versions 3.0.0 and above do not support net47(0) anymore.
-        // As long as we want to build for net47 we need to reference a version below V3.
-        {
-            "matchPackageNames": ["xunit.runner.visualstudio"],
-            "allowedVersions": "< 3.0.0"
-        },
-
         // Disable updates of .NET SDK. We want to update that manually only.
         {
             "matchDatasources": ["dotnet-version"],

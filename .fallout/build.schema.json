@@ -37,8 +37,8 @@
         "TestFrameworks",
         "TestingPlatformFrameworks",
         "UnitTests",
-        "UnitTestsNet47",
-        "UnitTestsNet8OrGreater",
+        "UnitTestsCurrentDotNet",
+        "UnitTestsNetFramework",
         "VSTestFrameworks"
       ]
     },

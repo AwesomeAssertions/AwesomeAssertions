@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using AwesomeAssertions.Equivalency;
 using AwesomeAssertions.Equivalency.Execution;
 using AwesomeAssertions.Execution;
-using AwesomeAssertions.Specs.CultureAwareTesting;
 using Xunit;
 using Xunit.Sdk;
 
@@ -12,7 +11,7 @@ namespace AwesomeAssertions.Specs.Primitives;
 [Collection(nameof(StringComparisonSpecs))]
 public class StringComparisonSpecs
 {
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_the_Turkish_letter_i_it_should_differ_by_dottedness(string subject, string expected)
     {
@@ -26,7 +25,7 @@ public class StringComparisonSpecs
         ordinal.Should().NotBe(currentCulture, "Turkish distinguishes between a dotted and a non-dotted 'i'");
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_the_same_digit_from_different_cultures_they_should_be_equal(string subject, string expected)
     {
@@ -41,7 +40,7 @@ public class StringComparisonSpecs
             "These two symbols happened to be culturewise identical on both ICU (net5.0, linux, macOS) and NLS (netfx and netcoreapp on windows)");
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_equivalency_it_should_ignore_culture(string subject, string expected)
     {
@@ -49,7 +48,7 @@ public class StringComparisonSpecs
         subject.Should().BeEquivalentTo(expected);
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_equality_it_should_ignore_culture(string subject, string expected)
     {
@@ -60,7 +59,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_having_prefix_it_should_ignore_culture(string subject, string expected)
     {
@@ -71,7 +70,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_not_having_prefix_it_should_ignore_culture(string subject, string expected)
     {
@@ -82,7 +81,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_having_equivalent_prefix_it_should_ignore_culture(string subject, string expected)
     {
@@ -93,7 +92,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_not_having_equivalent_prefix_it_should_ignore_culture(string subject, string expected)
     {
@@ -104,7 +103,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_having_suffix_it_should_ignore_culture(string subject, string expected)
     {
@@ -115,7 +114,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_not_having_suffix_it_should_ignore_culture(string subject, string expected)
     {
@@ -126,7 +125,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_having_equivalent_suffix_it_should_ignore_culture(string subject, string expected)
     {
@@ -137,7 +136,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_not_having_equivalent_suffix_it_should_ignore_culture(string subject, string expected)
     {
@@ -148,7 +147,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_containing_equivalent_it_should_ignore_culture(string subject, string expected)
     {
@@ -159,7 +158,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_not_containing_equivalent_it_should_ignore_culture(string subject, string expected)
     {
@@ -170,7 +169,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_containing_equal_it_should_ignore_culture(string subject, string expected)
     {
@@ -181,7 +180,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_containing_all_equals_it_should_ignore_culture(string subject, string expected)
     {
@@ -192,7 +191,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_containing_any_equals_it_should_ignore_culture(string subject, string expected)
     {
@@ -203,7 +202,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_containing_one_equal_it_should_ignore_culture(string subject, string expected)
     {
@@ -214,7 +213,7 @@ public class StringComparisonSpecs
         act.Should().Throw<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void When_comparing_strings_for_containing_one_equivalent_it_should_ignore_culture(string subject, string expected)
     {
@@ -225,7 +224,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_not_containing_equal_it_should_ignore_culture(string subject, string expected)
     {
@@ -236,7 +235,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_not_containing_all_equals_it_should_ignore_culture(string subject, string expected)
     {
@@ -247,7 +246,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EqualityData))]
     public void When_comparing_strings_for_not_containing_any_equals_it_should_ignore_culture(string subject, string expected)
     {
@@ -258,7 +257,7 @@ public class StringComparisonSpecs
         act.Should().NotThrow<XunitException>();
     }
 
-    [CulturedFact("tr-TR")]
+    [CulturedFact(["tr-TR"])]
     public void When_formatting_reason_arguments_it_should_ignore_culture()
     {
         // Act
@@ -269,7 +268,7 @@ public class StringComparisonSpecs
             .WithMessage("*1.234*", "it should always use . as decimal separator");
     }
 
-    [CulturedFact("tr-TR")]
+    [CulturedFact(["tr-TR"])]
     public void When_stringifying_an_object_it_should_ignore_culture()
     {
         // Arrange
@@ -282,7 +281,7 @@ public class StringComparisonSpecs
         str.Should().Match("*1.234*", "it should always use . as decimal separator");
     }
 
-    [CulturedFact("tr-TR")]
+    [CulturedFact(["tr-TR"])]
     public void When_stringifying_a_validation_context_it_should_ignore_culture()
     {
         // Arrange
@@ -299,7 +298,7 @@ public class StringComparisonSpecs
         str.Should().Match("*1.234*5.678*", "it should always use . as decimal separator");
     }
 
-    [CulturedFact("tr-TR")]
+    [CulturedFact(["tr-TR"])]
     public void When_formatting_the_context_it_should_ignore_culture()
     {
         // Arrange
@@ -319,7 +318,7 @@ public class StringComparisonSpecs
             .WithMessage("*1.234*", "it should always use . as decimal separator");
     }
 
-    [CulturedTheory("tr-TR")]
+    [CulturedTheory(["tr-TR"])]
     [MemberData(nameof(EquivalencyData))]
     public void Matching_strings_for_equivalence_ignores_the_culture(string subject, string expected)
     {
@@ -327,7 +326,7 @@ public class StringComparisonSpecs
         subject.Should().MatchEquivalentOf(expected);
     }
 
-    [CulturedFact("en-US")]
+    [CulturedFact(["en-US"])]
     public void Culture_is_ignored_when_sorting_strings()
     {
         using var _ = new AssertionScope();

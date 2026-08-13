@@ -25,7 +25,7 @@ public class TestFrameworkFactorySpecs
     public void When_running_xunit_test_explicitly_it_should_be_detected()
     {
         // Arrange
-        var testFramework = TestFrameworkFactory.GetFramework(TestFramework.XUnit2);
+        var testFramework = TestFrameworkFactory.GetFramework(TestFramework.XUnit3);
 
         // Act
         Action act = () => testFramework.Throw("MyMessage");
