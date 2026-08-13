@@ -33,7 +33,7 @@
         {
             "matchPackageNames": ["System.Threading.Tasks.Extensions"],
             "matchFileNames": ["**/AwesomeAssertions/**"],
-            "allowedVersions": "< 4.6.0"
+            "allowedVersions": "< 4.7.0"
         },
 
         // - MSTest.* in the MSTestV2.Specs project which tests V2 and V3 (< V4) of MSTest framework

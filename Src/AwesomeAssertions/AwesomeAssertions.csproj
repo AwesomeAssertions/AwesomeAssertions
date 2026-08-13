@@ -65,13 +65,10 @@
   <PropertyGroup>
     <!--
       System.Threading.Tasks.Extensions
-      The version 4.5.4 is part of the API. Changing the version creates a breaking change.
+      The version 4.6.3 is part of the API. Changing the version creates a breaking change.
       So, this version must not be changed before starting a new major version.
-
-      Note that BenchmarkDotNet requires a higher version.
-      When updating STTE, please check wether the warning suppression in Benchmarks.csproj can be removed.
     -->
-    <SystemThreadingTasksExtensionsVersion>4.5.4</SystemThreadingTasksExtensionsVersion>
+    <SystemThreadingTasksExtensionsVersion>4.6.3</SystemThreadingTasksExtensionsVersion>
   </PropertyGroup>
   <Choose>
     <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
