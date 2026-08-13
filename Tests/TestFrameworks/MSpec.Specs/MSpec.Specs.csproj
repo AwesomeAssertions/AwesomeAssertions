@@ -3,7 +3,6 @@
     <TargetFrameworks>net6.0;net8.0;net10.0</TargetFrameworks>
     <RootNamespace>MSpec.Specs</RootNamespace>
     <AssemblyName>MSpec.Specs</AssemblyName>
-    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
