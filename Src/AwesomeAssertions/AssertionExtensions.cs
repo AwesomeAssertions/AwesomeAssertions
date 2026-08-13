@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,11 +18,10 @@ using AwesomeAssertions.Specialized;
 using AwesomeAssertions.Streams;
 using AwesomeAssertions.Types;
 using AwesomeAssertions.Xml;
-using JetBrains.Annotations;
-using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 #if !NETSTANDARD2_0
 using AwesomeAssertions.Events;
 #endif
+using MustUseReturnValueAttribute = JetBrains.Annotations.MustUseReturnValueAttribute;
 
 namespace AwesomeAssertions;
 
@@ -968,7 +968,7 @@ public static class AssertionExtensions
     [return: NotNull]
     public static IMonitor<T> Monitor<T>(this T eventSource, Action<EventMonitorOptions> configureOptions)
     {
-        Guard.ThrowIfArgumentIsNull(configureOptions, nameof(configureOptions));
+        Guard.ThrowIfArgumentIsNull(configureOptions);
 
         var options = new EventMonitorOptions();
         configureOptions(options);
