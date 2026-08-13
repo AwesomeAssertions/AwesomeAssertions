@@ -9,7 +9,7 @@ namespace AwesomeAssertions.Specialized;
 #pragma warning disable CS0659, S1206 // Ignore not overriding Object.GetHashCode()
 #pragma warning disable CA1065 // Ignore throwing NotSupportedException from Equals
 
-#if NET6_0_OR_GREATER
+#if NET
 /// <summary>
 /// Contains a number of methods to assert that a <see cref="TaskCompletionSource"/> yields the expected result.
 /// </summary>

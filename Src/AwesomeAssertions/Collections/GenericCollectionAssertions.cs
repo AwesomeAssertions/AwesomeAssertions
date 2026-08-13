@@ -3991,7 +3991,7 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
         typeof(TItem) == typeof(string) ? (IComparer<TItem>)StringComparer.Ordinal : Comparer<TItem>.Default;
 
     private static IOrderedEnumerable<T> EmptyOrderedEnumerable =>
-#if NET8_0_OR_GREATER
+#if NET
         Enumerable.Empty<T>().Order();
 #else
         Enumerable.Empty<T>().OrderBy(x => x);

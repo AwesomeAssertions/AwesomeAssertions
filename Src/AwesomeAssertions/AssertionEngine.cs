@@ -120,7 +120,7 @@ public static class AssertionEngine
 
     private static bool IsFramework(Assembly assembly)
     {
-#if NET6_0_OR_GREATER
+#if NET
         return assembly!.FullName?.StartsWith("Microsoft.", StringComparison.OrdinalIgnoreCase) == true ||
             assembly.FullName?.StartsWith("System.", StringComparison.OrdinalIgnoreCase) == true;
 #else

@@ -135,6 +135,7 @@ class Build : FalloutBuild
                 .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                 .EnableNoBuild()
+                .EnableListTests()
                 .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(cc => cc
                     .SetProjectFile(project)
@@ -169,14 +170,12 @@ class Build : FalloutBuild
             );
         });
 
-    Target UnitTestsNet6OrGreater => _ => _
+    Target UnitTestsNet8OrGreater => _ => _
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
-            const string net47 = "net47";
-
             DotNetTest(s => s
                     .SetConfiguration(Configuration.Debug)
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
@@ -191,7 +190,7 @@ class Build : FalloutBuild
                         (settings, project) => settings
                             .SetProjectFile(project)
                             .CombineWith(
-                                project.GetTargetFrameworks().Except([net47]),
+                                project.GetTargetFrameworks().Except(["net47"]),
                                 (frameworkSettings, framework) => frameworkSettings
                                     .SetFramework(framework)
                                     .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx")
@@ -202,7 +201,7 @@ class Build : FalloutBuild
 
     Target UnitTests => _ => _
         .DependsOn(UnitTestsNet47)
-        .DependsOn(UnitTestsNet6OrGreater);
+        .DependsOn(UnitTestsNet8OrGreater);
 
     Target CodeCoverage => _ => _
         .DependsOn(TestFrameworks)

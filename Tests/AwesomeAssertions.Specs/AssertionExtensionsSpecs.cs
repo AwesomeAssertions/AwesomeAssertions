@@ -99,7 +99,7 @@ public class AssertionExtensionsSpecs
         new TaskCompletionSourceAssertions<int>(default, AssertionChain.GetOrCreate()),
         new TypeSelectorAssertions(AssertionChain.GetOrCreate()),
         new EnumAssertions<StringComparison, EnumAssertions<StringComparison>>(default, AssertionChain.GetOrCreate()),
-#if NET6_0_OR_GREATER
+#if NET
         new DateOnlyAssertions<DateOnlyAssertions>(default, AssertionChain.GetOrCreate()),
         new TimeOnlyAssertions<TimeOnlyAssertions>(default, AssertionChain.GetOrCreate()),
 #endif
@@ -131,7 +131,7 @@ public class AssertionExtensionsSpecs
     [InlineData(typeof(TaskCompletionSourceAssertionsBase))]
     [InlineData(typeof(TypeSelectorAssertions))]
     [InlineData(typeof(EnumAssertions<StringComparison, EnumAssertions<StringComparison>>))]
-#if NET6_0_OR_GREATER
+#if NET
     [InlineData(typeof(DateOnlyAssertions<DateOnlyAssertions>))]
     [InlineData(typeof(TimeOnlyAssertions<TimeOnlyAssertions>))]
 #endif

@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### Breaking Changes (for users)
+* Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
+
 ## 9.6.0
 
 ### What's new

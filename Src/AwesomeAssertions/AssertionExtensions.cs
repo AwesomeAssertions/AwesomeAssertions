@@ -455,7 +455,7 @@ public static class AssertionExtensions
         return new NullableDateTimeOffsetAssertions(actualValue, AssertionChain.GetOrCreate());
     }
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <summary>
     /// Returns an <see cref="DateOnlyAssertions"/> object that can be used to assert the
     /// current <see cref="DateOnly"/>.
@@ -977,7 +977,7 @@ public static class AssertionExtensions
 
 #endif
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <summary>
     /// Returns a <see cref="TaskCompletionSourceAssertions"/> object that can be used to assert the
     /// current <see cref="TaskCompletionSource"/>.
@@ -1038,7 +1038,7 @@ public static class AssertionExtensions
         InvalidShouldCall();
     }
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <inheritdoc cref="Should(ExecutionTimeAssertions)" />
     [Obsolete("You are asserting the 'AndConstraint' itself. Remove the 'Should()' method directly following 'And'", error: true)]
     public static void Should<TAssertions>(this DateOnlyAssertions<TAssertions> _)

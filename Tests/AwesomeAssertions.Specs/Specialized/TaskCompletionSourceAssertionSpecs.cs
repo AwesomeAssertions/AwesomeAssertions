@@ -8,7 +8,7 @@ namespace AwesomeAssertions.Specs.Specialized;
 
 public class TaskCompletionSourceAssertionSpecs
 {
-#if NET6_0_OR_GREATER
+#if NET
     public class NonGeneric
     {
         [Fact]
