@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Extensions;
-#if NET47
+#if NETFRAMEWORK
 using AwesomeAssertions.Specs.Common;
 #endif
 using AwesomeAssertions.Specs.Exceptions;

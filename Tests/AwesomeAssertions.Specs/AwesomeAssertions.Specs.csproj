@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net472;net8.0;net10.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Src\AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <IsPackable>false</IsPackable>
     <DebugType>full</DebugType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <!--
       (SRCU = System.Runtime.CompilerServices.Unsafe)
       AwesomeAssertions.csproj depends on SRCU 4.5.0 (AssemblyVersion 4.0.4.0)
       System.Collections.Immutable 1.6.0+ depends on SRCU 4.5.2+ (AssemblyVersion 4.0.4.1)
-      AwesomeAssertions.Specs.csproj for net47 does not generate a binding redirect from 4.0.4.0 to 4.0.4.1
+      AwesomeAssertions.Specs.csproj for net472 does not generate a binding redirect from 4.0.4.0 to 4.0.4.1
       Upgrading to 1.6.0 gives "Could not load file or assembly 'System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0"
     -->
     <PackageReference Include="System.Collections.Immutable" Version="[1.5.0]" />

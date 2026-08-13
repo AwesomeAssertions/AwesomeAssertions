@@ -119,7 +119,7 @@ internal static class ExpressionExtensions
 
         if (singlePath is null)
         {
-#if NET47 || NETSTANDARD2_0
+#if NETFRAMEWORK || NETSTANDARD2_0
             return selectors.Select(selector =>
                 GetNewInstance<TDeclaringType>(declaringType, selector)).ToList();
 #else

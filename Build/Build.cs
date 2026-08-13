@@ -158,14 +158,14 @@ class Build : FalloutBuild
         .Executes(() =>
         {
             string[] testAssemblies = Projects
-                .SelectMany(project => project.Directory.GlobFiles("bin/Debug/net47/*.Specs.dll"))
+                .SelectMany(project => project.Directory.GlobFiles("bin/Debug/net472/*.Specs.dll"))
                 .Select(p => p.ToString())
                 .ToArray();
 
             Assert.NotEmpty(testAssemblies.ToList());
 
             Xunit2(s => s
-                .SetFramework("net47")
+                .SetFramework("net472")
                 .AddTargetAssemblies(testAssemblies)
             );
         });
@@ -190,7 +190,7 @@ class Build : FalloutBuild
                         (settings, project) => settings
                             .SetProjectFile(project)
                             .CombineWith(
-                                project.GetTargetFrameworks().Except(["net47"]),
+                                project.GetTargetFrameworks().Except(["net472"]),
                                 (frameworkSettings, framework) => frameworkSettings
                                     .SetFramework(framework)
                                     .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx")
@@ -245,7 +245,7 @@ class Build : FalloutBuild
             var testCombinations =
                 from project in projects
                 let frameworks = project.GetTargetFrameworks()
-                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except(["net47"])
+                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except(["net472"])
                 from framework in supportedFrameworks
                 select new { project, framework };
 
