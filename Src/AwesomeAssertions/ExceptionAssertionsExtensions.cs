@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Specialized;
 
@@ -152,8 +153,9 @@ public static class ExceptionAssertionsExtensions
     }
 
     /// <summary>
-    /// Asserts that the thrown exception has a parameter which name matches <paramref name="paramName" />.
+    /// Asserts that the thrown exception has a parameter which name matches <paramref name="paramName" /> case insensitive.
     /// </summary>
+    /// <typeparam name="TException">The type of the exception.</typeparam>
     /// <param name="parent">The <see cref="ExceptionAssertions{TException}"/> containing the thrown exception.</param>
     /// <param name="paramName">The expected name of the parameter</param>
     /// <param name="because">
@@ -163,6 +165,7 @@ public static class ExceptionAssertionsExtensions
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because"/>.
     /// </param>
+    /// <exception cref="ArgumentNullException">Thrown when <paramref name="paramName"/> is <langword>null</langword> or empty.</exception>
     public static ExceptionAssertions<TException> WithParameterName<TException>(
         this ExceptionAssertions<TException> parent,
         string paramName,
@@ -170,9 +173,12 @@ public static class ExceptionAssertionsExtensions
         params object[] becauseArgs)
         where TException : ArgumentException
     {
+        Guard.ThrowIfArgumentIsNullOrEmpty(paramName);
+
         AssertionChain
             .GetOrCreate()
-            .ForCondition(parent.Which.ParamName == paramName)
+            .BecauseOf(because, becauseArgs)
+            .ForCondition(paramName.Equals(parent.Which.ParamName, StringComparison.OrdinalIgnoreCase))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected exception with parameter name {0}{reason}, but found {1}.", paramName, parent.Which.ParamName);
 

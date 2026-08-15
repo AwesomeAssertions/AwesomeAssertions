@@ -15,6 +15,9 @@ sidebar:
 * Enable [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) in the public API - [#605](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/605)
   * It is declared as a breaking change because it may raise warnings like [CA1806](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1806).
 
+### Improvements
+* The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
+
 ## 9.6.0
 
 ### What's new
