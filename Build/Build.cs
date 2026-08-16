@@ -102,7 +102,7 @@ class Build : FalloutBuild
 
     Target Compile => _ => _
         .DependsOn(Restore)
-        .DependsOn(CalculateNugetVersion)
+        .After(CalculateNugetVersion)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -305,6 +305,7 @@ class Build : FalloutBuild
         .DependsOn(TestingPlatformFrameworks);
 
     Target Pack => _ => _
+        .DependsOn(CalculateNugetVersion)
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)
