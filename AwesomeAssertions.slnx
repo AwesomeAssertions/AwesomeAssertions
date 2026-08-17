@@ -39,6 +39,10 @@
     <Project Path="Tests/AwesomeAssertions.Specs/AwesomeAssertions.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
+    <Project Path="Tests/NativeAot.IntegrationTests/NativeAot.IntegrationTests.csproj">
+      <BuildType Solution="CI|*" Project="Release" />
+      <Build Project="false" />
+    </Project>
     <Project Path="Tests/Benchmarks/Benchmarks.csproj">
       <BuildType Solution="CI|*" Project="Release" />
       <Build Solution="CI|*" Project="false" />
