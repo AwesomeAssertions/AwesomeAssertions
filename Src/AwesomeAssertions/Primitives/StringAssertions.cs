@@ -2163,7 +2163,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasNonUpperChar(Subject))
+            .ForCondition(string.IsNullOrEmpty(Subject) || HasNonUpperChar(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected some characters in {context:string} to be lower-case{reason}, but found {0}.", Subject);
 
@@ -2218,7 +2218,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
     {
         assertionChain
-            .ForCondition(Subject is null || HasNonLowerChar(Subject))
+            .ForCondition(string.IsNullOrEmpty(Subject) || HasNonLowerChar(Subject))
             .BecauseOf(because, becauseArgs)
             .FailWith("Expected some characters in {context:string} to be upper-case{reason}, but found {0}.", Subject);
 
@@ -2227,11 +2227,6 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
     private static bool HasNonUpperChar(string value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            return true;
-        }
-
         foreach (var c in value)
         {
             if (char.IsLetter(c) && !char.IsUpper(c))
@@ -2245,11 +2240,6 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
 
     private static bool HasNonLowerChar(string value)
     {
-        if (string.IsNullOrEmpty(value))
-        {
-            return true;
-        }
-
         foreach (var c in value)
         {
             if (char.IsLetter(c) && !char.IsLower(c))
