@@ -6,7 +6,6 @@ using Fallout.Common.CI.GitHubActions;
 using Fallout.Common.Execution;
 using Fallout.Common.Git;
 using Fallout.Common.IO;
-using Fallout.Common.ProjectModel;
 using Fallout.Common.Tooling;
 using Fallout.Common.Tools.DotNet;
 using Fallout.Common.Tools.GitVersion;
@@ -14,6 +13,7 @@ using Fallout.Common.Tools.ReportGenerator;
 using Fallout.Common.Tools.Xunit;
 using Fallout.Common.Utilities;
 using Fallout.Common.Utilities.Collections;
+using Fallout.Solutions;
 using static Fallout.Common.Tools.DotNet.DotNetTasks;
 using static Fallout.Common.Tools.ReportGenerator.ReportGeneratorTasks;
 using static Fallout.Common.Tools.Xunit.XunitTasks;
@@ -102,7 +102,7 @@ class Build : FalloutBuild
 
     Target Compile => _ => _
         .DependsOn(Restore)
-        .DependsOn(CalculateNugetVersion)
+        .After(CalculateNugetVersion)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -305,6 +305,7 @@ class Build : FalloutBuild
         .DependsOn(TestingPlatformFrameworks);
 
     Target Pack => _ => _
+        .DependsOn(CalculateNugetVersion)
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)

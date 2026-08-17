@@ -13,6 +13,7 @@ sidebar:
 * Add more `AssertionChain.WithReportable` overloads - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
 * Add documentation to all public API - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
 * Add `ExcludingObsoleteMembers` to `SelfReferenceEquivalencyOptions` allowing obsolete members to be ignored in structural comparison - [#558](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/558)
+  * Please note that the interface `IEquivalencyOptions` has been marked as "technically public" and not part of the public API.
 
 ### Fixes
 * Fix duplicate matching rules - [#566](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/566)
