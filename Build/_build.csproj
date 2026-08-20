@@ -13,7 +13,6 @@
   <ItemGroup>
     <PackageDownload Include="GitVersion.Tool" Version="[6.5.1]" />
     <PackageDownload Include="ReportGenerator" Version="[5.5.0]" />
-    <PackageDownload Include="xunit.runner.console" Version="[2.9.2]" />
     <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
     <PackageReference Include="Fallout.Common" Version="10.4.0" />
     <PackageReference Include="Fallout.Components" Version="10.4.0" />

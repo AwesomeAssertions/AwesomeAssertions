@@ -31,7 +31,7 @@ public static class Formatter
         new NullValueFormatter(),
         new GuidValueFormatter(),
         new DateTimeOffsetValueFormatter(),
-#if NET6_0_OR_GREATER
+#if NET
         new DateOnlyValueFormatter(),
         new TimeOnlyValueFormatter(),
 #endif

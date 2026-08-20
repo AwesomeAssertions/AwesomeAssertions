@@ -31,7 +31,7 @@ public class BufferedStreamAssertions : BufferedStreamAssertions<BufferedStreamA
 public class BufferedStreamAssertions<TAssertions> : StreamAssertions<BufferedStream, TAssertions>
     where TAssertions : BufferedStreamAssertions<TAssertions>
 {
-#if NET6_0_OR_GREATER || NETSTANDARD2_1
+#if NET || NETSTANDARD2_1
 
     private readonly AssertionChain assertionChain;
 

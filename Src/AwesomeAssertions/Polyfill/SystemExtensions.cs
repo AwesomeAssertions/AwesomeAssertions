@@ -1,4 +1,4 @@
-#if NET47 || NETSTANDARD2_0
+#if NETFRAMEWORK || NETSTANDARD2_0
 
 // ReSharper disable once CheckNamespace
 namespace System;

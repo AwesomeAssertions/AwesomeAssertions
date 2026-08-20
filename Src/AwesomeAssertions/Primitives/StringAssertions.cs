@@ -250,7 +250,7 @@ public class StringAssertions<TAssertions> : ReferenceTypeAssertions<string, TAs
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
 
-#if NET8_0_OR_GREATER
+#if NET
 
     /// <summary>
     /// Asserts that a string is parsable into something else, which is implementing <see cref="IParsable{TSelf}"/>.

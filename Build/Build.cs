@@ -24,6 +24,8 @@ using static CustomNpmTasks;
 [DotNetVerbosityMapping]
 class Build : FalloutBuild
 {
+    const string NetFrameworkVersion = "net472";
+
     public static int Main() => Execute<Build>(x => x.SpellCheck, x => x.Push);
 
     GitHubActions GitHubActions => GitHubActions.Instance;
@@ -55,6 +57,7 @@ class Build : FalloutBuild
     [Required]
     [GitRepository]
     readonly GitRepository GitRepository;
+
     AbsolutePath ArtifactsDirectory => RootDirectory / "Artifacts";
 
     AbsolutePath TestResultsDirectory => RootDirectory / "TestResults";
@@ -135,6 +138,7 @@ class Build : FalloutBuild
                 .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                 .EnableNoBuild()
+                .EnableListTests()
                 .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(cc => cc
                     .SetProjectFile(project)
@@ -150,33 +154,36 @@ class Build : FalloutBuild
         Solution.Specs.VB_Specs
     ];
 
-    Target UnitTestsNet47 => _ => _
+    Target UnitTestsNetFramework => _ => _
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => EnvironmentInfo.IsWin && (RunAllTargets || HasSourceChanges))
         .Executes(() =>
         {
-            string[] testAssemblies = Projects
-                .SelectMany(project => project.Directory.GlobFiles("bin/Debug/net47/*.Specs.dll"))
-                .Select(p => p.ToString())
-                .ToArray();
-
-            Assert.NotEmpty(testAssemblies.ToList());
-
-            Xunit2(s => s
-                .SetFramework("net47")
-                .AddTargetAssemblies(testAssemblies)
-            );
+            DotNetTest(s => s
+                    .SetConfiguration(Configuration.Debug)
+                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                    .EnableNoBuild()
+                    .SetDataCollector("XPlat Code Coverage")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .AddRunSetting(
+                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
+                        "DoesNotReturnAttribute")
+                    .CombineWith(
+                        Projects,
+                        (settings, project) => settings
+                            .SetProjectFile(project)
+                            .SetFramework(NetFrameworkVersion)
+                            .AddLoggers($"trx;LogFileName={project.Name}_{NetFrameworkVersion}.trx")),
+                completeOnFailure: true);
         });
 
-    Target UnitTestsNet6OrGreater => _ => _
+    Target UnitTestsCurrentDotNet => _ => _
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
-            const string net47 = "net47";
-
             DotNetTest(s => s
                     .SetConfiguration(Configuration.Debug)
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
@@ -191,18 +198,16 @@ class Build : FalloutBuild
                         (settings, project) => settings
                             .SetProjectFile(project)
                             .CombineWith(
-                                project.GetTargetFrameworks().Except([net47]),
+                                project.GetTargetFrameworks().Except([NetFrameworkVersion]),
                                 (frameworkSettings, framework) => frameworkSettings
                                     .SetFramework(framework)
-                                    .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx")
-                            )
-                    ), completeOnFailure: true
-            );
+                                    .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx"))),
+                completeOnFailure: true);
         });
 
     Target UnitTests => _ => _
-        .DependsOn(UnitTestsNet47)
-        .DependsOn(UnitTestsNet6OrGreater);
+        .DependsOn(UnitTestsNetFramework)
+        .DependsOn(UnitTestsCurrentDotNet);
 
     Target CodeCoverage => _ => _
         .DependsOn(TestFrameworks)
@@ -246,7 +251,7 @@ class Build : FalloutBuild
             var testCombinations =
                 from project in projects
                 let frameworks = project.GetTargetFrameworks()
-                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except(["net47"])
+                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except([NetFrameworkVersion])
                 from framework in supportedFrameworks
                 select new { project, framework };
 
@@ -296,8 +301,8 @@ class Build : FalloutBuild
                             $"--report-trx-filename {v.project.Name}_{v.framework}.trx",
                             $"--results-directory {TestResultsDirectory}"
                         )
-                    )
-                );
+                )
+            );
         });
 
     Target TestFrameworks => _ => _

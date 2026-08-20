@@ -22,7 +22,7 @@ public static class FindAssembly
 
         public override AssemblyName GetName() => assemblyName;
 
-#if NET6_0_OR_GREATER
+#if NET
         private static byte[] FromHexString(string chars)
             => chars is null
             ? null

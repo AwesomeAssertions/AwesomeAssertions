@@ -15,14 +15,6 @@
     "prHourlyLimit": 10,
 
     "packageRules": [
-        // Do not update xUnit runner.
-        // Versions 3.0.0 and above do not support net47(0) anymore.
-        // As long as we want to build for net47 we need to reference a version below V3.
-        {
-            "matchPackageNames": ["xunit.runner.visualstudio"],
-            "allowedVersions": "< 3.0.0"
-        },
-
         // Disable updates of .NET SDK. We want to update that manually only.
         {
             "matchDatasources": ["dotnet-version"],
@@ -33,7 +25,7 @@
         {
             "matchPackageNames": ["System.Threading.Tasks.Extensions"],
             "matchFileNames": ["**/AwesomeAssertions/**"],
-            "allowedVersions": "< 4.6.0"
+            "allowedVersions": "< 4.7.0"
         },
 
         // - MSTest.* in the MSTestV2.Specs project which tests V2 and V3 (< V4) of MSTest framework
@@ -59,13 +51,6 @@
             "matchPackageNames": ["NUnit"],
             "matchFileNames": ["**/NUnit4.Specs/**"],
             "allowedVersions": ">= 4.0.0"
-        },
-        // - NUnit3TestAdapter in the NUnit3.Specs project limited to < V6 because of removals of net6 support
-        // TODO Remove these rules once net6 is removed.
-        {
-            "matchPackageNames": ["NUnit3TestAdapter"],
-            "matchFileNames": ["**/NUnit3.Specs/**"],
-            "allowedVersions": "< 6.0.0"
         },
 
         // Fallout package grouping

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net47;net6.0;net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net472;net8.0;net10.0</TargetFrameworks>
     <RootNamespace>XUnit2.Specs</RootNamespace>
     <AssemblyName>XUnit2.Specs</AssemblyName>
   </PropertyGroup>
@@ -8,11 +8,11 @@
     <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="10.0.1" PrivateAssets="all" Condition="'$(TargetFramework)' != 'net47'">
+    <PackageReference Include="coverlet.collector" Version="10.0.1" PrivateAssets="all" Condition="'$(TargetFramework)' != 'net472'">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

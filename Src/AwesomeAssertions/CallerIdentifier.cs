@@ -287,7 +287,7 @@ public static class CallerIdentifier
     private static StackFrame[] GetFrames(StackTrace stack)
     {
         var frames = stack.GetFrames();
-#if !NET6_0_OR_GREATER
+#if !NET
         if (frames == null)
         {
             return [];

@@ -40,7 +40,7 @@ public class EqualApproximatelyBenchmark
     public void Equal_ExactlyEqualArrays() =>
         subject.Should().Equal(expectationExact);
 
-#if NET8_0_OR_GREATER
+#if NET
     [Benchmark]
     public void EqualApproximately_ExactlyEqualArrays() =>
         subject.Should().EqualApproximately(expectationExact, 0.01f);
