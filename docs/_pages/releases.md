@@ -8,10 +8,12 @@ sidebar:
 ---
 ## Unreleased
 
+## 9.6.0
+
 ### What's new
 * Add `AssertionScope.AddReportable` to add custom reportable information to the current scope - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
 * Add more `AssertionChain.WithReportable` overloads - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
-* Add documentation to all public API - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
+* Add documentation to all public API - [#556](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/556)
 * Add `ExcludingObsoleteMembers` to `SelfReferenceEquivalencyOptions` allowing obsolete members to be ignored in structural comparison - [#558](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/558)
   * Please note that the interface `IEquivalencyOptions` has been marked as "technically public" and not part of the public API.
 
