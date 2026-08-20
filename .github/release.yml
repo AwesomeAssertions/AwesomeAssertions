@@ -24,9 +24,9 @@ changelog:
     - title: Documentation
       labels:
         - "documentation"
+    - title: Dependencies (move to the last)
+      labels:
+        - "dependencies"
     - title: Others
       labels: 
         - "*"
-    - title: Dependencies
-      labels:
-        - "dependencies"
