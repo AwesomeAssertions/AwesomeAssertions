@@ -6,7 +6,6 @@
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>../AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
@@ -49,6 +48,15 @@
     <InternalsVisibleTo Include="AwesomeAssertions.Equivalency.Specs" />
     <InternalsVisibleTo Include="Benchmarks" />
   </ItemGroup>
+
+  <PropertyGroup Label="Backwardscompatibility check">
+    <!-- Prevent (binary) breaking changes, preferably choose the previous published version
+         This only works when generating the package, so enabled GeneratePackageOnBuild 
+    -->
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <PackageValidationBaselineVersion>9.6.0</PackageValidationBaselineVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
 
   <ItemGroup Label="Package files">
     <None Include="..\AwesomeAssertions.png" Pack="true" Visible="false" PackagePath="" />
