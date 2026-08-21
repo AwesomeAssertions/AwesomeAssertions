@@ -40,15 +40,14 @@ public class PropertyInfoSelectorSpecs
     [Fact]
     public void When_property_info_selector_is_null_then_should_should_throw()
     {
-        // Arrange
         PropertyInfoSelector propertyInfoSelector = null;
 
-        // Act
+#pragma warning disable CA1806,MA0060 // false-positive, the result is used in the action
+        // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
         Action act = () => propertyInfoSelector.Should();
+#pragma warning restore CA1806,MA0060
 
-        // Assert
-        act.Should().ThrowExactly<ArgumentNullException>()
-            .WithParameterName("propertyInfoSelector");
+        act.Should().ThrowExactly<ArgumentNullException>().WithParameterName("propertyInfoSelector");
     }
 
     [Fact]
@@ -484,7 +483,8 @@ internal class TestClassForPropertySelectorWithInheritableAttributeDerived : Tes
     public override string PublicVirtualStringPropertyWithAttribute { get; set; }
 }
 
-internal class TestClassForPropertySelectorWithNonInheritableAttributeDerived : TestClassForPropertySelectorWithNonInheritableAttribute
+internal class TestClassForPropertySelectorWithNonInheritableAttributeDerived
+    : TestClassForPropertySelectorWithNonInheritableAttribute
 {
     public override string PublicVirtualStringPropertyWithAttribute { get; set; }
 }

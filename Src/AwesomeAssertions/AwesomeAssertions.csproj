@@ -16,6 +16,13 @@
     <Product>AwesomeAssertions</Product>
   </PropertyGroup>
 
+  <PropertyGroup Label="Contract">
+    <!-- Emit System.Diagnostics.Contracts attributes (e.g. [Pure]); they are [Conditional("CONTRACTS_FULL")]
+     and are otherwise stripped at compile time. No Contract.Requires/Ensures/... calls exist in the code,
+     so this only affects attribute emission, not runtime behaviour. -->
+    <DefineConstants>$(DefineConstants);CONTRACTS_FULL</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Label="Package info">
     <Authors>AwesomeAssertions, Dennis Doomen, Jonas Nyrup and contributors</Authors>
     <PackageDescription>

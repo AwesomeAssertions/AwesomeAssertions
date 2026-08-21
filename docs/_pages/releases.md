@@ -12,6 +12,8 @@ sidebar:
 * Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * Upgraded the minimum target for .NET Framework to 4.7.2 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * The reference to `System.Threading.Tasks.Extensions` to has been upgraded to version 4.6.3 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
+* Enable [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) in the public API - [#605](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/605)
+  * It is declared as a breaking change because it may raise warnings like [CA1806](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1806).
 
 ## 9.6.0
 
