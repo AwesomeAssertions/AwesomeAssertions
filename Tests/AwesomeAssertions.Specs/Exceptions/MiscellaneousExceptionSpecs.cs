@@ -152,27 +152,48 @@ public class MiscellaneousExceptionSpecs
     [Fact]
     public void When_a_method_throws_with_a_matching_parameter_name_it_should_succeed()
     {
-        // Arrange
         Action throwException = () => throw new ArgumentNullException("someParameter");
 
-        // Act / Assert
-        throwException.Should().Throw<ArgumentException>()
-            .WithParameterName("someParameter");
+        throwException.Should().Throw<ArgumentException>().WithParameterName("someParameter");
+    }
+
+    [Fact]
+    public void When_a_method_throws_with_a_case_insensitive_matching_parameter_name_it_should_succeed()
+    {
+        Action throwException = () => throw new ArgumentNullException("someParameter");
+
+        throwException.Should().Throw<ArgumentException>().WithParameterName("SomeParameter");
     }
 
     [Fact]
     public void When_a_method_throws_with_a_non_matching_parameter_name_it_should_fail_with_a_descriptive_message()
     {
-        // Arrange
         Action throwException = () => throw new ArgumentNullException("someOtherParameter");
 
-        // Act
-        Action act = () =>
-            throwException.Should().Throw<ArgumentException>()
-                .WithParameterName("someParameter", "we want to test the {0} message", "failure");
+        Action act = () => throwException.Should().Throw<ArgumentException>()
+            .WithParameterName("someParameter", "we want to test the {0} message", "failure");
 
-        // Assert
         act.Should().Throw<XunitException>()
             .WithMessage("*with parameter name \"someParameter\"*because*failure message*\"someOtherParameter\"*");
+    }
+
+    [Fact]
+    public void When_asserting_empty_parameter_name_an_exception_is_thrown()
+    {
+        Action throwException = () => throw new ArgumentNullException();
+
+        Action act = () => throwException.Should().Throw<ArgumentException>().WithParameterName("");
+
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Fact]
+    public void When_asserting_null_as_parameter_name_an_exception_is_thrown()
+    {
+        Action throwException = () => throw new ArgumentNullException();
+
+        Action act = () => throwException.Should().Throw<ArgumentException>().WithParameterName(null);
+
+        act.Should().Throw<ArgumentException>();
     }
 }
