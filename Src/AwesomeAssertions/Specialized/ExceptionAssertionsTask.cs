@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
@@ -203,63 +202,6 @@ public sealed class ExceptionAssertionsTask<TException>
         params object[] becauseArgs)
     {
         return ContinueWith(assertions => assertions.WithInnerExceptionExactly(innerException, because, becauseArgs));
-    }
-
-    /// <summary>
-    /// Asserts that the thrown exception contains an inner exception of type <typeparamref name="TInnerException" />.
-    /// </summary>
-    /// <typeparam name="TOuterException">
-    /// The type of the thrown exception. This type parameter is redundant and is ignored.
-    /// </typeparam>
-    /// <typeparam name="TInnerException">The expected type of the inner exception.</typeparam>
-    /// <param name="because">
-    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
-    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
-    /// </param>
-    /// <param name="becauseArgs">
-    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
-    /// </param>
-    /// <remarks>
-    /// This overload only exists to keep code compiling that had to name the thrown exception type explicitly.
-    /// Use <see cref="WithInnerException{TInnerException}"/> instead.
-    /// </remarks>
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public ExceptionAssertionsTask<TInnerException> WithInnerException<TOuterException, TInnerException>(
-        [StringSyntax("CompositeFormat")] string because = "",
-        params object[] becauseArgs)
-        where TOuterException : Exception
-        where TInnerException : Exception
-    {
-        return WithInnerException<TInnerException>(because, becauseArgs);
-    }
-
-    /// <summary>
-    /// Asserts that the thrown exception contains an inner exception of the exact type
-    /// <typeparamref name="TInnerException" /> (and not a derived exception type).
-    /// </summary>
-    /// <typeparam name="TOuterException">
-    /// The type of the thrown exception. This type parameter is redundant and is ignored.
-    /// </typeparam>
-    /// <typeparam name="TInnerException">The expected type of the inner exception.</typeparam>
-    /// <param name="because">
-    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
-    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
-    /// </param>
-    /// <param name="becauseArgs">
-    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
-    /// </param>
-    /// <remarks>
-    /// This overload only exists to keep code compiling that had to name the thrown exception type explicitly.
-    /// Use <see cref="WithInnerExceptionExactly{TInnerException}"/> instead.
-    /// </remarks>
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public ExceptionAssertionsTask<TInnerException> WithInnerExceptionExactly<TOuterException, TInnerException>(
-        [StringSyntax("CompositeFormat")] string because = "",
-        params object[] becauseArgs)
-        where TOuterException : Exception
-        where TInnerException : Exception
-    {
-        return WithInnerExceptionExactly<TInnerException>(because, becauseArgs);
     }
 
     private ExceptionAssertionsTask<TResult> ContinueWith<TResult>(

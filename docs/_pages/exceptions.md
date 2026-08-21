@@ -131,6 +131,15 @@ await act.Should().ThrowAsync<InvalidOperationException>()
     .WithMessage("inner");
 ```
 
+This works because the asynchronous assertions return an `ExceptionAssertionsTask<TException>` rather than a plain task. If you have a `Task<ExceptionAssertions<TException>>` from somewhere else, for instance from a helper method of your own, `AsExceptionAssertionsTask` gets you back into the chain:
+
+```csharp
+Task<ExceptionAssertions<InvalidOperationException>> assertions = MyOwnHelper();
+
+await assertions.AsExceptionAssertionsTask()
+    .WithInnerException<ArgumentException>();
+```
+
 As for synchronous methods, you can also check that an asynchronously executed method executes successfully after a given wait time using `NotThrowAfter`:
 
 ```csharp
