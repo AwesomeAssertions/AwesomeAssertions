@@ -54,23 +54,14 @@
     </Project>
   </Folder>
   <Folder Name="/TestFrameworks/">
-    <Project Path="Tests/TestFrameworks/MSpec.Specs/MSpec.Specs.csproj">
-      <BuildType Project="Debug" />
-    </Project>
-    <Project Path="Tests/TestFrameworks/MSTestV2.Specs/MSTestV2.Specs.csproj">
-      <BuildType Project="Debug" />
-    </Project>
     <Project Path="Tests/TestFrameworks/MSTestV4.Specs/MSTestV4.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
-    <Project Path="Tests/TestFrameworks/NUnit3.Specs/NUnit3.Specs.csproj">
-      <BuildType Project="Debug" />
-    </Project>
-    <Project Path="Tests/TestFrameworks/NUnit4.Specs/NUnit4.Specs.csproj">
+    <Project Path="Tests/TestFrameworks/NUnit4.Mtp.Specs/NUnit4.Mtp.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
-    <Project Path="Tests/TestFrameworks/XUnit2.Specs/XUnit2.Specs.csproj">
-      <BuildType Project="Debug" />
+    <Project Path="Tests/TestFrameworks/TUnit.Specs/TUnit.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
     </Project>
     <Project Path="Tests/TestFrameworks/XUnit3.Specs/XUnit3.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
@@ -79,12 +70,21 @@
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
   </Folder>
-  <Folder Name="/TestFrameworks/MicrosoftTestingPlatform/">
-    <File Path="Tests/TestFrameworks/MicrosoftTestingPlatform/global.json" />
-    <Project Path="Tests/TestFrameworks/MicrosoftTestingPlatform/NUnit4.Mtp.Specs/NUnit4.Mtp.Specs.csproj">
+  <Folder Name="/TestFrameworks/VsTestPlatform/">
+    <File Path="Tests/TestFrameworks/VsTestPlatform/global.json" />
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/MSpec.Specs/MSpec.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
-    <Project Path="Tests/TestFrameworks/MicrosoftTestingPlatform/TUnit.Specs/TUnit.Specs.csproj">
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/MSTestV2.Specs/MSTestV2.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/NUnit3.Specs/NUnit3.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/NUnit4.Specs/NUnit4.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/XUnit2.Specs/XUnit2.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
   </Folder>

@@ -236,17 +236,7 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
-            Project[] projects =
-            [
-                Solution.TestFrameworks.MSpec_Specs,
-                Solution.TestFrameworks.MSTestV2_Specs,
-                Solution.TestFrameworks.MSTestV4_Specs,
-                Solution.TestFrameworks.NUnit3_Specs,
-                Solution.TestFrameworks.NUnit4_Specs,
-                Solution.TestFrameworks.XUnit2_Specs,
-                Solution.TestFrameworks.XUnit3_Specs,
-                Solution.TestFrameworks.XUnit3Core_Specs,
-            ];
+            var projects = Solution.TestFrameworks.VsTestPlatform.Projects;
 
             var testCombinations =
                 from project in projects
@@ -258,6 +248,7 @@ class Build : FalloutBuild
             DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
                 .EnableNoBuild()
                 .SetDataCollector("XPlat Code Coverage")
                 .SetResultsDirectory(TestResultsDirectory)
@@ -277,7 +268,7 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
-            var projects = Solution.TestFrameworks.MicrosoftTestingPlatform.Projects;
+            var projects = Solution.TestFrameworks.Projects;
 
             var testCombinations =
                 from project in projects
@@ -288,7 +279,6 @@ class Build : FalloutBuild
             DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "MicrosoftTestingPlatform")
                 .EnableNoBuild()
                 .CombineWith(
                     testCombinations,

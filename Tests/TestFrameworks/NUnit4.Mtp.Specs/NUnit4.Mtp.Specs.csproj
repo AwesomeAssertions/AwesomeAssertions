@@ -7,7 +7,7 @@
     <EnableNUnitRunner>true</EnableNUnitRunner>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <!--

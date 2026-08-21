@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="TUnit" Version="1.65.0" />
