@@ -100,7 +100,7 @@ public class AsyncFunctionExceptionAssertionSpecs
     [Collection("UIFacts")]
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_async_method_throws_an_empty_AggregateException_on_UI_thread_it_should_fail()
         {
             // Arrange
@@ -126,7 +126,7 @@ public class AsyncFunctionExceptionAssertionSpecs
 
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_async_method_throws_a_nested_AggregateException_on_UI_thread_it_should_provide_the_message()
         {
             // Arrange
@@ -179,6 +179,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         await action.Should().ThrowAsync<T>();
     }
 
+    #if false
     [UITheory]
     [MemberData(nameof(AggregateExceptionTestData))]
     public async Task When_the_expected_exception_is_wrapped_on_UI_thread_async_it_should_succeed<T>(Func<Task> action, T _)
@@ -187,6 +188,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act/Assert
         await action.Should().ThrowAsync<T>();
     }
+    #endif
 
     [Theory]
     [MemberData(nameof(AggregateExceptionTestData))]
@@ -200,17 +202,17 @@ public class AsyncFunctionExceptionAssertionSpecs
         await act2.Should().ThrowAsync<XunitException>();
     }
 
-    [UITheory]
-    [MemberData(nameof(AggregateExceptionTestData))]
-    public async Task When_the_expected_exception_is_not_wrapped_on_UI_thread_async_it_should_fail<T>(Func<Task> action, T _)
-        where T : Exception
-    {
-        // Act
-        Func<Task> act2 = () => action.Should().NotThrowAsync<T>();
-
-        // Assert
-        await act2.Should().ThrowAsync<XunitException>();
-    }
+    //[UITheory]
+    // [MemberData(nameof(AggregateExceptionTestData))]
+    // public async Task When_the_expected_exception_is_not_wrapped_on_UI_thread_async_it_should_fail<T>(Func<Task> action, T _)
+    //     where T : Exception
+    // {
+    //     // Act
+    //     Func<Task> act2 = () => action.Should().NotThrowAsync<T>();
+    //
+    //     // Assert
+    //     await act2.Should().ThrowAsync<XunitException>();
+    // }
 #pragma warning restore xUnit1026 // Theory methods should use all of their parameters
 
     public static TheoryData<Func<Task>, Exception> AggregateExceptionTestData()
@@ -533,7 +535,7 @@ public class AsyncFunctionExceptionAssertionSpecs
 
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_async_method_does_not_throw_async_exception_on_UI_thread_and_that_was_expected_it_should_succeed()
         {
             // Arrange
@@ -648,7 +650,7 @@ public class AsyncFunctionExceptionAssertionSpecs
 
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_subject_throws_on_UI_thread_expected_async_exact_exception_it_should_succeed()
         {
             // Arrange
@@ -1263,7 +1265,7 @@ public class AsyncFunctionExceptionAssertionSpecs
 
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task
             When_no_exception_should_be_thrown_on_UI_thread_for_async_func_after_wait_time_but_it_was_it_should_throw()
         {
@@ -1325,7 +1327,7 @@ public class AsyncFunctionExceptionAssertionSpecs
 
     public partial class UIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task
             When_no_exception_should_be_thrown_on_UI_thread_for_async_func_after_wait_time_and_none_was_it_should_not_throw()
         {

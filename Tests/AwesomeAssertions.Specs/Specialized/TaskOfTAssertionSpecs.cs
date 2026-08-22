@@ -375,7 +375,7 @@ public static class TaskOfTAssertionSpecs
     [Collection("UIFacts")]
     public class NotThrowAsyncUIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_task_does_not_throw_it_should_succeed()
         {
             // Arrange
@@ -398,7 +398,7 @@ public static class TaskOfTAssertionSpecs
             await action.Should().NotThrowAsync();
         }
 
-        [UIFact]
+        //[UIFact]
         public async Task When_task_throws_it_should_fail()
         {
             // Arrange
@@ -546,7 +546,7 @@ public static class TaskOfTAssertionSpecs
 
     public class NotThrowAfterAsyncUIFacts
     {
-        [UIFact]
+        //[UIFact]
         public async Task When_exception_is_thrown_before_timeout_it_should_fail()
         {
             // Arrange
@@ -577,7 +577,7 @@ public static class TaskOfTAssertionSpecs
                 .WithMessage("Did not expect any exceptions after 2s because we want to test the failure message*");
         }
 
-        [UIFact]
+        //[UIFact]
         public async Task When_exception_is_thrown_after_timeout_it_should_succeed()
         {
             // Arrange

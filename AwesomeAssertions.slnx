@@ -54,7 +54,7 @@
     </Project>
   </Folder>
   <Folder Name="/TestFrameworks/">
-    <Project Path="Tests/TestFrameworks/MSTestV4.Specs/MSTestV4.Specs.csproj">
+    <Project Path="Tests/TestFrameworks/MSTestV4.Mtp.Specs/MSTestV4.Mtp.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
     <Project Path="Tests/TestFrameworks/NUnit4.Mtp.Specs/NUnit4.Mtp.Specs.csproj">
@@ -76,6 +76,9 @@
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
     <Project Path="Tests/TestFrameworks/VsTestPlatform/MSTestV2.Specs/MSTestV2.Specs.csproj">
+      <BuildType Solution="CI|*" Project="Debug" />
+    </Project>
+    <Project Path="Tests/TestFrameworks/VsTestPlatform/MSTestV4.Specs/MSTestV4.Specs.csproj">
       <BuildType Solution="CI|*" Project="Debug" />
     </Project>
     <Project Path="Tests/TestFrameworks/VsTestPlatform/NUnit3.Specs/NUnit3.Specs.csproj">

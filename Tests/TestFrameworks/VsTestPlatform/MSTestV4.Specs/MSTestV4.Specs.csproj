@@ -5,7 +5,7 @@
     <AssemblyName>MSTestV4.Specs</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+    <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="10.0.1" PrivateAssets="all">

@@ -93,7 +93,7 @@ class Build : FalloutBuild
     bool IsPullRequest => GitHubActions?.IsPullRequest ?? false;
 
     Target Restore => _ => _
-        .DependsOn(Clean)
+        .After(Clean)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -180,19 +180,16 @@ class Build : FalloutBuild
 
     Target UnitTestsCurrentDotNet => _ => _
         .Unlisted()
-        .DependsOn(Compile)
+        //.DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
             DotNetTest(s => s
                     .SetConfiguration(Configuration.Debug)
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .EnableNoBuild()
-                    .SetDataCollector("XPlat Code Coverage")
+                    //.EnableNoBuild()
                     .SetResultsDirectory(TestResultsDirectory)
-                    .AddRunSetting(
-                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                        "DoesNotReturnAttribute")
+                    .SetProcessAdditionalArguments("--coverlet", "--coverlet-does-not-return-attribute")
                     .CombineWith(
                         Projects,
                         (settings, project) => settings
@@ -201,7 +198,7 @@ class Build : FalloutBuild
                                 project.GetTargetFrameworks().Except([NetFrameworkVersion]),
                                 (frameworkSettings, framework) => frameworkSettings
                                     .SetFramework(framework)
-                                    .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx"))),
+                                    .AddProcessAdditionalArguments($"--coverlet-file-prefix={project.Name}_{framework}"))),
                 completeOnFailure: true);
         });
 
@@ -246,21 +243,22 @@ class Build : FalloutBuild
                 select new { project, framework };
 
             DotNetTest(s => s
-                .SetConfiguration(Configuration.Debug)
-                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
-                .EnableNoBuild()
-                .SetDataCollector("XPlat Code Coverage")
-                .SetResultsDirectory(TestResultsDirectory)
-                .AddRunSetting(
-                    "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                    "DoesNotReturnAttribute")
-                .CombineWith(
-                    testCombinations,
-                    (settings, v) => settings
-                        .SetProjectFile(v.project)
-                        .SetFramework(v.framework)
-                        .AddLoggers($"trx;LogFileName={v.project.Name}_{v.framework}.trx")), completeOnFailure: true);
+                    .SetConfiguration(Configuration.Debug)
+                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                    .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
+                    .EnableNoBuild()
+                    .SetDataCollector("XPlat Code Coverage")
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .AddRunSetting(
+                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
+                        "DoesNotReturnAttribute")
+                    .CombineWith(
+                        testCombinations,
+                        (settings, v) => settings
+                            .SetProjectFile(v.project)
+                            .SetFramework(v.framework)
+                            .AddLoggers($"trx;LogFileName={v.project.Name}_{v.framework}.trx")),
+                completeOnFailure: true);
         });
 
     Target TestingPlatformFrameworks => _ => _
@@ -285,14 +283,11 @@ class Build : FalloutBuild
                     (settings, v) => settings
                         .SetFramework(v.framework)
                         .SetProcessAdditionalArguments(
-                            $"--project {v.project.Path}",
-                            "--coverage",
+                            $"{v.project.Path}",
+                            "--coverage" /*,
                             "--report-trx",
-                            $"--report-trx-filename {v.project.Name}_{v.framework}.trx",
-                            $"--results-directory {TestResultsDirectory}"
-                        )
-                )
-            );
+                            $"--report-trx-filename {v.project.Name}_{v.framework}.trx"*/,
+                            $"--results-directory {TestResultsDirectory}")));
         });
 
     Target TestFrameworks => _ => _
@@ -300,6 +295,7 @@ class Build : FalloutBuild
         .DependsOn(TestingPlatformFrameworks);
 
     Target Pack => _ => _
+        .DependsOn(Clean)
         .DependsOn(CalculateNugetVersion)
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
