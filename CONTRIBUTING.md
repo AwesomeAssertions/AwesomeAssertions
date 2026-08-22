@@ -107,3 +107,27 @@ Please do not:
   and start a discussion so we can agree on a direction before you invest a large amount of time.
   This includes _any_ change to the public API.
   Approved API changes are labeled with `api-approved`.
+
+## Code Coverage
+
+Coverage is collected by [coverlet](https://github.com/coverlet-coverage/coverlet), which instruments by
+rewriting the assemblies in the test project's output folder. Under Microsoft.Testing Platform the process that
+does the rewriting is the test module itself, and **coverlet cannot rewrite an assembly that this process has
+already loaded**. Anything that makes the runtime resolve `AwesomeAssertions.dll` before the tests start
+therefore costs the coverage of the very assembly under test - an assembly level attribute defined in
+`AwesomeAssertions`, such as `[assembly: AssertionEngineInitializer(...)]`, is enough. That is why no coverage
+is collected for `AwesomeAssertions.Extensibility.Specs`, and why `FSharp.Core` is excluded from
+instrumentation for F# projects.
+
+Coverlet reports a *successful* test run in that situation and simply writes no report, so
+`Build.VerifyCoverageWasCollected` fails the build when a report that is expected is missing. If you hit that
+error, the tests themselves are fine - the collection is not, and `--diagnostic --diagnostic-verbosity trace`
+is where coverlet says why.
+
+Note that Microsoft's code coverage collector is not a drop-in alternative here: it honours
+`[DebuggerNonUserCode]`, which most of the assertion classes carry, and therefore excludes the bulk of the
+library from measurement.
+
+Users of the NuGet package are not affected by the instrumentation problem: NuGet does not copy
+`AwesomeAssertions.pdb` into the consuming project's output folder, so coverlet never tries to instrument
+`AwesomeAssertions` there.
