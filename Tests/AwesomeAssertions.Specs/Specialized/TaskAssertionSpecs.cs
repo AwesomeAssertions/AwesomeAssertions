@@ -654,7 +654,7 @@ public static class TaskAssertionSpecs
     [Collection("UIFacts")]
     public class CompleteWithinAsyncUIFacts
     {
-        //[UIFact]
+        [UIFact]
         public async Task When_task_completes_fast_it_should_succeed()
         {
             // Arrange
@@ -672,7 +672,7 @@ public static class TaskAssertionSpecs
             await action.Should().NotThrowAsync();
         }
 
-        //[UIFact]
+        [UIFact]
         public async Task When_task_completes_late_it_should_fail()
         {
             // Arrange
@@ -689,7 +689,7 @@ public static class TaskAssertionSpecs
             await action.Should().ThrowAsync<XunitException>();
         }
 
-        //[UIFact]
+        [UIFact]
         public async Task When_task_is_checking_synchronization_context_it_should_succeed()
         {
             // Arrange

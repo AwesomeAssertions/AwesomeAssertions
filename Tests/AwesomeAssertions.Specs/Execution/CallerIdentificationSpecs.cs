@@ -465,7 +465,7 @@ namespace AwesomeAssertions.Specs.Execution
         [Collection("UIFacts")]
         public class UIFacts
         {
-            //[UIFact]
+            [UIFact]
             public async Task Caller_identification_should_also_work_for_statements_following_async_code()
             {
                 // Arrange
