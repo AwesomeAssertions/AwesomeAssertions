@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using LibGit2Sharp;
 using Fallout.Common;
@@ -158,91 +159,49 @@ class Build : FalloutBuild
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => EnvironmentInfo.IsWin && (RunAllTargets || HasSourceChanges))
-        .Executes(() =>
-        {
-            DotNetTest(s => s
-                    .SetConfiguration(Configuration.Debug)
-                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .EnableNoBuild()
-                    .SetDataCollector("XPlat Code Coverage")
-                    .SetResultsDirectory(TestResultsDirectory)
-                    .AddRunSetting(
-                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                        "DoesNotReturnAttribute")
-                    .CombineWith(
-                        Projects,
-                        (settings, project) => settings
-                            .SetProjectFile(project)
-                            .SetFramework(NetFrameworkVersion)
-                            .AddLoggers($"trx;LogFileName={project.Name}_{NetFrameworkVersion}.trx")),
-                completeOnFailure: true);
-        });
+        .Executes(() => RunUnitTests(_ => [NetFrameworkVersion]));
 
     Target UnitTestsCurrentDotNet => _ => _
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() => RunUnitTests());
+        .Executes(() => RunUnitTests(p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
 
     AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.settings.xml";
 
-    void RunUnitTests()
+    void RunUnitTests(Func<Project, IEnumerable<string>> frameworks)
     {
-        var combinations = TestCombinations();
-
+        var coverageFiles = new List<string>();
         DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                 .EnableNoBuild()
                 .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(
-                    combinations,
-                    (settings, v) => settings
-                        .SetProjectFile(v.Project)
-                        .SetFramework(v.Framework)
-                        .SetProcessAdditionalArguments(
-                            "--coverage",
-                            "--coverage-output-format=cobertura",
-                            $"--coverage-output={CoverageReportName(v.Project, v.Framework)}.cobertura.xml",
-                            // Without these settings everything annotated with [DebuggerNonUserCode] - which is
-                            // most of the assertion classes - would be missing from the report.
-                            "--coverage-settings",
-                            CoverageSettingsFile)),
+                    Projects.Where(p => p.GetTargetFrameworks().Intersect(frameworks(p)).Any()),
+                    (settings, project) => settings
+                        .SetProjectFile(project)
+                        .CombineWith(
+                            frameworks(project),
+                            (frameworkSettings, framework) =>
+                            {
+                                var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
+                                coverageFiles.Add(coverageFile);
+                                return frameworkSettings
+                                    .SetFramework(framework)
+                                    .SetProcessAdditionalArguments(
+                                        "--coverage",
+                                        "--coverage-output-format=cobertura",
+                                        $"--coverage-output={coverageFile}",
+                                        "--coverage-settings",
+                                        CoverageSettingsFile);
+                            })),
             completeOnFailure: true);
 
-        VerifyCoverageWasCollected(combinations);
-    }
-
-    (Project Project, string Framework)[] TestCombinations() =>
-    [
-        ..from project in Projects
-        from framework in project.GetTargetFrameworks()
-        where framework != NetFrameworkVersion
-        select (project, framework)
-    ];
-
-    static string CoverageReportName(Project project, string framework) => $"{project.Name}_{framework}";
-
-    /// <summary>
-    /// A collector can report a successful test run even when it collected nothing at all, so a missing or
-    /// empty report has to be turned into a build failure explicitly.
-    /// </summary>
-    void VerifyCoverageWasCollected((Project Project, string Framework)[] combinations)
-    {
-        string[] withoutCoverage =
-        [
-            ..from combination in combinations
-            let name = CoverageReportName(combination.Project, combination.Framework)
-            where !TestResultsDirectory
-                .GlobFiles($"{name}*.cobertura*.xml", $"**/{name}*.cobertura*.xml")
-                .Any(ReportsAwesomeAssertions)
-            select name
-        ];
-
-        if (withoutCoverage.Length > 0)
-        {
-            Assert.Fail($"No coverage of AwesomeAssertions was collected for: {string.Join(", ", withoutCoverage)}");
-        }
+        var missingFiles = coverageFiles.Where(x => !(TestResultsDirectory / x).FileExists()).ToArray();
+        missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
+        var missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(TestResultsDirectory / x)).ToArray();
+        missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
     }
 
     static bool ReportsAwesomeAssertions(AbsolutePath report) =>
