@@ -8,12 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--
-      No coverage is collected for this project, see the comment on Build.CollectsCoverage. In short: the
-      assembly level [AssertionEngineInitializer] attribute in AssertionEngineInitializer.cs is defined in
-      AwesomeAssertions, so the test host controller loads AwesomeAssertions.dll before instrumentation
-      starts, and coverlet cannot rewrite a loaded assembly.
-    -->
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.10.0" />
     <PackageReference Include="PolySharp" Version="1.16.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

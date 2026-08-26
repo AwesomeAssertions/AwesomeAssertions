@@ -110,24 +110,19 @@ Please do not:
 
 ## Code Coverage
 
-Coverage is collected by [coverlet](https://github.com/coverlet-coverage/coverlet), which instruments by
-rewriting the assemblies in the test project's output folder. Under Microsoft.Testing Platform the process that
-does the rewriting is the test module itself, and **coverlet cannot rewrite an assembly that this process has
-already loaded**. Anything that makes the runtime resolve `AwesomeAssertions.dll` before the tests start
-therefore costs the coverage of the very assembly under test - an assembly level attribute defined in
-`AwesomeAssertions`, such as `[assembly: AssertionEngineInitializer(...)]`, is enough. That is why no coverage
-is collected for `AwesomeAssertions.Extensibility.Specs`, and why `FSharp.Core` is excluded from
-instrumentation for F# projects.
+Coverage is collected by Microsoft's collector (`Microsoft.Testing.Extensions.CodeCoverage`), configured
+through [`Tests/CodeCoverage.settings.xml`](./Tests/CodeCoverage.settings.xml).
 
-Coverlet reports a *successful* test run in that situation and simply writes no report, so
-`Build.VerifyCoverageWasCollected` fails the build when a report that is expected is missing. If you hit that
-error, the tests themselves are fine - the collection is not, and `--diagnostic --diagnostic-verbosity trace`
-is where coverlet says why.
+That settings file is not optional. The collector excludes everything annotated with `[DebuggerNonUserCode]` by
+default, and most of the assertion classes carry that attribute - without the file, the bulk of the public API
+silently disappears from the report. `mergeDefaults="False"` replaces the built-in exclusion list for that one
+section rather than adding to it, which is what lets us drop that single entry while keeping
+`[ExcludeFromCodeCoverage]` honoured.
 
-Note that Microsoft's code coverage collector is not a drop-in alternative here: it honours
-`[DebuggerNonUserCode]`, which most of the assertion classes carry, and therefore excludes the bulk of the
-library from measurement.
+A collector can report a *successful* test run while collecting nothing at all, so
+`Build.VerifyCoverageWasCollected` fails the build when an expected report is missing or does not contain any
+coverage of `AwesomeAssertions`. If you hit that error, the tests themselves are fine - the collection is not,
+and `--diagnostic --diagnostic-verbosity trace` is where the collector says why.
 
-Users of the NuGet package are not affected by the instrumentation problem: NuGet does not copy
-`AwesomeAssertions.pdb` into the consuming project's output folder, so coverlet never tries to instrument
-`AwesomeAssertions` there.
+Coverage is currently collected for the .NET target frameworks only; `UnitTestsNetFramework` does not collect
+coverage yet.

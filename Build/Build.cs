@@ -154,17 +154,6 @@ class Build : FalloutBuild
         Solution.Specs.VB_Specs
     ];
 
-    /// <summary>
-    /// Coverlet instruments by rewriting the assemblies in the output folder, and it cannot rewrite an assembly
-    /// that the test host controller process has already loaded. The assembly level
-    /// [AssertionEngineInitializer] attribute of AwesomeAssertions.Extensibility.Specs is defined in
-    /// AwesomeAssertions, so enumerating the test assembly's attributes loads AwesomeAssertions.dll into that
-    /// process before instrumentation starts. Coverlet then reports a successful test run without any coverage
-    /// at all, so that project is excluded here deliberately rather than silently.
-    /// </summary>
-    bool CollectsCoverage(Project project) =>
-        project.Name != Solution.Specs.AwesomeAssertions_Extensibility_Specs.Name;
-
     Target UnitTestsNetFramework => _ => _
         .Unlisted()
         .DependsOn(Compile)
@@ -195,50 +184,33 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() => RunUnitTests());
 
+    AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.settings.xml";
+
     void RunUnitTests()
     {
         var combinations = TestCombinations();
-        var withCoverage = combinations.Where(v => CollectsCoverage(v.Project)).ToArray();
-        var withoutCoverage = combinations.Except(withCoverage).ToArray();
 
-        if (withCoverage.Length > 0)
-        {
-            DotNetTest(s => s
-                    .SetConfiguration(Configuration.Debug)
-                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .EnableNoBuild()
-                    .SetResultsDirectory(TestResultsDirectory)
-                    .CombineWith(
-                        withCoverage,
-                        (settings, v) => settings
-                            .SetProjectFile(v.Project)
-                            .SetFramework(v.Framework)
-                            .SetProcessAdditionalArguments(
-                                "--coverlet",
-                                // Passing this option without a value silently disables it again.
-                                "--coverlet-does-not-return-attribute=DoesNotReturnAttribute",
-                                // F# test hosts load FSharp.Core before instrumentation, so it cannot be rewritten.
-                                "--coverlet-exclude=[FSharp.Core]*",
-                                $"--coverlet-file-prefix={CoverageReportName(v.Project, v.Framework)}")),
-                completeOnFailure: true);
-        }
+        DotNetTest(s => s
+                .SetConfiguration(Configuration.Debug)
+                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                .EnableNoBuild()
+                .SetResultsDirectory(TestResultsDirectory)
+                .CombineWith(
+                    combinations,
+                    (settings, v) => settings
+                        .SetProjectFile(v.Project)
+                        .SetFramework(v.Framework)
+                        .SetProcessAdditionalArguments(
+                            "--coverage",
+                            "--coverage-output-format=cobertura",
+                            $"--coverage-output={CoverageReportName(v.Project, v.Framework)}.cobertura.xml",
+                            // Without these settings everything annotated with [DebuggerNonUserCode] - which is
+                            // most of the assertion classes - would be missing from the report.
+                            "--coverage-settings",
+                            CoverageSettingsFile)),
+            completeOnFailure: true);
 
-        if (withoutCoverage.Length > 0)
-        {
-            DotNetTest(s => s
-                    .SetConfiguration(Configuration.Debug)
-                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .EnableNoBuild()
-                    .SetResultsDirectory(TestResultsDirectory)
-                    .CombineWith(
-                        withoutCoverage,
-                        (settings, v) => settings
-                            .SetProjectFile(v.Project)
-                            .SetFramework(v.Framework)),
-                completeOnFailure: true);
-        }
-
-        VerifyCoverageWasCollected(withCoverage);
+        VerifyCoverageWasCollected(combinations);
     }
 
     (Project Project, string Framework)[] TestCombinations() =>
@@ -252,9 +224,8 @@ class Build : FalloutBuild
     static string CoverageReportName(Project project, string framework) => $"{project.Name}_{framework}";
 
     /// <summary>
-    /// Coverlet reports a successful test run even when it collected nothing at all, either because it aborted
-    /// instrumentation or because it skipped every module. Both cases have happened, so a missing or empty
-    /// report has to be turned into a build failure explicitly.
+    /// A collector can report a successful test run even when it collected nothing at all, so a missing or
+    /// empty report has to be turned into a build failure explicitly.
     /// </summary>
     void VerifyCoverageWasCollected((Project Project, string Framework)[] combinations)
     {
@@ -275,7 +246,7 @@ class Build : FalloutBuild
     }
 
     static bool ReportsAwesomeAssertions(AbsolutePath report) =>
-        System.IO.File.ReadAllText(report).Contains("<package name=\"AwesomeAssertions\"", StringComparison.Ordinal);
+        System.IO.File.ReadAllText(report).Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
 
     Target UnitTests => _ => _
         .DependsOn(UnitTestsNetFramework)
