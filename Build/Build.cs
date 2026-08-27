@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LibGit2Sharp;
 using Fallout.Common;
 using Fallout.Common.CI.GitHubActions;
 using Fallout.Common.Execution;
@@ -11,15 +10,14 @@ using Fallout.Common.Tooling;
 using Fallout.Common.Tools.DotNet;
 using Fallout.Common.Tools.GitVersion;
 using Fallout.Common.Tools.ReportGenerator;
-using Fallout.Common.Tools.Xunit;
 using Fallout.Common.Utilities;
 using Fallout.Common.Utilities.Collections;
 using Fallout.Solutions;
+using LibGit2Sharp;
+using static CustomNpmTasks;
 using static Fallout.Common.Tools.DotNet.DotNetTasks;
 using static Fallout.Common.Tools.ReportGenerator.ReportGeneratorTasks;
-using static Fallout.Common.Tools.Xunit.XunitTasks;
 using static Serilog.Log;
-using static CustomNpmTasks;
 
 [UnsetVisualStudioEnvironmentVariables]
 [DotNetVerbosityMapping]
@@ -146,7 +144,7 @@ class Build : FalloutBuild
                     .AddLoggers($"trx;LogFileName={project.Name}.trx")), completeOnFailure: true);
         });
 
-    Project[] Projects =>
+    Project[] TestProjects =>
     [
         Solution.Specs.AwesomeAssertions_Specs,
         Solution.Specs.AwesomeAssertions_Equivalency_Specs,
@@ -154,6 +152,14 @@ class Build : FalloutBuild
         Solution.Specs.FSharp_Specs,
         Solution.Specs.VB_Specs
     ];
+
+    /// <summary>
+    /// We need to provide test settings.
+    /// By default, code with [DebuggerNonUserCode] is excluded.
+    /// But this is used several times in AA code.
+    /// We can use the "runsettings" format (VSTest) also for the MTP platform tests.
+    /// </summary>
+    static AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.runsettings";
 
     Target UnitTestsNetFramework => _ => _
         .Unlisted()
@@ -167,18 +173,17 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() => RunUnitTests(p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
 
-    AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.settings.xml";
-
     void RunUnitTests(Func<Project, IEnumerable<string>> frameworks)
     {
         var coverageFiles = new List<string>();
+
         DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                 .EnableNoBuild()
                 .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(
-                    Projects.Where(p => p.GetTargetFrameworks().Intersect(frameworks(p)).Any()),
+                    TestProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworks(p)).Any()),
                     (settings, project) => settings
                         .SetProjectFile(project)
                         .CombineWith(
@@ -187,6 +192,7 @@ class Build : FalloutBuild
                             {
                                 var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
                                 coverageFiles.Add(coverageFile);
+
                                 return frameworkSettings
                                     .SetFramework(framework)
                                     .SetProcessAdditionalArguments(
@@ -221,8 +227,6 @@ class Build : FalloutBuild
                 .SetProcessToolPath(NuGetToolPathResolver.GetPackageExecutable("ReportGenerator", "ReportGenerator.dll",
                     framework: "net8.0"))
                 .SetTargetDirectory(TestResultsDirectory / "reports")
-                // Coverlet writes "<prefix>.coverage.cobertura.<timestamp>.xml", the VSTest collector
-                // "coverage.cobertura.xml" and Microsoft's MTP collector whatever we name it.
                 .AddReports(TestResultsDirectory / "**/*cobertura*.xml")
                 .AddReportTypes(
                     ReportTypes.lcov,
@@ -254,11 +258,9 @@ class Build : FalloutBuild
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                     .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
                     .EnableNoBuild()
-                    .SetDataCollector("XPlat Code Coverage")
+                    .SetDataCollector("Code Coverage")
+                    .SetSettingsFile(CoverageSettingsFile)
                     .SetResultsDirectory(TestResultsDirectory)
-                    .AddRunSetting(
-                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                        "DoesNotReturnAttribute")
                     .CombineWith(
                         testCombinations,
                         (settings, v) => settings
@@ -285,16 +287,18 @@ class Build : FalloutBuild
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                 .EnableNoBuild()
+                .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(
                     testCombinations,
                     (settings, v) => settings
+                        .SetProjectFile(v.project)
                         .SetFramework(v.framework)
                         .SetProcessAdditionalArguments(
-                            $"{v.project.Path}",
-                            "--coverage" /*,
-                            "--report-trx",
-                            $"--report-trx-filename {v.project.Name}_{v.framework}.trx"*/,
-                            $"--results-directory {TestResultsDirectory}")));
+                            "--coverage",
+                            "--coverage-output-format=cobertura",
+                            $"--coverage-output={v.project.Name}_{v.framework}.cobertura.xml",
+                            "--coverage-settings",
+                            CoverageSettingsFile)));
         });
 
     Target TestFrameworks => _ => _

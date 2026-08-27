@@ -110,19 +110,19 @@ Please do not:
 
 ## Code Coverage
 
-Coverage is collected by Microsoft's collector (`Microsoft.Testing.Extensions.CodeCoverage`), configured
-through [`Tests/CodeCoverage.settings.xml`](./Tests/CodeCoverage.settings.xml).
+Every test target uses Microsoft's code coverage collector, configured through the single shared
+[`Tests/CodeCoverage.runsettings`](./Tests/CodeCoverage.runsettings). The Microsoft.Testing.Platform based
+targets pass it as their coverage settings, the VSTest based framework specs as their run settings; the same
+document works for both.
 
 That settings file is not optional. The collector excludes everything annotated with `[DebuggerNonUserCode]` by
 default, and most of the assertion classes carry that attribute - without the file, the bulk of the public API
 silently disappears from the report. `mergeDefaults="False"` replaces the built-in exclusion list for that one
 section rather than adding to it, which is what lets us drop that single entry while keeping
-`[ExcludeFromCodeCoverage]` honoured.
+`[ExcludeFromCodeCoverage]` honoured. Only that section is replaced, so the built-in module, function and
+source exclusions still keep the test frameworks themselves out of the report.
 
 A collector can report a *successful* test run while collecting nothing at all, so
 `Build.VerifyCoverageWasCollected` fails the build when an expected report is missing or does not contain any
 coverage of `AwesomeAssertions`. If you hit that error, the tests themselves are fine - the collection is not,
 and `--diagnostic --diagnostic-verbosity trace` is where the collector says why.
-
-Coverage is currently collected for the .NET target frameworks only; `UnitTestsNetFramework` does not collect
-coverage yet.
