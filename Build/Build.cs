@@ -222,9 +222,10 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
+            string generator = NuGetToolPathResolver.GetPackageExecutable(
+                "ReportGenerator", "ReportGenerator.dll", framework: "net10.0");
             ReportGenerator(s => s
-                .SetProcessToolPath(NuGetToolPathResolver.GetPackageExecutable("ReportGenerator", "ReportGenerator.dll",
-                    framework: "net8.0"))
+                .SetProcessToolPath(generator)
                 .SetTargetDirectory(TestResultsDirectory / "reports")
                 .AddReports(TestResultsDirectory / "**/*cobertura*.xml")
                 .AddReportTypes(
