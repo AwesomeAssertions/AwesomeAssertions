@@ -34,23 +34,11 @@
             "matchFileNames": ["**/MSTestV2.Specs/**"],
             "allowedVersions": "< 4.0.0"
         },
-        // - MSTest.* in the MSTestV4.Specs project which tests V4 of MSTest framework
-        {
-            "matchPackageNames": ["MSTest.TestAdapter", "MSTest.TestFramework"],
-            "matchFileNames": ["**/MSTestV4.Specs/**"],
-            "allowedVersions": ">= 4.0.0"
-        },
         // - NUnit in the NUnit3.Specs project which tests V3 (<V4) of NUnit framework
         {
             "matchPackageNames": ["NUnit"],
             "matchFileNames": ["**/NUnit3.Specs/**"],
             "allowedVersions": "< 4.0.0"
-        },
-        // - NUnit in the NUnit4.Specs project which tests V4 of NUnit framework
-        {
-            "matchPackageNames": ["NUnit"],
-            "matchFileNames": ["**/NUnit4.Specs/**"],
-            "allowedVersions": ">= 4.0.0"
         },
 
         // Fallout package grouping
