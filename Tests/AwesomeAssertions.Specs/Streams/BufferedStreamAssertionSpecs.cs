@@ -1,4 +1,3 @@
-#if NET
 using System;
 using System.IO;
 using AwesomeAssertions.Execution;
@@ -7,8 +6,20 @@ using Xunit.Sdk;
 
 namespace AwesomeAssertions.Specs.Streams;
 
-public class BufferedStreamAssertionSpecs
+public static class BufferedStreamAssertionSpecs
 {
+    public class BeWritable
+    {
+        [Fact]
+        public void When_having_a_writable_stream_be_writable_should_succeed()
+        {
+            using var stream = new BufferedStream(new MemoryStream(), 10);
+
+            stream.Should().BeWritable();
+        }
+    }
+
+#if NET
     public class HaveBufferSize
     {
         [Fact]
@@ -98,5 +109,5 @@ public class BufferedStreamAssertionSpecs
                 "Expected the buffer size of stream not to be 10 because*failure message*, but found a <null> reference.");
         }
     }
-}
 #endif
+}

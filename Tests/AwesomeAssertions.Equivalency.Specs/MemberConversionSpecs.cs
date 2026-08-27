@@ -57,9 +57,10 @@ public class MemberConversionSpecs
         var expectation = new { Property = EnumTwo.Two };
         var subject = new { Property = "Two" };
 
-        var act = () => subject.Should().BeEquivalentTo(expectation, options => options.WithAutoConversion());
+        var act = () => subject.Should().BeEquivalentTo(expectation, o => o.WithAutoConversion().WithTracing());
 
-        act.Should().Throw<XunitException>();
+        act.Should().Throw<XunitException>().WithMessage(
+            "*Subject Two at property subject.Property could not be converted to *EnumTwo*");
     }
 
     [Fact]
@@ -92,9 +93,11 @@ public class MemberConversionSpecs
         var expectation = new { Age = "32", Birthdate = new DateTime(1973, 9, 20) };
 
         Action act = () => subject.Should().BeEquivalentTo(expectation,
-            options => options.WithAutoConversionFor(x => x.Path.Contains("Birthdate")));
+            o => o.WithAutoConversionFor(x => x.Path.Contains("Birthdate")).WithTracing());
 
-        act.Should().Throw<XunitException>().WithMessage("*Age*String*int*");
+        act.Should().Throw<XunitException>().WithMessage(
+            "Expected property subject.Age to be string, but found int"
+            + "*Converted subject 1973-09-20 at property subject.Birthdate to System.DateTime*");
     }
 
     [Fact]
