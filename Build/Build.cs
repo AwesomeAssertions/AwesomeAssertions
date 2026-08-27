@@ -165,15 +165,15 @@ class Build : FalloutBuild
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => EnvironmentInfo.IsWin && (RunAllTargets || HasSourceChanges))
-        .Executes(() => RunUnitTests(_ => [NetFrameworkVersion]));
+        .Executes(() => RunUnitTests(TestProjects, _ => [NetFrameworkVersion]));
 
     Target UnitTestsCurrentDotNet => _ => _
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() => RunUnitTests(p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
+        .Executes(() => RunUnitTests(TestProjects, p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
 
-    void RunUnitTests(Func<Project, IEnumerable<string>> frameworks)
+    void RunUnitTests(IEnumerable<Project> testProjects, Func<Project, IEnumerable<string>> frameworksSelector)
     {
         var coverageFiles = new List<string>();
 
@@ -183,11 +183,11 @@ class Build : FalloutBuild
                 .EnableNoBuild()
                 .SetResultsDirectory(TestResultsDirectory)
                 .CombineWith(
-                    TestProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworks(p)).Any()),
+                    testProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworksSelector(p)).Any()),
                     (settings, project) => settings
                         .SetProjectFile(project)
                         .CombineWith(
-                            frameworks(project),
+                            frameworksSelector(project),
                             (frameworkSettings, framework) =>
                             {
                                 var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
@@ -273,33 +273,7 @@ class Build : FalloutBuild
     Target TestingPlatformFrameworks => _ => _
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() =>
-        {
-            var projects = Solution.TestFrameworks.Projects;
-
-            var testCombinations =
-                from project in projects
-                let frameworks = project.GetTargetFrameworks()
-                from framework in frameworks
-                select new { project, framework };
-
-            DotNetTest(s => s
-                .SetConfiguration(Configuration.Debug)
-                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                .EnableNoBuild()
-                .SetResultsDirectory(TestResultsDirectory)
-                .CombineWith(
-                    testCombinations,
-                    (settings, v) => settings
-                        .SetProjectFile(v.project)
-                        .SetFramework(v.framework)
-                        .SetProcessAdditionalArguments(
-                            "--coverage",
-                            "--coverage-output-format=cobertura",
-                            $"--coverage-output={v.project.Name}_{v.framework}.cobertura.xml",
-                            "--coverage-settings",
-                            CoverageSettingsFile)));
-        });
+        .Executes(() => RunUnitTests(Solution.TestFrameworks.Projects, p => p.GetTargetFrameworks()));
 
     Target TestFrameworks => _ => _
         .DependsOn(VSTestFrameworks)

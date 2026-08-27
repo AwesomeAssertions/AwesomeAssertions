@@ -107,22 +107,3 @@ Please do not:
   and start a discussion so we can agree on a direction before you invest a large amount of time.
   This includes _any_ change to the public API.
   Approved API changes are labeled with `api-approved`.
-
-## Code Coverage
-
-Every test target uses Microsoft's code coverage collector, configured through the single shared
-[`Tests/CodeCoverage.runsettings`](./Tests/CodeCoverage.runsettings). The Microsoft.Testing.Platform based
-targets pass it as their coverage settings, the VSTest based framework specs as their run settings; the same
-document works for both.
-
-That settings file is not optional. The collector excludes everything annotated with `[DebuggerNonUserCode]` by
-default, and most of the assertion classes carry that attribute - without the file, the bulk of the public API
-silently disappears from the report. `mergeDefaults="False"` replaces the built-in exclusion list for that one
-section rather than adding to it, which is what lets us drop that single entry while keeping
-`[ExcludeFromCodeCoverage]` honoured. Only that section is replaced, so the built-in module, function and
-source exclusions still keep the test frameworks themselves out of the report.
-
-A collector can report a *successful* test run while collecting nothing at all, so
-`Build.VerifyCoverageWasCollected` fails the build when an expected report is missing or does not contain any
-coverage of `AwesomeAssertions`. If you hit that error, the tests themselves are fine - the collection is not,
-and `--diagnostic --diagnostic-verbosity trace` is where the collector says why.
