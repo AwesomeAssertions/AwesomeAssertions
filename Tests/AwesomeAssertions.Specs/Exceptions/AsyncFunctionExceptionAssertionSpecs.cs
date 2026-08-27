@@ -179,7 +179,6 @@ public class AsyncFunctionExceptionAssertionSpecs
         await action.Should().ThrowAsync<T>();
     }
 
-#if false
     [UITheory]
     [MemberData(nameof(AggregateExceptionTestData))]
     public async Task When_the_expected_exception_is_wrapped_on_UI_thread_async_it_should_succeed<T>(Func<Task> action, T _)
@@ -188,7 +187,6 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act/Assert
         await action.Should().ThrowAsync<T>();
     }
-#endif
 
     [Theory]
     [MemberData(nameof(AggregateExceptionTestData))]
