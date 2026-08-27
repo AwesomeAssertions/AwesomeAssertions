@@ -64,6 +64,19 @@ public class AssertionRuleSpecs
     }
 
     [Fact]
+    public void When_two_collection_properties_dont_match_tracing_provides_details()
+    {
+        var subject = new { Values = new[] { 1, 2, 3 } };
+        var other = new { Values = new[] { 1, 4, 3 } };
+
+        Action act = () => subject.Should().BeEquivalentTo(other, o => o.WithTracing());
+
+        act.Should().Throw<XunitException>().WithMessage(
+            "*subject.Values[0]*It's a match"
+            + "*subject.Values[1]*Contained 1 failures*");
+    }
+
+    [Fact]
     [SuppressMessage("ReSharper", "StringLiteralTypo")]
     public void When_two_string_properties_do_not_match_it_should_throw_and_state_the_difference()
     {

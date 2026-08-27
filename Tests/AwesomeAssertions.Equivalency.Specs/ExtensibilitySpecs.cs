@@ -121,12 +121,24 @@ public static class ExtensibilitySpecs
             string[] subject = ["First", "Second"];
             string[] expected = ["Second", "First"];
 
-            Action act = () => subject.Should().BeEquivalentTo(
-                expected,
-                options => options.Using(new StrictOrderingRule()));
+            Action act = () => subject.Should().BeEquivalentTo(expected, options => options.Using(new StrictOrderingRule()));
+
+            act.Should().Throw<XunitException>().WithMessage($"*{nameof(StrictOrderingRule)}*");
+        }
+
+        [Fact]
+        public void When_an_ordering_rule_is_added_it_should_appear_in_the_tracing_message()
+        {
+            string[] subject = ["First", "Second"];
+            string[] expected = ["Second", "First"];
+
+            Action act = () =>
+                subject.Should().BeEquivalentTo(expected, options => options.Using(new StrictOrderingRule()).WithTracing());
 
             act.Should().Throw<XunitException>()
-                .WithMessage($"*{nameof(StrictOrderingRule)}*");
+                .WithMessage(
+                    "*Strictly comparing expectation Second at subject to item with index 0 in System.Object[]"
+                    + "*Strictly comparing expectation First at subject to item with index 1 in System.Object[]*");
         }
 
         private class StrictOrderingRule : IOrderingRule

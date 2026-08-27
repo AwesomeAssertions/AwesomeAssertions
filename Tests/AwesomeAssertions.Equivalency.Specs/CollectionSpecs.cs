@@ -265,6 +265,32 @@ public class CollectionSpecs
     }
 
     [Fact]
+    public void When_collection_differs_tracing_provides_details()
+    {
+        // Subjects contain different values because we want to distinguish them in the assertion message
+        var subject = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        var expectation = Enumerable.Repeat(10, subject.Length).ToArray();
+
+        Action action = () => subject.Should().BeEquivalentTo(expectation, o => o.WithTracing());
+
+        action.Should().Throw<XunitException>()
+            .WithMessage("*Structurally comparing System.Object[] and expectation System.Int32[] at subject*");
+    }
+
+    [Fact]
+    public void When_long_collection_differs_tracing_provides_details()
+    {
+        // Subjects contain different values because we want to distinguish them in the assertion message
+        var subject = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        var expectation = Enumerable.Repeat(20, subject.Length).ToArray();
+
+        Action action = () => subject.Should().BeEquivalentTo(expectation, o => o.WithTracing());
+
+        action.Should().Throw<XunitException>()
+            .WithMessage("*Fail failing loose order comparison of collection after 10 items failed at subject*");
+    }
+
+    [Fact]
     public void When_a_nullable_collection_does_not_match_it_should_throw()
     {
         var subject = new { Values = (ImmutableArray<int>?)ImmutableArray.Create(1, 2, 3) };
@@ -949,10 +975,11 @@ public class CollectionSpecs
     {
         var subject = Enumerable.Repeat(2, 11);
 
-        Action action = () => subject.Should().AllBeEquivalentTo(1);
+        Action action = () => subject.Should().AllBeEquivalentTo(1, o => o.WithTracing());
 
-        action.Should().Throw<XunitException>().Which
-            .Message.Should().Contain("subject[9] to be 1, but found 2")
+        action.Should().Throw<XunitException>().Which.Message.Should()
+            .Contain("subject[9] to be 1, but found 2")
+            .And.Contain("Aborting strict order comparison of collections after 10 items failed at subject")
             .And.NotContain("item[10]");
     }
 

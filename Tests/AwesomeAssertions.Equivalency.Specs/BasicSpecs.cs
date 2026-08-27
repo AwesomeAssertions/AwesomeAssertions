@@ -52,6 +52,19 @@ public class BasicSpecs
         act.Should().Throw<XunitException>().WithMessage("Expected*subject[0].Items*null*, but found*\"a\"*");
     }
 
+    [Fact]
+    public void When_comparing_nested_collection_with_a_null_value_tracing_provides_details()
+    {
+        MyClass[] subject = [new() { Items = ["a"] }];
+        MyClass[] expectation = [new()];
+
+        Action act = () => subject.Should().BeEquivalentTo(expectation, o => o.WithTracing());
+
+        act.Should().Throw<XunitException>().WithMessage(
+            "*Finding the best match of *BasicSpecs+MyClass within all items in System.Object[] at subject[0]"
+            + "*Comparing subject at subject[0] with the expectation at subject[0]*");
+    }
+
     public class MyClass
     {
         public IEnumerable<string> Items { get; set; }

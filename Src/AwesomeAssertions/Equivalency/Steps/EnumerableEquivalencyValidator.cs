@@ -48,6 +48,7 @@ internal class EnumerableEquivalencyValidator
             }
             else
             {
+                // HELP WANTED: Unable to create a test for this block.
                 using var _ = context.Tracer.WriteBlock(member =>
                     Invariant(
                         $"Comparing subject {subject} and expectation {expectation} at {member.Expectation} using simple value equality"));
