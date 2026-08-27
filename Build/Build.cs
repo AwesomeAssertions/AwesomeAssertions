@@ -139,9 +139,8 @@ class Build : FalloutBuild
                 .EnableNoBuild()
                 .EnableListTests()
                 .SetResultsDirectory(TestResultsDirectory)
-                .CombineWith(cc => cc
-                    .SetProjectFile(project)
-                    .AddLoggers($"trx;LogFileName={project.Name}.trx")), completeOnFailure: true);
+                .CombineWith(x => x.SetProjectFile(project)),
+                completeOnFailure: true);
         });
 
     Project[] TestProjects =>
