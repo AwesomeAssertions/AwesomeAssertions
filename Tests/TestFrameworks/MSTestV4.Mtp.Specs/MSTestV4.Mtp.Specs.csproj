@@ -3,19 +3,11 @@
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <RootNamespace>MSTestV4.Mtp.Specs</RootNamespace>
     <AssemblyName>MSTestV4.Mtp.Specs</AssemblyName>
+    <OutputType>Exe</OutputType>
 
     <!-- from https://learn.microsoft.com/en-us/dotnet/core/testing/unit-testing-mstest-running-tests -->
     <!-- Enable Microsoft.Testing.Platform, this is an opt-in feature -->
     <EnableMSTestRunner>true</EnableMSTestRunner>
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-    <!--
-      Displays error on console in addition to the log file. Note that this feature comes with a performance impact.
-      For more information, visit https://learn.microsoft.com/dotnet/core/testing/unit-testing-with-dotnet-test#show-failure-per-test
-      -->
-    <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
-
-    <OutputType>Exe</OutputType>
-    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
