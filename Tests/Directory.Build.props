@@ -3,6 +3,6 @@
   <Import Project="../Directory.Build.props"/>
 
   <ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Specs')) OR $(MSBuildProjectName.EndsWith('.Tests'))">
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
   </ItemGroup>
 </Project>
