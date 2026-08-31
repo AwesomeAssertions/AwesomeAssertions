@@ -196,7 +196,6 @@ class Build : FalloutBuild
                                     .SetFramework(framework)
                                     .SetProcessAdditionalArguments(
                                         "--coverage",
-                                        "--coverage-output-format=cobertura",
                                         $"--coverage-output={coverageFile}",
                                         "--coverage-settings",
                                         CoverageSettingsFile);
