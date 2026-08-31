@@ -20,7 +20,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Xunit.StaFact" Version="3.0.13" />
+    <PackageReference Include="Xunit.StaFact" Version="4.0.23" />
     <PackageReference Include="coverlet.collector" Version="10.0.1" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
