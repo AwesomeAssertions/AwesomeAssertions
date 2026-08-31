@@ -64,7 +64,7 @@ class Build : FalloutBuild
 
     string SemVer;
 
-    Target Clean => _ => _
+    Target Clean => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -72,7 +72,7 @@ class Build : FalloutBuild
             TestResultsDirectory.CreateOrCleanDirectory();
         });
 
-    Target CalculateNugetVersion => _ => _
+    Target CalculateNugetVersion => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -81,18 +81,18 @@ class Build : FalloutBuild
             if (IsPullRequest)
             {
                 Information(
-                    "Branch spec {branchspec} is a pull request. Adding build number {buildnumber}",
+                    "Branch spec {BranchSpec} is a pull request. Adding build number {BuildNumber}",
                     BranchSpec, BuildNumber);
 
                 SemVer = string.Join('.', GitVersion.SemVer.Split('.').Take(3).Union([BuildNumber]));
             }
 
-            Information("SemVer = {semver}", SemVer);
+            Information("SemVer = {SemVer}", SemVer);
         });
 
     bool IsPullRequest => GitHubActions?.IsPullRequest ?? false;
 
-    Target Restore => _ => _
+    Target Restore => d => d
         .After(Clean)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
@@ -103,7 +103,7 @@ class Build : FalloutBuild
                 .SetConfigFile(RootDirectory / "nuget.config"));
         });
 
-    Target Compile => _ => _
+    Target Compile => d => d
         .DependsOn(Restore)
         .After(CalculateNugetVersion)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
@@ -127,7 +127,7 @@ class Build : FalloutBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion));
         });
 
-    Target ApiChecks => _ => _
+    Target ApiChecks => d => d
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
@@ -161,69 +161,32 @@ class Build : FalloutBuild
     /// </summary>
     static AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.runsettings";
 
-    Target UnitTestsNetFramework => _ => _
+    Target UnitTestsNetFramework => d => d
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => EnvironmentInfo.IsWin && (RunAllTargets || HasSourceChanges))
         .Executes(() => RunUnitTests(TestProjects, _ => [NetFrameworkVersion]));
 
-    Target UnitTestsCurrentDotNet => _ => _
+    Target UnitTestsCurrentDotNet => d => d
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() => RunUnitTests(TestProjects, p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
 
-    void RunUnitTests(IEnumerable<Project> testProjects, Func<Project, IEnumerable<string>> frameworksSelector)
-    {
-        var coverageFiles = new List<string>();
-
-        DotNetTest(s => s
-                .SetConfiguration(Configuration.Debug)
-                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                // We do not need TUnits artifacts.
-                .SetProcessEnvironmentVariable("TUNIT_DISABLE_HTML_REPORTER", "true")
-                .EnableNoBuild()
-                .SetResultsDirectory(TestResultsDirectory)
-                .CombineWith(
-                    testProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworksSelector(p)).Any()),
-                    (settings, project) => settings
-                        .SetProjectFile(project)
-                        .CombineWith(
-                            frameworksSelector(project),
-                            (frameworkSettings, framework) =>
-                            {
-                                var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
-                                coverageFiles.Add(coverageFile);
-
-                                return frameworkSettings
-                                    .SetFramework(framework)
-                                    .SetProcessAdditionalArguments(
-                                        "--coverage",
-                                        $"--coverage-output={coverageFile}",
-                                        "--coverage-settings",
-                                        CoverageSettingsFile);
-                            })),
-            completeOnFailure: true);
-
-        var missingFiles = coverageFiles.Where(x => !(TestResultsDirectory / x).FileExists()).ToArray();
-        missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
-        var missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(TestResultsDirectory / x)).ToArray();
-        missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
-    }
-
-    static bool ReportsAwesomeAssertions(AbsolutePath coverageFile)
-    {
-        bool coverageExists = System.IO.File.ReadAllText(coverageFile)
-            .Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
-        Information("Coverage in {File} exists: {Exists}", coverageFile, coverageExists);
-        return coverageExists;
-    }
-
-    Target UnitTests => _ => _
+    Target UnitTests => d => d
         .DependsOn(UnitTestsNetFramework)
         .DependsOn(UnitTestsCurrentDotNet);
 
-    Target CodeCoverage => _ => _
+    Target TestingPlatformFrameworks => d => d
+        .DependsOn(Compile)
+        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
+        .Executes(() => RunUnitTests(Solution.TestFrameworks.Projects, p => p.GetTargetFrameworks()));
+
+    Target TestFrameworks => d => d
+        .DependsOn(VSTestFrameworks)
+        .DependsOn(TestingPlatformFrameworks);
+
+    Target CodeCoverage => d => d
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
@@ -246,7 +209,7 @@ class Build : FalloutBuild
             Information($"Code coverage report: \x1b]8;;file://{link.Replace('\\', '/')}\x1b\\{link}\x1b]8;;\x1b\\");
         });
 
-    Target VSTestFrameworks => _ => _
+    Target VSTestFrameworks => d => d
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
@@ -299,6 +262,44 @@ class Build : FalloutBuild
             missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
         });
 
+    void RunUnitTests(IEnumerable<Project> testProjects, Func<Project, IEnumerable<string>> frameworksSelector)
+    {
+        var coverageFiles = new List<string>();
+
+        DotNetTest(s => s
+                .SetConfiguration(Configuration.Debug)
+                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                // We do not need TUnits artifacts.
+                .SetProcessEnvironmentVariable("TUNIT_DISABLE_HTML_REPORTER", "true")
+                .EnableNoBuild()
+                .SetResultsDirectory(TestResultsDirectory)
+                .CombineWith(
+                    testProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworksSelector(p)).Any()),
+                    (settings, project) => settings
+                        .SetProjectFile(project)
+                        .CombineWith(
+                            frameworksSelector(project),
+                            (frameworkSettings, framework) =>
+                            {
+                                var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
+                                coverageFiles.Add(coverageFile);
+
+                                return frameworkSettings
+                                    .SetFramework(framework)
+                                    .SetProcessAdditionalArguments(
+                                        "--coverage",
+                                        $"--coverage-output={coverageFile}",
+                                        "--coverage-settings",
+                                        CoverageSettingsFile);
+                            })),
+            completeOnFailure: true);
+
+        string[] missingFiles = coverageFiles.Where(x => !(TestResultsDirectory / x).FileExists()).ToArray();
+        missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
+        string[] missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(TestResultsDirectory / x)).ToArray();
+        missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
+    }
+
     static IEnumerable<AbsolutePath> ExtractCoverageFiles(AbsolutePath coverageLogFile)
     {
         XmlDocument document = new();
@@ -319,16 +320,15 @@ class Build : FalloutBuild
         }) ?? [];
     }
 
-    Target TestingPlatformFrameworks => _ => _
-        .DependsOn(Compile)
-        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() => RunUnitTests(Solution.TestFrameworks.Projects, p => p.GetTargetFrameworks()));
+    static bool ReportsAwesomeAssertions(AbsolutePath coverageFile)
+    {
+        bool coverageExists = System.IO.File.ReadAllText(coverageFile)
+            .Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
+        Information("Coverage in {File} exists: {Exists}", coverageFile, coverageExists);
+        return coverageExists;
+    }
 
-    Target TestFrameworks => _ => _
-        .DependsOn(VSTestFrameworks)
-        .DependsOn(TestingPlatformFrameworks);
-
-    Target Pack => _ => _
+    Target Pack => d => d
         .DependsOn(Clean)
         .DependsOn(CalculateNugetVersion)
         .DependsOn(ApiChecks)
@@ -352,7 +352,7 @@ class Build : FalloutBuild
                 .SetVersion(SemVer));
         });
 
-    Target Push => _ => _
+    Target Push => d => d
         .DependsOn(Pack)
         .OnlyWhenDynamic(() => IsTag)
         .ProceedAfterFailure()
@@ -371,7 +371,7 @@ class Build : FalloutBuild
                     (v, path) => v.SetTargetPath(path)));
         });
 
-    Target SpellCheck => _ => _
+    Target SpellCheck => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasDocumentationChanges)
         .DependsOn(InstallNode)
         .ProceedAfterFailure()
@@ -381,7 +381,7 @@ class Build : FalloutBuild
             NpmRun("cspell", silent: true);
         });
 
-    Target InstallNode => _ => _
+    Target InstallNode => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasDocumentationChanges)
         .ProceedAfterFailure()
         .Executes(() =>
