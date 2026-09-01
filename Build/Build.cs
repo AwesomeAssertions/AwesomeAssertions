@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using LibGit2Sharp;
+using System.Xml;
 using Fallout.Common;
 using Fallout.Common.CI.GitHubActions;
 using Fallout.Common.Execution;
@@ -10,15 +11,14 @@ using Fallout.Common.Tooling;
 using Fallout.Common.Tools.DotNet;
 using Fallout.Common.Tools.GitVersion;
 using Fallout.Common.Tools.ReportGenerator;
-using Fallout.Common.Tools.Xunit;
 using Fallout.Common.Utilities;
 using Fallout.Common.Utilities.Collections;
 using Fallout.Solutions;
+using LibGit2Sharp;
+using static CustomNpmTasks;
 using static Fallout.Common.Tools.DotNet.DotNetTasks;
 using static Fallout.Common.Tools.ReportGenerator.ReportGeneratorTasks;
-using static Fallout.Common.Tools.Xunit.XunitTasks;
 using static Serilog.Log;
-using static CustomNpmTasks;
 
 [UnsetVisualStudioEnvironmentVariables]
 [DotNetVerbosityMapping]
@@ -40,7 +40,7 @@ class Build : FalloutBuild
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.CI;
 
     [Parameter("Use this parameter if you encounter build problems in any way, " +
-        "to generate a .binlog file which holds some useful information.")]
+               "to generate a .binlog file which holds some useful information.")]
     readonly bool? GenerateBinLog;
 
     [Parameter("The key to push to Nuget")]
@@ -64,7 +64,7 @@ class Build : FalloutBuild
 
     string SemVer;
 
-    Target Clean => _ => _
+    Target Clean => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -72,7 +72,7 @@ class Build : FalloutBuild
             TestResultsDirectory.CreateOrCleanDirectory();
         });
 
-    Target CalculateNugetVersion => _ => _
+    Target CalculateNugetVersion => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -81,19 +81,19 @@ class Build : FalloutBuild
             if (IsPullRequest)
             {
                 Information(
-                    "Branch spec {branchspec} is a pull request. Adding build number {buildnumber}",
+                    "Branch spec {BranchSpec} is a pull request. Adding build number {BuildNumber}",
                     BranchSpec, BuildNumber);
 
                 SemVer = string.Join('.', GitVersion.SemVer.Split('.').Take(3).Union([BuildNumber]));
             }
 
-            Information("SemVer = {semver}", SemVer);
+            Information("SemVer = {SemVer}", SemVer);
         });
 
     bool IsPullRequest => GitHubActions?.IsPullRequest ?? false;
 
-    Target Restore => _ => _
-        .DependsOn(Clean)
+    Target Restore => d => d
+        .After(Clean)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
@@ -103,7 +103,7 @@ class Build : FalloutBuild
                 .SetConfigFile(RootDirectory / "nuget.config"));
         });
 
-    Target Compile => _ => _
+    Target Compile => d => d
         .DependsOn(Restore)
         .After(CalculateNugetVersion)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
@@ -127,7 +127,7 @@ class Build : FalloutBuild
                 .SetInformationalVersion(GitVersion.InformationalVersion));
         });
 
-    Target ApiChecks => _ => _
+    Target ApiChecks => d => d
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
@@ -135,17 +135,16 @@ class Build : FalloutBuild
             Project project = Solution.Specs.Approval_Tests;
 
             DotNetTest(s => s
-                .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
-                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                .EnableNoBuild()
-                .EnableListTests()
-                .SetResultsDirectory(TestResultsDirectory)
-                .CombineWith(cc => cc
-                    .SetProjectFile(project)
-                    .AddLoggers($"trx;LogFileName={project.Name}.trx")), completeOnFailure: true);
+                    .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
+                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                    .EnableNoBuild()
+                    .EnableListTests()
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .CombineWith(x => x.SetProjectFile(project)),
+                completeOnFailure: true);
         });
 
-    Project[] Projects =>
+    Project[] TestProjects =>
     [
         Solution.Specs.AwesomeAssertions_Specs,
         Solution.Specs.AwesomeAssertions_Equivalency_Specs,
@@ -154,72 +153,101 @@ class Build : FalloutBuild
         Solution.Specs.VB_Specs
     ];
 
-    Target UnitTestsNetFramework => _ => _
+    /// <summary>
+    /// We need to provide test settings.
+    /// By default, code with [DebuggerNonUserCode] is excluded.
+    /// But this is used several times in AA code.
+    /// We can use the "runsettings" format (VSTest) also for the MTP platform tests.
+    /// </summary>
+    static AbsolutePath CoverageSettingsFile => RootDirectory / "Tests" / "CodeCoverage.runsettings";
+
+    Target UnitTestsNetFramework => d => d
         .Unlisted()
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => EnvironmentInfo.IsWin && (RunAllTargets || HasSourceChanges))
-        .Executes(() =>
-        {
-            DotNetTest(s => s
-                    .SetConfiguration(Configuration.Debug)
-                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .EnableNoBuild()
-                    .SetDataCollector("XPlat Code Coverage")
-                    .SetResultsDirectory(TestResultsDirectory)
-                    .AddRunSetting(
-                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                        "DoesNotReturnAttribute")
-                    .CombineWith(
-                        Projects,
-                        (settings, project) => settings
-                            .SetProjectFile(project)
-                            .SetFramework(NetFrameworkVersion)
-                            .AddLoggers($"trx;LogFileName={project.Name}_{NetFrameworkVersion}.trx")),
-                completeOnFailure: true);
-        });
+        .Executes(() => RunUnitTests(TestProjects, _ => [NetFrameworkVersion]));
 
-    Target UnitTestsCurrentDotNet => _ => _
+    Target UnitTestsCurrentDotNet => d => d
         .Unlisted()
+        .DependsOn(Compile)
+        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
+        .Executes(() => RunUnitTests(TestProjects, p => p.GetTargetFrameworks().Except([NetFrameworkVersion])));
+
+    Target UnitTests => d => d
+        .DependsOn(UnitTestsNetFramework)
+        .DependsOn(UnitTestsCurrentDotNet);
+
+    Target TestingPlatformFrameworks => d => d
+        .DependsOn(Compile)
+        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
+        .Executes(() => RunUnitTests(Solution.TestFrameworks.Projects, p => p.GetTargetFrameworks()));
+
+    Target VSTestFrameworks => d => d
         .DependsOn(Compile)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
+            var testCombinations =
+                from project in Solution.TestFrameworks.VsTestPlatform.Projects
+                let frameworks = project.GetTargetFrameworks()
+                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except([NetFrameworkVersion])
+                from framework in supportedFrameworks
+                select new { project, framework };
+
+            var coverageFiles = new List<string>();
             DotNetTest(s => s
                     .SetConfiguration(Configuration.Debug)
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                    .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
                     .EnableNoBuild()
-                    .SetDataCollector("XPlat Code Coverage")
+                    .SetSettingsFile(CoverageSettingsFile)
                     .SetResultsDirectory(TestResultsDirectory)
-                    .AddRunSetting(
-                        "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                        "DoesNotReturnAttribute")
                     .CombineWith(
-                        Projects,
-                        (settings, project) => settings
-                            .SetProjectFile(project)
-                            .CombineWith(
-                                project.GetTargetFrameworks().Except([NetFrameworkVersion]),
-                                (frameworkSettings, framework) => frameworkSettings
-                                    .SetFramework(framework)
-                                    .AddLoggers($"trx;LogFileName={project.Name}_{framework}.trx"))),
+                        testCombinations,
+                        (settings, v) =>
+                        {
+                            string coverageFile = $"{v.project.Name}_{v.framework}.cobertura.xml";
+                            coverageFiles.Add(coverageFile);
+
+                            return settings
+                                .SetProjectFile(v.project)
+                                .SetFramework(v.framework)
+                                .SetDataCollector($"Code Coverage;CoverageFileName={coverageFile}")
+                                .AddLoggers($"trx;LogFileName={v.project.Name}_{v.framework}.trx");
+                        }),
                 completeOnFailure: true);
+
+            // Remove duplicated results (we remove the GUID named)
+            TestResultsDirectory.GlobDirectories("*").Where(x => Guid.TryParse(x.Name, out Guid _)).ForEach(x =>
+            {
+                Information("Deleting test results directory: {Directory}", x);
+                x.DeleteDirectory();
+            });
+
+            // Validate test result files
+            AbsolutePath[] coveragePaths = coverageFiles.SelectMany(x => TestResultsDirectory.GlobFiles("**/"+x)).ToArray();
+            Assert.Count(coveragePaths, coverageFiles.Count);
+            AbsolutePath[] missingCoverage = coveragePaths.Where(x => !ReportsAwesomeAssertions(x)).ToArray();
+            missingCoverage.ForEach(x => Error("Missing coverage of AwesomeAssertions in {CoverageFile}", x));
+            Assert.Empty(missingCoverage);
         });
 
-    Target UnitTests => _ => _
-        .DependsOn(UnitTestsNetFramework)
-        .DependsOn(UnitTestsCurrentDotNet);
+    Target TestFrameworks => d => d
+        .DependsOn(VSTestFrameworks)
+        .DependsOn(TestingPlatformFrameworks);
 
-    Target CodeCoverage => _ => _
+    Target CodeCoverage => d => d
         .DependsOn(TestFrameworks)
         .DependsOn(UnitTests)
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() =>
         {
+            string generator = NuGetToolPathResolver.GetPackageExecutable(
+                "ReportGenerator", "ReportGenerator.dll", framework: "net10.0");
             ReportGenerator(s => s
-                .SetProcessToolPath(NuGetToolPathResolver.GetPackageExecutable("ReportGenerator", "ReportGenerator.dll",
-                    framework: "net8.0"))
+                .SetProcessToolPath(generator)
                 .SetTargetDirectory(TestResultsDirectory / "reports")
-                .AddReports(TestResultsDirectory / "**/coverage.cobertura.xml")
+                .AddReports(TestResultsDirectory / "**/*cobertura*.xml")
                 .AddReportTypes(
                     ReportTypes.lcov,
                     ReportTypes.HtmlInline_AzurePipelines_Dark)
@@ -231,85 +259,54 @@ class Build : FalloutBuild
             Information($"Code coverage report: \x1b]8;;file://{link.Replace('\\', '/')}\x1b\\{link}\x1b]8;;\x1b\\");
         });
 
-    Target VSTestFrameworks => _ => _
-        .DependsOn(Compile)
-        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() =>
-        {
-            Project[] projects =
-            [
-                Solution.TestFrameworks.MSpec_Specs,
-                Solution.TestFrameworks.MSTestV2_Specs,
-                Solution.TestFrameworks.MSTestV4_Specs,
-                Solution.TestFrameworks.NUnit3_Specs,
-                Solution.TestFrameworks.NUnit4_Specs,
-                Solution.TestFrameworks.XUnit2_Specs,
-                Solution.TestFrameworks.XUnit3_Specs,
-                Solution.TestFrameworks.XUnit3Core_Specs,
-            ];
+    void RunUnitTests(IEnumerable<Project> testProjects, Func<Project, IEnumerable<string>> frameworksSelector)
+    {
+        var coverageFiles = new List<string>();
 
-            var testCombinations =
-                from project in projects
-                let frameworks = project.GetTargetFrameworks()
-                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except([NetFrameworkVersion])
-                from framework in supportedFrameworks
-                select new { project, framework };
-
-            DotNetTest(s => s
+        DotNetTest(s => s
                 .SetConfiguration(Configuration.Debug)
                 .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                // We do not need TUnits artifacts.
+                .SetProcessEnvironmentVariable("TUNIT_DISABLE_HTML_REPORTER", "true")
                 .EnableNoBuild()
-                .SetDataCollector("XPlat Code Coverage")
                 .SetResultsDirectory(TestResultsDirectory)
-                .AddRunSetting(
-                    "DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.DoesNotReturnAttribute",
-                    "DoesNotReturnAttribute")
                 .CombineWith(
-                    testCombinations,
-                    (settings, v) => settings
-                        .SetProjectFile(v.project)
-                        .SetFramework(v.framework)
-                        .AddLoggers($"trx;LogFileName={v.project.Name}_{v.framework}.trx")), completeOnFailure: true);
-        });
+                    testProjects.Where(p => p.GetTargetFrameworks().Intersect(frameworksSelector(p)).Any()),
+                    (settings, project) => settings
+                        .SetProjectFile(project)
+                        .CombineWith(
+                            frameworksSelector(project),
+                            (frameworkSettings, framework) =>
+                            {
+                                var coverageFile = $"{project.Name}_{framework}.cobertura.xml";
+                                coverageFiles.Add(coverageFile);
 
-    Target TestingPlatformFrameworks => _ => _
-        .DependsOn(Compile)
-        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() =>
-        {
-            var projects = Solution.TestFrameworks.MicrosoftTestingPlatform.Projects;
+                                return frameworkSettings
+                                    .SetFramework(framework)
+                                    .SetProcessAdditionalArguments(
+                                        "--coverage",
+                                        $"--coverage-output={coverageFile}",
+                                        "--report-trx",
+                                        "--report-trx-filename",
+                                        $"{project.Name}_{framework}.trx",
+                                        "--coverage-settings",
+                                        CoverageSettingsFile);
+                            })),
+            completeOnFailure: true);
 
-            var testCombinations =
-                from project in projects
-                let frameworks = project.GetTargetFrameworks()
-                from framework in frameworks
-                select new { project, framework };
+        // Validate test result files
+        string[] missingFiles = coverageFiles.Where(x => !(TestResultsDirectory / x).FileExists()).ToArray();
+        missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
+        string[] missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(TestResultsDirectory / x)).ToArray();
+        missingCoverage.ForEach(x => Error("Missing coverage of AwesomeAssertions in {CoverageFile}", x));
+        Assert.Empty(missingCoverage);
+    }
 
-            DotNetTest(s => s
-                .SetConfiguration(Configuration.Debug)
-                .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "MicrosoftTestingPlatform")
-                .EnableNoBuild()
-                .CombineWith(
-                    testCombinations,
-                    (settings, v) => settings
-                        .SetFramework(v.framework)
-                        .SetProcessAdditionalArguments(
-                            $"--project {v.project.Path}",
-                            "--coverage",
-                            "--report-trx",
-                            $"--report-trx-filename {v.project.Name}_{v.framework}.trx",
-                            $"--results-directory {TestResultsDirectory}"
-                        )
-                )
-            );
-        });
+    static bool ReportsAwesomeAssertions(AbsolutePath coverageFile) =>
+        System.IO.File.ReadAllText(coverageFile).Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
 
-    Target TestFrameworks => _ => _
-        .DependsOn(VSTestFrameworks)
-        .DependsOn(TestingPlatformFrameworks);
-
-    Target Pack => _ => _
+    Target Pack => d => d
+        .DependsOn(Clean)
         .DependsOn(CalculateNugetVersion)
         .DependsOn(ApiChecks)
         .DependsOn(TestFrameworks)
@@ -332,7 +329,7 @@ class Build : FalloutBuild
                 .SetVersion(SemVer));
         });
 
-    Target Push => _ => _
+    Target Push => d => d
         .DependsOn(Pack)
         .OnlyWhenDynamic(() => IsTag)
         .ProceedAfterFailure()
@@ -351,7 +348,7 @@ class Build : FalloutBuild
                     (v, path) => v.SetTargetPath(path)));
         });
 
-    Target SpellCheck => _ => _
+    Target SpellCheck => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasDocumentationChanges)
         .DependsOn(InstallNode)
         .ProceedAfterFailure()
@@ -361,7 +358,7 @@ class Build : FalloutBuild
             NpmRun("cspell", silent: true);
         });
 
-    Target InstallNode => _ => _
+    Target InstallNode => d => d
         .OnlyWhenDynamic(() => RunAllTargets || HasDocumentationChanges)
         .ProceedAfterFailure()
         .Executes(() =>

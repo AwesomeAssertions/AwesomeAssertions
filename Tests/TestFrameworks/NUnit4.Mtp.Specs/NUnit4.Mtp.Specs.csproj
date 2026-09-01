@@ -7,13 +7,9 @@
     <EnableNUnitRunner>true</EnableNUnitRunner>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <!--
-      Microsoft.Testing.Extensions.CodeCoverage and Microsoft.Testing.Extensions.TrxReport
-      must be referenced explicitely to enable coverage analysis.
-    -->
     <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.10.0" />
     <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="2.3.3" />
     <PackageReference Include="NUnit" Version="4.6.1" />

@@ -8,9 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Please note, that TUnit has direct dependencies
+     to Microsoft.Testing.Extensions.CodeCoverage and Microsoft.Testing.Extensions.TrxReport -->
     <PackageReference Include="TUnit" Version="1.65.0" />
   </ItemGroup>
 
