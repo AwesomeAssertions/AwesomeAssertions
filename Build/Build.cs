@@ -182,6 +182,56 @@ class Build : FalloutBuild
         .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
         .Executes(() => RunUnitTests(Solution.TestFrameworks.Projects, p => p.GetTargetFrameworks()));
 
+    Target VSTestFrameworks => d => d
+        .DependsOn(Compile)
+        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
+        .Executes(() =>
+        {
+            var testCombinations =
+                from project in Solution.TestFrameworks.VsTestPlatform.Projects
+                let frameworks = project.GetTargetFrameworks()
+                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except([NetFrameworkVersion])
+                from framework in supportedFrameworks
+                select new { project, framework };
+
+            var coverageFiles = new List<string>();
+            DotNetTest(s => s
+                    .SetConfiguration(Configuration.Debug)
+                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
+                    .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
+                    .EnableNoBuild()
+                    .SetSettingsFile(CoverageSettingsFile)
+                    .SetResultsDirectory(TestResultsDirectory)
+                    .CombineWith(
+                        testCombinations,
+                        (settings, v) =>
+                        {
+                            string coverageFile = $"{v.project.Name}_{v.framework}.cobertura.xml";
+                            coverageFiles.Add(coverageFile);
+
+                            return settings
+                                .SetProjectFile(v.project)
+                                .SetFramework(v.framework)
+                                .SetDataCollector($"Code Coverage;CoverageFileName={coverageFile}")
+                                .AddLoggers($"trx;LogFileName={v.project.Name}_{v.framework}.trx");
+                        }),
+                completeOnFailure: true);
+
+            // Remove duplicated results (we remove the GUID named)
+            TestResultsDirectory.GlobDirectories("*").Where(x => Guid.TryParse(x.Name, out Guid _)).ForEach(x =>
+            {
+                Information("Deleting test results directory: {Directory}", x);
+                x.DeleteDirectory();
+            });
+
+            // Validate test result files
+            AbsolutePath[] coveragePaths = coverageFiles.SelectMany(x => TestResultsDirectory.GlobFiles("**/"+x)).ToArray();
+            Assert.Count(coveragePaths, coverageFiles.Count);
+            AbsolutePath[] missingCoverage = coveragePaths.Where(x => !ReportsAwesomeAssertions(x)).ToArray();
+            missingCoverage.ForEach(x => Error("Missing coverage of AwesomeAssertions in {CoverageFile}", x));
+            Assert.Empty(missingCoverage);
+        });
+
     Target TestFrameworks => d => d
         .DependsOn(VSTestFrameworks)
         .DependsOn(TestingPlatformFrameworks);
@@ -207,59 +257,6 @@ class Build : FalloutBuild
 
             string link = TestResultsDirectory / "reports" / "index.html";
             Information($"Code coverage report: \x1b]8;;file://{link.Replace('\\', '/')}\x1b\\{link}\x1b]8;;\x1b\\");
-        });
-
-    Target VSTestFrameworks => d => d
-        .DependsOn(Compile)
-        .OnlyWhenDynamic(() => RunAllTargets || HasSourceChanges)
-        .Executes(() =>
-        {
-            var testCombinations =
-                from project in Solution.TestFrameworks.VsTestPlatform.Projects
-                let frameworks = project.GetTargetFrameworks()
-                let supportedFrameworks = EnvironmentInfo.IsWin ? frameworks : frameworks.Except([NetFrameworkVersion])
-                from framework in supportedFrameworks
-                select new { project, framework };
-
-            var coverageLogFiles = new List<AbsolutePath>();
-            DotNetTest(s => s
-                    .SetConfiguration(Configuration.Debug)
-                    .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
-                    .SetProcessWorkingDirectory(RootDirectory / "Tests" / "TestFrameworks" / "VsTestPlatform")
-                    .EnableNoBuild()
-                    .SetDataCollector("Code Coverage")
-                    .SetSettingsFile(CoverageSettingsFile)
-                    .SetResultsDirectory(TestResultsDirectory)
-                    .CombineWith(
-                        testCombinations,
-                        (settings, v) =>
-                        {
-                            string coverageLogFile = $"{v.project.Name}_{v.framework}.trx";
-                            coverageLogFiles.Add(TestResultsDirectory / coverageLogFile);
-
-                            return settings
-                                .SetProjectFile(v.project)
-                                .SetFramework(v.framework)
-                                .AddLoggers($"trx;LogFileName={coverageLogFile}");
-                        }),
-                completeOnFailure: true);
-
-            // Remove duplicated results (we remove the GUID named)
-            TestResultsDirectory.GlobDirectories("*").Where(x => Guid.TryParse(x.Name, out Guid _)).ForEach(x =>
-            {
-                Information("Deleting test results directory: {Directory}", x);
-                x.DeleteDirectory();
-            });
-
-            // Validate test result files
-            AbsolutePath[] missingFiles = coverageLogFiles.Where(x => !x.FileExists()).ToArray();
-            missingFiles.ForEach(x => Assert.Fail($"Missing coverage log file: {x}"));
-            AbsolutePath[] coverageFiles = coverageLogFiles.SelectMany(ExtractCoverageFiles).ToArray();
-            Assert.Count(coverageFiles, testCombinations.Count());
-            missingFiles = coverageFiles.Where(x => !x.FileExists()).ToArray();
-            missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
-            AbsolutePath[] missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(x)).ToArray();
-            missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
         });
 
     void RunUnitTests(IEnumerable<Project> testProjects, Func<Project, IEnumerable<string>> frameworksSelector)
@@ -289,44 +286,24 @@ class Build : FalloutBuild
                                     .SetProcessAdditionalArguments(
                                         "--coverage",
                                         $"--coverage-output={coverageFile}",
+                                        "--report-trx",
+                                        "--report-trx-filename",
+                                        $"{project.Name}_{framework}.trx",
                                         "--coverage-settings",
                                         CoverageSettingsFile);
                             })),
             completeOnFailure: true);
 
+        // Validate test result files
         string[] missingFiles = coverageFiles.Where(x => !(TestResultsDirectory / x).FileExists()).ToArray();
         missingFiles.ForEach(x => Assert.Fail($"Missing coverage file: {x}"));
         string[] missingCoverage = coverageFiles.Where(x => !ReportsAwesomeAssertions(TestResultsDirectory / x)).ToArray();
-        missingCoverage.ForEach(x => Assert.Fail($"Missing coverage of AwesomeAssertions in: {x}"));
+        missingCoverage.ForEach(x => Error("Missing coverage of AwesomeAssertions in {CoverageFile}", x));
+        Assert.Empty(missingCoverage);
     }
 
-    static IEnumerable<AbsolutePath> ExtractCoverageFiles(AbsolutePath coverageLogFile)
-    {
-        XmlDocument document = new();
-        document.Load(coverageLogFile);
-        XmlNamespaceManager nsManager = new(document.NameTable);
-        nsManager.AddNamespace("vs", "http://microsoft.com/schemas/VisualStudio/TeamTest/2010");
-
-        const string xpath =
-            "//vs:CollectorDataEntries/vs:Collector[@uri='datacollector://microsoft/CodeCoverage/2.0']"
-            + "/vs:UriAttachments/vs:UriAttachment/vs:A/@href";
-
-        XmlNodeList nodes = document.SelectNodes(xpath, nsManager);
-        return nodes?.OfType<XmlNode>().SelectMany(x =>
-        {
-            int pos = x.Value?.IndexOf("\\") ?? -1;
-            string fileName = pos >= 0 ? x.Value?[(pos + 1)..] ?? string.Empty : x.Value;
-            return coverageLogFile.Parent.GlobFiles("**/" + fileName);
-        }) ?? [];
-    }
-
-    static bool ReportsAwesomeAssertions(AbsolutePath coverageFile)
-    {
-        bool coverageExists = System.IO.File.ReadAllText(coverageFile)
-            .Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
-        Information("Coverage in {File} exists: {Exists}", coverageFile, coverageExists);
-        return coverageExists;
-    }
+    static bool ReportsAwesomeAssertions(AbsolutePath coverageFile) =>
+        System.IO.File.ReadAllText(coverageFile).Contains("name=\"AwesomeAssertions\"", StringComparison.Ordinal);
 
     Target Pack => d => d
         .DependsOn(Clean)
