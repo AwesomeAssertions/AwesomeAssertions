@@ -138,7 +138,6 @@ class Build : FalloutBuild
                     .SetConfiguration(Configuration == Configuration.Debug ? "Debug" : "Release")
                     .SetProcessEnvironmentVariable("DOTNET_CLI_UI_LANGUAGE", "en-US")
                     .EnableNoBuild()
-                    .EnableListTests()
                     .SetResultsDirectory(TestResultsDirectory)
                     .CombineWith(x => x.SetProjectFile(project)),
                 completeOnFailure: true);
