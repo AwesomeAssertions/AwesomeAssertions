@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
+using AwesomeAssertions.Equivalency.Tracing;
 using AwesomeAssertions.Extensions;
 using Xunit;
 using Xunit.Sdk;
@@ -1293,6 +1294,29 @@ public class CollectionSpecs
         IList<MyObject> expectationList = new List<MyObject> { expectation };
 
         actualList.Should().BeEquivalentTo(expectationList, opt => opt.WithoutRecursing());
+    }
+
+    [Fact]
+    public void When_a_nested_non_generic_collection_contains_the_same_elements_it_should_be_equivalent()
+    {
+        var actual = new { Values = new ArrayList { 1, 2, 3 } };
+        var expectation = new { Values = new ArrayList { 3, 1, 2 } };
+
+        actual.Should().BeEquivalentTo(expectation, opt => opt.WithoutRecursing());
+    }
+
+    [Fact]
+    public void When_a_nested_non_generic_collection_contains_the_same_elements_it_should_be_equivalent_works_with_tracing()
+    {
+        var actual = new { Values = new ArrayList { 1, 2, 3 } };
+        var expectation = new { Values = new ArrayList { 3, 1, 2 } };
+        var traceWriter = new StringBuilderTraceWriter();
+
+        actual.Should().BeEquivalentTo(expectation, opt =>
+            opt.WithoutRecursing().WithTracing(traceWriter));
+
+        traceWriter.ToString().Should().Contain(
+            "Comparing subject System.Object[] and expectation System.Object[] at property Values using simple value equality");
     }
 
     [Fact]
