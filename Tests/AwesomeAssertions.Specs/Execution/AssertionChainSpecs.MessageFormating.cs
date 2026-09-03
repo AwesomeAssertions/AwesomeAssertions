@@ -535,7 +535,6 @@ public partial class AssertionChainSpecs
             var subject = new Dictionary<string, string> { [key] = "" };
             var expectation = new Dictionary<string, string> { [key] = null };
 
-            // Act
             var act = () => expectation.Should().BeEquivalentTo(subject);
 
             // Assert
