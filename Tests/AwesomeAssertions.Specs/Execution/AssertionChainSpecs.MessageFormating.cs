@@ -532,7 +532,6 @@ public partial class AssertionChainSpecs
         [InlineData("{{0}}")]
         public void Can_handle_more_braces_in_dictionary_keys(string key)
         {
-            // Arrange
             var subject = new Dictionary<string, string> { [key] = "" };
             var expectation = new Dictionary<string, string> { [key] = null };
 
