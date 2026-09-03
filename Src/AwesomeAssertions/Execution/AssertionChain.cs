@@ -587,7 +587,7 @@ public sealed class AssertionChain
         getCurrentScope().AddPreFormattedFailure(failure);
     }
 
-    private class State
+    private sealed class State
     {
         public ContextDataDictionary ContextData { get; } = new();
 
