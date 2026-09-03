@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
+using AwesomeAssertions.Equivalency.Tracing;
 using AwesomeAssertions.Extensions;
 using Xunit;
 using Xunit.Sdk;
@@ -262,6 +263,32 @@ public class CollectionSpecs
         Action action = () => subject.Should().BeEquivalentTo(expectation);
 
         action.Should().Throw<XunitException>().Which.Message.Should().Contain("[9]").And.NotContain("[10]");
+    }
+
+    [Fact]
+    public void When_collection_differs_tracing_provides_details()
+    {
+        // Subjects contain different values because we want to distinguish them in the assertion message
+        var subject = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        var expectation = Enumerable.Repeat(10, subject.Length).ToArray();
+
+        Action action = () => subject.Should().BeEquivalentTo(expectation, o => o.WithTracing());
+
+        action.Should().Throw<XunitException>()
+            .WithMessage("*Structurally comparing System.Object[] and expectation System.Int32[] at subject*");
+    }
+
+    [Fact]
+    public void When_long_collection_differs_tracing_provides_details()
+    {
+        // Subjects contain different values because we want to distinguish them in the assertion message
+        var subject = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+        var expectation = Enumerable.Repeat(20, subject.Length).ToArray();
+
+        Action action = () => subject.Should().BeEquivalentTo(expectation, o => o.WithTracing());
+
+        action.Should().Throw<XunitException>()
+            .WithMessage("*Fail failing loose order comparison of collection after 10 items failed at subject*");
     }
 
     [Fact]
@@ -949,10 +976,11 @@ public class CollectionSpecs
     {
         var subject = Enumerable.Repeat(2, 11);
 
-        Action action = () => subject.Should().AllBeEquivalentTo(1);
+        Action action = () => subject.Should().AllBeEquivalentTo(1, o => o.WithTracing());
 
-        action.Should().Throw<XunitException>().Which
-            .Message.Should().Contain("subject[9] to be 1, but found 2")
+        action.Should().Throw<XunitException>().Which.Message.Should()
+            .Contain("subject[9] to be 1, but found 2")
+            .And.Contain("Aborting strict order comparison of collections after 10 items failed at subject")
             .And.NotContain("item[10]");
     }
 
@@ -1266,6 +1294,29 @@ public class CollectionSpecs
         IList<MyObject> expectationList = new List<MyObject> { expectation };
 
         actualList.Should().BeEquivalentTo(expectationList, opt => opt.WithoutRecursing());
+    }
+
+    [Fact]
+    public void When_a_nested_non_generic_collection_contains_the_same_elements_it_should_be_equivalent()
+    {
+        var actual = new { Values = new ArrayList { 1, 2, 3 } };
+        var expectation = new { Values = new ArrayList { 3, 1, 2 } };
+
+        actual.Should().BeEquivalentTo(expectation, opt => opt.WithoutRecursing());
+    }
+
+    [Fact]
+    public void When_a_nested_non_generic_collection_contains_the_same_elements_it_should_be_equivalent_works_with_tracing()
+    {
+        var actual = new { Values = new ArrayList { 1, 2, 3 } };
+        var expectation = new { Values = new ArrayList { 3, 1, 2 } };
+        var traceWriter = new StringBuilderTraceWriter();
+
+        actual.Should().BeEquivalentTo(expectation, opt =>
+            opt.WithoutRecursing().WithTracing(traceWriter));
+
+        traceWriter.ToString().Should().Contain(
+            "Comparing subject System.Object[] and expectation System.Object[] at property Values using simple value equality");
     }
 
     [Fact]

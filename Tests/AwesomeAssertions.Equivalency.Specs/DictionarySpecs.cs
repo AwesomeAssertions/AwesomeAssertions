@@ -522,6 +522,45 @@ public class DictionarySpecs
     }
 
     [Fact]
+    public void When_comparing_dictionaries_tracing_provide_details()
+    {
+        var expected = new NonGenericDictionary
+        {
+            ["Key2"] = "Value2",
+            ["Key1"] = "Value1"
+        };
+        var subject = new NonGenericDictionary
+        {
+            ["Key1"] = "Value1",
+            ["Key3"] = "Value2"
+        };
+
+        Action act = () => subject.Should().BeEquivalentTo(expected, options => options.WithTracing());
+
+        act.Should().Throw<XunitException>().WithMessage("*Recursing into dictionary item Key1 at subject*subject[Key1]*");
+    }
+
+    [Fact]
+    public void When_comparing_dictionaries_without_recursion_tracing_provide_details()
+    {
+        var expected = new NonGenericDictionary
+        {
+            ["Key2"] = "Value2",
+            ["Key1"] = "Value1"
+        };
+        var subject = new NonGenericDictionary
+        {
+            ["Key1"] = "Value1",
+            ["Key3"] = "Value2"
+        };
+
+        Action act = () => subject.Should().BeEquivalentTo(expected, options => options.WithoutRecursing().WithTracing());
+
+        act.Should().Throw<XunitException>().WithMessage(
+            "*Comparing dictionary item Key1 at subject between subject and expectation*");
+    }
+
+    [Fact]
     public void When_asserting_equivalence_of_dictionaries_it_should_respect_the_declared_type()
     {
         var actual = new Dictionary<int, CustomerType> { [0] = new("123") };
