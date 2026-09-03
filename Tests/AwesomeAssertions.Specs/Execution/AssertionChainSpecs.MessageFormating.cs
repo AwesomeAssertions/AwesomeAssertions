@@ -537,7 +537,6 @@ public partial class AssertionChainSpecs
 
             var act = () => expectation.Should().BeEquivalentTo(subject);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage($"Expected expectation[{key}] to be \"\", but found <null>.*");
         }
