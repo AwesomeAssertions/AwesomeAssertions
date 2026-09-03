@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AwesomeAssertions.Common;
-#if NET8_0_OR_GREATER
+#if NET
 using ITimer = AwesomeAssertions.Common.ITimer;
 #endif
 

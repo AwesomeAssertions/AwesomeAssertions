@@ -1,6 +1,6 @@
 using System;
 using AwesomeAssertions.Execution;
-#if NET47
+#if NETFRAMEWORK
 using AwesomeAssertions.Specs.Common;
 #endif
 using Xunit;

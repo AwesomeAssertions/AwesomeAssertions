@@ -1,4 +1,4 @@
-#if NET47
+#if NETFRAMEWORK
 using System.Reflection.Emit;
 #endif
 

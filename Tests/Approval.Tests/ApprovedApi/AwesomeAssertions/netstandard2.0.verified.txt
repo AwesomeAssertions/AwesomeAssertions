@@ -36,17 +36,24 @@ namespace AwesomeAssertions
     }
     public static class AssertionExtensions
     {
+        [System.Diagnostics.Contracts.Pure]
         public static TTo As<TTo>(this object subject) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<System.Threading.Tasks.Task> Awaiting<T>(this T subject, System.Func<T, System.Threading.Tasks.Task> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<System.Threading.Tasks.Task> Awaiting<T>(this T subject, System.Func<T, System.Threading.Tasks.ValueTask> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<System.Threading.Tasks.Task<TResult>> Awaiting<T, TResult>(this T subject, System.Func<T, System.Threading.Tasks.Task<TResult>> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<System.Threading.Tasks.Task<TResult>> Awaiting<T, TResult>(this T subject, System.Func<T, System.Threading.Tasks.ValueTask<TResult>> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Action Enumerating(this System.Func<System.Collections.IEnumerable> enumerable) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Action Enumerating<T>(this System.Func<System.Collections.Generic.IEnumerable<T>> enumerable) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -57,9 +64,12 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.Specialized.ExecutionTime ExecutionTime(this System.Action action, AwesomeAssertions.Common.StartTimer createTimer = null) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.MemberExecutionTime<T> ExecutionTimeOf<T>(this T subject, System.Linq.Expressions.Expression<System.Action<T>> action, AwesomeAssertions.Common.StartTimer createTimer = null) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Action Invoking<T>(this T subject, System.Action<T> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static System.Func<TResult> Invoking<T, TResult>(this T subject, System.Func<T, TResult> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.ExecutionTimeAssertions Should(this AwesomeAssertions.Specialized.ExecutionTime executionTime) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
@@ -68,115 +78,166 @@ namespace AwesomeAssertions
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Specialized.TaskCompletionSourceAssertionsBase _) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.MethodInfoSelectorAssertions Should(this AwesomeAssertions.Types.MethodInfoSelector methodSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.MethodInfoSelectorAssertions _) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.PropertyInfoSelectorAssertions Should(this AwesomeAssertions.Types.PropertyInfoSelector propertyInfoSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.PropertyInfoSelectorAssertions _) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.TypeSelectorAssertions Should(this AwesomeAssertions.Types.TypeSelector typeSelector) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should(this AwesomeAssertions.Types.TypeSelectorAssertions _) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.ActionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Action action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Collections.StringCollectionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<string> @this) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.DateTimeAssertions Should(this System.DateTime actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableDateTimeAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.DateTime? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.DateTimeOffsetAssertions Should(this System.DateTimeOffset actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableDateTimeOffsetAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.DateTimeOffset? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.NonGenericAsyncFunctionAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<System.Threading.Tasks.Task> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.GuidAssertions Should(this System.Guid actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableGuidAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Guid? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Streams.BufferedStreamAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.IO.BufferedStream actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Streams.StreamAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.IO.Stream actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.AssemblyAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.Assembly assembly) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.ConstructorInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.ConstructorInfo constructorInfo) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.MethodInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.MethodInfo methodInfo) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.ParameterInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.ParameterInfo parameterInfo) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.PropertyInfoAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Reflection.PropertyInfo propertyInfo) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.SimpleTimeSpanAssertions Should(this System.TimeSpan actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableSimpleTimeSpanAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.TimeSpan? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Types.TypeAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Type subject) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Xml.XAttributeAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XAttribute actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Xml.XDocumentAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XDocument actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Xml.XElementAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this System.Xml.Linq.XElement actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.BooleanAssertions Should(this bool actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableBooleanAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this bool? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<byte> Should(this byte actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<byte> Should([System.Diagnostics.CodeAnalysis.NotNull] this byte? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<decimal> Should(this decimal actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<decimal> Should([System.Diagnostics.CodeAnalysis.NotNull] this decimal? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<double> Should(this double actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<double> Should([System.Diagnostics.CodeAnalysis.NotNull] this double? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<float> Should(this float actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<float> Should([System.Diagnostics.CodeAnalysis.NotNull] this float? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<int> Should(this int actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<int> Should([System.Diagnostics.CodeAnalysis.NotNull] this int? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<long> Should(this long actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<long> Should([System.Diagnostics.CodeAnalysis.NotNull] this long? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.ObjectAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this object actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<sbyte> Should(this sbyte actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<sbyte> Should([System.Diagnostics.CodeAnalysis.NotNull] this sbyte? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<short> Should(this short actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<short> Should([System.Diagnostics.CodeAnalysis.NotNull] this short? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.StringAssertions Should([System.Diagnostics.CodeAnalysis.NotNull] this string actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<uint> Should(this uint actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<uint> Should([System.Diagnostics.CodeAnalysis.NotNull] this uint? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<ulong> Should(this ulong actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<ulong> Should([System.Diagnostics.CodeAnalysis.NotNull] this ulong? actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<ushort> Should(this ushort actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<ushort> Should([System.Diagnostics.CodeAnalysis.NotNull] this ushort? actualValue) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
@@ -207,14 +268,19 @@ namespace AwesomeAssertions
             "ly following \'And\'", true)]
         public static void Should<TAssertions>(this AwesomeAssertions.Primitives.SimpleTimeSpanAssertions<TAssertions> _)
             where TAssertions : AwesomeAssertions.Primitives.SimpleTimeSpanAssertions<TAssertions> { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Collections.GenericCollectionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<T> actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.GenericAsyncFunctionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<System.Threading.Tasks.Task<T>> action) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.FunctionAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.Func<T> func) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.ComparableTypeAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.IComparable<T> comparableValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.TaskCompletionSourceAssertions<T> Should<T>(this System.Threading.Tasks.TaskCompletionSource<T> tcs) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
@@ -231,10 +297,13 @@ namespace AwesomeAssertions
             "ly following \'And\'", true)]
         public static void Should<TSubject, TAssertions>(this AwesomeAssertions.Primitives.ReferenceTypeAssertions<TSubject, TAssertions> _)
             where TAssertions : AwesomeAssertions.Primitives.ReferenceTypeAssertions<TSubject, TAssertions> { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<System.Collections.Generic.IDictionary<TKey, TValue>, TKey, TValue> Should<TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IDictionary<TKey, TValue> actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>>, TKey, TValue> Should<TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Collections.GenericDictionaryAssertions<TCollection, TKey, TValue> Should<TCollection, TKey, TValue>([System.Diagnostics.CodeAnalysis.NotNull] this TCollection actualValue)
             where TCollection : System.Collections.Generic.IEnumerable<System.Collections.Generic.KeyValuePair<TKey, TValue>> { }
@@ -280,9 +349,11 @@ namespace AwesomeAssertions
     }
     public static class EnumAssertionsExtensions
     {
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.EnumAssertions<TEnum> Should<TEnum>(this TEnum @enum)
             where TEnum :  struct, System.Enum { }
+        [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Primitives.NullableEnumAssertions<TEnum> Should<TEnum>([System.Diagnostics.CodeAnalysis.NotNull] this TEnum? @enum)
             where TEnum :  struct, System.Enum { }
@@ -296,32 +367,26 @@ namespace AwesomeAssertions
     }
     public static class ExceptionAssertionsExtensions
     {
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> Where<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, System.Linq.Expressions.Expression<System.Func<TException, bool>> exceptionExpression, string because = "", params object[] becauseArgs)
+        public static AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> AsExceptionAssertionsTask<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task)
             where TException : System.Exception { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<System.Exception>> WithInnerException<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, System.Type innerException, string because = "", params object[] becauseArgs)
-            where TException : System.Exception { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException>> WithInnerException<TException, TInnerException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string because = "", params object[] becauseArgs)
-            where TException : System.Exception
-            where TInnerException : System.Exception { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<System.Exception>> WithInnerExceptionExactly<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, System.Type innerException, string because = "", params object[] becauseArgs)
-            where TException : System.Exception { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TInnerException>> WithInnerExceptionExactly<TException, TInnerException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string because = "", params object[] becauseArgs)
-            where TException : System.Exception
-            where TInnerException : System.Exception { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> WithMessage<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string expectedWildcardPattern, string because = "", params object[] becauseArgs)
-            where TException : System.Exception { }
-        public static AwesomeAssertions.Specialized.ExceptionAssertions<TException> WithParameterName<TException>(this AwesomeAssertions.Specialized.ExceptionAssertions<TException> parent, string paramName, string because = "", params object[] becauseArgs)
+        public static AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> WithParameterName<TException>(this AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> assertions, string paramName, string because = "", params object[] becauseArgs)
             where TException : System.ArgumentException { }
-        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> WithParameterName<TException>(this System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task, string paramName, string because = "", params object[] becauseArgs)
+        public static AwesomeAssertions.Specialized.ExceptionAssertions<TException> WithParameterName<TException>(this AwesomeAssertions.Specialized.ExceptionAssertions<TException> parent, string paramName, string because = "", params object[] becauseArgs)
             where TException : System.ArgumentException { }
     }
     public static class FluentActions
     {
+        [System.Diagnostics.Contracts.Pure]
         public static System.Func<System.Threading.Tasks.Task> Awaiting(System.Func<System.Threading.Tasks.Task> action) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Func<System.Threading.Tasks.Task<T>> Awaiting<T>(System.Func<System.Threading.Tasks.Task<T>> func) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Action Enumerating(System.Func<System.Collections.IEnumerable> enumerable) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Action Enumerating<T>(System.Func<System.Collections.Generic.IEnumerable<T>> enumerable) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Action Invoking(System.Action action) { }
+        [System.Diagnostics.Contracts.Pure]
         public static System.Func<T> Invoking<T>(System.Func<T> func) { }
     }
     public static class LessThan
@@ -1935,15 +2000,19 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> Be(System.DateTime? expected, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeAfter(System.DateTime expected, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeAtLeast(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeBefore(System.DateTime expected, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeCloseTo(System.DateTime nearbyTime, System.TimeSpan precision, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeExactly(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeIn(System.DateTimeKind expectedKind, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeLessThan(System.TimeSpan timeSpan) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeMoreThan(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeOnOrAfter(System.DateTime expected, string because = "", params object[] becauseArgs) { }
@@ -1959,6 +2028,7 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<System.DateTime?> validValues, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeSameDateAs(System.DateTime expected, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeRangeAssertions<TAssertions> BeWithin(System.TimeSpan timeSpan) { }
         public override bool Equals(object obj) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -2020,17 +2090,21 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> Be(System.DateTimeOffset? expected, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeAfter(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeAtLeast(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeBefore(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeCloseTo(System.DateTimeOffset nearbyTime, System.TimeSpan precision, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeExactly(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeExactly(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeExactly(System.DateTimeOffset? expected, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeLessThan(System.TimeSpan timeSpan) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeMoreThan(System.TimeSpan timeSpan) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeOnOrAfter(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
@@ -2046,6 +2120,7 @@ namespace AwesomeAssertions.Primitives
         public AwesomeAssertions.AndConstraint<TAssertions> BeOneOf(System.Collections.Generic.IEnumerable<System.DateTimeOffset?> validValues, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> BeSameDateAs(System.DateTimeOffset expected, string because = "", params object[] becauseArgs) { }
+        [System.Diagnostics.Contracts.Pure]
         public AwesomeAssertions.Primitives.DateTimeOffsetRangeAssertions<TAssertions> BeWithin(System.TimeSpan timeSpan) { }
         public override bool Equals(object obj) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -2584,11 +2659,11 @@ namespace AwesomeAssertions.Specialized
         public System.Threading.Tasks.Task<AwesomeAssertions.AndConstraint<TAssertions>> NotCompleteWithinAsync(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs) { }
         public System.Threading.Tasks.Task<AwesomeAssertions.AndConstraint<TAssertions>> NotThrowAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowAsync<TException>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowExactlyAsync<TException>(string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowExactlyAsync<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
-        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ThrowWithinAsync<TException>(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs)
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> ThrowWithinAsync<TException>(System.TimeSpan timeSpan, string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
     }
     public abstract class DelegateAssertionsBase<TDelegate, TAssertions> : AwesomeAssertions.Primitives.ReferenceTypeAssertions<TDelegate, AwesomeAssertions.Specialized.DelegateAssertionsBase<TDelegate, TAssertions>>
@@ -2616,6 +2691,23 @@ namespace AwesomeAssertions.Specialized
             where TException : System.Exception { }
         public AwesomeAssertions.Specialized.ExceptionAssertions<TException> ThrowExactly<TException>(string because = "", params object[] becauseArgs)
             where TException : System.Exception { }
+    }
+    public sealed class ExceptionAssertionsTask<TException>
+        where TException : System.Exception
+    {
+        public ExceptionAssertionsTask(System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> task) { }
+        public System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> AsTask() { }
+        public System.Runtime.CompilerServices.ConfiguredTaskAwaitable<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> ConfigureAwait(bool continueOnCapturedContext) { }
+        public System.Runtime.CompilerServices.TaskAwaiter<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> GetAwaiter() { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> Where(System.Linq.Expressions.Expression<System.Func<TException, bool>> exceptionExpression, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<System.Exception> WithInnerException(System.Type innerException, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerException<TInnerException>(string because = "", params object[] becauseArgs)
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<System.Exception> WithInnerExceptionExactly(System.Type innerException, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TInnerException> WithInnerExceptionExactly<TInnerException>(string because = "", params object[] becauseArgs)
+            where TInnerException : System.Exception { }
+        public AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> WithMessage(string expectedWildcardPattern, string because = "", params object[] becauseArgs) { }
+        public static System.Threading.Tasks.Task<AwesomeAssertions.Specialized.ExceptionAssertions<TException>> op_Implicit(AwesomeAssertions.Specialized.ExceptionAssertionsTask<TException> assertions) { }
     }
     public class ExceptionAssertions<TException> : AwesomeAssertions.Primitives.ReferenceTypeAssertions<System.Collections.Generic.IEnumerable<TException>, AwesomeAssertions.Specialized.ExceptionAssertions<TException>>
         where TException : System.Exception

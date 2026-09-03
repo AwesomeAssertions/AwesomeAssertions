@@ -1,36 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net47;net6.0;net8.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net472;net8.0;net10.0</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>..\..\Src\AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <IsPackable>false</IsPackable>
-    <NoWarn>$(NoWarn),IDE0052,1573,1591,1712,CS8002</NoWarn>
     <DebugType>full</DebugType>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
-    <!--
-      (SRCU = System.Runtime.CompilerServices.Unsafe)
-      AwesomeAssertions.csproj depends on SRCU 4.5.0 (AssemblyVersion 4.0.4.0)
-      System.Collections.Immutable 1.6.0+ depends on SRCU 4.5.2+ (AssemblyVersion 4.0.4.1)
-      AwesomeAssertions.Specs.csproj for net47 does not generate a binding redirect from 4.0.4.0 to 4.0.4.1
-      Upgrading to 1.6.0 gives "Could not load file or assembly 'System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0"
-    -->
-    <PackageReference Include="System.Collections.Immutable" Version="[1.5.0]" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="System.Collections.Immutable" Version="10.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="JetBrains.Annotations" Version="2026.2.0" />
-    <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Xunit.StaFact" Version="1.2.69" />
-    <PackageReference Include="coverlet.collector" Version="10.0.1" PrivateAssets="all">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.10.0" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" Version="2.3.3" />
+    <PackageReference Include="xunit.v3" Version="4.0.0" />
+    <PackageReference Include="Xunit.StaFact" Version="4.0.23" />
   </ItemGroup>
 
   <ItemGroup>

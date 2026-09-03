@@ -162,6 +162,14 @@ public partial class StringAssertionSpecs
         }
 
         [Fact]
+        public void Upper_case_characters_are_okay()
+        {
+            string actual = "ABC";
+
+            actual.Should().NotBeLowerCased();
+        }
+
+        [Fact]
         public void All_cased_characters_being_lower_case_is_not_okay()
         {
             // Arrange
@@ -195,7 +203,7 @@ public partial class StringAssertionSpecs
 
             // Assert
             act.Should().Throw<XunitException>().WithMessage(
-                "Expected some characters in actual to be upper-case because we want to test the failure message.");
+                "Expected some characters in actual to be upper-case because we want to test the failure message, but found \"abc\".");
         }
     }
 }

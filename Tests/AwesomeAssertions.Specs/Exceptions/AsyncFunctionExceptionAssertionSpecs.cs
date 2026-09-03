@@ -4,7 +4,8 @@ using System;
 using System.Threading.Tasks;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Extensions;
-#if NET47
+using AwesomeAssertions.Specialized;
+#if NETFRAMEWORK
 using AwesomeAssertions.Specs.Common;
 #endif
 using Xunit;
@@ -873,7 +874,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => task
             .Should().ThrowAsync<AggregateException>()
-            .WithInnerException<AggregateException, InvalidOperationException>();
+            .WithInnerException<InvalidOperationException>();
 
         // Assert
         await action.Should().NotThrowAsync();
@@ -903,7 +904,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => task
             .Should().ThrowAsync<AggregateException>()
-            .WithInnerExceptionExactly<AggregateException, ArgumentException>();
+            .WithInnerExceptionExactly<ArgumentException>();
 
         // Assert
         await action.Should().NotThrowAsync();
@@ -961,7 +962,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => task
             .Should().ThrowAsync<AggregateException>()
-            .WithInnerException<AggregateException, InvalidOperationException>();
+            .WithInnerException<InvalidOperationException>();
 
         // Assert
         await action.Should().ThrowAsync<XunitException>().WithMessage("*InvalidOperation*Argument*");
@@ -991,7 +992,7 @@ public class AsyncFunctionExceptionAssertionSpecs
         // Act
         Func<Task> action = () => task
             .Should().ThrowAsync<AggregateException>()
-            .WithInnerExceptionExactly<AggregateException, ArgumentException>();
+            .WithInnerExceptionExactly<ArgumentException>();
 
         // Assert
         await action.Should().ThrowAsync<XunitException>().WithMessage("*ArgumentException*ArgumentNullException*");
@@ -1356,6 +1357,238 @@ public class AsyncFunctionExceptionAssertionSpecs
     }
 
     #endregion
+
+    public class WithInnerException
+    {
+        [Fact]
+        public async Task Can_be_used_with_a_single_type_parameter()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new InvalidOperationException()));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task Can_be_used_with_a_single_type_parameter_after_an_exact_throw()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new InvalidOperationException()));
+
+            await subject.Should().ThrowExactlyAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task Can_be_used_with_a_single_type_parameter_after_a_throw_within()
+        {
+            Func<Task> subject = () => Throw.Async(new InvalidOperationException("outer", new ArgumentException("inner")));
+
+            await subject.Should().ThrowWithinAsync<InvalidOperationException>(1.Seconds())
+                .WithInnerException<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task Accepts_a_derived_inner_exception()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException()));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task Fails_for_a_different_inner_exception()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentException()));
+
+            Func<Task> act = () => subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>();
+
+            await act.Should().ThrowAsync<XunitException>()
+                .WithMessage("*InvalidOperation*Argument*");
+        }
+
+        [Fact]
+        public async Task Fails_for_a_different_inner_exception_with_a_reason()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentException()));
+
+            Func<Task> act = () => subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>("we want to test the {0} message", "failure");
+
+            await act.Should().ThrowAsync<XunitException>()
+                .WithMessage("*InvalidOperation*because we want to test the failure message*Argument*");
+        }
+
+        [Fact]
+        public async Task Keeps_the_type_of_the_inner_exception_for_further_assertions()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException("someParameter")));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<ArgumentNullException>()
+                .WithParameterName("someParameter");
+        }
+
+        [Fact]
+        public async Task Exposes_the_inner_exception_as_the_awaited_result()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException("someParameter")));
+
+            ExceptionAssertions<ArgumentNullException> assertions =
+                await subject.Should().ThrowAsync<AggregateException>()
+                    .WithInnerException<ArgumentNullException>();
+
+            assertions.Which.ParamName.Should().Be("someParameter");
+        }
+
+        [Fact]
+        public async Task Can_be_chained_for_nested_inner_exceptions()
+        {
+            Func<Task> subject = () => Throw.Async(
+                new AggregateException(new InvalidOperationException("outer", new ArgumentException("inner"))));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>()
+                .WithInnerException<ArgumentException>()
+                .WithMessage("inner");
+        }
+    }
+
+    public class WithInnerExceptionExactly
+    {
+        [Fact]
+        public async Task Can_be_used_with_a_single_type_parameter()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentException()));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerExceptionExactly<ArgumentException>();
+        }
+
+        [Fact]
+        public async Task Rejects_a_derived_inner_exception()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException()));
+
+            Func<Task> act = () => subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerExceptionExactly<ArgumentException>();
+
+            await act.Should().ThrowAsync<XunitException>()
+                .WithMessage("*ArgumentException*ArgumentNullException*");
+        }
+
+        [Fact]
+        public async Task Fails_for_a_different_inner_exception_with_a_reason()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException()));
+
+            Func<Task> act = () => subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerExceptionExactly<ArgumentException>("we want to test the {0} message", "failure");
+
+            await act.Should().ThrowAsync<XunitException>()
+                .WithMessage("*ArgumentException*because we want to test the failure message*ArgumentNullException*");
+        }
+
+        [Fact]
+        public async Task Keeps_the_type_of_the_inner_exception_for_further_assertions()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException("someParameter")));
+
+            await subject.Should().ThrowAsync<AggregateException>()
+                .WithInnerExceptionExactly<ArgumentNullException>()
+                .WithParameterName("someParameter");
+        }
+    }
+
+    public class AwaitableBehavior
+    {
+        [Fact]
+        public async Task Can_be_assigned_to_the_task_it_wraps()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new InvalidOperationException()));
+
+            Task<ExceptionAssertions<AggregateException>> assertions = subject.Should().ThrowAsync<AggregateException>();
+
+            (await assertions).Which.InnerException.Should().BeOfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task Can_be_converted_into_the_task_it_wraps()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new InvalidOperationException()));
+
+            Task<ExceptionAssertions<InvalidOperationException>> assertions = subject.Should()
+                .ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>()
+                .AsTask();
+
+            (await assertions).Which.Should().BeOfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task Supports_configuring_the_continuation()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new InvalidOperationException()));
+
+            ExceptionAssertions<InvalidOperationException> assertions = await subject.Should()
+                .ThrowAsync<AggregateException>()
+                .WithInnerException<InvalidOperationException>()
+                .ConfigureAwait(false);
+
+            assertions.Which.Should().BeOfType<InvalidOperationException>();
+        }
+
+        [Fact]
+        public async Task Can_be_used_where_a_task_is_expected()
+        {
+            Func<Task> subject = () => Throw.Async(new InvalidOperationException());
+
+            await Task.WhenAll(
+                subject.Should().ThrowAsync<InvalidOperationException>(),
+                subject.Should().ThrowAsync<Exception>());
+        }
+
+        [Fact]
+        public void Guards_against_a_missing_task()
+        {
+            Action act = () => _ = new ExceptionAssertionsTask<Exception>(null);
+
+            act.Should().Throw<ArgumentNullException>()
+                .WithParameterName("task");
+        }
+    }
+
+    public class AsExceptionAssertionsTask
+    {
+        [Fact]
+        public async Task Continues_on_a_task_that_a_throw_assertion_did_not_produce()
+        {
+            Task<ExceptionAssertions<AggregateException>> assertions = ThrowingHelper();
+
+            await assertions.AsExceptionAssertionsTask()
+                .WithInnerException<ArgumentNullException>()
+                .WithParameterName("someParameter");
+        }
+
+        [Fact]
+        public void Guards_against_a_missing_task()
+        {
+            Task<ExceptionAssertions<Exception>> assertions = null;
+
+            Action act = () => _ = assertions.AsExceptionAssertionsTask();
+
+            act.Should().Throw<ArgumentNullException>()
+                .WithParameterName("task");
+        }
+
+        private static async Task<ExceptionAssertions<AggregateException>> ThrowingHelper()
+        {
+            Func<Task> subject = () => Throw.Async(new AggregateException(new ArgumentNullException("someParameter")));
+
+            return await subject.Should().ThrowAsync<AggregateException>();
+        }
+    }
 }
 
 internal class AsyncClass

@@ -14,7 +14,7 @@ internal static class MemberVisibilityExtensions
         {
             MemberKind result = MemberKind.None;
 
-#if NET6_0_OR_GREATER
+#if NET
             var flags = Enum.GetValues<MemberVisibility>();
 #else
             var flags = (MemberVisibility[])Enum.GetValues(typeof(MemberVisibility));

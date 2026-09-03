@@ -8,15 +8,36 @@ sidebar:
 ---
 ## Unreleased
 
+### Improvements
+* `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+* Add `AsExceptionAssertionsTask` to continue asserting on a `Task<ExceptionAssertions<TException>>` that none of the `ThrowAsync` assertions produced, such as the result of your own helper method - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+* The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
+
+### Breaking Changes (for users)
+* Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
+* Upgraded the minimum target for .NET Framework to 4.7.2 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
+* The reference to `System.Threading.Tasks.Extensions` to has been upgraded to version 4.6.3 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
+* Enable [PureAttribute](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute) in the public API - [#605](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/605)
+  * It is declared as a breaking change because it may raise warnings like [CA1806](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1806).
+* The result of `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` has changed to `ExceptionAssertionsTask<TException>` instead of `Task<ExceptionAssertions<TException>>`. - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+  * This allows the use of `WithInnerException` and `WithInnerExceptionExactly` with a single type parameter, just like their synchronous counterparts.
+* Removed the extension methods on `Task<ExceptionAssertions<TException>>` (`WithMessage`, `Where`, `WithInnerException`, `WithInnerExceptionExactly` and `WithParameterName`), since none of the assertions returns that type anymore. - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+  * Use the members of `ExceptionAssertionsTask<TException>` instead, or `AsExceptionAssertionsTask` when you start from a task of your own.
+* Removed `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
+  * Just remove the first type parameter.
+
+## 9.6.0
+
 ### What's new
 * Add `AssertionScope.AddReportable` to add custom reportable information to the current scope - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
 * Add more `AssertionChain.WithReportable` overloads - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)
-* Add documentation to all public API - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
+* Add documentation to all public API - [#556](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/556)
 * Add `ExcludingObsoleteMembers` to `SelfReferenceEquivalencyOptions` allowing obsolete members to be ignored in structural comparison - [#558](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/558)
   * Please note that the interface `IEquivalencyOptions` has been marked as "technically public" and not part of the public API.
 
 ### Fixes
 * Fix duplicate matching rules - [#566](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/566)
+* Fix `NotBeUpperCased` and `NotBeLowerCased` for all lower-/uppercase strings - [#591](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/591)
 
 ### Deprecations
 * Deprecate `AssertionChain.AddReportable` in favor of `AssertionChain.WithReportable` to get a more consistent fluent API for chaining - [#551](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/551)

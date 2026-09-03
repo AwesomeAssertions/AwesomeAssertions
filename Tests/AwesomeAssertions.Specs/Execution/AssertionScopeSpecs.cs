@@ -420,7 +420,7 @@ namespace AwesomeAssertions.Specs.Execution
                     "*Expected value to be 23, but found 42*");
         }
 
-#if NET6_0_OR_GREATER
+#if NET
         [Fact]
         public void No_internal_assertion_defails_appear_in_stacktrace_of_scope_with_failures()
         {

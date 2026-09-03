@@ -103,7 +103,7 @@ public class PredicateLambdaExpressionValueFormatterSpecs
         result.Should().Be("value(System.Int32[]).Contains(a)");
     }
 
-#if NET6_0_OR_GREATER
+#if NET
     [Fact]
     public void Methods_using_ReadOnlySpan_can_be_formatted()
     {

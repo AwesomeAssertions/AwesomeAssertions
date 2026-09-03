@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-#if NET6_0_OR_GREATER
+#if NET
 using System.Runtime.Loader;
 #endif
 
@@ -47,11 +47,11 @@ internal abstract class LateBoundTestFramework : ITestFramework
 
     private static IEnumerable<Assembly> GetAssemblies()
     {
-#if NET6_0_OR_GREATER
+#if NET
         // In some constellations a test framework assembly might have been loaded more than once. Make sure we get the correct one:
-        // AppDomain.GetAssemblies: Gets the assemblies that have been loaded into 
+        // AppDomain.GetAssemblies: Gets the assemblies that have been loaded into
         // the execution context of this application domain.
-        // And in the case of NUnit4.Mtp.Specs this returns nunit.framework twice, with the first one 
+        // And in the case of NUnit4.Mtp.Specs this returns nunit.framework twice, with the first one
         // being the wrong assembly, which is a different one than used for running the tests.
         //
         // So we are looking for the nunit.framework assembly which is used during test execution,

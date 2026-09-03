@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
@@ -755,6 +756,7 @@ public class DateTimeAssertions<TAssertions>
     /// <param name="timeSpan">
     /// The amount of time that the current <see cref="DateTime"/>  should exceed compared to another <see cref="DateTime"/>.
     /// </param>
+    [Pure]
     public DateTimeRangeAssertions<TAssertions> BeMoreThan(TimeSpan timeSpan)
     {
         return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.MoreThan,
@@ -769,6 +771,7 @@ public class DateTimeAssertions<TAssertions>
     /// The amount of time that the current <see cref="DateTime"/>  should be equal or exceed compared to
     /// another <see cref="DateTime"/>.
     /// </param>
+    [Pure]
     public DateTimeRangeAssertions<TAssertions> BeAtLeast(TimeSpan timeSpan)
     {
         return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.AtLeast,
@@ -782,6 +785,7 @@ public class DateTimeAssertions<TAssertions>
     /// <param name="timeSpan">
     /// The amount of time that the current <see cref="DateTime"/>  should differ exactly compared to another <see cref="DateTime"/>.
     /// </param>
+    [Pure]
     public DateTimeRangeAssertions<TAssertions> BeExactly(TimeSpan timeSpan)
     {
         return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.Exactly,
@@ -795,6 +799,7 @@ public class DateTimeAssertions<TAssertions>
     /// <param name="timeSpan">
     /// The amount of time that the current <see cref="DateTime"/>  should be within another <see cref="DateTime"/>.
     /// </param>
+    [Pure]
     public DateTimeRangeAssertions<TAssertions> BeWithin(TimeSpan timeSpan)
     {
         return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.Within,
@@ -808,6 +813,7 @@ public class DateTimeAssertions<TAssertions>
     /// <param name="timeSpan">
     /// The maximum amount of time that the current <see cref="DateTime"/>  should differ compared to another <see cref="DateTime"/>.
     /// </param>
+    [Pure]
     public DateTimeRangeAssertions<TAssertions> BeLessThan(TimeSpan timeSpan)
     {
         return new DateTimeRangeAssertions<TAssertions>((TAssertions)this, CurrentAssertionChain, Subject, TimeSpanCondition.LessThan,

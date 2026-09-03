@@ -91,8 +91,15 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
     /// <returns>
     /// Returns an object that allows asserting additional members of the thrown exception.
     /// </returns>
-    public async Task<ExceptionAssertions<TException>> ThrowExactlyAsync<TException>(
+    public ExceptionAssertionsTask<TException> ThrowExactlyAsync<TException>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where TException : Exception
+    {
+        return new ExceptionAssertionsTask<TException>(ThrowExactlyCoreAsync<TException>(because, becauseArgs));
+    }
+
+    private async Task<ExceptionAssertions<TException>> ThrowExactlyCoreAsync<TException>(
+        string because, object[] becauseArgs)
         where TException : Exception
     {
         Type expectedType = typeof(TException);
@@ -133,8 +140,15 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public async Task<ExceptionAssertions<TException>> ThrowAsync<TException>(
+    public ExceptionAssertionsTask<TException> ThrowAsync<TException>(
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where TException : Exception
+    {
+        return new ExceptionAssertionsTask<TException>(ThrowCoreAsync<TException>(because, becauseArgs));
+    }
+
+    private async Task<ExceptionAssertions<TException>> ThrowCoreAsync<TException>(
+        string because, object[] becauseArgs)
         where TException : Exception
     {
         assertionChain
@@ -164,8 +178,15 @@ public class AsyncFunctionAssertions<TTask, TAssertions> : DelegateAssertionsBas
     /// <param name="becauseArgs">
     /// Zero or more objects to format using the placeholders in <paramref name="because" />.
     /// </param>
-    public async Task<ExceptionAssertions<TException>> ThrowWithinAsync<TException>(TimeSpan timeSpan,
+    public ExceptionAssertionsTask<TException> ThrowWithinAsync<TException>(TimeSpan timeSpan,
         [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where TException : Exception
+    {
+        return new ExceptionAssertionsTask<TException>(ThrowWithinCoreAsync<TException>(timeSpan, because, becauseArgs));
+    }
+
+    private async Task<ExceptionAssertions<TException>> ThrowWithinCoreAsync<TException>(TimeSpan timeSpan,
+        string because, object[] becauseArgs)
         where TException : Exception
     {
         assertionChain

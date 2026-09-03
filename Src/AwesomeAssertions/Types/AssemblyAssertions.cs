@@ -218,7 +218,7 @@ public class AssemblyAssertions : ReferenceTypeAssertions<Assembly, AssemblyAsse
     }
 
     private static string ToHexString(byte[] bytes) =>
-#if NET6_0_OR_GREATER
+#if NET
         Convert.ToHexString(bytes);
 #else
         BitConverter.ToString(bytes).Replace("-", string.Empty, StringComparison.Ordinal);

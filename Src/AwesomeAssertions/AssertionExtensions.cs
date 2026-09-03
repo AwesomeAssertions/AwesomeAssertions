@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -17,11 +18,10 @@ using AwesomeAssertions.Specialized;
 using AwesomeAssertions.Streams;
 using AwesomeAssertions.Types;
 using AwesomeAssertions.Xml;
-using JetBrains.Annotations;
-using NotNullAttribute = System.Diagnostics.CodeAnalysis.NotNullAttribute;
 #if !NETSTANDARD2_0
 using AwesomeAssertions.Events;
 #endif
+using MustUseReturnValueAttribute = JetBrains.Annotations.MustUseReturnValueAttribute;
 
 namespace AwesomeAssertions;
 
@@ -455,7 +455,7 @@ public static class AssertionExtensions
         return new NullableDateTimeOffsetAssertions(actualValue, AssertionChain.GetOrCreate());
     }
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <summary>
     /// Returns an <see cref="DateOnlyAssertions"/> object that can be used to assert the
     /// current <see cref="DateOnly"/>.
@@ -968,7 +968,7 @@ public static class AssertionExtensions
     [return: NotNull]
     public static IMonitor<T> Monitor<T>(this T eventSource, Action<EventMonitorOptions> configureOptions)
     {
-        Guard.ThrowIfArgumentIsNull(configureOptions, nameof(configureOptions));
+        Guard.ThrowIfArgumentIsNull(configureOptions);
 
         var options = new EventMonitorOptions();
         configureOptions(options);
@@ -977,7 +977,7 @@ public static class AssertionExtensions
 
 #endif
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <summary>
     /// Returns a <see cref="TaskCompletionSourceAssertions"/> object that can be used to assert the
     /// current <see cref="TaskCompletionSource"/>.
@@ -1038,7 +1038,7 @@ public static class AssertionExtensions
         InvalidShouldCall();
     }
 
-#if NET6_0_OR_GREATER
+#if NET
     /// <inheritdoc cref="Should(ExecutionTimeAssertions)" />
     [Obsolete("You are asserting the 'AndConstraint' itself. Remove the 'Should()' method directly following 'And'", error: true)]
     public static void Should<TAssertions>(this DateOnlyAssertions<TAssertions> _)

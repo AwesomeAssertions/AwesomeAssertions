@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <RootNamespace>TUnit.Specs</RootNamespace>
+    <AssemblyName>TUnit.Specs</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Src\AwesomeAssertions\AwesomeAssertions.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Please note, that TUnit has direct dependencies
+     to Microsoft.Testing.Extensions.CodeCoverage and Microsoft.Testing.Extensions.TrxReport -->
+    <PackageReference Include="TUnit" Version="1.65.68" />
+  </ItemGroup>
+
+</Project>

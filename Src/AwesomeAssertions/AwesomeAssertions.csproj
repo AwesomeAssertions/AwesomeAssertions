@@ -2,8 +2,7 @@
 
   <!-- To reduce build times, we only enable analyzers for the newest TFM -->
   <PropertyGroup>
-    <!-- Check https://github.com/AwesomeAssertions/AwesomeAssertions/issues/365 when removing net6. -->
-    <TargetFrameworks>net47;net6.0;net8.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net472;net8.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>../AwesomeAssertions.snk</AssemblyOriginatorKeyFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -15,6 +14,13 @@
     <PackageId>AwesomeAssertions</PackageId>
     <Company>AwesomeAssertions</Company>
     <Product>AwesomeAssertions</Product>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Contract">
+    <!-- Emit System.Diagnostics.Contracts attributes (e.g. [Pure]); they are [Conditional("CONTRACTS_FULL")]
+     and are otherwise stripped at compile time. No Contract.Requires/Ensures/... calls exist in the code,
+     so this only affects attribute emission, not runtime behaviour. -->
+    <DefineConstants>$(DefineConstants);CONTRACTS_FULL</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Label="Package info">
@@ -50,7 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reflectify" Version="1.9.1">
+    <PackageReference Include="Reflectify" Version="1.10.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -66,13 +72,10 @@
   <PropertyGroup>
     <!--
       System.Threading.Tasks.Extensions
-      The version 4.5.4 is part of the API. Changing the version creates a breaking change.
+      The version 4.6.3 is part of the API. Changing the version creates a breaking change.
       So, this version must not be changed before starting a new major version.
-
-      Note that BenchmarkDotNet requires a higher version.
-      When updating STTE, please check wether the warning suppression in Benchmarks.csproj can be removed.
     -->
-    <SystemThreadingTasksExtensionsVersion>4.5.4</SystemThreadingTasksExtensionsVersion>
+    <SystemThreadingTasksExtensionsVersion>4.6.3</SystemThreadingTasksExtensionsVersion>
   </PropertyGroup>
   <Choose>
     <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -84,7 +87,7 @@
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="$(SystemThreadingTasksExtensionsVersion)" />
       </ItemGroup>
     </When>
-    <When Condition="'$(TargetFramework)' == 'net47'">
+    <When Condition="'$(TargetFramework)' == 'net472'">
       <ItemGroup>
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="$(SystemThreadingTasksExtensionsVersion)" />
         <Reference Include="System.Xml" />

@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Extensions;
-#if NET47
+#if NETFRAMEWORK
 using AwesomeAssertions.Specs.Common;
 #endif
 using AwesomeAssertions.Specs.Exceptions;
@@ -11,6 +11,11 @@ using Xunit.Sdk;
 using static AwesomeAssertions.FluentActions;
 
 namespace AwesomeAssertions.Specs.Specialized;
+
+// xUnit1051: xUnit V3 wants to ensure using overloads with CancellationToken.
+// But .NET Framework does not support CancellationToken for these methods.
+// Therefore, we ignore this warning.
+#pragma warning disable xUnit1051
 
 public static class TaskOfTAssertionSpecs
 {

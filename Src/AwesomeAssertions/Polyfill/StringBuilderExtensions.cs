@@ -1,4 +1,4 @@
-#if NET47 || NETSTANDARD2_0 || NETSTANDARD2_1
+#if NETFRAMEWORK || NETSTANDARD2_0 || NETSTANDARD2_1
 
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ internal static class StringBuilderExtensions
     public static StringBuilder AppendLine(this StringBuilder stringBuilder, IFormatProvider _, string value) =>
         stringBuilder.AppendLine(value);
 
-#if NET47 || NETSTANDARD2_0
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static StringBuilder AppendJoin<T>(this StringBuilder stringBuilder, string separator, IEnumerable<T> values) =>
         stringBuilder.Append(string.Join(separator, values));
 #endif
