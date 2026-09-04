@@ -25,6 +25,7 @@ sidebar:
   * Use the members of `ExceptionAssertionsTask<TException>` instead, or `AsExceptionAssertionsTask` when you start from a task of your own.
 * Removed `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
   * Just remove the first type parameter.
+* Made `CallerIdentifer` `internal` - [TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
 
 ## 9.6.0
 
