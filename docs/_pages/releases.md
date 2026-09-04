@@ -21,6 +21,17 @@ sidebar:
   * It is declared as a breaking change because it may raise warnings like [CA1806](https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/quality-rules/ca1806).
 * The result of `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` has changed to `ExceptionAssertionsTask<TException>` instead of `Task<ExceptionAssertions<TException>>`. - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
   * This allows the use of `WithInnerException` and `WithInnerExceptionExactly` with a single type parameter, just like their synchronous counterparts.
+* Changed the following members from property to method for consistency - [#604](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/604)
+  * `MethodInfoSelector.ThatArePublicOrInternal()`
+  * `MethodInfoSelector.ThatReturnVoid()`
+  * `MethodInfoSelector.ThatHaveParameter()`
+  * `PropertyInfoSelector.ThatArePublicOrInternal()`
+  * `PropertyInfoSelector.ThatHaveGetter()`
+  * `PropertyInfoSelector.ThatHaveSetter()`
+  * `PropertyInfoSelector.ThatHaveGetterOrSetter()`
+  * `PropertyInfoSelector.ThatHaveGetterAndSetter()`
+  * `PropertyInfoSelector.ThatHaveGetterAndNoSetter()`
+  * `PropertyInfoSelector.ThatHaveNoGetterAndSetter()`
 * Removed the extension methods on `Task<ExceptionAssertions<TException>>` (`WithMessage`, `Where`, `WithInnerException`, `WithInnerExceptionExactly` and `WithParameterName`), since none of the assertions returns that type anymore. - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
   * Use the members of `ExceptionAssertionsTask<TException>` instead, or `AsExceptionAssertionsTask` when you start from a task of your own.
 * Removed `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
