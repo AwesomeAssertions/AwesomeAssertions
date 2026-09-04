@@ -8,6 +8,9 @@ sidebar:
 ---
 ## Unreleased
 
+### What's new
+* Add `AsNonFormattable` extension methods to allow passing "because" arguments without formatting - [#536](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/536)
+
 ### Improvements
 * `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
 * Add `AsExceptionAssertionsTask` to continue asserting on a `Task<ExceptionAssertions<TException>>` that none of the `ThrowAsync` assertions produced, such as the result of your own helper method - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
