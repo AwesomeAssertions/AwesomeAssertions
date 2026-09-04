@@ -14,8 +14,7 @@ namespace AwesomeAssertions;
 /// <summary>
 /// Tries to extract the name of the variable or invocation on which the assertion is executed.
 /// </summary>
-// REFACTOR: Should be internal and treated as an implementation detail of the AssertionScope
-public static class CallerIdentifier
+internal static class CallerIdentifier
 {
     /// <summary>
     /// Gets or sets the action used to log diagnostic messages produced while determining the caller identity.

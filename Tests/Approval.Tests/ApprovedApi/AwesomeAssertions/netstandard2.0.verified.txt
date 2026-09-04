@@ -327,11 +327,6 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.OccurrenceConstraint Times(int expected) { }
         public static AwesomeAssertions.OccurrenceConstraint Twice() { }
     }
-    public static class CallerIdentifier
-    {
-        public static System.Action<string> Logger { get; set; }
-        public static string DetermineCallerIdentity() { }
-    }
     [System.AttributeUsage(System.AttributeTargets.Method)]
     public class CustomAssertionAttribute : System.Attribute
     {
