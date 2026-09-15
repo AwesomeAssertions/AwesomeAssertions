@@ -5,6 +5,11 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <Verify_SponsorshipExemption>OpenSource</Verify_SponsorshipExemption>
+    <Verify_SponsorshipExemptionUntil>$([System.DateTime]::UtcNow.AddMonths(12).ToString('yyyy-MM'))</Verify_SponsorshipExemptionUntil>
+  </PropertyGroup>
+
   <!-- To reduce build times, we only enable analyzers for the newest TFM -->
   <PropertyGroup Condition="'$(TargetFramework)' != 'net8.0'">
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
