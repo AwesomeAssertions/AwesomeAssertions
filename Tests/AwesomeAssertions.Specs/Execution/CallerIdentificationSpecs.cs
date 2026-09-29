@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using AwesomeAssertions.Equivalency;
@@ -573,6 +574,21 @@ namespace AwesomeAssertions.Specs.Execution
 
         [CustomAssertion]
         private string GetSubjectId() => AssertionChain.GetOrCreate().CallerIdentifier;
+
+        [Fact]
+        public void Subject_is_identified_when_asserting_on_another_thread()
+        {
+            [MethodImpl(MethodImplOptions.NoInlining)]
+            static void SubjectAction()
+            {
+                int subjectToIdentify = 3;
+                subjectToIdentify.Should().Be(4);
+            }
+
+            Action act = () => System.Threading.Tasks.Task.Run(SubjectAction).GetAwaiter().GetResult();
+
+            act.Should().Throw<Exception>().WithMessage("Expected subjectToIdentify to be 4, but found 3.");
+        }
     }
 
 #pragma warning disable IDE0060, RCS1163 // Remove unused parameter

@@ -41,10 +41,15 @@ internal static class CallerIdentifier
 
             if (StartStackSearchAfterStackFrame.Value is not null)
             {
-                searchStart = Array.FindLastIndex(
-                    allStackFrames,
-                    allStackFrames.Length - StartStackSearchAfterStackFrame.Value.SkipStackFrameCount,
-                    frame => !IsCurrentAssembly(frame));
+                int startIndex = allStackFrames.Length - StartStackSearchAfterStackFrame.Value.SkipStackFrameCount;
+
+                if (startIndex >= 0)
+                {
+                    searchStart = Array.FindLastIndex(
+                        allStackFrames,
+                        startIndex,
+                        frame => !IsCurrentAssembly(frame));
+                }
             }
 
             int lastUserStackFrameBeforeAwesomeAssertionsCodeIndex = Array.FindIndex(
