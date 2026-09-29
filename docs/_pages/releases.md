@@ -16,6 +16,9 @@ sidebar:
 * Add `AsExceptionAssertionsTask` to continue asserting on a `Task<ExceptionAssertions<TException>>` that none of the `ThrowAsync` assertions produced, such as the result of your own helper method - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
 * The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
 
+### Fixes
+* Fix caller identification when asserting on another thread - [#665](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/665)
+
 ### Breaking Changes (for users)
 * Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
 * Upgraded the minimum target for .NET Framework to 4.7.2 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
