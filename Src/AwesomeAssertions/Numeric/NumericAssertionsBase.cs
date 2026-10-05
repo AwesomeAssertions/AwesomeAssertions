@@ -50,8 +50,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T subject && subject.CompareTo(expected) == 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:value} to be {0}{reason}, but found {1}" + GenerateDifferenceMessage(expected), expected,
-                Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -73,8 +73,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(expected is { } value ? Subject is T subject && subject.CompareTo(value) == 0 : Subject is not T)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:value} to be {0}{reason}, but found {1}" + GenerateDifferenceMessage(expected), expected,
-                Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -187,8 +187,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T value && !IsNaN(value) && value.CompareTo(expected) < 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected {context:value} to be less than {0}{reason}, but found {1}" + GenerateDifferenceMessage(expected),
-                expected, Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be less than {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -216,9 +216,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T value && !IsNaN(value) && value.CompareTo(expected) <= 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(
-                "Expected {context:value} to be less than or equal to {0}{reason}, but found {1}" +
-                GenerateDifferenceMessage(expected), expected, Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be less than or equal to {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -246,9 +245,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T subject && subject.CompareTo(expected) > 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(
-                "Expected {context:value} to be greater than {0}{reason}, but found {1}" + GenerateDifferenceMessage(expected),
-                expected, Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be greater than {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }
@@ -276,9 +274,8 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         CurrentAssertionChain
             .ForCondition(Subject is T subject && subject.CompareTo(expected) >= 0)
             .BecauseOf(because, becauseArgs)
-            .FailWith(
-                "Expected {context:value} to be greater than or equal to {0}{reason}, but found {1}" +
-                GenerateDifferenceMessage(expected), expected, Subject);
+            .FailWith(() => new FailReason("Expected {context:value} to be greater than or equal to {0}{reason}, but found {1}{2}",
+                expected, Subject, GenerateDifferenceMessage(expected).AsNonFormattable()));
 
         return new AndConstraint<TAssertions>((TAssertions)this);
     }

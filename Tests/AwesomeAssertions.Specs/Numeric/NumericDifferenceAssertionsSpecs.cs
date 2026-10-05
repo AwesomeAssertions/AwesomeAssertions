@@ -110,6 +110,60 @@ public class NumericDifferenceAssertionsSpecs
         }
 
         [Fact]
+        public void The_difference_between_uints_is_included_in_the_message()
+        {
+            // Arrange
+            uint value = 29;
+            const uint expected = 19;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 19u because we want to test the failure message, but found 29u (difference of 10).");
+        }
+
+        [Fact]
+        public void The_difference_between_small_uints_is_not_included_in_the_message()
+        {
+            // Arrange
+            uint value = 9;
+            const uint expected = 8;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 8u because we want to test the failure message, but found 9u.");
+        }
+
+        [Fact]
+        public void The_difference_between_small_nullable_uints_is_not_included_in_the_message()
+        {
+            // Arrange
+            uint? value = 9;
+            const uint expected = 8;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 8u because we want to test the failure message, but found 9u.");
+        }
+
+        [Fact]
         public void The_difference_between_nullable_uints_is_included_in_the_message()
         {
             // Arrange
@@ -331,7 +385,61 @@ public class NumericDifferenceAssertionsSpecs
         }
 
         [Fact]
+        public void The_difference_between_small_ushorts_is_not_included_in_the_message()
+        {
+            // Arrange
+            ushort value = 9;
+            const ushort expected = 2;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 2us because we want to test the failure message, but found 9us.");
+        }
+
+        [Fact]
         public void The_difference_between_ushorts_is_included_in_the_message()
+        {
+            // Arrange
+            ushort value = 11;
+            const ushort expected = 2;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 2us because we want to test the failure message, but found 11us (difference of 9).");
+        }
+
+        [Fact]
+        public void The_difference_between_small_nullable_ushorts_is_not_included_in_the_message()
+        {
+            // Arrange
+            ushort? value = 9;
+            const ushort expected = 2;
+
+            // Act
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be 2us because we want to test the failure message, but found 9us.");
+        }
+
+        [Fact]
+        public void The_difference_between_nullable_ushorts_is_included_in_the_message()
         {
             // Arrange
             ushort? value = 11;
@@ -642,6 +750,23 @@ public class NumericDifferenceAssertionsSpecs
         }
 
         [Fact]
+        public void The_difference_between_equal_uints_is_not_included_in_the_message()
+        {
+            // Arrange
+            const uint value = 15;
+            const uint expected = 15;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be greater than 15u because we want to test the failure message, but found 15u.");
+        }
+
+        [Fact]
         public void The_difference_between_equal_nullable_uints_is_not_included_in_the_message()
         {
             // Arrange
@@ -656,6 +781,40 @@ public class NumericDifferenceAssertionsSpecs
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 15u because we want to test the failure message, but found 15u.");
+        }
+
+        [Fact]
+        public void The_difference_between_equal_ulong_is_not_included_in_the_message()
+        {
+            // Arrange
+            const ulong value = 15;
+            const ulong expected = 15;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be greater than 15ul because we want to test the failure message, but found 15ul.");
+        }
+
+        [Fact]
+        public void The_difference_between_equal_decimals_is_not_included_in_the_message()
+        {
+            // Arrange
+            const decimal value = 1.3m;
+            const decimal expected = 1.3m;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be greater than 1.3m because we want to test the failure message, but found 1.3m.");
         }
 
         [Fact]
@@ -676,10 +835,45 @@ public class NumericDifferenceAssertionsSpecs
         }
 
         [Fact]
+        public void The_difference_between_equal_nullable_doubles_is_not_included_in_the_message()
+        {
+            // Arrange
+            double? value = 1.3;
+            const double expected = 1.3;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be greater than 1.3 because we want to test the failure message, but found 1.3.");
+        }
+
+        [Fact]
         public void The_difference_between_equal_floats_is_not_included_in_the_message()
         {
             // Arrange
             const float value = 2.3F;
+            const float expected = 2.3F;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to be greater than 2.3F because we want to test the failure message, but found 2.3F.");
+        }
+
+        [Fact]
+        public void The_difference_between_equal_nullable_floats_is_not_included_in_the_message()
+        {
+            // Arrange
+            float? value = 2.3F;
             const float expected = 2.3F;
 
             // Act
@@ -716,6 +910,23 @@ public class NumericDifferenceAssertionsSpecs
         {
             // Arrange
             const sbyte value = 3;
+            const sbyte expected = 3;
+
+            // Act
+            Action act = () =>
+                value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
+
+            // Assert
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be greater than 3y because we want to test the failure message, but found 3y.");
+        }
+
+        [Fact]
+        public void The_difference_between_equal_nullable_sbytes_is_not_included_in_the_message()
+        {
+            // Arrange
+            sbyte? value = 3;
             const sbyte expected = 3;
 
             // Act

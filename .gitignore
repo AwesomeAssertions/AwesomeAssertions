@@ -188,7 +188,7 @@ docs/node_modules
 Tests/AwesomeAssertions.Specs/AwesomeAssertions.Specs.xml
 
 # BenchmarkDotNet
-Tests/Benchmarks/BenchmarkDotNet.Artifacts/
+BenchmarkDotNet.Artifacts
 
 # Documentation spell check
 node_modules/
