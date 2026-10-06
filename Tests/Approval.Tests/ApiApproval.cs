@@ -15,7 +15,7 @@ namespace Approval.Tests;
 
 public class ApiApproval
 {
-    static ApiApproval() => VerifyDiffPlex.Initialize(OutputType.Compact);
+    static ApiApproval() => VerifierSettings.UseTextDiffFormat(DiffEngine.TextDiffFormat.Minimal);
 
     [Theory]
     [ClassData(typeof(TargetFrameworksTheoryData))]
