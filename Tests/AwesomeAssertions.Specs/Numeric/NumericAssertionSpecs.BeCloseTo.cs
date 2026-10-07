@@ -44,7 +44,6 @@ public partial class NumericAssertionSpecs
         public void When_a_sbyte_value_is_close_to_expected_value_it_should_succeed(sbyte actual, sbyte nearbyValue,
             byte delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -66,25 +65,20 @@ public partial class NumericAssertionSpecs
         public void When_a_sbyte_value_is_not_close_to_expected_value_it_should_fail(sbyte actual, sbyte nearbyValue,
             byte delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_sbyte_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             sbyte actual = 1;
             sbyte nearbyValue = 4;
             byte delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -92,10 +86,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_sbyte_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             sbyte actual = sbyte.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -136,7 +128,6 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_close_to_expected_value_it_should_succeed(short actual, short nearbyValue,
             ushort delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -158,25 +149,20 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_not_close_to_expected_value_it_should_fail(short actual, short nearbyValue,
             ushort delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_short_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             short actual = 1;
             short nearbyValue = 4;
             ushort delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -184,10 +170,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_short_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             short actual = short.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -227,7 +211,6 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_int_value_is_close_to_expected_value_it_should_succeed(int actual, int nearbyValue, uint delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -248,25 +231,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_int_value_is_not_close_to_expected_value_it_should_fail(int actual, int nearbyValue, uint delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_int_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             int actual = 1;
             int nearbyValue = 4;
             uint delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -274,10 +252,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_int_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             int actual = int.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -364,7 +340,6 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_long_value_is_close_to_expected_value_it_should_succeed(long actual, long nearbyValue, ulong delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -393,25 +368,20 @@ public partial class NumericAssertionSpecs
         public void When_a_long_value_is_not_close_to_expected_value_it_should_fail(long actual, long nearbyValue,
             ulong delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_long_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             long actual = 1;
             long nearbyValue = 4;
             ulong delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -419,10 +389,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_long_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             long actual = long.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -445,7 +413,6 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_byte_value_is_close_to_expected_value_it_should_succeed(byte actual, byte nearbyValue, byte delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -456,25 +423,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_byte_value_is_not_close_to_expected_value_it_should_fail(byte actual, byte nearbyValue, byte delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_byte_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             byte actual = 1;
             byte nearbyValue = 4;
             byte delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -482,10 +444,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_byte_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             byte actual = byte.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -509,7 +469,6 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_close_to_expected_value_it_should_succeed(ushort actual, ushort nearbyValue,
             ushort delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -521,25 +480,20 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_not_close_to_expected_value_it_should_fail(ushort actual, ushort nearbyValue,
             ushort delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_ushort_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             ushort actual = 1;
             ushort nearbyValue = 4;
             ushort delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -547,10 +501,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_ushort_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             ushort actual = ushort.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -573,7 +525,6 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_uint_value_is_close_to_expected_value_it_should_succeed(uint actual, uint nearbyValue, uint delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -585,25 +536,20 @@ public partial class NumericAssertionSpecs
         public void When_an_uint_value_is_not_close_to_expected_value_it_should_fail(uint actual, uint nearbyValue,
             uint delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_uint_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             uint actual = 1;
             uint nearbyValue = 4;
             uint delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -611,10 +557,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_uint_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             uint actual = uint.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -638,7 +582,6 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_close_to_expected_value_it_should_succeed(ulong actual, ulong nearbyValue,
             ulong delta)
         {
-            // Act / Assert
             actual.Should().BeCloseTo(nearbyValue, delta);
         }
 
@@ -650,25 +593,20 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_not_close_to_expected_value_it_should_fail(ulong actual, ulong nearbyValue,
             ulong delta)
         {
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_ulong_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             ulong actual = 1;
             ulong nearbyValue = 4;
             ulong delta = 2;
 
-            // Act
             Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*4*but found*1*");
         }
@@ -676,10 +614,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_ulong_value_is_returned_from_BeCloseTo_it_should_chain()
         {
-            // Arrange
             ulong actual = ulong.MaxValue;
 
-            // Act / Assert
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
@@ -705,7 +641,6 @@ public partial class NumericAssertionSpecs
         public void When_a_sbyte_value_is_not_close_to_expected_value_it_should_succeed(sbyte actual, sbyte distantValue,
             byte delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -744,25 +679,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_sbyte_value_is_close_to_expected_value_it_should_fail(sbyte actual, sbyte distantValue, byte delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_sbyte_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             sbyte actual = 1;
             sbyte nearbyValue = 3;
             byte delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -770,10 +700,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_sbyte_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             sbyte actual = sbyte.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -796,7 +724,6 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_not_close_to_expected_value_it_should_succeed(short actual, short distantValue,
             ushort delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -836,25 +763,20 @@ public partial class NumericAssertionSpecs
         public void When_a_short_value_is_close_to_expected_value_it_should_fail(short actual, short distantValue,
             ushort delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_short_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             short actual = 1;
             short nearbyValue = 3;
             ushort delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -862,10 +784,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_short_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             short actual = short.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -888,7 +808,6 @@ public partial class NumericAssertionSpecs
         public void When_an_int_value_is_not_close_to_expected_value_it_should_succeed(int actual, int distantValue,
             uint delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -927,25 +846,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_int_value_is_close_to_expected_value_it_should_fail(int actual, int distantValue, uint delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_int_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             int actual = 1;
             int nearbyValue = 3;
             uint delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -953,10 +867,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_int_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             int actual = int.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -986,7 +898,6 @@ public partial class NumericAssertionSpecs
         public void When_a_long_value_is_not_close_to_expected_value_it_should_succeed(long actual, long distantValue,
             ulong delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -1072,25 +983,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_long_value_is_close_to_expected_value_it_should_fail(long actual, long distantValue, ulong delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_long_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             long actual = 1;
             long nearbyValue = 3;
             ulong delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -1098,10 +1004,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_long_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             long actual = long.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -1114,7 +1018,6 @@ public partial class NumericAssertionSpecs
         public void When_a_byte_value_is_not_close_to_expected_value_it_should_succeed(byte actual, byte distantValue,
             byte delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -1136,25 +1039,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_a_byte_value_is_close_to_expected_value_it_should_fail(byte actual, byte distantValue, byte delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_byte_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             byte actual = 1;
             byte nearbyValue = 3;
             byte delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -1162,10 +1060,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_byte_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             byte actual = byte.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -1178,7 +1074,6 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_not_close_to_expected_value_it_should_succeed(ushort actual, ushort distantValue,
             ushort delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -1201,25 +1096,20 @@ public partial class NumericAssertionSpecs
         public void When_an_ushort_value_is_close_to_expected_value_it_should_fail(ushort actual, ushort distantValue,
             ushort delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_ushort_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             ushort actual = 1;
             ushort nearbyValue = 3;
             ushort delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -1227,10 +1117,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_ushort_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             ushort actual = ushort.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -1243,7 +1131,6 @@ public partial class NumericAssertionSpecs
         public void When_an_uint_value_is_not_close_to_expected_value_it_should_succeed(uint actual, uint distantValue,
             uint delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -1265,25 +1152,20 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void When_an_uint_value_is_close_to_expected_value_it_should_fail(uint actual, uint distantValue, uint delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_uint_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             uint actual = 1;
             uint nearbyValue = 3;
             uint delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -1291,10 +1173,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_uint_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             uint actual = uint.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
@@ -1307,7 +1187,6 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_not_close_to_expected_value_it_should_succeed(ulong actual, ulong distantValue,
             ulong delta)
         {
-            // Act / Assert
             actual.Should().NotBeCloseTo(distantValue, delta);
         }
 
@@ -1330,25 +1209,20 @@ public partial class NumericAssertionSpecs
         public void When_an_ulong_value_is_close_to_expected_value_it_should_fail(ulong actual, ulong distantValue,
             ulong delta)
         {
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_an_ulong_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
         {
-            // Arrange
             ulong actual = 1;
             ulong nearbyValue = 3;
             ulong delta = 2;
 
-            // Act
             Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
 
-            // Assert
             act.Should().Throw<XunitException>()
                 .WithMessage("*be within*2*from*3*but found*1*");
         }
@@ -1356,10 +1230,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_an_ulong_value_is_returned_from_NotBeCloseTo_it_should_chain()
         {
-            // Arrange
             ulong actual = ulong.MaxValue;
 
-            // Act / Assert
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }

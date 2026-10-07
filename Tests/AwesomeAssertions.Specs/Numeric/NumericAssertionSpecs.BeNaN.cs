@@ -11,10 +11,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_equal_to_NaN_when_its_a_float()
         {
-            // Arrange
             float actual = float.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN();
         }
 
@@ -29,23 +27,18 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Should_fail_when_asserting_normal_float_value_to_be_NaN(float actual)
         {
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_normal_float_value_to_be_NaN()
         {
-            // Arrange
             float actual = 1;
 
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Expected actual to be NaN, but found 1F.");
         }
@@ -53,10 +46,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_NaN_as_float()
         {
-            // Arrange
             float actual = float.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN()
                 .And.Be(actual);
         }
@@ -64,10 +55,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_equal_to_NaN_when_its_a_double()
         {
-            // Arrange
             double actual = double.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN();
         }
 
@@ -82,23 +71,18 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Should_fail_when_asserting_normal_double_value_to_be_NaN(double actual)
         {
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_normal_double_value_to_be_NaN()
         {
-            // Arrange
             double actual = 1;
 
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Expected actual to be NaN, but found 1.0.");
         }
@@ -106,10 +90,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_NaN_as_double()
         {
-            // Arrange
             double actual = double.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN()
                 .And.Be(actual);
         }
@@ -117,10 +99,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_equal_to_NaN_when_its_a_nullable_float()
         {
-            // Arrange
             float? actual = float.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN();
         }
 
@@ -136,23 +116,18 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Should_fail_when_asserting_nullable_normal_float_value_to_be_NaN(float? actual)
         {
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_nullable_normal_float_value_to_be_NaN()
         {
-            // Arrange
             float? actual = 1;
 
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Expected actual to be NaN, but found 1F.");
         }
@@ -160,10 +135,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_NaN_as_nullable_float()
         {
-            // Arrange
             float? actual = float.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN()
                 .And.Be(actual);
         }
@@ -171,10 +144,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_equal_to_NaN_when_its_a_nullable_double()
         {
-            // Arrange
             double? actual = double.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN();
         }
 
@@ -190,23 +161,18 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Should_fail_when_asserting_nullable_normal_double_value_to_be_NaN(double? actual)
         {
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_nullable_normal_double_value_to_be_NaN()
         {
-            // Arrange
             double? actual = 1;
 
-            // Act
             Action act = () => actual.Should().BeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Expected actual to be NaN, but found 1.0.");
         }
@@ -214,10 +180,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_NaN_as_nullable_double()
         {
-            // Arrange
             double? actual = double.NaN;
 
-            // Act / Assert
             actual.Should().BeNaN()
                 .And.Be(actual);
         }
@@ -236,33 +200,26 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Normal_float_is_never_equal_to_NaN(float actual)
         {
-            // Act / Assert
             actual.Should().NotBeNaN();
         }
 
         [Fact]
         public void Should_fail_when_asserting_NaN_as_float()
         {
-            // Arrange
             float actual = float.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_NaN_as_float()
         {
-            // Arrange
             float actual = float.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Did not expect actual to be NaN.");
         }
@@ -270,10 +227,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_normal_float_value()
         {
-            // Arrange
             float actual = 1;
 
-            // Act / Assert
             actual.Should().NotBeNaN()
                 .And.Be(actual);
         }
@@ -289,33 +244,26 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Normal_double_is_never_equal_to_NaN(double actual)
         {
-            // Act / Assert
             actual.Should().NotBeNaN();
         }
 
         [Fact]
         public void Should_fail_when_asserting_NaN_as_double()
         {
-            // Arrange
             double actual = double.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_NaN_as_double()
         {
-            // Arrange
             double actual = double.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Did not expect actual to be NaN.");
         }
@@ -323,10 +271,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_normal_double_value()
         {
-            // Arrange
             double actual = 1;
 
-            // Act / Assert
             actual.Should().NotBeNaN()
                 .And.Be(actual);
         }
@@ -343,33 +289,26 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Normal_nullable_float_is_never_equal_to_NaN(float? actual)
         {
-            // Act / Assert
             actual.Should().NotBeNaN();
         }
 
         [Fact]
         public void Should_fail_when_asserting_NaN_as_nullable_float()
         {
-            // Arrange
             float? actual = float.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_NaN_as_nullable_float()
         {
-            // Arrange
             float? actual = float.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Did not expect actual to be NaN.");
         }
@@ -377,10 +316,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_normal_nullable_float_value()
         {
-            // Arrange
             float? actual = 1;
 
-            // Act / Assert
             actual.Should().NotBeNaN()
                 .And.Be(actual);
         }
@@ -397,33 +334,26 @@ public partial class NumericAssertionSpecs
         [Theory]
         public void Normal_nullable_double_is_never_equal_to_NaN(double? actual)
         {
-            // Act / Assert
             actual.Should().NotBeNaN();
         }
 
         [Fact]
         public void Should_fail_when_asserting_NaN_as_nullable_double()
         {
-            // Arrange
             double? actual = double.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void Should_fail_with_a_descriptive_message_when_asserting_NaN_as_nullable_double()
         {
-            // Arrange
             double? actual = double.NaN;
 
-            // Act
             Action act = () => actual.Should().NotBeNaN();
 
-            // Assert
             act.Should().Throw<XunitException>()
                .WithMessage("Did not expect actual to be NaN.");
         }
@@ -431,10 +361,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Should_chain_when_asserting_normal_nullable_double_value()
         {
-            // Arrange
             double? actual = 1;
 
-            // Act / Assert
             actual.Should().NotBeNaN()
                 .And.Be(actual);
         }

@@ -11,52 +11,42 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_value_is_greater_than_or_equal_to_smaller_value_it_should_not_throw()
         {
-            // Arrange
             int value = 2;
             int smallerValue = 1;
 
-            // Act / Assert
             value.Should().BeGreaterThanOrEqualTo(smallerValue);
         }
 
         [Fact]
         public void When_a_value_is_greater_than_or_equal_to_same_value_it_should_not_throw()
         {
-            // Arrange
             int value = 2;
             int sameValue = 2;
 
-            // Act / Assert
             value.Should().BeGreaterThanOrEqualTo(sameValue);
         }
 
         [Fact]
         public void When_a_value_is_greater_than_or_equal_to_greater_value_it_should_throw()
         {
-            // Arrange
             int value = 2;
             int greaterValue = 3;
 
-            // Act
             Action act = () => value.Should().BeGreaterThanOrEqualTo(greaterValue);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_a_value_is_greater_than_or_equal_to_greater_value_it_should_throw_with_descriptive_message()
         {
-            // Arrange
             int value = 2;
             int greaterValue = 3;
 
-            // Act
             Action act =
                 () => value.Should()
                     .BeGreaterThanOrEqualTo(greaterValue, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -66,13 +56,10 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_a_nullable_numeric_null_value_is_not_greater_than_or_equal_to_it_should_throw()
         {
-            // Arrange
             int? value = null;
 
-            // Act
             Action act = () => value.Should().BeGreaterThanOrEqualTo(0);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("*null*");
@@ -81,10 +68,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_never_greater_than_or_equal_to_another_float()
         {
-            // Act
             Action act = () => float.NaN.Should().BeGreaterThanOrEqualTo(0);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("*NaN*");
@@ -93,10 +78,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void A_float_cannot_be_greater_than_or_equal_to_NaN()
         {
-            // Act
             Action act = () => 3.4F.Should().BeGreaterThanOrEqualTo(float.NaN);
 
-            // Assert
             act
                 .Should().Throw<ArgumentException>()
                 .WithMessage("*NaN*");
@@ -105,10 +88,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void NaN_is_never_greater_or_equal_to_another_double()
         {
-            // Act
             Action act = () => double.NaN.Should().BeGreaterThanOrEqualTo(0);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("*NaN*");
@@ -117,10 +98,8 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void A_double_can_never_be_greater_or_equal_to_NaN()
         {
-            // Act
             Action act = () => 3.4D.Should().BeGreaterThanOrEqualTo(double.NaN);
 
-            // Assert
             act
                 .Should().Throw<ArgumentException>()
                 .WithMessage("*NaN*");
@@ -129,11 +108,9 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void Chaining_after_one_assertion()
         {
-            // Arrange
             int value = 2;
             int smallerValue = 1;
 
-            // Act / Assert
             value.Should().BeGreaterThanOrEqualTo(smallerValue).And.Be(2);
         }
     }
