@@ -15,6 +15,7 @@ sidebar:
 * `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
 * Add `AsExceptionAssertionsTask` to continue asserting on a `Task<ExceptionAssertions<TException>>` that none of the `ThrowAsync` assertions produced, such as the result of your own helper method - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
 * The comparison of `WithParameterName` is now case-insensitive - [#610](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/610)
+* Improve performance of numeric assertions - [#666](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/666)
 
 ### Fixes
 * Fix caller identification when asserting on another thread - [#665](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/665)
