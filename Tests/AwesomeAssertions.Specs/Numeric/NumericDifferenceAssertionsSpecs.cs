@@ -13,11 +13,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(1, 9)]
         public void The_difference_between_small_ints_is_not_included_in_the_message(int value, int expected)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage($"Expected value to be {expected} because we want to test the failure message, but found {value}.");
@@ -30,11 +28,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(-123, 123, -246)]
         public void The_difference_between_ints_is_included_in_the_message(int value, int expected, int expectedDifference)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -46,11 +42,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(1, 9)]
         public void The_difference_between_small_nullable_ints_is_not_included_in_the_message(int? value, int expected)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage($"Expected value to be {expected} because we want to test the failure message, but found {value}.");
@@ -59,15 +53,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_int_and_null_is_not_included_in_the_message()
         {
-            // Arrange
             int? value = null;
             const int expected = 12;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be 12 because we want to test the failure message, but found <null>.");
@@ -76,15 +67,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_null_and_int_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 12;
             int? nullableValue = null;
 
-            // Act
             Action act = () =>
                 value.Should().Be(nullableValue, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be <null> because we want to test the failure message, but found 12.");
@@ -98,11 +86,9 @@ public class NumericDifferenceAssertionsSpecs
         public void The_difference_between_nullable_ints_is_included_in_the_message(int? value, int expected,
             int expectedDifference)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -112,15 +98,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_uints_is_included_in_the_message()
         {
-            // Arrange
             uint value = 29;
             const uint expected = 19;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -130,15 +113,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_uints_is_not_included_in_the_message()
         {
-            // Arrange
             uint value = 9;
             const uint expected = 8;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -148,15 +128,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_nullable_uints_is_not_included_in_the_message()
         {
-            // Arrange
             uint? value = 9;
             const uint expected = 8;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -166,15 +143,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_uints_is_included_in_the_message()
         {
-            // Arrange
             uint? value = 29;
             const uint expected = 19;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -186,11 +160,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(1, 9)]
         public void The_difference_between_small_longs_is_not_included_in_the_message(long value, long expected)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -202,11 +174,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(20, 50, -30)]
         public void The_difference_between_longs_is_included_in_the_message(long value, long expected, long expectedDifference)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -218,11 +188,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(1L, 9)]
         public void The_difference_between_small_nullable_longs_is_not_included_in_the_message(long? value, long expected)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -235,11 +203,9 @@ public class NumericDifferenceAssertionsSpecs
         public void The_difference_between_nullable_longs_is_included_in_the_message(long? value, long expected,
             long expectedDifference)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -251,11 +217,9 @@ public class NumericDifferenceAssertionsSpecs
         [InlineData(1, 9)]
         public void The_difference_between_small_shorts_is_not_included_in_the_message(short value, short expected)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -268,11 +232,9 @@ public class NumericDifferenceAssertionsSpecs
         public void The_difference_between_shorts_is_included_in_the_message(short value, short expected,
             short expectedDifference)
         {
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -282,15 +244,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_nullable_shorts_is_not_included_in_the_message()
         {
-            // Arrange
             short? value = 2;
             const short expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be 1s because we want to test the failure message, but found 2s.");
@@ -299,15 +258,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_shorts_is_included_in_the_message()
         {
-            // Arrange
             short? value = 15;
             const short expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -317,15 +273,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ulongs_is_not_included_in_the_message()
         {
-            // Arrange
             const ulong value = 9;
             const ulong expected = 4;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be 4UL because we want to test the failure message, but found 9UL.");
@@ -334,15 +287,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ulongs_is_included_in_the_message()
         {
-            // Arrange
             const ulong value = 50;
             const ulong expected = 20;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -352,15 +302,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_nullable_ulongs_is_not_included_in_the_message()
         {
-            // Arrange
             ulong? value = 7;
             const ulong expected = 4;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be 4UL because we want to test the failure message, but found 7UL.");
@@ -369,15 +316,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_ulongs_is_included_in_the_message()
         {
-            // Arrange
             ulong? value = 50;
             const ulong expected = 20;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -387,15 +331,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ushorts_is_not_included_in_the_message()
         {
-            // Arrange
             ushort value = 9;
             const ushort expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -405,15 +346,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ushorts_is_included_in_the_message()
         {
-            // Arrange
             ushort value = 11;
             const ushort expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -423,15 +361,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_nullable_ushorts_is_not_included_in_the_message()
         {
-            // Arrange
             ushort? value = 9;
             const ushort expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -441,15 +376,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_ushorts_is_included_in_the_message()
         {
-            // Arrange
             ushort? value = 11;
             const ushort expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -459,15 +391,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_doubles_is_included_in_the_message()
         {
-            // Arrange
             const double value = 1.5;
             const double expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -477,15 +406,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_doubles_is_included_in_the_message()
         {
-            // Arrange
             double? value = 1.5;
             const double expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -495,15 +421,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_floats_is_included_in_the_message()
         {
-            // Arrange
             const float value = 1.5F;
             const float expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -513,15 +436,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_floats_is_included_in_the_message()
         {
-            // Arrange
             float? value = 1.5F;
             const float expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -531,15 +451,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_decimals_is_included_in_the_message()
         {
-            // Arrange
             const decimal value = 1.5m;
             const decimal expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -549,15 +466,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_decimals_is_included_in_the_message()
         {
-            // Arrange
             decimal? value = 1.5m;
             const decimal expected = 1;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -567,15 +481,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_sbytes_is_included_in_the_message()
         {
-            // Arrange
             const sbyte value = 1;
             const sbyte expected = 3;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -585,15 +496,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_nullable_sbytes_is_included_in_the_message()
         {
-            // Arrange
             sbyte? value = 1;
             const sbyte expected = 3;
 
-            // Act
             Action act = () =>
                 value.Should().Be(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -606,15 +514,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 15;
             const int expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be less than 15 because we want to test the failure message, but found 15.");
@@ -623,15 +528,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 4;
             const int expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be less than 2 because we want to test the failure message, but found 4.");
@@ -640,15 +542,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ints_is_included_in_the_message()
         {
-            // Arrange
             const int value = 52;
             const int expected = 22;
 
-            // Act
             Action act = () =>
                 value.Should().BeLessThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -661,15 +560,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 4;
             const int expected = 2;
 
-            // Act
             Action act = () =>
                 value.Should().BeLessThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -679,15 +575,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ints_is_included_in_the_message()
         {
-            // Arrange
             const int value = 52;
             const int expected = 22;
 
-            // Act
             Action act = () =>
                 value.Should().BeLessThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -700,15 +593,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 15;
             const int expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 15 because we want to test the failure message, but found 15.");
@@ -717,15 +607,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 2;
             const int expected = 4;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 4 because we want to test the failure message, but found 2.");
@@ -734,15 +621,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ints_is_included_in_the_message()
         {
-            // Arrange
             const int value = 22;
             const int expected = 52;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -752,15 +636,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_uints_is_not_included_in_the_message()
         {
-            // Arrange
             const uint value = 15;
             const uint expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 15u because we want to test the failure message, but found 15u.");
@@ -769,15 +650,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_nullable_uints_is_not_included_in_the_message()
         {
-            // Arrange
             uint? value = 15;
             const uint expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 15u because we want to test the failure message, but found 15u.");
@@ -786,15 +664,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_ulong_is_not_included_in_the_message()
         {
-            // Arrange
             const ulong value = 15;
             const ulong expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 15ul because we want to test the failure message, but found 15ul.");
@@ -803,15 +678,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_decimals_is_not_included_in_the_message()
         {
-            // Arrange
             const decimal value = 1.3m;
             const decimal expected = 1.3m;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 1.3m because we want to test the failure message, but found 1.3m.");
@@ -820,15 +692,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_doubles_is_not_included_in_the_message()
         {
-            // Arrange
             const double value = 1.3;
             const double expected = 1.3;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 1.3 because we want to test the failure message, but found 1.3.");
@@ -837,15 +706,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_nullable_doubles_is_not_included_in_the_message()
         {
-            // Arrange
             double? value = 1.3;
             const double expected = 1.3;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 1.3 because we want to test the failure message, but found 1.3.");
@@ -854,15 +720,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_floats_is_not_included_in_the_message()
         {
-            // Arrange
             const float value = 2.3F;
             const float expected = 2.3F;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -872,15 +735,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_nullable_floats_is_not_included_in_the_message()
         {
-            // Arrange
             float? value = 2.3F;
             const float expected = 2.3F;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -890,15 +750,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_ushorts_is_not_included_in_the_message()
         {
-            // Arrange
             ushort? value = 11;
             const ushort expected = 11;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -908,15 +765,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_sbytes_is_not_included_in_the_message()
         {
-            // Arrange
             const sbyte value = 3;
             const sbyte expected = 3;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 3y because we want to test the failure message, but found 3y.");
@@ -925,15 +779,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_nullable_sbytes_is_not_included_in_the_message()
         {
-            // Arrange
             sbyte? value = 3;
             const sbyte expected = 3;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be greater than 3y because we want to test the failure message, but found 3y.");
@@ -942,15 +793,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_equal_nullable_ulongs_is_not_included_in_the_message()
         {
-            // Arrange
             ulong? value = 15;
             const ulong expected = 15;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThan(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -963,15 +811,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_small_ints_is_not_included_in_the_message()
         {
-            // Arrange
             const int value = 2;
             const int expected = 4;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -981,15 +826,12 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_ints_is_included_in_the_message()
         {
-            // Arrange
             const int value = 22;
             const int expected = 52;
 
-            // Act
             Action act = () =>
                 value.Should().BeGreaterThanOrEqualTo(expected, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -1002,11 +844,8 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_ints_is_included_in_the_message()
         {
-            // Act
-            Action act = () =>
-                int.MinValue.Should().Be(int.MaxValue);
+            Action act = () => int.MinValue.Should().Be(int.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected int.MinValue to be 2147483647*found -2147483648 (difference of -4294967295).");
@@ -1015,14 +854,10 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_nullable_ints_is_included_in_the_message()
         {
-            // Arrange
             int? minValue = int.MinValue;
 
-            // Act
-            Action act = () =>
-                minValue.Should().Be(int.MaxValue);
+            Action act = () => minValue.Should().Be(int.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected minValue to be 2147483647*found -2147483648 (difference of -4294967295).");
@@ -1031,11 +866,8 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_uints_is_included_in_the_message()
         {
-            // Act
-            Action act = () =>
-                uint.MinValue.Should().Be(uint.MaxValue);
+            Action act = () => uint.MinValue.Should().Be(uint.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected uint.MinValue to be 4294967295u*found 0u (difference of -4294967295).");
@@ -1044,14 +876,10 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_nullable_uints_is_included_in_the_message()
         {
-            // Arrange
             uint? minValue = uint.MinValue;
 
-            // Act
-            Action act = () =>
-                minValue.Should().Be(uint.MaxValue);
+            Action act = () => minValue.Should().Be(uint.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected minValue to be 4294967295u*found 0u (difference of -4294967295).");
@@ -1060,11 +888,8 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_longs_is_included_in_the_message()
         {
-            // Act
-            Action act = () =>
-                long.MinValue.Should().Be(long.MaxValue);
+            Action act = () => long.MinValue.Should().Be(long.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -1074,14 +899,10 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_nullable_longs_is_included_in_the_message()
         {
-            // Arrange
             long? minValue = long.MinValue;
 
-            // Act
-            Action act = () =>
-                minValue.Should().Be(long.MaxValue);
+            Action act = () => minValue.Should().Be(long.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -1091,11 +912,8 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_ulongs_is_included_in_the_message()
         {
-            // Act
-            Action act = () =>
-                ulong.MinValue.Should().Be(ulong.MaxValue);
+            Action act = () => ulong.MinValue.Should().Be(ulong.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -1105,14 +923,10 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_nullable_ulongs_is_included_in_the_message()
         {
-            // Arrange
             ulong? minValue = ulong.MinValue;
 
-            // Act
-            Action act = () =>
-                minValue.Should().Be(ulong.MaxValue);
+            Action act = () => minValue.Should().Be(ulong.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected minValue to be 18446744073709551615UL*found 0UL (difference of -18446744073709551615).");
@@ -1121,11 +935,8 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_decimals_is_not_included_in_the_message()
         {
-            // Act
-            Action act = () =>
-                decimal.MinValue.Should().Be(decimal.MaxValue);
+            Action act = () => decimal.MinValue.Should().Be(decimal.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -1135,14 +946,10 @@ public class NumericDifferenceAssertionsSpecs
         [Fact]
         public void The_difference_between_overflowed_nullable_decimals_is_not_included_in_the_message()
         {
-            // Arrange
             decimal? minValue = decimal.MinValue;
 
-            // Act
-            Action act = () =>
-                minValue.Should().Be(decimal.MaxValue);
+            Action act = () => minValue.Should().Be(decimal.MaxValue);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected minValue to be 79228162514264337593543950335M*found -79228162514264337593543950335M.");

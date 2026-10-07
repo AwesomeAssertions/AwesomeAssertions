@@ -12,25 +12,20 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_equal_it_should_succeed()
         {
-            // Arrange
             var subject = new EquatableOfInt(1);
             var other = new EquatableOfInt(1);
 
-            // Act / Assert
             subject.Should().Be(other);
         }
 
         [Fact]
         public void When_two_instances_are_the_same_reference_but_are_not_considered_equal_it_should_succeed()
         {
-            // Arrange
             var subject = new SameInstanceIsNotEqualClass();
             var other = subject;
 
-            // Act
             Action act = () => subject.Should().Be(other);
 
-            // Assert
             act.Should().NotThrow(
                 "This is inconsistent with the behavior ObjectAssertions.Be but is how ComparableTypeAssertions.Be has always worked.");
         }
@@ -38,18 +33,14 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_not_equal_it_should_throw()
         {
-            // Arrange
             var subject = new EquatableOfInt(1);
             var other = new EquatableOfInt(2);
 
-            // Act
             Action act = () => subject.Should().Be(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage(
-                    "Expected*2*because*failure message, but found*1*.");
+                .WithMessage("Expected*2*because*failure message, but found*1*.");
         }
     }
 
@@ -58,14 +49,11 @@ public class ComparableSpecs
         [Fact]
         public void When_two_references_to_the_same_instance_are_not_equal_it_should_throw()
         {
-            // Arrange
             var subject = new SameInstanceIsNotEqualClass();
             var other = subject;
 
-            // Act
             Action act = () => subject.Should().NotBe(other);
 
-            // Assert
             act.Should().Throw<XunitException>(
                 "This is inconsistent with the behavior ObjectAssertions.Be but is how ComparableTypeAssertions.Be has always worked.");
         }
@@ -73,28 +61,22 @@ public class ComparableSpecs
         [Fact]
         public void When_two_equal_objects_should_not_be_equal_it_should_throw()
         {
-            // Arrange
             var subject = new EquatableOfInt(1);
             var other = new EquatableOfInt(1);
 
-            // Act
             Action act = () => subject.Should().NotBe(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
-                .WithMessage(
-                    "*Did not expect subject to be equal to*1*because*failure message.*");
+                .WithMessage("*Did not expect subject to be equal to*1*because*failure message.*");
         }
 
         [Fact]
         public void When_two_unequal_objects_should_not_be_equal_it_should_not_throw()
         {
-            // Arrange
             var subject = new EquatableOfInt(1);
             var other = new EquatableOfInt(2);
 
-            // Act / Assert
             subject.Should().NotBe(other);
         }
     }
@@ -104,14 +86,11 @@ public class ComparableSpecs
         [Fact]
         public void When_a_value_is_not_equal_to_one_of_the_specified_values_it_should_throw()
         {
-            // Arrange
             var value = new EquatableOfInt(3);
 
-            // Act
             Action act = () => value.Should().BeOneOf(new[] { new EquatableOfInt(4), new EquatableOfInt(5) },
                 "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected value to be one of {4, 5} because*failure message, but found 3.");
@@ -120,14 +99,11 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_the_same_reference_but_are_not_considered_equal_it_should_succeed()
         {
-            // Arrange
             var subject = new SameInstanceIsNotEqualClass();
             var other = subject;
 
-            // Act
             Action act = () => subject.Should().BeOneOf(other);
 
-            // Assert
             act.Should().NotThrow(
                 "This is inconsistent with the behavior ObjectAssertions.Be but is how ComparableTypeAssertions.Be has always worked.");
         }
@@ -135,10 +111,8 @@ public class ComparableSpecs
         [Fact]
         public void When_a_value_is_equal_to_one_of_the_specified_values_it_should_succeed()
         {
-            // Arrange
             var value = new EquatableOfInt(4);
 
-            // Act / Assert
             value.Should().BeOneOf(new EquatableOfInt(4), new EquatableOfInt(5));
         }
     }
@@ -148,22 +122,18 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_equivalent_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
             var expected = new CustomerDto(42);
 
-            // Act / Assert
             subject.Should().BeEquivalentTo(expected);
         }
 
         [Fact]
         public void When_two_instances_are_compared_it_should_allow_chaining()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
             var expected = new CustomerDto(42);
 
-            // Act / Assert
             subject.Should().BeEquivalentTo(expected)
                 .And.NotBeNull();
         }
@@ -171,11 +141,9 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_compared_with_config_it_should_allow_chaining()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
             var expected = new CustomerDto(42);
 
-            // Act / Assert
             subject.Should().BeEquivalentTo(expected, opt => opt)
                 .And.NotBeNull();
         }
@@ -183,7 +151,6 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_equivalent_due_to_exclusion_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
 
             var expected = new AnotherCustomerDto(42)
@@ -191,7 +158,6 @@ public class ComparableSpecs
                 SomeOtherProperty = 1337
             };
 
-            // Act / Assert
             subject.Should().BeEquivalentTo(expected,
                 options => options.Excluding(x => x.SomeOtherProperty),
                 "they have the same property values");
@@ -200,14 +166,11 @@ public class ComparableSpecs
         [Fact]
         public void When_injecting_a_null_config_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
             var expected = new AnotherCustomerDto(42);
 
-            // Act
             Action act = () => subject.Should().BeEquivalentTo(expected, config: null);
 
-            // Assert
             act.Should().ThrowExactly<ArgumentNullException>()
                 .WithParameterName("config");
         }
@@ -215,18 +178,11 @@ public class ComparableSpecs
         [Fact]
         public void When_two_instances_are_not_equivalent_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableCustomer(42);
+            var expected = new AnotherCustomerDto(42) { SomeOtherProperty = 1337 };
 
-            var expected = new AnotherCustomerDto(42)
-            {
-                SomeOtherProperty = 1337
-            };
-
-            // Act
             Action act = () => subject.Should().BeEquivalentTo(expected);
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -239,24 +195,18 @@ public class ComparableSpecs
         [Fact]
         public void When_assertion_an_instance_to_be_null_and_it_is_null_it_should_succeed()
         {
-            // Arrange
             ComparableOfString subject = null;
 
-            // Act / Assert
             subject.Should().BeNull();
         }
 
         [Fact]
         public void When_assertion_an_instance_to_be_null_and_it_is_not_null_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("");
 
-            // Act
-            Action action = () =>
-                subject.Should().BeNull();
+            Action action = () => subject.Should().BeNull();
 
-            // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected subject to be <null>, but found*");
         }
@@ -267,24 +217,18 @@ public class ComparableSpecs
         [Fact]
         public void When_assertion_an_instance_not_to_be_null_and_it_is_not_null_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableOfString("");
 
-            // Act / Assert
             subject.Should().NotBeNull();
         }
 
         [Fact]
         public void When_assertion_an_instance_not_to_be_null_and_it_is_null_it_should_throw()
         {
-            // Arrange
             ComparableOfString subject = null;
 
-            // Act
-            Action action = () =>
-                subject.Should().NotBeNull();
+            Action action = () => subject.Should().NotBeNull();
 
-            // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected subject not to be <null>.");
         }
@@ -295,34 +239,27 @@ public class ComparableSpecs
         [Fact]
         public void When_assertion_an_instance_to_be_in_a_certain_range_and_it_is_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableOfInt(1);
 
-            // Act / Assert
             subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
         public void When_asserting_an_instance_to_be_in_a_certain_range_and_it_is_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableOfInt(2);
 
-            // Act / Assert
             subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
         public void When_assertion_an_instance_to_be_in_a_certain_range_but_it_is_not_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfInt(3);
 
-            // Act
             Action action = () =>
                 subject.Should().BeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
 
-            // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected subject to be between*and*, but found *.");
         }
@@ -333,24 +270,19 @@ public class ComparableSpecs
         [Fact]
         public void When_assertion_an_instance_to_not_be_in_a_certain_range_and_it_is_not_it_should_succeed()
         {
-            // Arrange
             var subject = new ComparableOfInt(3);
 
-            // Act / Assert
             subject.Should().NotBeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
         }
 
         [Fact]
         public void When_assertion_an_instance_to_not_be_in_a_certain_range_but_it_is_not_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfInt(2);
 
-            // Act
             Action action = () =>
                 subject.Should().NotBeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
 
-            // Assert
             action.Should().Throw<XunitException>()
                 .WithMessage("Expected subject to not be between*and*, but found *.");
         }
@@ -358,14 +290,11 @@ public class ComparableSpecs
         [Fact]
         public void When_asserting_an_instance_to_not_be_in_a_certain_range_but_it_is_not_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfInt(1);
 
-            // Act
             Action action = () =>
                 subject.Should().NotBeInRange(new ComparableOfInt(1), new ComparableOfInt(2));
 
-            // Assert
             action.Should().Throw<XunitException>();
         }
     }
@@ -373,27 +302,22 @@ public class ComparableSpecs
     public class BeRankedEquallyTo
     {
         [Fact]
-        public void When_subect_is_ranked_equal_to_another_subject_and_that_is_expected_it_should_not_throw()
+        public void When_subject_is_ranked_equal_to_another_subject_and_that_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("Hello");
             var other = new ComparableOfString("Hello");
 
-            // Act / Assert
             subject.Should().BeRankedEquallyTo(other);
         }
 
         [Fact]
         public void When_subject_is_not_ranked_equal_to_another_subject_but_that_is_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("42");
             var other = new ComparableOfString("Forty two");
 
-            // Act
             Action act = () => subject.Should().BeRankedEquallyTo(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -404,27 +328,22 @@ public class ComparableSpecs
     public class NotBeRankedEquallyTo
     {
         [Fact]
-        public void When_subect_is_not_ranked_equal_to_another_subject_and_that_is_expected_it_should_not_throw()
+        public void When_subject_is_not_ranked_equal_to_another_subject_and_that_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("Hello");
             var other = new ComparableOfString("Hi");
 
-            // Act / Assert
             subject.Should().NotBeRankedEquallyTo(other);
         }
 
         [Fact]
         public void When_subject_is_ranked_equal_to_another_subject_but_that_is_not_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("Lead");
             var other = new ComparableOfString("Lead");
 
-            // Act
             Action act = () => subject.Should().NotBeRankedEquallyTo(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage(
@@ -437,25 +356,20 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_less_than_another_subject_and_that_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("City");
             var other = new ComparableOfString("World");
 
-            // Act / Assert
             subject.Should().BeLessThan(other);
         }
 
         [Fact]
         public void When_subject_is_not_less_than_another_subject_but_that_is_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("World");
             var other = new ComparableOfString("City");
 
-            // Act
             Action act = () => subject.Should().BeLessThan(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected subject*World*to be less than*City*because*failure message.");
@@ -464,14 +378,11 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_equal_to_another_subject_and_expected_to_be_less_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("City");
             var other = new ComparableOfString("City");
 
-            // Act
             Action act = () => subject.Should().BeLessThan(other);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
     }
@@ -481,14 +392,11 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_greater_than_another_subject_and_that_is_not_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("World");
             var other = new ComparableOfString("City");
 
-            // Act
             Action act = () => subject.Should().BeLessThanOrEqualTo(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected subject*World*to be less than or equal to*City*because*failure message.");
@@ -497,33 +405,27 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_equal_to_another_subject_and_that_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("World");
             var other = new ComparableOfString("World");
 
-            // Act / Assert
             subject.Should().BeLessThanOrEqualTo(other);
         }
 
         [Fact]
         public void When_subject_is_less_than_another_subject_and_less_than_or_equal_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("City");
             var other = new ComparableOfString("World");
 
-            // Act / Assert
             subject.Should().BeLessThanOrEqualTo(other);
         }
 
         [Fact]
         public void Chaining_after_one_assertion()
         {
-            // Arrange
             var subject = new ComparableOfString("World");
             var other = new ComparableOfString("World");
 
-            // Act / Assert
             subject.Should().BeLessThanOrEqualTo(other).And.NotBeNull();
         }
     }
@@ -533,39 +435,31 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_greater_than_another_subject_and_that_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("efg");
             var other = new ComparableOfString("abc");
 
-            // Act / Assert
             subject.Should().BeGreaterThan(other);
         }
 
         [Fact]
         public void When_subject_is_equal_to_another_subject_and_expected_to_be_greater_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("efg");
             var other = new ComparableOfString("efg");
 
-            // Act
             Action act = () => subject.Should().BeGreaterThan(other);
 
-            // Assert
             act.Should().Throw<XunitException>();
         }
 
         [Fact]
         public void When_subject_is_not_greater_than_another_subject_but_that_is_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("abc");
             var other = new ComparableOfString("def");
 
-            // Act
             Action act = () => subject.Should().BeGreaterThan(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected subject*abc*to be greater than*def*because*failure message.");
@@ -577,14 +471,11 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_less_than_another_subject_and_that_is_not_expected_it_should_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("abc");
             var other = new ComparableOfString("def");
 
-            // Act
             Action act = () => subject.Should().BeGreaterThanOrEqualTo(other, "we want to test the {0} message", "failure");
 
-            // Assert
             act
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected subject*abc*to be greater than or equal to*def*because*failure message.");
@@ -593,33 +484,27 @@ public class ComparableSpecs
         [Fact]
         public void When_subject_is_equal_to_another_subject_and_that_is_equal_or_greater_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("def");
             var other = new ComparableOfString("def");
 
-            // Act / Assert
             subject.Should().BeGreaterThanOrEqualTo(other);
         }
 
         [Fact]
         public void When_subject_is_greater_than_another_subject_and_greater_than_or_equal_is_expected_it_should_not_throw()
         {
-            // Arrange
             var subject = new ComparableOfString("xyz");
             var other = new ComparableOfString("abc");
 
-            // Act / Assert
             subject.Should().BeGreaterThanOrEqualTo(other);
         }
 
         [Fact]
         public void Chaining_after_one_assertion()
         {
-            // Arrange
             var subject = new ComparableOfString("def");
             var other = new ComparableOfString("def");
 
-            // Act / Assert
             subject.Should().BeGreaterThanOrEqualTo(other).And.NotBeNull();
         }
     }
