@@ -17,5 +17,10 @@
     <PackageReference Include="Fallout.Common" Version="10.4.0" />
     <PackageReference Include="Fallout.Components" Version="10.4.0" />
     <PackageReference Include="SharpCompress" Version="0.50.4" />
+    <!--
+      Replace the implicitly referenced version by Fallout.Components which has known vulnerabilities, with a fixed version 
+      Keep this reference also when Fallout has catched up with the version, because we do repeatedly run into this same problem.
+    -->
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="10.0.13" />
   </ItemGroup>
 </Project>
