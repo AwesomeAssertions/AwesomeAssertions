@@ -15,6 +15,8 @@ internal class NullableDoubleAssertions : NullableNumericAssertions<double>
     {
     }
 
+    protected override NumericAssertions<double> AsTAssertions() => new DoubleAssertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override bool IsNaN(double value) => double.IsNaN(value);
 
     private protected override string CalculateDifferenceForFailureMessage(double subject, double expected)
