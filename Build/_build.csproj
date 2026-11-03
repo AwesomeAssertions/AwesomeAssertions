@@ -16,7 +16,7 @@
     <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
     <PackageReference Include="Fallout.Common" Version="10.4.0" />
     <PackageReference Include="Fallout.Components" Version="10.4.0" />
-    <PackageReference Include="SharpCompress" Version="0.50.4" />
+    <PackageReference Include="SharpCompress" Version="0.50.8" />
     <!--
       Replace the implicitly referenced version by Fallout.Components which has known vulnerabilities, with a fixed version 
       Keep this reference also when Fallout has catched up with the version, because we do repeatedly run into this same problem.
