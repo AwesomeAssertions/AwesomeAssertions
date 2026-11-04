@@ -15,6 +15,8 @@ internal class NullableUInt64Assertions : NullableNumericAssertions<ulong>
     {
     }
 
+    protected override NumericAssertions<ulong> AsTAssertions() => new UInt64Assertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override string CalculateDifferenceForFailureMessage(ulong subject, ulong expected)
     {
         if (subject < 10 && expected < 10)
