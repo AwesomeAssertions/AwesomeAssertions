@@ -115,6 +115,17 @@ internal static class Guard
         }
     }
 
+#if NET
+    public static void ThrowIfArgumentIsNegative<T>(T value, [CallerArgumentExpression(nameof(value))] string paramName = "")
+        where T : struct, System.Numerics.INumber<T>
+    {
+        if (value < T.Zero)
+        {
+            throw new ArgumentOutOfRangeException(paramName, "The value must be non-negative.");
+        }
+    }
+#endif
+
     /// <summary>
     /// Workaround to make dotnet_code_quality.null_check_validation_methods work
     /// https://github.com/dotnet/roslyn-analyzers/issues/3451#issuecomment-606690452

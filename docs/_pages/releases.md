@@ -10,6 +10,7 @@ sidebar:
 
 ### What's new
 * Add `AsNonFormattable` extension methods to allow passing "because" arguments without formatting - [#536](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/536)
+* Add support for `INumber<T>` in numeric assertions for .NET8+ - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
 
 ### Improvements
 * `ThrowAsync`, `ThrowExactlyAsync` and `ThrowWithinAsync` now return `ExceptionAssertionsTask<TException>`, so that `WithInnerException<TInnerException>` and `WithInnerExceptionExactly<TInnerException>` can be used with a single type parameter, just like their synchronous counterparts - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
@@ -44,6 +45,9 @@ sidebar:
 * Removed `ExceptionAssertionsTask.WithInnerException<TException, TInnerException>` and `ExceptionAssertionsTask.WithInnerExceptionExactly<TException, TInnerException>` in favor of their single type parameter versions - [#592](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/592)
   * Just remove the first type parameter.
 * Removed `CallerIdentifer` from public API (now `internal`) - [#635](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/635)
+
+### Breaking Changes (for extensions)
+* Constraints on `NumericAssertions<T>` have been changed to `struct, INumber<T>` for .NET8+ - [#TBD](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/TBD)
 
 ## 9.6.0
 
