@@ -14,8 +14,8 @@
     <PackageDownload Include="GitVersion.Tool" Version="[6.5.1]" />
     <PackageDownload Include="ReportGenerator" Version="[5.5.11]" />
     <PackageReference Include="LibGit2Sharp" Version="0.32.0" />
-    <PackageReference Include="Fallout.Common" Version="10.4.0" />
-    <PackageReference Include="Fallout.Components" Version="10.4.0" />
+    <PackageReference Include="Fallout.Common" Version="10.5.0" />
+    <PackageReference Include="Fallout.Components" Version="10.5.0" />
     <PackageReference Include="SharpCompress" Version="0.50.8" />
     <!--
       Replace the implicitly referenced version by Fallout.Components which has known vulnerabilities, with a fixed version 
