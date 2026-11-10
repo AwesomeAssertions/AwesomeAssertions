@@ -16,6 +16,8 @@ internal class NullableDecimalAssertions : NullableNumericAssertions<decimal>
     {
     }
 
+    protected override NumericAssertions<decimal> AsTAssertions() => new DecimalAssertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override string CalculateDifferenceForFailureMessage(decimal subject, decimal expected)
     {
         try

@@ -15,6 +15,8 @@ internal class NullableInt32Assertions : NullableNumericAssertions<int>
     {
     }
 
+    protected override NumericAssertions<int> AsTAssertions() => new Int32Assertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override string CalculateDifferenceForFailureMessage(int subject, int expected)
     {
         if (subject is > 0 and < 10 && expected is > 0 and < 10)

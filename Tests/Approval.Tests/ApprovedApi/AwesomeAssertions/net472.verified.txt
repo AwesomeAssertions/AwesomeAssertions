@@ -1940,27 +1940,30 @@ namespace AwesomeAssertions.Numeric
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeRankedEquallyTo(T unexpected, string because = "", params object[] becauseArgs) { }
     }
-    public class NullableNumericAssertions<T> : AwesomeAssertions.Numeric.NullableNumericAssertions<T, AwesomeAssertions.Numeric.NullableNumericAssertions<T>>
+    public class NullableNumericAssertions<T> : AwesomeAssertions.Numeric.NullableNumericAssertions<T, AwesomeAssertions.Numeric.NumericAssertions<T>, AwesomeAssertions.Numeric.NullableNumericAssertions<T>>
         where T :  struct, System.IComparable<T>
     {
         public NullableNumericAssertions(T? value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
+        protected override AwesomeAssertions.Numeric.NumericAssertions<T> AsTAssertions() { }
     }
-    public class NullableNumericAssertions<T, TAssertions> : AwesomeAssertions.Numeric.NumericAssertionsBase<T, T?, TAssertions>
+    public abstract class NullableNumericAssertions<T, TAssertions, TNullableAssertions> : AwesomeAssertions.Numeric.NumericAssertionsBase<T, T?, TNullableAssertions>
         where T :  struct, System.IComparable<T>
-        where TAssertions : AwesomeAssertions.Numeric.NullableNumericAssertions<T, TAssertions>
+        where TAssertions : AwesomeAssertions.Numeric.NumericAssertions<T, TAssertions>
+        where TNullableAssertions : AwesomeAssertions.Numeric.NullableNumericAssertions<T, TAssertions, TNullableAssertions>
     {
-        public NullableNumericAssertions(T? value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
+        protected NullableNumericAssertions(T? value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
         public override T? Subject { get; }
+        protected abstract TAssertions AsTAssertions();
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<TAssertions> BeNull(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TNullableAssertions> BeNull(string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> HaveValue(string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<TAssertions> Match(System.Linq.Expressions.Expression<System.Func<T?, bool>> predicate, string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TNullableAssertions> Match(System.Linq.Expressions.Expression<System.Func<T?, bool>> predicate, string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeNull(string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
-        public AwesomeAssertions.AndConstraint<TAssertions> NotHaveValue(string because = "", params object[] becauseArgs) { }
+        public AwesomeAssertions.AndConstraint<TNullableAssertions> NotHaveValue(string because = "", params object[] becauseArgs) { }
     }
     public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
         where T :  struct, System.IComparable<T>

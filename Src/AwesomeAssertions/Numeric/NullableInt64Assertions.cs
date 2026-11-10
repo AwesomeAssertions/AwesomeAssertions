@@ -15,6 +15,8 @@ internal class NullableInt64Assertions : NullableNumericAssertions<long>
     {
     }
 
+    protected override NumericAssertions<long> AsTAssertions() => new Int64Assertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override string CalculateDifferenceForFailureMessage(long subject, long expected)
     {
         if (subject is > 0 and < 10 && expected is > 0 and < 10)
