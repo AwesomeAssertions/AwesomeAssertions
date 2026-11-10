@@ -320,6 +320,129 @@ public partial class NumericAssertionSpecs
 
             act.Should().Throw<XunitException>();
         }
+
+#if NET
+        [Fact]
+        public void When_approximating_a_floating_point_number_with_a_negative_precision_it_should_throw()
+        {
+            Half value = (Half)3.1415927;
+
+            Action act = () => value.Should().BeApproximately((Half)3.14, (Half)(-0.1));
+
+            act.Should().Throw<ArgumentOutOfRangeException>()
+                .WithParameterName("precision")
+                .WithMessage("*must be non-negative*");
+        }
+
+        [Fact]
+        public void When_floating_point_number_is_not_approximating_a_range_it_should_throw()
+        {
+            Half value = (Half)3.0;
+
+            Action act = () => value.Should().BeApproximately((Half)3.14, (Half)0.1, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to approximate 3.14 +/- 0.1 because*failure message, but 3 differed by 0.1406*");
+        }
+
+        [Fact]
+        public void When_floating_point_number_is_indeed_approximating_a_value_it_should_not_throw()
+        {
+            Half value = (Half)3.1415927;
+
+            value.Should().BeApproximately((Half)3.14, (Half)0.1);
+        }
+
+        [Fact]
+        public void When_approximating_a_floating_point_number_towards_nan_it_should_not_throw()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().BeApproximately((Half)3.14, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void When_approximating_positive_infinity_floating_point_number_towards_positive_infinity_it_should_not_throw()
+        {
+            Half value = Half.PositiveInfinity;
+
+            value.Should().BeApproximately(Half.PositiveInfinity, (Half)0.1);
+        }
+
+        [Fact]
+        public void When_approximating_negative_infinity_floating_point_number_towards_negative_infinity_it_should_not_throw()
+        {
+            Half value = Half.NegativeInfinity;
+
+            value.Should().BeApproximately(Half.NegativeInfinity, (Half)0.1);
+        }
+
+        [Fact]
+        public void When_floating_point_number_is_not_approximating_positive_infinity_it_should_throw()
+        {
+            Half value = Half.PositiveInfinity;
+
+            Action act = () => value.Should().BeApproximately(Half.MaxValue, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void When_floating_point_number_is_not_approximating_negative_infinity_it_should_throw()
+        {
+            Half value = Half.NegativeInfinity;
+
+            Action act = () => value.Should().BeApproximately(Half.MinValue, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        public static TheoryData<Half> ApproximatingFloatingPointNumbersOnBoundaries =>
+        [
+            (Half)9,
+            (Half)11
+        ];
+
+        [Theory]
+        [MemberData(nameof(ApproximatingFloatingPointNumbersOnBoundaries))]
+        public void When_floating_point_number_is_approximating_a_value_on_boundaries_it_should_not_throw(Half value)
+        {
+            value.Should().BeApproximately((Half)10, (Half)1);
+        }
+
+        [Theory]
+        [MemberData(nameof(ApproximatingFloatingPointNumbersOnBoundaries))]
+        public void When_floating_point_number_is_not_approximating_a_value_on_boundaries_it_should_throw(Half value)
+        {
+            Action act = () => value.Should().BeApproximately((Half)10, (Half)0.9);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void NaN_can_never_be_close_to_any_floating_point_number()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().BeApproximately(Half.MinValue, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void A_floating_point_number_can_never_be_close_to_NaN()
+        {
+            Half value = Half.MinValue;
+
+            Action act = () => value.Should().BeApproximately(Half.NaN, (Half)0.1);
+
+            act.Should().Throw<ArgumentException>();
+        }
+#endif
     }
 
     public class NotBeApproximately
@@ -654,5 +777,131 @@ public partial class NumericAssertionSpecs
 
             act.Should().Throw<XunitException>();
         }
+
+#if NET
+
+        [Fact]
+        public void When_not_approximating_a_floating_point_number_with_a_negative_precision_it_should_throw()
+        {
+            Half value = (Half)3.1415927;
+
+            Action act = () => value.Should().NotBeApproximately((Half)3.14, (Half)(-0.1));
+
+            act.Should().Throw<ArgumentOutOfRangeException>()
+                .WithParameterName("precision")
+                .WithMessage("*must be non-negative*");
+        }
+
+        [Fact]
+        public void When_a_floating_point_number_is_approximating_a_range_and_should_not_approximate_it_should_throw()
+        {
+            Half value = (Half)3.15;
+
+            Action act = () => value.Should().NotBeApproximately((Half)3.14, (Half)0.2, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    "Expected value to not approximate *3.14* +/- *0.2* because*failure message, but *3.15* only differed by *0.009766*");
+        }
+
+        [Fact]
+        public void When_a_floating_point_number_is_not_approximating_a_value_and_should_not_approximate_it_should_not_throw()
+        {
+            Half value = (Half)3.2;
+
+            value.Should().NotBeApproximately((Half)3.14, (Half)0.01);
+        }
+
+        [Fact]
+        public void When_approximating_a_floating_point_number_towards_nan_and_should_not_approximate_it_should_throw()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().NotBeApproximately((Half)3.14, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void When_not_approximating_a_floating_point_number_towards_positive_infinity_and_should_not_approximate_it_should_not_throw()
+        {
+            Half value = Half.PositiveInfinity;
+
+            value.Should().NotBeApproximately(Half.MaxValue, (Half)0.1);
+        }
+
+        [Fact]
+        public void When_not_approximating_a_floating_point_number_towards_negative_infinity_and_should_not_approximate_it_should_not_throw()
+        {
+            Half value = Half.NegativeInfinity;
+
+            value.Should().NotBeApproximately(Half.MinValue, (Half)0.1);
+        }
+
+        [Fact]
+        public void
+            When_approximating_positive_infinity_floating_point_number_towards_positive_infinity_and_should_not_approximate_it_should_throw()
+        {
+            Half value = Half.PositiveInfinity;
+
+            Action act = () => value.Should().NotBeApproximately(Half.PositiveInfinity, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void
+            When_not_approximating_negative_infinity_floating_point_number_towards_negative_infinity_and_should_not_approximate_it_should_throw()
+        {
+            Half value = Half.NegativeInfinity;
+
+            Action act = () => value.Should().NotBeApproximately(Half.NegativeInfinity, (Half)0.1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        public static TheoryData<Half> ApproximatingFloatingPointNumbersOnBoundaries =>
+        [
+            (Half)9,
+            (Half)11
+        ];
+
+        [Theory]
+        [MemberData(nameof(ApproximatingFloatingPointNumbersOnBoundaries))]
+        public void When_a_floating_point_number_is_not_approximating_a_value_on_boundaries_it_should_not_throw(Half value)
+        {
+            value.Should().NotBeApproximately((Half)10, (Half)0.9);
+        }
+
+        [Theory]
+        [MemberData(nameof(ApproximatingFloatingPointNumbersOnBoundaries))]
+        public void When_a_floating_point_number_is_approximating_a_value_on_boundaries_it_should_throw(Half value)
+        {
+            Action act = () => value.Should().NotBeApproximately((Half)10, (Half)1);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void NaN_can_never_be_close_to_any_floating_point_number()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().NotBeApproximately(Half.MinValue, (Half)0.1);
+
+            act.Should().Throw<XunitException>().WithMessage("*NaN*");
+        }
+
+        [Fact]
+        public void A_floating_point_number_can_never_be_close_to_NaN()
+        {
+            Half value = Half.MinValue;
+
+            Action act = () => value.Should().NotBeApproximately(Half.NaN, (Half)0.1);
+
+            act.Should().Throw<ArgumentException>().WithMessage("*NaN*");
+        }
+#endif
     }
 }

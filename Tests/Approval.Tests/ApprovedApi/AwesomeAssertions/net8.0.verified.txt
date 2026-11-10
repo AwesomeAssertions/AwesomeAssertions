@@ -195,6 +195,9 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.Numeric.NullableNumericAssertions<byte> Should([System.Diagnostics.CodeAnalysis.NotNull] this byte? actualValue) { }
         [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.Numeric.ComparableTypeAssertions<char> Should([System.Diagnostics.CodeAnalysis.NotNull] this char actualValue) { }
+        [System.Diagnostics.Contracts.Pure]
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Numeric.NumericAssertions<decimal> Should(this decimal actualValue) { }
         [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -309,11 +312,15 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.Numeric.ComparableTypeAssertions<T> Should<T>([System.Diagnostics.CodeAnalysis.NotNull] this System.IComparable<T> comparableValue) { }
         [System.Diagnostics.Contracts.Pure]
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.Numeric.NumericAssertions<T> Should<T>(this System.Numerics.INumber<T> actualValue)
+            where T :  struct, System.Numerics.INumber<T> { }
+        [System.Diagnostics.Contracts.Pure]
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.Specialized.TaskCompletionSourceAssertions<T> Should<T>(this System.Threading.Tasks.TaskCompletionSource<T> tcs) { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
         public static void Should<TSubject, TAssertions>(this AwesomeAssertions.Numeric.NumericAssertionsBase<TSubject, TSubject, TAssertions> _)
-            where TSubject :  struct, System.IComparable<TSubject>
+            where TSubject :  struct, System.Numerics.INumber<TSubject>
             where TAssertions : AwesomeAssertions.Numeric.NumericAssertions<TSubject, TAssertions> { }
         [System.Obsolete("You are asserting the \'AndConstraint\' itself. Remove the \'Should()\' method direct" +
             "ly following \'And\'", true)]
@@ -451,6 +458,9 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<float>> BeApproximately(this AwesomeAssertions.Numeric.NumericAssertions<float> parent, float expectedValue, float precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> BeApproximately<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, T expectedValue, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.IFloatingPointIeee754<T> { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<byte>> BeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<byte> parent, byte nearbyValue, byte delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<int>> BeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<int> parent, int nearbyValue, uint delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -467,6 +477,9 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<ushort>> BeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<ushort> parent, ushort nearbyValue, ushort delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> BeCloseTo<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, T nearbyValue, T delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.IBinaryInteger<T>, System.Numerics.IMinMaxValue<T> { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NullableNumericAssertions<double>> BeNaN(this AwesomeAssertions.Numeric.NullableNumericAssertions<double> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NullableNumericAssertions<float>> BeNaN(this AwesomeAssertions.Numeric.NullableNumericAssertions<float> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -474,6 +487,9 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<double>> BeNaN(this AwesomeAssertions.Numeric.NumericAssertions<double> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<float>> BeNaN(this AwesomeAssertions.Numeric.NumericAssertions<float> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> BeNaN<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.INumber<T> { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NullableNumericAssertions<decimal>> NotBeApproximately(this AwesomeAssertions.Numeric.NullableNumericAssertions<decimal> parent, decimal unexpectedValue, decimal precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
@@ -493,6 +509,9 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<float>> NotBeApproximately(this AwesomeAssertions.Numeric.NumericAssertions<float> parent, float unexpectedValue, float precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> NotBeApproximately<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, T unexpectedValue, T precision, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.IFloatingPointIeee754<T> { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<byte>> NotBeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<byte> parent, byte distantValue, byte delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<int>> NotBeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<int> parent, int distantValue, uint delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -509,6 +528,9 @@ namespace AwesomeAssertions
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<ushort>> NotBeCloseTo(this AwesomeAssertions.Numeric.NumericAssertions<ushort> parent, ushort distantValue, ushort delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> NotBeCloseTo<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, T distantValue, T delta, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.IBinaryInteger<T>, System.Numerics.IMinMaxValue<T> { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NullableNumericAssertions<double>> NotBeNaN(this AwesomeAssertions.Numeric.NullableNumericAssertions<double> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NullableNumericAssertions<float>> NotBeNaN(this AwesomeAssertions.Numeric.NullableNumericAssertions<float> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
@@ -516,6 +538,9 @@ namespace AwesomeAssertions
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<double>> NotBeNaN(this AwesomeAssertions.Numeric.NumericAssertions<double> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
         [return: System.Diagnostics.CodeAnalysis.NotNull]
         public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<float>> NotBeNaN(this AwesomeAssertions.Numeric.NumericAssertions<float> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
+        [return: System.Diagnostics.CodeAnalysis.NotNull]
+        public static AwesomeAssertions.AndConstraint<AwesomeAssertions.Numeric.NumericAssertions<T>> NotBeNaN<T>(this AwesomeAssertions.Numeric.NumericAssertions<T> parent, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+            where T :  struct, System.Numerics.INumber<T> { }
     }
     public static class NumericCollectionAssertionsExtensions
     {
@@ -1991,12 +2016,12 @@ namespace AwesomeAssertions.Numeric
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeRankedEquallyTo(T unexpected, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
     }
     public class NullableNumericAssertions<T> : AwesomeAssertions.Numeric.NullableNumericAssertions<T, AwesomeAssertions.Numeric.NullableNumericAssertions<T>>
-        where T :  struct, System.IComparable<T>
+        where T :  struct, System.Numerics.INumber<T>
     {
         public NullableNumericAssertions(T? value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
     }
     public class NullableNumericAssertions<T, TAssertions> : AwesomeAssertions.Numeric.NumericAssertionsBase<T, T?, TAssertions>
-        where T :  struct, System.IComparable<T>
+        where T :  struct, System.Numerics.INumber<T>
         where TAssertions : AwesomeAssertions.Numeric.NullableNumericAssertions<T, TAssertions>
     {
         public NullableNumericAssertions(T? value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
@@ -2013,7 +2038,7 @@ namespace AwesomeAssertions.Numeric
         public AwesomeAssertions.AndConstraint<TAssertions> NotHaveValue([System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
     }
     public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
-        where T :  struct, System.IComparable<T>
+        where T :  struct, System.Numerics.INumber<T>
         where TAssertions : AwesomeAssertions.Numeric.NumericAssertionsBase<T, TSubject, TAssertions>
     {
         protected NumericAssertionsBase(AwesomeAssertions.Execution.AssertionChain assertionChain) { }
@@ -2056,12 +2081,12 @@ namespace AwesomeAssertions.Numeric
         public AwesomeAssertions.AndConstraint<TAssertions> NotBeOfType(System.Type unexpectedType, [System.Diagnostics.CodeAnalysis.StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs) { }
     }
     public class NumericAssertions<T> : AwesomeAssertions.Numeric.NumericAssertions<T, AwesomeAssertions.Numeric.NumericAssertions<T>>
-        where T :  struct, System.IComparable<T>
+        where T :  struct, System.Numerics.INumber<T>
     {
         public NumericAssertions(T value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }
     }
     public class NumericAssertions<T, TAssertions> : AwesomeAssertions.Numeric.NumericAssertionsBase<T, T, TAssertions>
-        where T :  struct, System.IComparable<T>
+        where T :  struct, System.Numerics.INumber<T>
         where TAssertions : AwesomeAssertions.Numeric.NumericAssertions<T, TAssertions>
     {
         public NumericAssertions(T value, AwesomeAssertions.Execution.AssertionChain assertionChain) { }

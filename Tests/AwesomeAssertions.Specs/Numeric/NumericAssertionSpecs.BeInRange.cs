@@ -68,7 +68,7 @@ public partial class NumericAssertionSpecs
         }
 
         [Fact]
-        public void A_NaN_is_never_in_range_of_two_doubles()
+        public void NaN_is_never_in_range_of_two_doubles()
         {
             double value = double.NaN;
 
@@ -92,6 +92,39 @@ public partial class NumericAssertionSpecs
                 .Should().Throw<ArgumentException>()
                 .WithMessage("*NaN*");
         }
+
+#if NET
+        [Fact]
+        public void NaN_is_never_in_range_of_two_floating_point_numbers()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().BeInRange((Half)4, (Half)5);
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be between*4* and*5*, but found*NaN*");
+        }
+
+        public static TheoryData<Half, Half> NaNInRangeTestData => new()
+        {
+            { Half.NaN, Half.Zero },
+            { Half.Zero, Half.NaN }
+        };
+
+        [Theory]
+        [MemberData(nameof(NaNInRangeTestData))]
+        public void A_floating_point_number_can_never_be_in_a_range_containing_NaN(Half minimumValue, Half maximumValue)
+        {
+            Half value = (Half)0.5;
+
+            Action act = () => value.Should().BeInRange(minimumValue, maximumValue);
+
+            act
+                .Should().Throw<ArgumentException>()
+                .WithMessage("*NaN*");
+        }
+#endif
     }
 
     public class NotBeInRange
@@ -172,5 +205,28 @@ public partial class NumericAssertionSpecs
                 .Should().Throw<ArgumentException>()
                 .WithMessage("*NaN*");
         }
+
+#if NET
+        [Fact]
+        public void NaN_is_never_inside_any_range_of_floating_point_numbers()
+        {
+            Half value = Half.NaN;
+
+            value.Should().NotBeInRange((Half)4, (Half)5);
+        }
+
+        [Theory]
+        [MemberData(nameof(BeInRange.NaNInRangeTestData), MemberType = typeof(BeInRange))]
+        public void Cannot_use_NaN_in_a_range_of_floating_point_numbers(Half minimumValue, Half maximumValue)
+        {
+            Half value = (Half)4.5;
+
+            Action act = () => value.Should().NotBeInRange(minimumValue, maximumValue);
+
+            act
+                .Should().Throw<ArgumentException>()
+                .WithMessage("*NaN*");
+        }
+#endif
     }
 }

@@ -1,5 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+#if NET
+using System.Numerics;
+#endif
 using AwesomeAssertions.Common;
 using AwesomeAssertions.Execution;
 using AwesomeAssertions.Numeric;
@@ -361,6 +364,64 @@ public static class NumericAssertionsExtensions
 
         return new AndConstraint<NumericAssertions<ulong>>(parent);
     }
+
+#if NET
+    /// <summary>
+    /// Asserts an integral value is close to another value within a specified value.
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="nearbyValue">
+    /// The nearby value to compare the actual value with.
+    /// </param>
+    /// <param name="delta">
+    /// The maximum amount of which the two values may differ.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">Numeric type to assert.</typeparam>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> BeCloseTo<T>(this NumericAssertions<T> parent,
+        T nearbyValue, T delta,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where T : struct, IBinaryInteger<T>, IMinMaxValue<T>
+    {
+        checked
+        {
+            T actualValue = parent.Subject;
+            T minValue;
+            try
+            {
+                minValue = nearbyValue - delta;
+            }
+            catch (OverflowException)
+            {
+                minValue = T.MinValue;
+            }
+
+            T maxValue;
+            try
+            {
+                maxValue = nearbyValue + delta;
+            }
+            catch (OverflowException)
+            {
+                maxValue = T.MaxValue;
+            }
+
+            FailIfValueOutsideBounds(parent.CurrentAssertionChain,
+                minValue <= actualValue && actualValue <= maxValue,
+                nearbyValue, delta, actualValue,
+                because, becauseArgs);
+        }
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
 
     private static void FailIfValueOutsideBounds<TValue, TDelta>(AssertionChain assertionChain, bool valueWithinBounds,
         TValue nearbyValue, TDelta delta, TValue actualValue,
@@ -730,6 +791,64 @@ public static class NumericAssertionsExtensions
 
         return new AndConstraint<NumericAssertions<ulong>>(parent);
     }
+
+#if NET
+    /// <summary>
+    /// Asserts an integral value is not within another value by a specified value.
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="distantValue">
+    /// The nearby value to compare the actual value with.
+    /// </param>
+    /// <param name="delta">
+    /// The maximum amount of which the two values may differ.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">Numeric type to assert.</typeparam>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> NotBeCloseTo<T>(this NumericAssertions<T> parent,
+        T distantValue, T delta,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where T : struct, IBinaryInteger<T>, IMinMaxValue<T>
+    {
+        checked
+        {
+            T actualValue = parent.Subject;
+            T minValue;
+            try
+            {
+                minValue = distantValue - delta;
+            }
+            catch (OverflowException)
+            {
+                minValue = T.MinValue;
+            }
+
+            T maxValue;
+            try
+            {
+                maxValue = distantValue + delta;
+            }
+            catch (OverflowException)
+            {
+                maxValue = T.MaxValue;
+            }
+
+            FailIfValueInsideBounds(parent.CurrentAssertionChain,
+                !(minValue <= actualValue && actualValue <= maxValue),
+                distantValue, delta, actualValue,
+                because, becauseArgs);
+        }
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
 
     private static void FailIfValueInsideBounds<TValue, TDelta>(
         AssertionChain assertionChain,
@@ -1155,11 +1274,71 @@ public static class NumericAssertionsExtensions
         return new AndConstraint<NumericAssertions<decimal>>(parent);
     }
 
+#if NET
+    /// <summary>
+    /// Asserts a floating point value approximates another value as close as possible.
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="expectedValue">
+    /// The expected value to compare the actual value with.
+    /// </param>
+    /// <param name="precision">
+    /// The maximum amount of which the two values may differ.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    /// <exception cref="ArgumentException"><paramref name="expectedValue"/> is NaN.</exception>
+    /// <typeparam name="T">Numeric type to assert.</typeparam>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> BeApproximately<T>(this NumericAssertions<T> parent,
+        T expectedValue, T precision,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where T : struct, IFloatingPointIeee754<T>
+    {
+        if (T.IsNaN(expectedValue))
+        {
+            throw new ArgumentException($"Cannot determine approximation of a {typeof(T)} to NaN", nameof(expectedValue));
+        }
+
+        Guard.ThrowIfArgumentIsNegative(precision);
+
+        if (T.IsPositiveInfinity(expectedValue))
+        {
+            FailIfDifferenceOutsidePrecision(T.IsPositiveInfinity(parent.Subject), parent, expectedValue, precision,
+                T.NaN, because, becauseArgs);
+        }
+        else if (T.IsNegativeInfinity(expectedValue))
+        {
+            FailIfDifferenceOutsidePrecision(T.IsNegativeInfinity(parent.Subject), parent, expectedValue, precision,
+                T.NaN, because, becauseArgs);
+        }
+        else
+        {
+            T actualDifference = T.Abs(expectedValue - parent.Subject);
+
+            FailIfDifferenceOutsidePrecision(actualDifference <= precision, parent, expectedValue, precision, actualDifference,
+                because, becauseArgs);
+        }
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
+
     private static void FailIfDifferenceOutsidePrecision<T>(
         bool differenceWithinPrecision,
         NumericAssertions<T> parent, T expectedValue, T precision, T actualDifference,
         [StringSyntax("CompositeFormat")] string because, object[] becauseArgs)
+#if NET
+        where T : struct, System.Numerics.INumber<T>
+#else
         where T : struct, IComparable<T>
+#endif
     {
         var assertion = parent.CurrentAssertionChain;
 
@@ -1169,7 +1348,6 @@ public static class NumericAssertionsExtensions
             .FailWith("Expected {context:value} to approximate {1} +/- {2}{reason}, but {0} differed by {3}.",
                 parent.Subject, expectedValue, precision, actualDifference);
     }
-
     #endregion
 
     #region NotBeApproximately
@@ -1559,11 +1737,69 @@ public static class NumericAssertionsExtensions
         return new AndConstraint<NumericAssertions<decimal>>(parent);
     }
 
+#if NET
+    /// <summary>
+    /// Asserts a floating point value does not approximate another value by a given amount.
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="unexpectedValue">
+    /// The unexpected value to compare the actual value with.
+    /// </param>
+    /// <param name="precision">
+    /// The minimum exclusive amount of which the two values should differ.
+    /// </param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])"/> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="precision"/> is negative.</exception>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> NotBeApproximately<T>(this NumericAssertions<T> parent,
+        T unexpectedValue, T precision,
+        [StringSyntax("CompositeFormat")] string because = "", params object[] becauseArgs)
+        where T : struct, IFloatingPointIeee754<T>
+    {
+        if (T.IsNaN(unexpectedValue))
+        {
+            throw new ArgumentException($"Cannot determine approximation of a {typeof(T)} to NaN", nameof(unexpectedValue));
+        }
+
+        Guard.ThrowIfArgumentIsNegative(precision);
+
+        if (T.IsPositiveInfinity(unexpectedValue))
+        {
+            FailIfDifferenceWithinPrecision(parent, !T.IsPositiveInfinity(parent.Subject), unexpectedValue, precision,
+                T.NaN, because, becauseArgs);
+        }
+        else if (T.IsNegativeInfinity(unexpectedValue))
+        {
+            FailIfDifferenceWithinPrecision(parent, !T.IsNegativeInfinity(parent.Subject), unexpectedValue, precision,
+                T.NaN, because, becauseArgs);
+        }
+        else
+        {
+            T actualDifference = T.Abs(unexpectedValue - parent.Subject);
+
+            FailIfDifferenceWithinPrecision(parent, actualDifference > precision, unexpectedValue, precision, actualDifference,
+                because, becauseArgs);
+        }
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
+
     private static void FailIfDifferenceWithinPrecision<T>(
         NumericAssertions<T> parent, bool differenceOutsidePrecision,
         T unexpectedValue, T precision, T actualDifference,
         [StringSyntax("CompositeFormat")] string because, object[] becauseArgs)
+#if NET
+        where T : struct, System.Numerics.INumber<T>
+#else
         where T : struct, IComparable<T>
+#endif
     {
         parent.CurrentAssertionChain
             .ForCondition(differenceOutsidePrecision)
@@ -1627,6 +1863,36 @@ public static class NumericAssertionsExtensions
 
         return new AndConstraint<NumericAssertions<double>>(parent);
     }
+
+#if NET
+    /// <summary>
+    /// Asserts that the number is seen as not a number (NaN).
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">Numeric type to assert.</typeparam>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> BeNaN<T>(this NumericAssertions<T> parent,
+        [StringSyntax("CompositeFormat")] string because = "",
+        params object[] becauseArgs)
+        where T : struct, INumber<T>
+    {
+        T actualValue = parent.Subject;
+
+        parent.CurrentAssertionChain
+            .ForCondition(T.IsNaN(actualValue))
+            .BecauseOf(because, becauseArgs)
+            .FailWith("Expected {context:value} to be NaN{reason}, but found {0}.", actualValue);
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
 
     /// <summary>
     /// Asserts that the number is seen as not a number (NaN).
@@ -1735,6 +2001,36 @@ public static class NumericAssertionsExtensions
 
         return new AndConstraint<NumericAssertions<double>>(parent);
     }
+
+#if NET
+    /// <summary>
+    /// Asserts that the number is not seen as the special value not a number (NaN).
+    /// </summary>
+    /// <param name="parent">The <see cref="NumericAssertions{T}"/> object that is being extended.</param>
+    /// <param name="because">
+    /// A formatted phrase as is supported by <see cref="string.Format(string,object[])" /> explaining why the assertion
+    /// is needed. If the phrase does not start with the word <i>because</i>, it is prepended automatically.
+    /// </param>
+    /// <param name="becauseArgs">
+    /// Zero or more objects to format using the placeholders in <paramref name="because" />.
+    /// </param>
+    /// <typeparam name="T">Numeric type to assert.</typeparam>
+    [return: NotNull]
+    public static AndConstraint<NumericAssertions<T>> NotBeNaN<T>(this NumericAssertions<T> parent,
+        [StringSyntax("CompositeFormat")] string because = "",
+        params object[] becauseArgs)
+        where T : struct, INumber<T>
+    {
+        T actualValue = parent.Subject;
+
+        parent.CurrentAssertionChain
+            .ForCondition(!T.IsNaN(actualValue))
+            .BecauseOf(because, becauseArgs)
+            .FailWith("Did not expect {context:value} to be NaN{reason}.");
+
+        return new AndConstraint<NumericAssertions<T>>(parent);
+    }
+#endif
 
     /// <summary>
     /// Asserts that the number is not seen as the special value not a number (NaN).

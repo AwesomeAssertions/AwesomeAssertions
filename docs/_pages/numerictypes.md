@@ -73,3 +73,15 @@ To assert that a value matches one of the provided values, you can do this (work
 ```csharp
 value.Should().BeOneOf(new[] { 3, 6 });
 ```
+
+Version 10 adds support for `INumber<T>` when targeting .NET8 or greater, which makes all numeric assertions available also for newer numeric types:
+
+```csharp
+var value = (Int128)2;
+value.Should().BeCloseTo(Int128.One, (Int128)2);
+
+Decimal64 value = Decimal64.Zero;
+Decimal64.Should().BeApproximately(Decimal64.Zero, (Decimal64)0.1);
+
+Half.NaN.Should().BeNaN();
+```

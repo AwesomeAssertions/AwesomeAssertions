@@ -91,5 +91,27 @@ public partial class NumericAssertionSpecs
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected*1.5*found NaN*");
         }
+
+#if NET
+        [Fact]
+        public void Two_floating_point_numbers_that_are_NaN_can_be_compared()
+        {
+            Half value = Half.NaN;
+
+            value.Should().BeOneOf(Half.NaN, (Half)4.5);
+        }
+
+        [Fact]
+        public void Floating_point_numbers_are_never_equal_to_NaN()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().BeOneOf((Half)1.5, (Half)4.5);
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected*1.5*found NaN*");
+        }
+#endif
     }
 }

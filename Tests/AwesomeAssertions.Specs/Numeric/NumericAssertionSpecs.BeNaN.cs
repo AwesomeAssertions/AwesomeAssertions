@@ -96,6 +96,57 @@ public partial class NumericAssertionSpecs
                 .And.Be(actual);
         }
 
+#if NET
+        [Fact]
+        public void NaN_is_equal_to_NaN_when_its_a_floating_point_number()
+        {
+            Half actual = Half.NaN;
+
+            actual.Should().BeNaN();
+        }
+
+        public static TheoryData<Half> NormalFloatingPointNumbers => new()
+        {
+            { -Half.One },
+            { Half.Zero },
+            { Half.One },
+            { Half.MinValue },
+            { Half.MaxValue },
+            { Half.Epsilon },
+            { Half.NegativeInfinity },
+            { Half.PositiveInfinity }
+        };
+
+        [Theory]
+        [MemberData(nameof(NormalFloatingPointNumbers))]
+        public void Should_fail_when_asserting_normal_floating_point_number_to_be_NaN(Half actual)
+        {
+            Action act = () => actual.Should().BeNaN();
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void Should_fail_with_a_descriptive_message_when_asserting_normal_floating_point_number_to_be_NaN()
+        {
+            Half actual = Half.One;
+
+            Action act = () => actual.Should().BeNaN();
+
+            act.Should().Throw<XunitException>()
+               .WithMessage("Expected actual to be NaN, but found 1.");
+        }
+
+        [Fact]
+        public void Should_chain_when_asserting_NaN_as_floating_point_number()
+        {
+            Half actual = Half.NaN;
+
+            actual.Should().BeNaN()
+                .And.Be(actual);
+        }
+#endif
+
         [Fact]
         public void NaN_is_equal_to_NaN_when_its_a_nullable_float()
         {
@@ -276,6 +327,57 @@ public partial class NumericAssertionSpecs
             actual.Should().NotBeNaN()
                 .And.Be(actual);
         }
+
+#if NET
+        public static TheoryData<Half> NormalFloatingPointNumbers => new()
+        {
+            { -Half.One },
+            { Half.Zero },
+            { Half.One },
+            { Half.MinValue },
+            { Half.MaxValue },
+            { Half.Epsilon },
+            { Half.NegativeInfinity },
+            { Half.PositiveInfinity }
+        };
+
+        [Theory]
+        [MemberData(nameof(NormalFloatingPointNumbers))]
+        public void Normal_floating_point_number_is_never_equal_to_NaN(Half actual)
+        {
+            actual.Should().NotBeNaN();
+        }
+
+        [Fact]
+        public void Should_fail_when_asserting_NaN_as_floating_point_number()
+        {
+            Half actual = Half.NaN;
+
+            Action act = () => actual.Should().NotBeNaN();
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void Should_fail_with_a_descriptive_message_when_asserting_NaN_as_floating_point_number()
+        {
+            Half actual = Half.NaN;
+
+            Action act = () => actual.Should().NotBeNaN();
+
+            act.Should().Throw<XunitException>()
+               .WithMessage("Did not expect actual to be NaN.");
+        }
+
+        [Fact]
+        public void Should_chain_when_asserting_normal_floating_point_number_value()
+        {
+            Half actual = Half.One;
+
+            actual.Should().NotBeNaN()
+                .And.Be(actual);
+        }
+#endif
 
         [InlineData(null)]
         [InlineData(-1f)]
