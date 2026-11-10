@@ -1,66 +1,96 @@
 # Coding style and design guidelines
 
-This document describes the coding style and design guidelines for AwesomeAssertions.
-Its content gets detailed from top to bottom.
-Start reading the section titles, go in deep if the title is not self-explanatory.
+Guidelines for contributing to AwesomeAssertions, ordered so you can skim.
+Read the **bold rules** and the ✅ / ❌ lines;
+dig into a section only when its title isn't self-explanatory.
 
 ## Code style
 
-* Lines should not be wider than 130 characters.
-* Prefer `is null` and `is not null` over `!=/== null`.
-* String formatting should use invariant culture when formatting non-strings.
-* Follow the style presented in the [Coding Guidelines for C#](https://csharpcodingguidelines.com/).
+* Lines ≤ 130 characters.
+* Prefer `is null` / `is not null` over `== null` / `!= null`.
+* Use invariant culture when formatting non-strings.
+* Otherwise follow the [C# Coding Guidelines](https://csharpcodingguidelines.com/).
 
-## Design guidelines
+## Design principles
 
-### General
+What every public API optimises for:
 
-### Core assembly
+* **Backwards compatibility** — the public surface is a contract (see *Evolving the public API*).
+* **Reads like a sentence** — the fluent chain should form natural English.
+* **Discoverable** — the right method should be findable through IntelliSense, without the docs.
+* **Extensible** — keep the hooks (`Using`, custom rules / steps / comparers) open for third parties.
+* ✅ Make assertion classes for non-sealed types or interfaces **generic in the subject type**,
+  so chaining keeps the concrete type —
+  `MyTypeAssertions<TSubject, TAssertions> where TSubject : MyType`,
+  mirroring the built-in `NumericAssertions<T, TAssertions>` —
+  not a non-generic `MyTypeAssertions`.
 
-* Pay attention to backwards compatibility.
-* Keep the code base open for extensibility.
-* Mind the API fluent design. (Test should be readable like natural human language.)
-* Design the features discoverable.
+## API consistency
 
-* ✅ Prefer "Did not expect something to be [...]" over "Expected something not to be [...]".
-* ✅ Be aware that an assertion might be wrapped in an `AssertionScope` so `FailWith` does not halt execution
-  and extra precautions must be taken to avoid e.g. a `NullReferenceException` after verifying that `Subject is not null`.
+A fluent assertion should read like a sentence and be discoverable.
+Two rules keep it that way:
 
-* ❌ Don't use `predicate.Body` to format a predicate in a failure message.
-  Pass the predicate to `FailWith` and let the `PredicateLambdaExpressionValueFormatter` handle formatting it properly.
-* ❌ Don't use `type.Name` to format a type, but rather pass it to `FailWith` and let the `TypeValueFormatter` do its thing.
+1. **Name by what the method *does* (observable behaviour) — not by a matching prefix or its implementation.**
+2. **Reuse a category; a method and its opposite live in the *same* one** (`Including` ↔ `Excluding`).
 
-### Preparing API changes
+A **new category is a last resort**, justified only by a genuinely new *mechanism* — never by "the prefix fits".
+Prefer a precise gerund with a clear, opposite-friendly meaning.
 
-When API members are planned to be replaced, renamed or removed in future versions:
+**Register by role:** fluent builders chain, use gerund / `With…` names and return the builder;
+collection & settings objects mutate and use imperative `Add` / `Remove` / `Clear` or settable properties.
 
-* ✅ Extend the documentation of the member to be deprecated (summary section).
-  Point to the replacement member.
-* ✅ Add a clear note of deprecation in the release notes
-  (addtional section `Deprecations` after `Fixes` section within a version).
-* ❌ Don't mark deprecated members with the `ObsoleteAttribute`.
-  Several users have enabled "warning as error", so the obsolete warning will cause compiler error.
-* ✅ Use the `EditorBrowsableAttribute` instead to hide the member.
+| Category | Answers | Example |
+|---|---|---|
+| `Including` / `Excluding` | *which* members participate | `ExcludingFields()` |
+| `Ignoring` | *how* a participating value is compared | `IgnoringCase()` |
+| `Comparing` | which equality algorithm for a type | `ComparingByValue<T>()` |
+| `Preferring` | declared vs. runtime type view | `PreferringRuntimeMemberTypes()` |
+| `Allowing` | lifts a framework guard | `AllowingInfiniteRecursion()` |
+| `Suppressing` | swallows a third-party exception | `SuppressingEventAccessorExceptions()` |
+| `Treating…As…` | reclassifies member status | `Treating…AsMissing()` |
+| `With` / `Without` | toggles a feature / mode | `WithStrictOrdering()` |
+| `Using` | plugs in a custom rule / step / comparer | `Using(IMemberSelectionRule)` |
 
-### Tests in AwesomeAssertions
+Assertion methods use the `Be*` / `Have*` / `Contain*` families, negating with `Not` + positive;
+a precise bare domain verb (`Throw`, `Match`, `Imply`) is fine where a family prefix would read worse.
 
-* Naming and grouping guidelines (based on [this post](https://www.continuousimprover.com/2023/03/test-naming.html))
-  * ✅ Group tests for the same API using a nested class so you don't have to repeat the API name in the name of the test.
-  * ❌ Avoid the use of `When` and `Should` in test names and use concise names like `Exclusion_of_missing_members_works_with_mapping`.
-* Every test method shall follow the AAA rule: Arrange, Act, Assert.
-  * ✅ Separate Arrange, Act and Assert with exactly one empty line.
-  * ❌ Omit AAA comments unless you think they are meaningful.
-* Remember to test the "because formatting" overloads.
-  * ✅ Always use the pattern `"we want to test the {0} message", "failure"`
-    resulting in generated string `"because we want to test the failure message"`.
-    This should be checked with either as full text or with the pattern `"*because*failure message*"`
-* ❌ Don't use `Should().NotThrow` in the asserting for tests which are meant to pass.
+## Writing an assertion
 
-### TODO - unsorted
+* ✅ **Fail, don't throw, for assertion outcomes.** Report every verdict about the *subject* —
+  including a **null subject** — through `FailWith`.
+  Throw a real exception only for **API misuse**:
+  use `Guard.ThrowIfArgumentIsNull` for arguments that must never be null (a predicate, options, a comparer).
+* ✅ **Assume an `AssertionScope`.** Inside a scope, `FailWith` **collects** the failure instead of throwing,
+  so execution continues.
+  Guard against a follow-up `NullReferenceException` (e.g. after `Subject is not null`),
+  and when returning `AndWhichConstraint<…, T>`,
+  fetch the `T` **defensively** — a prior assertion may have failed without throwing.
+* ✅ **Pick the continuation deliberately:** return `AndConstraint<T>` to chain more assertions with `.And`;
+  return `AndWhichConstraint<T, S>` only when the assertion selects a single subject `S`
+  the caller is likely to continue on (`.Which` / `.Subject`).
+* ✅ Prefer *"Did not expect … to be […]"* over *"Expected … not to be […]"* in failure messages.
+* ❌ Don't format a predicate via `predicate.Body` — pass the predicate to `FailWith` and let
+  `PredicateLambdaExpressionValueFormatter` render it.
+* ❌ Don't format a type via `type.Name` — pass the type to `FailWith` and let `TypeValueFormatter` do it.
 
-* Behavioral patterns such as how to deal with `null` arguments
-* When to return `AndWhichConstraint` vs `AndConstraint`.
-* When to use `FailWith` vs throwing a normal .NET exception type
-* Decisions (like a poor mans Architecture Design Log) such as why we target certain frameworks
-* When using `AndWhichConstraint<..., T>` the `T` element must be fetched in way resilient to that `FailWith` don't throw immediately when encapsulated in a custom `AssertionScope`.
-* Assertion class over non-sealed classes or interfaces should probably be generic in type to avoid loosing type information. E.g instead of `MyClassAssertions` then `MyClassAssertions<T> where T : MyClass`
+## Evolving the public API
+
+When a member is to be replaced, renamed or removed in a future version:
+
+* ✅ Extend the member's XML `<summary>` to point at the replacement.
+* ✅ Add a `Deprecations` note to the release notes (after the `Fixes` section, within the version).
+* ✅ Hide the old member with `[EditorBrowsable(EditorBrowsableState.Never)]`.
+* ❌ Don't use `[Obsolete]` — many users build with "warnings as errors", so it would break their build.
+
+## Tests
+
+Naming and grouping (based on [this post](https://www.continuousimprover.com/2023/03/test-naming.html)):
+
+* ✅ Group tests for one API in a nested class, so the API name isn't repeated in each test name.
+* ✅ Use concise names like `Exclusion_of_missing_members_works_with_mapping`.
+* ❌ Avoid `When` and `Should` in test names.
+* ✅ Follow **A**rrange – **A**ct – **A**ssert, separated by exactly one blank line.
+* ❌ Omit AAA comments unless they are genuinely meaningful.
+* ✅ Cover the "because" overload with the pattern `"we want to test the {0} message", "failure"`
+  and assert on the full text or `"*because*failure message*"`.
+* ❌ Don't use `Should().NotThrow(...)` as the *act* of a test meant to pass — assert the outcome directly.
