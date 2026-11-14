@@ -1220,7 +1220,6 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                     }
 
                     highestIndex = Math.Max(highestIndex, consecutiveItems);
-                    subjectIndex++;
                 }
             }
 
@@ -2824,9 +2823,9 @@ public class GenericCollectionAssertions<TCollection, T, TAssertions> : Referenc
                                 "Expected {context:collection} {0} to not contain items {1} in consecutive order{reason}, " +
                                 "but items appeared in order ending at index {2}.",
                                 Subject, unexpectedItems, (subjectIndex + consecutiveItems) - 2);
-                    }
 
-                    subjectIndex++;
+                        break;
+                    }
                 }
             }
         }
