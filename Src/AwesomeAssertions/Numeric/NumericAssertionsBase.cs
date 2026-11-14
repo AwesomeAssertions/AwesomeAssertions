@@ -505,7 +505,7 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
     {
         const string noDifferenceMessage = ".";
 
-        if (Subject is not T subject || expected is not { } expectedValue)
+        if (Subject is not T subject || expected is not { } expectedValue || IsNaN(subject) || IsNaN(expectedValue))
         {
             return noDifferenceMessage;
         }
