@@ -19,6 +19,7 @@ sidebar:
 
 ### Fixes
 * Fix caller identification when asserting on another thread - [#665](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/665)
+* Fix `ContainInConsecutiveOrder` and `NotContainInConsecutiveOrder` missing a run that starts directly after an abandoned partial match - [#700](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/700)
 
 ### Breaking Changes (for users)
 * Removed support for the target framework .NET 6 - [#603](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/603)
