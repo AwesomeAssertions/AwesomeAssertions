@@ -53,6 +53,14 @@ public partial class CollectionAssertionSpecs
             collection.Should().ContainInConsecutiveOrder(1, 2, 1, 2, 12, 2, 2);
         }
 
+        [Theory]
+        [InlineData(new[] { 1, 1, 2 }, new[] { 1, 2 })]
+        [InlineData(new[] { 1, 2, 2, 3 }, new[] { 2, 3 })]
+        public void When_the_range_starts_directly_after_an_abandoned_partial_match_it_should_not_throw(int[] collection, int[] expected)
+        {
+            collection.Should().ContainInConsecutiveOrder(expected);
+        }
+
         [Fact]
         public void When_checking_for_an_empty_list_it_should_not_throw()
         {
@@ -345,6 +353,40 @@ public partial class CollectionAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage(
                 "Expected collection {1, 2, 1, 2, 3, 4, 5, 1, 2} to not contain items {1, 2, 3} in consecutive order, " +
                 "but items appeared in order ending at index 4.");
+        }
+
+        [Fact]
+        public void When_the_range_starts_directly_after_an_abandoned_partial_match_it_should_throw()
+        {
+            // Arrange
+            int[] collection = [1, 1, 2];
+
+            // Act
+            Action act = () => collection.Should().NotContainInConsecutiveOrder(1, 2);
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection {1, 1, 2} to not contain items {1, 2} in consecutive order, " +
+                "but items appeared in order ending at index 2.");
+        }
+
+        [Fact]
+        public void When_the_range_appears_multiple_times_it_should_report_only_the_first_occurrence()
+        {
+            // Arrange
+            int[] collection = [2, 2];
+
+            // Act
+            Action act = () =>
+            {
+                using var _ = new AssertionScope();
+                collection.Should().NotContainInConsecutiveOrder(2);
+            };
+
+            // Assert
+            act.Should().Throw<XunitException>().WithMessage(
+                "Expected collection {2, 2} to not contain items {2} in consecutive order, " +
+                "but items appeared in order ending at index 0.");
         }
 
         [Fact]
