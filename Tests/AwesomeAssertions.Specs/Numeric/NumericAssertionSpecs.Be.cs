@@ -394,4 +394,34 @@ public partial class NumericAssertionSpecs
             value.Should().Be(2);
         }
     }
+
+    public class FloatingPointNaN
+    {
+        [Fact]
+        public void When_comparing_double_NaN_to_a_number_no_difference_is_shown()
+        {
+            Action act = () => double.NaN.Should().Be(3.4D);
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected double.NaN to be 3.4, but found NaN.");
+        }
+
+        [Fact]
+        public void When_comparing_a_number_to_double_NaN_no_difference_is_shown()
+        {
+            Action act = () => 3.4D.Should().Be(double.NaN);
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected 3.4D to be NaN, but found 3.4.");
+        }
+
+        [Fact]
+        public void When_comparing_float_NaN_to_a_number_no_difference_is_shown()
+        {
+            Action act = () => float.NaN.Should().Be(3.4F);
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("Expected float.NaN to be 3.4F, but found NaN.");
+        }
+    }
 }

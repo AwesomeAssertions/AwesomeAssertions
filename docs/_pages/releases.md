@@ -19,6 +19,7 @@ sidebar:
 
 ### Fixes
 * Fix caller identification when asserting on another thread - [#665](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/665)
+* Omit the meaningless `(difference of NaN)` from the failure message of numeric assertions when the subject or the expectation is `NaN` - [#701](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/701)
 * Fix `ContainInConsecutiveOrder` and `NotContainInConsecutiveOrder` missing a run that starts directly after an abandoned partial match - [#700](https://github.com/AwesomeAssertions/AwesomeAssertions/pull/700)
 
 ### Breaking Changes (for users)
