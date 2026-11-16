@@ -409,10 +409,10 @@ public partial class NumericAssertionSpecs
         [Fact]
         public void When_comparing_a_number_to_double_NaN_no_difference_is_shown()
         {
-            Action act = () => (3.4D).Should().Be(double.NaN);
+            Action act = () => 3.4D.Should().Be(double.NaN);
 
             act.Should().Throw<XunitException>()
-                .WithMessage("Expected (3.4D) to be NaN, but found 3.4.");
+                .WithMessage("Expected 3.4D to be NaN, but found 3.4.");
         }
 
         [Fact]
