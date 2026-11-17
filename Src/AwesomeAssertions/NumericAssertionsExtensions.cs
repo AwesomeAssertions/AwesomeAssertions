@@ -783,8 +783,8 @@ public static class NumericAssertionsExtensions
 
         if (assertion.Succeeded)
         {
-            var nonNullableAssertions = new SingleAssertions(parent.Subject.Value, assertion);
-            nonNullableAssertions.BeApproximately(expectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.BeApproximately(expectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<float>>(parent);
@@ -924,8 +924,8 @@ public static class NumericAssertionsExtensions
 
         if (assertion.Succeeded)
         {
-            var nonNullableAssertions = new DoubleAssertions(parent.Subject.Value, assertion);
-            BeApproximately(nonNullableAssertions, expectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.BeApproximately(expectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<double>>(parent);
@@ -1066,8 +1066,8 @@ public static class NumericAssertionsExtensions
 
         if (assertion.Succeeded)
         {
-            var nonNullableAssertions = new DecimalAssertions(parent.Subject.Value, assertion);
-            BeApproximately(nonNullableAssertions, expectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.BeApproximately(expectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<decimal>>(parent);
@@ -1201,8 +1201,8 @@ public static class NumericAssertionsExtensions
 
         if (parent.Subject is not null)
         {
-            var nonNullableAssertions = new SingleAssertions(parent.Subject.Value, parent.CurrentAssertionChain);
-            nonNullableAssertions.NotBeApproximately(unexpectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.NotBeApproximately(unexpectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<float>>(parent);
@@ -1335,8 +1335,8 @@ public static class NumericAssertionsExtensions
 
         if (parent.Subject is not null)
         {
-            var nonNullableAssertions = new DoubleAssertions(parent.Subject.Value, parent.CurrentAssertionChain);
-            nonNullableAssertions.NotBeApproximately(unexpectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.NotBeApproximately(unexpectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<double>>(parent);
@@ -1470,8 +1470,8 @@ public static class NumericAssertionsExtensions
 
         if (parent.Subject is not null)
         {
-            var nonNullableAssertions = new DecimalAssertions(parent.Subject.Value, parent.CurrentAssertionChain);
-            NotBeApproximately(nonNullableAssertions, unexpectedValue, precision, because, becauseArgs);
+            parent.NotBeNull(because, becauseArgs)
+                .And.NotBeApproximately(unexpectedValue, precision, because, becauseArgs);
         }
 
         return new AndConstraint<NullableNumericAssertions<decimal>>(parent);

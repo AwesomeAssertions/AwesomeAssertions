@@ -15,6 +15,8 @@ internal class NullableSByteAssertions : NullableNumericAssertions<sbyte>
     {
     }
 
+    protected override NumericAssertions<sbyte> AsTAssertions() => new SByteAssertions(Subject.GetValueOrDefault(), CurrentAssertionChain);
+
     private protected override string CalculateDifferenceForFailureMessage(sbyte subject, sbyte expected)
     {
         int difference = subject - expected;
