@@ -507,6 +507,69 @@ public class NumericDifferenceAssertionsSpecs
                 .WithMessage(
                     "Expected value to be 3y because we want to test the failure message, but found 1y (difference of -2).");
         }
+
+#if NET
+        public static TheoryData<Int128, Int128, Int128> Int128TestData => new()
+        {
+            { (Int128)50, (Int128)20, (Int128)30 },
+            { (Int128)20, (Int128)50, (Int128)(-30) },
+            { (Int128)123, (Int128)(-123), (Int128)246 },
+            { (Int128)(-123), (Int128)123, (Int128)(-246) }
+        };
+
+        [Theory]
+        [MemberData(nameof(Int128TestData))]
+        public void The_difference_between_binary_integers_is_included_in_the_message(Int128 value, Int128 expected, Int128 expectedDifference)
+        {
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    $"Expected value to be {expected} because we want to test the failure message, but found {value} (difference of {expectedDifference}).");
+        }
+
+        public static TheoryData<UInt128, UInt128, string> UInt128TestData => new()
+        {
+            { (UInt128)0, (UInt128)20, "-20" },
+            { (UInt128)20, (UInt128)0, "20" },
+        };
+
+        [Theory]
+        [MemberData(nameof(UInt128TestData))]
+        public void The_difference_between_unsigned_binary_integers_is_included_in_the_message(UInt128 value, UInt128 expected, string expectedDifference)
+        {
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    $"Expected value to be {expected} because we want to test the failure message, but found {value} (difference of {expectedDifference}).");
+        }
+
+        public static TheoryData<Half, Half, Half> HalfTestData => new()
+        {
+            { (Half)50, (Half)20, (Half)30 },
+            { (Half)20, (Half)50, (Half)(-30) },
+            { (Half)123, (Half)(-123), (Half)246 },
+            { (Half)(-123), (Half)123, (Half)(-246) }
+        };
+
+        [Theory]
+        [MemberData(nameof(HalfTestData))]
+        public void The_difference_between_binary_floats_is_included_in_the_message(Half value, Half expected, Half expectedDifference)
+        {
+            Action act = () =>
+                value.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    $"Expected value to be {expected} because we want to test the failure message, but found {value} (difference of {expectedDifference}).");
+        }
+#endif
     }
 
     public class BeLessThan
@@ -954,5 +1017,22 @@ public class NumericDifferenceAssertionsSpecs
                 .Should().Throw<XunitException>()
                 .WithMessage("Expected minValue to be 79228162514264337593543950335M*found -79228162514264337593543950335M.");
         }
+
+#if NET
+        [Fact]
+        public void The_difference_between_overflowed_binary_integers_is_not_included_in_the_message()
+        {
+            var subject = Int128.MaxValue;
+            var expected = Int128.MinValue;
+
+            Action act = () =>
+                subject.Should().Be(expected, "we want to test the {0} message", "failure");
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage(
+                    $"Expected * {expected} because *failure message, *{subject}*");
+        }
+#endif
     }
 }

@@ -619,6 +619,82 @@ public partial class NumericAssertionSpecs
             actual.Should().BeCloseTo(actual, 0)
                 .And.Be(actual);
         }
+
+#if NET
+
+        public static TheoryData<UInt128, UInt128, UInt128> UInt128_Success_Data()
+        {
+            return new()
+            {
+                { UInt128.Zero, UInt128.Zero, UInt128.Zero },
+                { UInt128.Zero, UInt128.Zero, UInt128.One },
+                { UInt128.Zero, UInt128.One, UInt128.One },
+                { UInt128.One, UInt128.MaxValue, UInt128.MaxValue },
+                { UInt128.MinValue, UInt128.MinValue + 1, UInt128.MaxValue },
+                { UInt128.MinValue + 1, UInt128.MinValue, UInt128.One },
+                { UInt128.MinValue + 1, UInt128.MinValue, UInt128.MaxValue },
+                { UInt128.MaxValue - 1, UInt128.MaxValue, UInt128.One },
+                { UInt128.MaxValue - 1, UInt128.MaxValue, UInt128.MaxValue },
+                { UInt128.MaxValue, UInt128.Zero, UInt128.MaxValue },
+                { UInt128.MaxValue, UInt128.One, UInt128.MaxValue },
+                { UInt128.MaxValue, UInt128.MaxValue - 1, UInt128.One },
+                { UInt128.MaxValue, UInt128.MaxValue - 1, UInt128.MaxValue },
+                { UInt128.MaxValue, UInt128.MaxValue, UInt128.Zero },
+                { UInt128.MaxValue, UInt128.MaxValue, UInt128.One },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(UInt128_Success_Data))]
+        public void When_a_binary_integer_value_is_close_to_expected_value_it_should_succeed(UInt128 actual, UInt128 nearbyValue,
+            UInt128 delta)
+        {
+            actual.Should().BeCloseTo(nearbyValue, delta);
+        }
+
+        public static TheoryData<UInt128, UInt128, UInt128> UInt128_Failure_Data()
+        {
+            return new()
+            {
+                { UInt128.Zero, UInt128.One, UInt128.Zero },
+                { UInt128.One, UInt128.Zero, UInt128.Zero },
+                { UInt128.MinValue, UInt128.MaxValue, UInt128.One },
+                { UInt128.MaxValue, UInt128.MinValue, UInt128.One },
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(UInt128_Failure_Data))]
+        public void When_a_binary_integer_value_is_not_close_to_expected_value_it_should_fail(UInt128 actual, UInt128 nearbyValue,
+            UInt128 delta)
+        {
+            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void When_a_binary_integer_value_is_not_close_to_expected_value_it_should_fail_with_a_descriptive_message()
+        {
+            UInt128 actual = 1;
+            UInt128 nearbyValue = 4;
+            UInt128 delta = 2;
+
+            Action act = () => actual.Should().BeCloseTo(nearbyValue, delta);
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("*be within*2*from*4*but found*1*");
+        }
+
+        [Fact]
+        public void When_a_binary_integer_value_is_returned_from_BeCloseTo_it_should_chain()
+        {
+            UInt128 actual = UInt128.MaxValue;
+
+            actual.Should().BeCloseTo(actual, UInt128.Zero)
+                .And.Be(actual);
+        }
+#endif
     }
 
     public class NotBeCloseTo
@@ -1235,5 +1311,75 @@ public partial class NumericAssertionSpecs
             actual.Should().NotBeCloseTo(0, 0)
                 .And.Be(actual);
         }
+
+#if NET
+
+        public static TheoryData<UInt128, UInt128, UInt128> UInt128_Success_Data => new()
+        {
+            { UInt128.Zero, UInt128.One, UInt128.Zero },
+            { UInt128.One, UInt128.Zero, UInt128.Zero },
+            { UInt128.MinValue, UInt128.MaxValue, UInt128.One },
+            { UInt128.MaxValue, UInt128.MinValue, UInt128.One }
+        };
+
+        [Theory]
+        [MemberData(nameof(UInt128_Success_Data))]
+        public void When_a_binary_integer_value_is_not_close_to_expected_value_it_should_succeed(UInt128 actual, UInt128 distantValue,
+            UInt128 delta)
+        {
+            actual.Should().NotBeCloseTo(distantValue, delta);
+        }
+
+        public static TheoryData<UInt128, UInt128, UInt128> UInt128_Failure_Data => new()
+        {
+            { UInt128.Zero, UInt128.Zero, UInt128.Zero },
+            { UInt128.Zero, UInt128.Zero, UInt128.One },
+            { UInt128.Zero, UInt128.One, UInt128.One },
+            { UInt128.One, UInt128.MaxValue, UInt128.MaxValue },
+            { UInt128.MinValue, UInt128.MinValue + 1, UInt128.MaxValue },
+            { UInt128.MinValue + 1, UInt128.MinValue, UInt128.One },
+            { UInt128.MinValue + 1, UInt128.MinValue, UInt128.MaxValue },
+            { UInt128.MaxValue - 1, UInt128.MaxValue, UInt128.One },
+            { UInt128.MaxValue - 1, UInt128.MaxValue, UInt128.MaxValue },
+            { UInt128.MaxValue, UInt128.Zero, UInt128.MaxValue },
+            { UInt128.MaxValue, UInt128.One, UInt128.MaxValue },
+            { UInt128.MaxValue, UInt128.MaxValue - 1, UInt128.One },
+            { UInt128.MaxValue, UInt128.MaxValue - 1, UInt128.MaxValue },
+            { UInt128.MaxValue, UInt128.MaxValue, UInt128.Zero },
+            { UInt128.MaxValue, UInt128.MaxValue, UInt128.One }
+        };
+
+        [Theory]
+        [MemberData(nameof(UInt128_Failure_Data))]
+        public void When_a_binary_integer_value_is_close_to_expected_value_it_should_fail(UInt128 actual, UInt128 distantValue,
+            UInt128 delta)
+        {
+            Action act = () => actual.Should().NotBeCloseTo(distantValue, delta);
+
+            act.Should().Throw<XunitException>();
+        }
+
+        [Fact]
+        public void When_a_binary_integer_value_is_close_to_expected_value_it_should_fail_with_a_descriptive_message()
+        {
+            UInt128 actual = 1;
+            UInt128 nearbyValue = 3;
+            UInt128 delta = 2;
+
+            Action act = () => actual.Should().NotBeCloseTo(nearbyValue, delta);
+
+            act.Should().Throw<XunitException>()
+                .WithMessage("*be within*2*from*3*but found*1*");
+        }
+
+        [Fact]
+        public void When_a_binary_integer_value_is_returned_from_NotBeCloseTo_it_should_chain()
+        {
+            UInt128 actual = UInt128.MaxValue;
+
+            actual.Should().NotBeCloseTo(UInt128.Zero, UInt128.Zero)
+                .And.Be(actual);
+        }
+#endif
     }
 }

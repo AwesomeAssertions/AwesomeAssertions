@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using AwesomeAssertions.Common;
@@ -14,7 +15,11 @@ namespace AwesomeAssertions.Numeric;
 /// Contains a number of methods to assert that a numeric value is in the expected state.
 /// </summary>
 public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
+#if NET
+    where T : struct, System.Numerics.INumber<T>
+#else
     where T : struct, IComparable<T>
+#endif
     where TAssertions : NumericAssertionsBase<T, TSubject, TAssertions>
 {
     /// <summary>
@@ -488,7 +493,11 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
     public override bool Equals(object obj) =>
         throw new NotSupportedException("Equals is not part of Awesome Assertions. Did you mean Be() instead?");
 
+#if NET
+    private protected virtual bool IsNaN(T value) => T.IsNaN(value);
+#else
     private protected virtual bool IsNaN(T value) => false;
+#endif
 
     /// <summary>
     /// A method to generate additional information upon comparison failures.
@@ -499,7 +508,38 @@ public abstract class NumericAssertionsBase<T, TSubject, TAssertions>
     /// Returns the difference between a number value and the <paramref name="expected" /> value.
     /// Returns `null` if the compared numbers are small enough that a difference message is irrelevant.
     /// </returns>
+#if NET
+    private protected virtual string CalculateDifferenceForFailureMessage(T subject, T expected)
+    {
+        if (T.IsNaN(subject) || T.IsNaN(expected))
+        {
+            return null;
+        }
+
+        try
+        {
+            checked
+            {
+                // check to avoid simple overflow for e.g. byte subject = 0, byte expected = 1
+                if (subject < expected)
+                {
+                    T absoluteDifference = expected - subject;
+                    return string.Create(CultureInfo.InvariantCulture, $"-{absoluteDifference}");
+                }
+
+                return (subject - expected).ToString(format: null, CultureInfo.InvariantCulture);
+            }
+        }
+        catch (OverflowException)
+        {
+            // If the difference is too large (e.g. sbyte subject = -127, sbyte expected = 128) to fit into
+            // the same numeric type we cannot calculate the difference properly in the generic case.
+            return null;
+        }
+    }
+#else
     private protected virtual string CalculateDifferenceForFailureMessage(T subject, T expected) => null;
+#endif
 
     private string GenerateDifferenceMessage(T? expected)
     {

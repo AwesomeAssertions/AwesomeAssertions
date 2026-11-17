@@ -58,6 +58,9 @@ public static class Formatter
         new EnumerableValueFormatter(),
         new EnumValueFormatter(),
         new TypeValueFormatter(),
+#if NET
+        new NumericValueFormatter(),
+#endif
         new DefaultValueFormatter(),
     ];
 

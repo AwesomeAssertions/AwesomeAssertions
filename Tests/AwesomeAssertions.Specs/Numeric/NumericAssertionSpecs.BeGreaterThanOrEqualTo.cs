@@ -105,6 +105,28 @@ public partial class NumericAssertionSpecs
                 .WithMessage("*NaN*");
         }
 
+#if NET
+        [Fact]
+        public void NaN_is_never_greater_or_equal_to_another_floating_point_number()
+        {
+            Action act = () => Half.NaN.Should().BeGreaterThanOrEqualTo(Half.Zero);
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("*NaN*");
+        }
+
+        [Fact]
+        public void A_floating_point_number_can_never_be_greater_or_equal_to_NaN()
+        {
+            Action act = () => ((Half)3.4).Should().BeGreaterThanOrEqualTo(Half.NaN);
+
+            act
+                .Should().Throw<ArgumentException>()
+                .WithMessage("*NaN*");
+        }
+#endif
+
         [Fact]
         public void Chaining_after_one_assertion()
         {

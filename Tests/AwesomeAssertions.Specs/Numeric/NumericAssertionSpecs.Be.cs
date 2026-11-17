@@ -232,6 +232,28 @@ public partial class NumericAssertionSpecs
 
             value.Should().Be(double.NaN);
         }
+
+#if NET
+        [Fact]
+        public void Nan_is_never_equal_to_a_normal_floating_point_number()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().Be((Half)3.4);
+
+            act
+                .Should().Throw<XunitException>()
+                .WithMessage("Expected value to be 3.4, but found NaN.");
+        }
+
+        [Fact]
+        public void NaN_can_be_compared_to_NaN_when_its_a_floating_point_number()
+        {
+            Half value = Half.NaN;
+
+            value.Should().Be(Half.NaN);
+        }
+#endif
     }
 
     public class NotBe

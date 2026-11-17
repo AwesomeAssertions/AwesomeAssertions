@@ -56,6 +56,18 @@ public partial class NumericAssertionSpecs
             act.Should().Throw<XunitException>().WithMessage("*but found NaN*");
         }
 
+#if NET
+        [Fact]
+        public void NaN_is_never_a_positive_floating_point_number()
+        {
+            Half value = Half.NaN;
+
+            Action act = () => value.Should().BePositive();
+
+            act.Should().Throw<XunitException>().WithMessage("*but found NaN*");
+        }
+#endif
+
         [Fact]
         public void When_a_negative_value_is_positive_it_should_throw_with_descriptive_message()
         {

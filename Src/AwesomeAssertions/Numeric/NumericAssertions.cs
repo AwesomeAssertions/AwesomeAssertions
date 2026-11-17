@@ -9,7 +9,11 @@ namespace AwesomeAssertions.Numeric;
 /// </summary>
 [DebuggerNonUserCode]
 public class NumericAssertions<T> : NumericAssertions<T, NumericAssertions<T>>
+#if NET
+    where T : struct, System.Numerics.INumber<T>
+#else
     where T : struct, IComparable<T>
+#endif
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NumericAssertions{T}"/> class.
@@ -29,7 +33,11 @@ public class NumericAssertions<T> : NumericAssertions<T, NumericAssertions<T>>
 /// </summary>
 [DebuggerNonUserCode]
 public class NumericAssertions<T, TAssertions> : NumericAssertionsBase<T, T, TAssertions>
+#if NET
+    where T : struct, System.Numerics.INumber<T>
+#else
     where T : struct, IComparable<T>
+#endif
     where TAssertions : NumericAssertions<T, TAssertions>
 {
     /// <summary>

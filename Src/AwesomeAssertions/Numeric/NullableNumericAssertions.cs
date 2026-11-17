@@ -12,7 +12,11 @@ namespace AwesomeAssertions.Numeric;
 /// </summary>
 [DebuggerNonUserCode]
 public class NullableNumericAssertions<T> : NullableNumericAssertions<T, NullableNumericAssertions<T>>
+#if NET
+    where T : struct, System.Numerics.INumber<T>
+#else
     where T : struct, IComparable<T>
+#endif
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="NullableNumericAssertions{T}"/> class.
@@ -32,7 +36,11 @@ public class NullableNumericAssertions<T> : NullableNumericAssertions<T, Nullabl
 /// </summary>
 [DebuggerNonUserCode]
 public class NullableNumericAssertions<T, TAssertions> : NumericAssertionsBase<T, T?, TAssertions>
+#if NET
+    where T : struct, System.Numerics.INumber<T>
+#else
     where T : struct, IComparable<T>
+#endif
     where TAssertions : NullableNumericAssertions<T, TAssertions>
 {
     private readonly AssertionChain assertionChain;

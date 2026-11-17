@@ -513,6 +513,31 @@ public static class AssertionExtensions
         return new ComparableTypeAssertions<T>(comparableValue, AssertionChain.GetOrCreate());
     }
 
+#if NET
+    /// <summary>
+    /// Returns an <see cref="NumericAssertions{T}"/> object that can be used to assert the
+    /// current <see cref="System.Numerics.INumber{T}" />.
+    /// </summary>
+    [Pure]
+    [return: NotNull]
+    public static NumericAssertions<T> Should<T>(this System.Numerics.INumber<T> actualValue)
+        where T : struct, System.Numerics.INumber<T>
+    {
+        return new NumericAssertions<T>((T)actualValue, AssertionChain.GetOrCreate());
+    }
+
+    /// <summary>
+    /// Returns an <see cref="ComparableTypeAssertions{T}"/> object that can be used to assert the
+    /// current <see langword="char"/>.
+    /// </summary>
+    [Pure]
+    [return: NotNull]
+    public static ComparableTypeAssertions<char> Should([NotNull] this char actualValue)
+    {
+        return new ComparableTypeAssertions<char>(actualValue, AssertionChain.GetOrCreate());
+    }
+#endif
+
     /// <summary>
     /// Returns an <see cref="NumericAssertions{T}"/> object that can be used to assert the
     /// current <see cref="int"/>.
@@ -1084,7 +1109,11 @@ public static class AssertionExtensions
     /// <inheritdoc cref="Should(ExecutionTimeAssertions)" />
     [Obsolete("You are asserting the 'AndConstraint' itself. Remove the 'Should()' method directly following 'And'", error: true)]
     public static void Should<TSubject, TAssertions>(this NumericAssertionsBase<TSubject, TSubject, TAssertions> _)
+#if NET
+        where TSubject : struct, System.Numerics.INumber<TSubject>
+#else
         where TSubject : struct, IComparable<TSubject>
+#endif
         where TAssertions : NumericAssertions<TSubject, TAssertions>
     {
         InvalidShouldCall();
