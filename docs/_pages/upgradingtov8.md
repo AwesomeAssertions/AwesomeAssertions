@@ -148,7 +148,7 @@ Notice the last argument to the `AndWhichConstraint` constructor.
 
 ## Drop direct support for assertions on `HttpResponseMessage`
 
-If you need to do so, please refer to [AwesomeAssertions.Web](https://github.com/adrianiftode/Assertions.Web) which
+If you need to do so, please refer to [FluentAssertions.Web](https://github.com/adrianiftode/FluentAssertions.Web) which
 offers a bunch of extensions on the HTTP specific types.
 
 ## Other breaking changes
