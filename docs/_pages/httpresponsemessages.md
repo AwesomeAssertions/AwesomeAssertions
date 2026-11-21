@@ -7,4 +7,4 @@ sidebar:
   nav: "sidebar"
 ---
 
-The support for assertions on this type was removed in Awesome Assertions 8.0. If you need to do assertions like these, we recommend you adopt [FluentAssertions.Web](https://github.com/adrianiftode/FluentAssertions.Web).
+The support for assertions on this type was removed in Awesome Assertions 8.0. If you need to do assertions like these, we recommend you adopt [AwesomeAssertions.Web](https://github.com/adrianiftode/Assertions.Web).
