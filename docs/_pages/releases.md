@@ -274,7 +274,7 @@ sidebar:
 * Renamed `HaveAttribute` to `HaveAttributeWithValue` on `XElement` - [#2690](https://github.com/fluentassertions/fluentassertions/pull/2690)
 * Renamed `RespectingRuntimeTypes` to `PreferringRuntimeMemberTypes` and `RespectingDeclaredTypes` to `PreferringDeclaredMemberTypes` - [#2866](https://github.com/fluentassertions/fluentassertions/pull/2866)
 * Renamed `ExcludingNestedObjects` to `WithoutRecursing` to better describe its purpose - [#2876](https://github.com/fluentassertions/fluentassertions/pull/2876)
-* Removed direct support for assertions on `HttpResponseMessage`. Use [AwesomeAssertions.Web](https://github.com/adrianiftode/Assertions.Web) instead. - [#2909](https://github.com/fluentassertions/fluentassertions/pull/2909)
+* Removed direct support for assertions on `HttpResponseMessage`. Use [FluentAssertions.Web](https://github.com/adrianiftode/FluentAssertions.Web) instead. - [#2909](https://github.com/fluentassertions/fluentassertions/pull/2909)
 * Consolidated the configuration options under `Configuration` and `Services` into `GlobalConfiguration` accessible through `AssertionEngine.Configuration` and `AssertionConfiguration.Current.Configuration` - [#2901](https://github.com/fluentassertions/fluentassertions/pull/2901)
 * Removed support for setting configuration settings through an `app.config` file - [#2901](https://github.com/fluentassertions/fluentassertions/pull/2901)
 
